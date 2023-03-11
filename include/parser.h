@@ -14,6 +14,22 @@
 
 # include <unistd.h>
 # include <fcntl.h>
+# include <errno.h>
+# include <stdio.h>
+# include "get_next_line.h"
+# include "libft.h"
 # include "map.h"
+
+
+typedef enum	e_map_id_type
+{
+	NORTH,
+	SOUTH,
+	WEST,
+	EAST,
+	FLOOR,
+	CEILING
+	UNDEFINED
+}				t_map_id_type;
 
 #endif

@@ -11,31 +11,31 @@
 /* ************************************************************************** */
 #include "parser.h"
 
-static int	open_mapfile(char *filename);
-static int	parser_error(void);
+static int	parser_error(char *str);
 
 int	parser(int argc, char **argv, t_map *map)
 {
 	int		map_fd;
 
-	if (argc != 2)
-		return (parser_error());
+	if (argc < 2)
+        return (parser_error("Too few argument\n"));
+    else if (argc > 2)
+        return (parser_error("Too many argument\n"));
 	map_fd = open(argv[1], O_RDONLY);
 	if (map_fd == -1)
-		return (parser_error());
+		return (parser_error(NULL));
 	close(map_fd);
 }
 
-static int	parse_map_data(int map_fd, t_map *map)
-{
-	const char *wall_id[4] = {"NO", "SO", "WE", "EA"};
-	const char *wall_
-	const char *floor_id = "F";
-	const char *ceiling_id = "C";
-}
 
-static int	parser_error(void)
+static int	parser_error(char *error_msg)
 {
-	write(2, "Error\n", 6);
-	return (-1);
+    if (error_msg == NULL)
+        perror("Error");
+	else
+    {
+        write(STDERR_FILENO, "Error\n", 6);
+        ft_putstr_fd(error_msg, STDERR_FILENO);
+    }
+    return (-1);
 }

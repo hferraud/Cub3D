@@ -25,10 +25,10 @@ struct s_pos
 
 struct s_wall
 {
-	char	*sprite_no;
-	char	*sprite_so;
-	char	*sprite_we;
-	char	*sprite_ea;
+	void	*sprite_no;
+	void	*sprite_so;
+	void	*sprite_we;
+	void	*sprite_ea;
 };
 
 struct s_map
