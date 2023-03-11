@@ -51,7 +51,7 @@ all:				$(NAME)
 
 -include			$(DEPS)
 
-$(NAME):			$(LIBFT) $(MLX) $(OBJ)
+$(NAME):			$(LIBFT) $(OBJ)
 					$(CC) $(OBJ) $(LFLAGS) $(MLX_FLAGS) -o $@
 
 $(LIBFT):			FORCE
