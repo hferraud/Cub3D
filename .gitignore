@@ -1,0 +1,4 @@
+.build
+.idea
+cub3D
+cmake-build-debug
