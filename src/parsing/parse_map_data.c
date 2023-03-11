@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "parser.h"
 
-static t_map_id_type	map_data_get_id_type(const char *line);
+static t_map_id_type	map_data_get_id_type(char **line);
 static int				map_data_parse_router(const char line,
 							t_map_id_type map_id)
 
@@ -23,41 +23,35 @@ int	map_data_parser(int map_fd, t_map *map)
     line = get_next_line(map_fd);
     while (line)
     {
-		map_id_type = map_data_get_id_type(line);
-		map_data_parse_router();
+		map_id_type = map_data_get_id_type(&line);
+		//map_data_parse_router();
         line = get_next_line(map_fd);
     }
 }
 
-static t_map
-
-static t_map_id_type map_data_get_id_type(const char *line)
+static int parse_wall_id(char *line)
 {
-	const char  *map_id[7] = {"NO", "SO", "WE", "EA", "F", "C", NULL};
-	int			i;
+
+}
+
+static t_map_id_type map_data_get_id_type(char **line)
+{
+	const char  *map_id[] = {"NO", "SO", "WE", "EA", "F", "C", NULL};
+    const t_map_id_type id_type[] = {NORTH, SOUTH, WEST, EAST, FLOOR, CEILING};
+	int	    	i;
 	int			j;
 
 	i = 0;
 	while(map_id[i])
 	{
 		j = 0;
-		while(map_id[i][j] == line[j] && line[j])
+		while(map_id[i][j] == (*line)[j] && (*line)[j])
 			j++;
-		if (map_id[i][j] == '\0' && line[j] == ' ')
-		{
-			if (i == 0)
-				return (NORTH);
-			if (i == 1)
-				return (SOUTH);
-			if (i == 2)
-				return (WEST);
-			if (i == 3)
-				return (EAST);
-			if (i == 4)
-				return (FLOOR);
-			if (i == 5)
-				return (CEILING);
-		}
+		if (map_id[i][j] == '\0' && (*line)[j] == ' ')
+        {
+            *line += j;
+            return (id_type[i]);
+        }
 		i++;
 	}
 	return (UNDEFINED);

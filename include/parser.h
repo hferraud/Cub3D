@@ -28,7 +28,7 @@ typedef enum	e_map_id_type
 	WEST,
 	EAST,
 	FLOOR,
-	CEILING
+	CEILING,
 	UNDEFINED
 }				t_map_id_type;
 
