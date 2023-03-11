@@ -52,7 +52,7 @@ all:				$(NAME)
 -include			$(DEPS)
 
 $(NAME):			$(LIBFT) $(OBJ)
-					$(CC) $(OBJ) $(LFLAGS) $(MLX_FLAGS) -o $@
+					$(CC) $(OBJ) $(LFLAGS) -o $@
 
 $(LIBFT):			FORCE
 					$(MAKE) -C $(LIBFT_DIR)
