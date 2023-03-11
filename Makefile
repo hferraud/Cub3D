@@ -36,7 +36,7 @@ CFLAGS		=		-Wall -Werror -Wextra -g3
 
 IFLAGS		=		-I $(INC_DIR) -I $(LIBFT_DIR)include -I $(MLX_DIR)
 
-LFLAGS		=		-L $(LIBFT_DIR) -lft -L $(MLX_DIR) -lmlx_Linux -lm
+LFLAGS		=		-L $(LIBFT_DIR) -lft -lm
 
 MLX_FLAGS	=		-lXext -lX11
 
