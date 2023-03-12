@@ -12,6 +12,7 @@
 #ifndef PARSER_H
 # define PARSER_H
 
+# include <sys/types.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <errno.h>
@@ -20,8 +21,7 @@
 # include "libft.h"
 # include "map.h"
 
-
-typedef enum	e_map_id_type
+typedef enum e_content_type
 {
 	NORTH,
 	SOUTH,
@@ -30,6 +30,8 @@ typedef enum	e_map_id_type
 	FLOOR,
 	CEILING,
 	UNDEFINED
-}				t_map_id_type;
+}				t_content_type;
+
+int	parser_error(char *error_msg);
 
 #endif

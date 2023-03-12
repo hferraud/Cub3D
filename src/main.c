@@ -12,5 +12,6 @@
 
 int	main(int argc, char **argv)
 {
+	//init t_map
 	return (0);
 }
