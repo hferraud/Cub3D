@@ -18,6 +18,7 @@
 # include <errno.h>
 # include <stdio.h>
 # include <limits.h>
+# include <stdbool.h>
 # include "get_next_line.h"
 # include "libft.h"
 # include "map.h"

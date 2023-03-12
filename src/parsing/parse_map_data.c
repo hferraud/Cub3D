@@ -24,7 +24,7 @@ int	parse_map_data(int map_fd, t_map *map)
 		if (*line != '\n')
 			if (map_data_parse_router(line, map) == -1)
 				return (-1);
-				//TODO map_clear(map);
+			//TODO map_clear(map);
 		line = get_next_line(map_fd);
 	}
 	return (0);
