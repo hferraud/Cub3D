@@ -102,4 +102,4 @@ add_executable(42_Cub3D
         minilibx/mlx_string_put.c
         minilibx/mlx_xpm.c
         src/parsing/parser.c
-        src/main.c include/map.h include/parser.h src/parsing/parse_map_data.c)
+        src/main.c include/map.h include/parser.h src/parsing/parse_map_data.c src/parsing/parse_wall.c src/parsing/parse_horizontal_plane.c)

@@ -13,20 +13,21 @@
 
 static t_content_type	get_content_type(const char *line);
 static int				map_data_parse_router(char *line, t_map *map);
-static int				parse_wall(char *line, t_content_type content_type, t_map *map);
-static int				parse_horizontal_plane(const char *line, t_content_type map_id, t_map *map);
 
-int	map_data_parser(int map_fd, t_map *map)
+int	parse_map_data(int map_fd, t_map *map)
 {
 	char		*line;
 
 	line = get_next_line(map_fd);
 	while (line)
 	{
-		if (map_data_parse_router(line, map) == -1)
-			map_clear(map);
+		if (*line != '\n')
+			if (map_data_parse_router(line, map) == -1)
+				return (-1);
+				//TODO map_clear(map);
 		line = get_next_line(map_fd);
 	}
+	return (0);
 }
 
 static int	map_data_parse_router(char *line, t_map *map)
@@ -60,35 +61,3 @@ static t_content_type	get_content_type(const char *line)
 	}
 	return (UNDEFINED);
 }
-
-/**
- * @brief Get the path associated with a wall texture and add it to map struct
- * @return 0 on success, -1 otherwise
- */
-static int	parse_wall(char *line, t_content_type content_type, t_map *map)
-{
-	char	*sprite_path;
-
-	while (*line && *line == ' ')
-		line++;
-	if (*line == '\0')
-		return (parser_error("File name is missing\n"));
-	sprite_path = ft_strdup(line);
-	if (sprite_path == NULL)
-		return (parser_error(NULL));
-	if (content_type == NORTH)
-		map->wall.sprite_no = sprite_path;
-	else if (content_type == SOUTH)
-		map->wall.sprite_so = sprite_path;
-	else if (content_type == WEST)
-		map->wall.sprite_we = sprite_path;
-	else if (content_type == EAST)
-		map->wall.sprite_ea = sprite_path;
-	return (0);
-}
-
-static int	parse_horizontal_plane(t_map *map, const char *line, t_content_type map_id)
-{
-
-}
-

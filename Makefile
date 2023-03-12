@@ -23,6 +23,10 @@ LIBFT		=		$(LIBFT_DIR)libft.a
 MLX			=		$(MLX_DIR)libmlx_Linux.a
 
 SRC			=		main.c \
+					parsing/parser.c \
+					parsing/parse_map_data.c \
+					parsing/parse_wall.c \
+					parsing/parse_horizontal_plane.c \
 
 OBJ			=		$(addprefix $(BUILD_DIR), $(SRC:.c=.o))
 

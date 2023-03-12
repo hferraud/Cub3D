@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 #include "parser.h"
 
+static void	init_map(t_map *map);
 static int	is_valid_filename(char *filename);
-static int	parser_error(char *error_msg);
 
 /**
  * @brief Parse the map file
@@ -31,8 +31,17 @@ int	parser(int argc, char **argv, t_map *map)
 	map_fd = open(argv[1], O_RDONLY);
 	if (map_fd == -1)
 		return (parser_error(NULL));
+	init_map(map);
+	parse_map_data(map_fd, map);
 	close(map_fd);
 	return (0);
+}
+
+static void	init_map(t_map *map)
+{
+	ft_bzero(&map->wall, sizeof (t_wall));
+	map->floor_color = -1;
+	map->ceiling_color = -1;
 }
 
 /**
@@ -42,7 +51,7 @@ static int	is_valid_filename(char *filename)
 {
 	const size_t	len = ft_strlen(filename);
 
-	return (ft_strcmp(filename + len - 4, ".cub") == 0);
+	return (ft_strcmp(filename + (len - 5), ".cub") == 0);
 }
 
 /**
