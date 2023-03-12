@@ -33,6 +33,8 @@ static int	map_to_list(int map_fd, t_list **map_list)
 		if (is_valid_map_row(line) == false)
 			return (parser_error("Format is invalid\n"));
 		elem = ft_lstnew(line);
+		if (elem == NULL)
+			return (parser_error(NULL));
 		ft_lstadd_front(map_list, elem);
 		line = get_next_line(map_fd);
 	}
