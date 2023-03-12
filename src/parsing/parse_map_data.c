@@ -23,7 +23,8 @@ int	map_data_parser(int map_fd, t_map *map)
 	line = get_next_line(map_fd);
 	while (line)
 	{
-		map_data_parse_router(line, map);
+		if (map_data_parse_router(line, map) == -1)
+			clear_map(map);
 		line = get_next_line(map_fd);
 	}
 }
