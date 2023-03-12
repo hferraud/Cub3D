@@ -42,7 +42,7 @@ int	parse_horizontal_plane(char *line, t_content_type type, t_map *map)
 
 /**
  * @brief Get the rbg from the .cub file
- * @return -1 if an parsing error occurred, rgb otherwise
+ * @return -1 if a parsing error occurred, rgb otherwise
  */
 static int	get_rgb(char *line, int *index)
 {
