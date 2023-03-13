@@ -23,7 +23,7 @@ int	parse_horizontal_plane(char *line, t_content_type type, t_map *map)
 	while (*line == ' ')
 		line++;
 	rgb = get_rgb(line, &index);
-	if (rgb == -1 && (errno == EOVERFLOW || errno == EINVAL))
+	if (rgb == -1)
 		return (-1);
 	else if (line[index] != '\n' && line[index] != '\0')
 		return (parser_error("Format is invalid\n"));
@@ -62,7 +62,7 @@ static int	get_rgb(char *line, int *index)
 		else if (errno == EINVAL)
 			return (parser_error("Invalid color format\n"));
 		if (line[*index] != ',' && i != 0)
-			return (-1);
+			return (parser_error("Invalid color format\n"));
 		rgb |= (color << (8 * i));
 		if (i != 0)
 			(*index)++;
