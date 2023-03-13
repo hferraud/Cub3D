@@ -53,7 +53,7 @@ static int	is_valid_line(char **map, size_t line)
 				|| !is_valid_cell(map[line][column + 1])
 				|| !is_valid_cell(map[line - 1][column])
 				|| !is_valid_cell(map[line + 1][column])))
-			return (map_error(line, column), 0);
+			return (map_error(line, column + 1), 0);
 		column++;
 	}
 	return (1);
@@ -67,7 +67,7 @@ static int	is_valid_extremum(char *line)
 	while (line[index])
 	{
 		if (line[index] == FLOOR)
-			return (map_error(0, index), 0);
+			return (map_error(0, index + 1), 0);
 		index++;
 	}
 	return (1);

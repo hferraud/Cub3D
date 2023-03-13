@@ -23,7 +23,7 @@ int	parser(int argc, char **argv, t_map *map)
 		return (parser_error("Too few argument\n"));
 	else if (argc > 2)
 		return (parser_error("Too many argument\n"));
-	if (is_valid_filename(argv[1]))
+	if (!is_valid_filename(argv[1]))
 		return (parser_error("Invalid filename\n"));
 	map_fd = open(argv[1], O_RDONLY);
 	if (map_fd == -1)

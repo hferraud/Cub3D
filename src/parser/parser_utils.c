@@ -26,7 +26,7 @@ int	is_valid_filename(char *filename)
 {
 	const size_t	len = ft_strlen(filename);
 
-	return (ft_strcmp(filename + (len - 5), ".cub") == 0);
+	return (ft_strcmp(filename + (len - 4), ".cub") == 0);
 }
 
 void	clear_map_data(t_map *map)

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include <stdlib.h>
 
-void	clear_string_array(char **array)
+void	free_string_array(char **array)
 {
 	size_t	index;
 

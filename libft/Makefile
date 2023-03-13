@@ -81,7 +81,6 @@ MEMORY =			ft_bzero.c \
 					ft_memcmp.c \
 					ft_calloc.c \
 					ft_memmove.c \
-					free_string_array.c \
 
 STRING =			ft_split.c \
 					ft_strlen.c \
