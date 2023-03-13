@@ -71,6 +71,9 @@ char	*skip_empty_line(int map_fd)
 	return (NULL);
 }
 
+/**
+ * @return Return the maximum size of a map row
+ */
 size_t	get_max_row_size(t_list *head)
 {
 	size_t	max_size;
@@ -88,6 +91,9 @@ size_t	get_max_row_size(t_list *head)
 	return (max_size);
 }
 
+/**
+ * @return Return the length of a map row in the .cub file
+ */
 static size_t	rowlen(const char *str)
 {
 	size_t	i;

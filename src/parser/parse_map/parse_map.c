@@ -16,6 +16,10 @@ static int	list_to_map(t_list *map_list, t_map *map);
 static int	init_map(size_t map_size, size_t row_size, t_map *map);
 static void	init_map_row(char *row_dst, const char *row_src, size_t row_size);
 
+/**
+ * @brief Parse the map in the .cub file
+ * @return Return 0 on success, -1 otherwise
+ */
 int	parse_map(int map_fd, t_map *map)
 {
 	t_list	*map_list;

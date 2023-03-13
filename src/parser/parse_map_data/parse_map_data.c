@@ -16,6 +16,7 @@ static int				parse_map_data_router(char *line, t_map *map);
 static int				is_preset_complete(t_map *map);
 
 /**
+ * @brief Parse the map data in the .cub file
  * @return Return 0 on success, -1 otherwise
  */
 int	parse_map_data(int map_fd, t_map *map)
@@ -40,7 +41,7 @@ int	parse_map_data(int map_fd, t_map *map)
 }
 
 /**
- * @brief Parse a line
+ * @brief Choose to call parse_wall or parse_horizontal_plane
  * @return Return 0 on success, -1 otherwise
  */
 static int	parse_map_data_router(char *line, t_map *map)
