@@ -4,3 +4,4 @@ cub3D
 cmake-build-debug
 *.o
 *.a
+*.d
