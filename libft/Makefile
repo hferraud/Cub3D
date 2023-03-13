@@ -48,6 +48,7 @@ CHAR =				ft_isalpha.c \
 CONVERT =			ft_atoi.c \
 					ft_atoll.c \
 					ft_itoa.c \
+					ft_stoa.c \
 
 FD =				ft_putchar_fd.c \
 					ft_putstr_fd.c \
@@ -64,6 +65,7 @@ STDOUT =			ft_putchar.c \
 
 LST =				ft_lstnew.c \
 					ft_lstadd_front.c \
+					ft_lstrev.c \
 					ft_lstsize.c \
 					ft_lstlast.c \
 					ft_lstadd_back.c \
@@ -98,6 +100,7 @@ STRING =			ft_split.c \
 					ft_strmapi.c \
 					ft_strncpy.c \
 					ft_striteri.c \
+					free_string_array.c \
 
 SRCS =				$(addprefix fd/, $(FD)) \
 					$(addprefix list/, $(LST)) \
@@ -147,7 +150,7 @@ $(NAME):			$(BUILD_DIR) $(OBJS)
 
 -include			$(DEPS)
 
-$(BUILD_DIR)%.o:	$(SRC_DIR)%.c $(HEADER) Makefile
+$(BUILD_DIR)%.o:	$(SRC_DIR)%.c
 					$(CC) $(FLAGS) $(DEPS_FLAGS) -I $(INC_DIR) -c $< -o $@
 
 $(BUILD_DIR):

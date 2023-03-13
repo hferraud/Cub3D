@@ -33,6 +33,7 @@ void		ft_lstadd_back(t_list **lst, t_list *new);
 void		ft_lstdelone(t_list *lst, void (*del)(void *));
 void		ft_lstclear(t_list **lst, void (*del)(void *));
 void		ft_lstiter(t_list *lst, void (*f)(void *));
+void		ft_lstrev(t_list **head);
 int			ft_lstsize(t_list *lst);
 
 /* ---------------  CHAR FUNCTIONS  --------------- */
@@ -63,6 +64,7 @@ char		*ft_strtrim(char const *s1, char	const *set);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		**ft_split(char const *s, char c);
 void		ft_striteri(char *s, void (*f)(unsigned int, char *));
+void		clear_string_array(char **array);
 size_t		ft_strlcpy(char *dest, const char *src, size_t size);
 size_t		ft_strlcat(char *dest, const char *src, size_t size);
 size_t		ft_strlen(const char *s);
@@ -73,6 +75,7 @@ void		ft_putchar_fd(char c, int fd);
 void		ft_putstr_fd(char const *s, int fd);
 void		ft_putendl_fd(char const *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
+void		ft_putsize_t_fd(size_t n, int fd);
 
 /* --------------  STDOUT FUNCTIONS	--------------- */
 
@@ -97,5 +100,6 @@ void		free_string_array(char **strings);
 int			ft_atoi(const char *nptr);
 long long	ft_atoll(const char *nptr);
 char		*ft_itoa(int n);
+char		*ft_stoa(size_t n);
 
 #endif

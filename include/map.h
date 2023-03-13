@@ -12,32 +12,43 @@
 #ifndef MAP_H
 # define MAP_H
 
+# include <sys/types.h>
+# include <stdlib.h>
+
 typedef struct s_map	t_map;
-typedef struct s_pos	t_pos;
+typedef struct s_spawn	t_spawn;
 typedef struct s_wall	t_wall;
 
-
-struct s_pos
+struct s_spawn
 {
-	unsigned int	x;
-	unsigned int	y;
+	size_t	x;
+	size_t	y;
+	char	orientation;
+};
+
+enum e_wall
+{
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST
 };
 
 struct s_wall
 {
-	void	*sprite_no;
-	void	*sprite_so;
-	void	*sprite_we;
-	void	*sprite_ea;
+	void	*wall[4];
 };
 
 struct s_map
 {
 	char	**map;
-	t_pos	spawn;
+	t_spawn	spawn;
 	t_wall	wall;
 	int		floor_color;
 	int		ceiling_color;
 };
+
+# define FLOOR	'0'
+# define WALL	'1'
 
 #endif

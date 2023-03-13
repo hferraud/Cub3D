@@ -23,18 +23,20 @@ int	parse_horizontal_plane(char *line, t_content_type type, t_map *map)
 	while (*line == ' ')
 		line++;
 	rgb = get_rgb(line, &index);
-	if (line[index] != '\n')
+	if (rgb == -1 && (errno == EOVERFLOW || errno == EINVAL))
+		return (-1);
+	else if (line[index] != '\n' && line[index] != '\0')
 		return (parser_error("Format is invalid\n"));
-	if (type == FLOOR)
+	if (type == FLOOR_ID)
 	{
 		if (map->floor_color != -1)
-			return (parser_error("Duplicate entry detected"));
+			return (parser_error("Duplicate entry detected\n"));
 		map->floor_color = rgb;
 	}
 	else
 	{
 		if (map->ceiling_color != -1)
-			return (parser_error("Duplicate entry detected"));
+			return (parser_error("Duplicate entry detected\n"));
 		map->ceiling_color = rgb;
 	}
 	return (0);
@@ -42,7 +44,7 @@ int	parse_horizontal_plane(char *line, t_content_type type, t_map *map)
 
 /**
  * @brief Get the rbg from the .cub file
- * @return -1 if a parsing error occurred, rgb otherwise
+ * @return -1 if a parser error occurred, rgb otherwise
  */
 static int	get_rgb(char *line, int *index)
 {
@@ -55,6 +57,10 @@ static int	get_rgb(char *line, int *index)
 	while (i >= 0)
 	{
 		color = iatoc(line, index);
+		if (errno == EOVERFLOW)
+			return (parser_error(NULL));
+		else if (errno == EINVAL)
+			return (parser_error("Invalid color format\n"));
 		if (line[*index] != ',' && i != 0)
 			return (-1);
 		rgb |= (color << (8 * i));
@@ -66,7 +72,7 @@ static int	get_rgb(char *line, int *index)
 }
 
 /**
- * Convert ascii to char
+ * @brief Convert ascii to char and increment index
  * @return Return the char associated, -1 if an error occurred and set the errno
  */
 static unsigned char	iatoc(char *str, int *index)
@@ -74,9 +80,14 @@ static unsigned char	iatoc(char *str, int *index)
 	unsigned char	result;
 
 	result = 0;
+	if (!ft_isdigit(str[*index]))
+	{
+		errno = EINVAL;
+		return (-1);
+	}
 	while (str[*index] && ft_isdigit(str[*index]))
 	{
-		if ((result * 10 + (str[*index] - '0')) / 10 != result)
+		if (((unsigned char)(result * 10 + (str[*index] - '0'))) / 10 != result)
 		{
 			errno = EOVERFLOW;
 			return (-1);

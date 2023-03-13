@@ -28,3 +28,14 @@ void	ft_putnbr_fd(int n, int fd)
 	else
 		ft_putchar_fd(n + '0', fd);
 }
+
+void	ft_putsize_t_fd(size_t n, int fd)
+{
+	if (n > 9)
+	{
+		ft_putsize_t_fd(n / 10, fd);
+		ft_putchar_fd(n % 10 + '0', fd);
+	}
+	else
+		ft_putchar_fd(n + '0', fd);
+}

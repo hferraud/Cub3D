@@ -101,5 +101,5 @@ add_executable(42_Cub3D
         minilibx/mlx_set_font.c
         minilibx/mlx_string_put.c
         minilibx/mlx_xpm.c
-        src/parsing/parser.c
-        src/main.c include/map.h include/parser.h src/parsing/parse_map_data.c src/parsing/parse_wall.c src/parsing/parse_horizontal_plane.c src/parsing/parse_map.c)
+        src/parser/parser.c
+        src/main.c include/map.h include/parser.h src/parser/parse_map_data/parse_map_data.c src/parser/parse_map_data/parse_wall.c src/parser/parse_map_data/parse_horizontal_plane.c src/parser/parse_map/parse_map.c libft/srcs/list/ft_lstrev.c libft/srcs/string/free_string_array.c src/parser/map_checker/map_checker.c src/parser/parse_map/parse_map_utils.c libft/srcs/convert/ft_stoa.c src/parser/parser_utils.c src/parser/map_checker/get_spawn.c)

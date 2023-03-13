@@ -1,45 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edelage <edelage@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: ethan <ethan@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/09 19:42:00 by ethan             #+#    #+#             */
-/*   Updated: 2023/03/09 19:42:00 by ethan            ###   ########lyon.fr   */
+/*   Created: 2023/03/13 03:23:00 by ethan             #+#    #+#             */
+/*   Updated: 2023/03/13 03:23:00 by ethan            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 #include "parser.h"
 
-static void	init_map(t_map *map);
-static int	is_valid_filename(char *filename);
-
-/**
- * @brief Parse the map file
- * @return Return 0 on success, -1 otherwise
- */
-int	parser(int argc, char **argv, t_map *map)
-{
-	int		map_fd;
-
-	if (argc < 2)
-		return (parser_error("Too few argument\n"));
-	else if (argc > 2)
-		return (parser_error("Too many argument\n"));
-	if (is_valid_filename(argv[1]))
-		return (parser_error("Invalid filename\n"));
-	map_fd = open(argv[1], O_RDONLY);
-	if (map_fd == -1)
-		return (parser_error(NULL));
-	init_map(map);
-	parse_map_data(map_fd, map);
-	close(map_fd);
-	return (0);
-}
-
-static void	init_map(t_map *map)
+void	init_map_data(t_map *map)
 {
 	ft_bzero(&map->wall, sizeof (t_wall));
+	map->map = NULL;
 	map->floor_color = -1;
 	map->ceiling_color = -1;
 }
@@ -47,11 +22,25 @@ static void	init_map(t_map *map)
 /**
  * @brief Check if the file extension is .cub
  */
-static int	is_valid_filename(char *filename)
+int	is_valid_filename(char *filename)
 {
 	const size_t	len = ft_strlen(filename);
 
 	return (ft_strcmp(filename + (len - 5), ".cub") == 0);
+}
+
+void	clear_map_data(t_map *map)
+{
+	if (map->wall.wall[NORTH])
+		free(map->wall.wall[NORTH]);
+	if (map->wall.wall[SOUTH])
+		free(map->wall.wall[SOUTH]);
+	if (map->wall.wall[EAST])
+		free(map->wall.wall[EAST]);
+	if (map->wall.wall[WEST])
+		free(map->wall.wall[WEST]);
+	if (map->map)
+		free_string_array(map->map);
 }
 
 /**
@@ -60,12 +49,10 @@ static int	is_valid_filename(char *filename)
  */
 int	parser_error(char *error_msg)
 {
+	write(STDERR_FILENO, "Error\n", 6);
 	if (error_msg == NULL)
-		perror("Error");
+		perror(NULL);
 	else
-	{
-		write(STDERR_FILENO, "Error\n", 6);
 		ft_putstr_fd(error_msg, STDERR_FILENO);
-	}
 	return (-1);
 }

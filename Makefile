@@ -23,10 +23,23 @@ LIBFT		=		$(LIBFT_DIR)libft.a
 MLX			=		$(MLX_DIR)libmlx_Linux.a
 
 SRC			=		main.c \
-					parsing/parser.c \
-					parsing/parse_map_data.c \
-					parsing/parse_wall.c \
-					parsing/parse_horizontal_plane.c \
+					\
+						parser/parser.c			\
+						parser/parser_utils.c	\
+						\
+						parser/parse_map_data/parse_wall.c				\
+						parser/parse_map_data/parse_map_data.c			\
+						parser/parse_map_data/parse_horizontal_plane.c	\
+						\
+						parser/parse_map/parse_map.c		\
+						parser/parse_map/parse_map_utils.c	\
+						\
+						parser/map_checker/map_checker.c	\
+						parser/map_checker/get_spawn.c		\
+						\
+					\
+
+
 
 OBJ			=		$(addprefix $(BUILD_DIR), $(SRC:.c=.o))
 
@@ -36,7 +49,7 @@ DEPS		=		$(addprefix $(BUILD_DIR), $(SRC:.c=.d))
 #	FLAGS
 #######################
 
-CFLAGS		=		-Wall -Werror -Wextra -g3
+CFLAGS		=		-Wall -Werror -Wextra -fsanitize=address
 
 IFLAGS		=		-I $(INC_DIR) -I $(LIBFT_DIR)include -I $(MLX_DIR)
 
@@ -56,7 +69,7 @@ all:				$(NAME)
 -include			$(DEPS)
 
 $(NAME):			$(LIBFT) $(OBJ)
-					$(CC) $(OBJ) $(LFLAGS) -o $@
+					$(CC) $(CFLAGS) $(OBJ) $(LFLAGS) -o $@
 
 $(LIBFT):			FORCE
 					$(MAKE) -C $(LIBFT_DIR)

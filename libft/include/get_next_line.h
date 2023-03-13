@@ -17,14 +17,7 @@
 # include <limits.h>
 # include "libft.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE	10
-# endif
-
-# if BUFFER_SIZE >= 10000000
-#  undef BUFFER_SIZE
-#  define BUFFER_SIZE	9999999
-# endif
+# define BUFFER_SIZE	100
 
 # ifndef OPEN_MAX
 #  define OPEN_MAX	1024
