@@ -1,6 +1,7 @@
 .build
 .idea
 cub3D
+a.out
 cmake-build-debug
 *.o
 *.a
