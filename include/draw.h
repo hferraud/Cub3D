@@ -12,6 +12,8 @@
 #ifndef DRAW_H
 # define DRAW_H
 
+# include <sys/param.h>
+# include <math.h>
 # include "mlx_handler.h"
 
 typedef struct s_point		t_point;

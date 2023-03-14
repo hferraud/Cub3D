@@ -79,18 +79,16 @@ static int	map_to_list(int map_fd, t_list **map_list)
  */
 static int	list_to_map(t_list *map_list, t_map *map)
 {
-	size_t	map_size;
-	size_t	row_size;
 	size_t	i;
 
-	map_size = ft_lstsize(map_list);
-	row_size = get_max_row_size(map_list);
-	if (init_map(map_size, row_size, map) == -1)
+	map->height = ft_lstsize(map_list);
+	map->width = get_max_row_size(map_list);
+	if (init_map(map->height, map->width, map) == -1)
 		return (-1);
 	i = 0;
 	while (map_list)
 	{
-		init_map_row(map->map[i], (char *)map_list->content, row_size);
+		init_map_row(map->map[i], (char *)map_list->content, map->width);
 		map_list = map_list->next;
 		i++;
 	}

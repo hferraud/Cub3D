@@ -54,6 +54,7 @@ static int	init_img_data(t_mlx_data *mlx_data)
 		return (cub_error("mlx_new_image() failed\n"));
 	img_data->addr = mlx_get_data_addr(img_data->img, &img_data->bits_per_pixel,
 			&img_data->line_length, &img_data->endian);
+	img_data->bit_ratio = img_data->bits_per_pixel / 8;
 	return (0);
 }
 

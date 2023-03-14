@@ -18,8 +18,8 @@
 # include "error.h"
 # include <stdio.h>
 
-# define WIN_WIDTH	1000
-# define WIN_HEIGHT	720
+# define WIN_WIDTH	1800
+# define WIN_HEIGHT	900
 # define WIN_NAME	"Cub3D"
 
 /* Key hook: w, a, s, d, right, left */
@@ -46,6 +46,7 @@ struct s_img_data
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
+	int		bit_ratio;
 	int		line_length;
 	int		endian;
 };

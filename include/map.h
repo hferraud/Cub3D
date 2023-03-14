@@ -39,6 +39,8 @@ enum e_wall
 struct s_map
 {
 	char	**map;
+	size_t	height;
+	size_t	width;
 	t_spawn	spawn;
 	char	*wall_path[4];
 	int		floor_color;
