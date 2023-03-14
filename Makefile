@@ -57,7 +57,10 @@ SRC			=		main.c	\
 						display/draw_shape/draw_rectangle.c		\
 						display/draw_shape/draw_shape_utils.c	\
 						\
-						display/minimap/minimap.c		\
+						display/player/init_player_pos.c	\
+						display/player/movement.c	\
+						\
+						display/minimap/minimap.c	\
 						\
 					\
 

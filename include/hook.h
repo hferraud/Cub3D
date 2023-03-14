@@ -30,6 +30,7 @@ void	init_hook(t_cub *cub);
 
 /* --- HOOK FUNCTIONS --- */
 
+int		is_key_pressed(int key_code, t_cub *cub);
 int		key_press(int key_code, t_cub *cub);
 int		key_release(int key_code, t_cub *cub);
 int		cub_exit(t_cub *cub);

@@ -36,3 +36,19 @@ static void	add_key_press(int key_code, t_cub *cub)
 		index++;
 	}
 }
+
+int	is_key_pressed(int key_code, t_cub *cub)
+{
+	size_t	index;
+	int		*key_press;
+
+	index = 0;
+	key_press = cub->mlx_data.key_press;
+	while (index < MAX_KEY)
+	{
+		if (key_code == key_press[index])
+			return (1);
+		index++;
+	}
+	return (0);
+}

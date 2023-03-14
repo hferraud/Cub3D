@@ -10,10 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "parser.h"
-#include "mlx_handler.h"
 #include "hook.h"
+#include "draw.h"
 
-int	render_frame(t_cub *cub);
+int		render_frame(t_cub *cub);
+void	init_player_position(t_cub *cub);
 
 //static void	print_t_map(t_map map);
 //static void	print_map(t_map map);
@@ -24,10 +25,9 @@ int	main(int argc, char **argv)
 
 	if (parser(argc, argv, &cub.map) == -1)
 		return (2);
+	init_player_position(&cub);
 	if (mlx_data_init(&cub) == -1)
 		return (map_data_clear(&cub.map), 1);
-	mlx_put_image_to_window(cub.mlx_data.mlx_ptr, cub.mlx_data.win_ptr,
-		cub.mlx_data.wall[0].img, 0, 0);
 	init_hook(&cub);
 	mlx_loop_hook(cub.mlx_data.mlx_ptr, render_frame, &cub);
 	mlx_loop(cub.mlx_data.mlx_ptr);

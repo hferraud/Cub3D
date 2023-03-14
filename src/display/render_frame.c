@@ -12,13 +12,17 @@
 #include "hook.h"
 #include "draw.h"
 
+void		player_position_update(t_cub *cub);
 static void	display_key_press(int key_press[MAX_KEY]);
+
+//Draw background
+//	draw_rectangle(&cub->mlx_data.img_data, set_rectangle(set_point(0, 0), set_point(WIN_WIDTH - 1, WIN_HEIGHT / 2), 0x00505050));
+//	draw_rectangle(&cub->mlx_data.img_data, set_rectangle(set_point(0, WIN_HEIGHT / 2 + 1), set_point(WIN_WIDTH - 1, WIN_HEIGHT - 1), 0x00909090));
 
 int	render_frame(t_cub *cub)
 {
 	display_key_press(cub->mlx_data.key_press);
-//	draw_rectangle(&cub->mlx_data.img_data, set_rectangle(set_point(0, 0), set_point(WIN_WIDTH - 1, WIN_HEIGHT / 2), 0x00505050));
-//	draw_rectangle(&cub->mlx_data.img_data, set_rectangle(set_point(0, WIN_HEIGHT / 2 + 1), set_point(WIN_WIDTH - 1, WIN_HEIGHT - 1), 0x00909090));
+	player_position_update(cub);
 	draw_minimap(cub);
 	mlx_put_image_to_window(cub->mlx_data.mlx_ptr, cub->mlx_data.win_ptr,
 		cub->mlx_data.img_data.img, 0, 0);

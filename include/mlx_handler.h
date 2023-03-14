@@ -16,6 +16,7 @@
 # include "mlx.h"
 # include "map.h"
 # include "error.h"
+# include "player.h"
 # include <stdio.h>
 
 # define WIN_WIDTH	1800
@@ -71,6 +72,7 @@ struct s_cub
 {
 	t_mlx_data	mlx_data;
 	t_map		map;
+	t_player	player;
 };
 
 #endif
