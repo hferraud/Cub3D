@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "parser.h"
 
-static int	init_wall_sprite(void **sprite, char *sprite_path);
+static int	set_wall_path(char **sprite, char *sprite_path);
 
 /**
  * @brief Get the path associated with a wall texture and add it to map struct
@@ -24,31 +24,31 @@ int	parse_wall(char *line, t_content_type type, t_map *map)
 	while (*line && *line == ' ')
 		line++;
 	if (*line == '\0')
-		return (parser_error("File name is missing\n"));
+		return (cub_error("File name is missing\n"));
 	sprite_path = ft_substr(line, 0, ft_strlen(line) - 1);
 	if (sprite_path == NULL)
-		return (parser_error(NULL));
+		return (cub_error(NULL));
 	if (type == NORTH_ID)
-		return (init_wall_sprite(&map->wall.wall[NORTH], sprite_path));
+		return (set_wall_path(&map->wall_path[NORTH], sprite_path));
 	else if (type == SOUTH_ID)
-		return (init_wall_sprite(&map->wall.wall[SOUTH], sprite_path));
+		return (set_wall_path(&map->wall_path[SOUTH], sprite_path));
 	else if (type == WEST_ID)
-		return (init_wall_sprite(&map->wall.wall[WEST], sprite_path));
+		return (set_wall_path(&map->wall_path[WEST], sprite_path));
 	else if (type == EAST_ID)
-		return (init_wall_sprite(&map->wall.wall[EAST], sprite_path));
+		return (set_wall_path(&map->wall_path[EAST], sprite_path));
 	return (0);
 }
 
 /**
- * @brief Init a t_wall sprite, free sprite_path if an error occurred
+ * @brief Set a t_wall path, free wall path if an error occurred
  * @return 0 on success, -1 otherwise
  */
-static int	init_wall_sprite(void **sprite, char *sprite_path)
+static int	set_wall_path(char **sprite, char *sprite_path)
 {
 	if (*sprite != NULL)
 	{
 		free(sprite_path);
-		return (parser_error("Duplicate entry detected\n"));
+		return (cub_error("Duplicate entry detected\n"));
 	}
 	*sprite = sprite_path;
 	return (0);

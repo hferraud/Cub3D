@@ -18,7 +18,7 @@ static void	map_error(size_t line, size_t column);
 
 /**
  * @brief Check if the map is surrounded by walls.
- * If an error occurred, an error message is display.
+ * If an error occurred, an error message is displayed.
  * @return 1 on success, 0 otherwise
  */
 int	is_valid_map(char **map)

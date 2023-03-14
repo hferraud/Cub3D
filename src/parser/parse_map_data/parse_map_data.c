@@ -36,7 +36,7 @@ int	parse_map_data(int map_fd, t_map *map)
 			line = NULL;
 	}
 	if (errno)
-		return (parser_error(NULL));
+		return (cub_error(NULL));
 	return (0);
 }
 
@@ -50,7 +50,7 @@ static int	parse_map_data_router(char *line, t_map *map)
 
 	content_type = get_content_type(line);
 	if (content_type == UNDEFINED_ID)
-		return (parser_error("Undefined content\n"));
+		return (cub_error("Undefined content\n"));
 	else if (content_type == FLOOR_ID || content_type == CEILING_ID)
 		return (parse_horizontal_plane(line + 1, content_type, map));
 	else
@@ -85,8 +85,8 @@ static t_content_type	get_content_type(const char *line)
 static int	is_preset_complete(t_map *map)
 {
 	if (map->ceiling_color != -1 && map->floor_color != -1
-		&& map->wall.wall[NORTH] && map->wall.wall[SOUTH]
-		&& map->wall.wall[EAST] && map->wall.wall[WEST])
+		&& map->wall_path[NORTH] && map->wall_path[SOUTH]
+		&& map->wall_path[EAST] && map->wall_path[WEST])
 		return (1);
 	return (0);
 }

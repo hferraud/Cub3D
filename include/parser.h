@@ -22,8 +22,11 @@
 # include "get_next_line.h"
 # include "libft.h"
 # include "map.h"
+# include "error.h"
 
-typedef enum e_content_type
+typedef enum e_content_type t_content_type;
+
+enum e_content_type
 {
 	NORTH_ID,
 	SOUTH_ID,
@@ -32,7 +35,7 @@ typedef enum e_content_type
 	FLOOR_ID,
 	CEILING_ID,
 	UNDEFINED_ID
-}				t_content_type;
+};
 
 /* --- PARSER FUNCTION --- */
 
@@ -52,7 +55,6 @@ void	clear_map_data(t_map *map);
 int		is_valid_filename(char *filename);
 int		parse_wall(char *line, t_content_type content_type, t_map *map);
 int		parse_horizontal_plane(char *line, t_content_type type, t_map *map);
-int		parser_error(char *error_msg);
 
 /* --- PARSER_MAP_UTILS FUNCTIONS --- */
 

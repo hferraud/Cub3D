@@ -26,17 +26,17 @@ int	parse_horizontal_plane(char *line, t_content_type type, t_map *map)
 	if (rgb == -1)
 		return (-1);
 	else if (line[index] != '\n' && line[index] != '\0')
-		return (parser_error("Format is invalid\n"));
+		return (cub_error("Format is invalid\n"));
 	if (type == FLOOR_ID)
 	{
 		if (map->floor_color != -1)
-			return (parser_error("Duplicate entry detected\n"));
+			return (cub_error("Duplicate entry detected\n"));
 		map->floor_color = rgb;
 	}
 	else
 	{
 		if (map->ceiling_color != -1)
-			return (parser_error("Duplicate entry detected\n"));
+			return (cub_error("Duplicate entry detected\n"));
 		map->ceiling_color = rgb;
 	}
 	return (0);
@@ -58,11 +58,11 @@ static int	get_rgb(char *line, int *index)
 	{
 		color = iatoc(line, index);
 		if (errno == EOVERFLOW)
-			return (parser_error(NULL));
+			return (cub_error(NULL));
 		else if (errno == EINVAL)
-			return (parser_error("Invalid color format\n"));
+			return (cub_error("Invalid color format\n"));
 		if (line[*index] != ',' && i != 0)
-			return (parser_error("Invalid color format\n"));
+			return (cub_error("Invalid color format\n"));
 		rgb |= (color << (8 * i));
 		if (i != 0)
 			(*index)++;

@@ -22,7 +22,8 @@ LIBFT		=		$(LIBFT_DIR)libft.a
 
 MLX			=		$(MLX_DIR)libmlx_Linux.a
 
-SRC			=		main.c \
+SRC			=		main.c	\
+					error.c	\
 					\
 						parser/parser.c			\
 						parser/parser_utils.c	\
@@ -38,6 +39,13 @@ SRC			=		main.c \
 						parser/map_checker/get_spawn.c		\
 						\
 					\
+						mlx_handler/initialization/mlx_data_init.c		\
+						mlx_handler/initialization/wall_sprite_init.c	\
+						\
+						mlx_handler/destroy/mlx_data_destroy.c		\
+						mlx_handler/destroy/wall_sprite_destroy.c	\
+						\
+					\
 
 
 
@@ -49,11 +57,11 @@ DEPS		=		$(addprefix $(BUILD_DIR), $(SRC:.c=.d))
 #	FLAGS
 #######################
 
-CFLAGS		=		-Wall -Werror -Wextra -fsanitize=address
+CFLAGS		=		-Wall -Werror -Wextra -g3 -fsanitize=address
 
 IFLAGS		=		-I $(INC_DIR) -I $(LIBFT_DIR)include -I $(MLX_DIR)
 
-LFLAGS		=		-L $(LIBFT_DIR) -lft -lm
+LFLAGS		=		-L $(LIBFT_DIR) -lft -L $(MLX_DIR) -lmlx -lm
 
 MLX_FLAGS	=		-lXext -lX11
 
@@ -68,8 +76,8 @@ all:				$(NAME)
 
 -include			$(DEPS)
 
-$(NAME):			$(LIBFT) $(OBJ)
-					$(CC) $(CFLAGS) $(OBJ) $(LFLAGS) -o $@
+$(NAME):			$(LIBFT) $(MLX) $(OBJ)
+					$(CC) $(CFLAGS) $(OBJ) $(LFLAGS) $(MLX_FLAGS) -o $@
 
 $(LIBFT):			FORCE
 					$(MAKE) -C $(LIBFT_DIR)

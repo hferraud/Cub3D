@@ -17,7 +17,7 @@ static int	spawn_error(size_t nb_spawn);
 
 /**
  * @brief Search spawn point in the map and fill map data
- * If an error occurred an error message is display
+ * If an error occurred an error message is displayed
  * @return 0 on success, -1 otherwise
  */
 int	get_spawn_position(t_map *map)
@@ -63,6 +63,6 @@ static void	add_spawn(size_t line, size_t column, t_map *map)
 static int	spawn_error(size_t nb_spawn)
 {
 	if (nb_spawn > 1)
-		return (parser_error("Too many spawn point\n"));
-	return (parser_error("The map does not contain a spawn for the player\n"));
+		return (cub_error("Too many spawn point\n"));
+	return (cub_error("The map does not contain a spawn for the player\n"));
 }

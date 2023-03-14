@@ -13,7 +13,7 @@
 
 void	init_map_data(t_map *map)
 {
-	ft_bzero(&map->wall, sizeof (t_wall));
+	ft_bzero(map->wall_path, sizeof (char *) * 4);
 	map->map = NULL;
 	map->floor_color = -1;
 	map->ceiling_color = -1;
@@ -31,28 +31,11 @@ int	is_valid_filename(char *filename)
 
 void	clear_map_data(t_map *map)
 {
-	if (map->wall.wall[NORTH])
-		free(map->wall.wall[NORTH]);
-	if (map->wall.wall[SOUTH])
-		free(map->wall.wall[SOUTH]);
-	if (map->wall.wall[EAST])
-		free(map->wall.wall[EAST]);
-	if (map->wall.wall[WEST])
-		free(map->wall.wall[WEST]);
+	free(map->wall_path[NORTH]);
+	free(map->wall_path[SOUTH]);
+	free(map->wall_path[EAST]);
+	free(map->wall_path[WEST]);
 	if (map->map)
 		free_string_array(map->map);
 }
 
-/**
- * @brief Print the error message, use errno if error_msg is NULL.
- * @return Always return -1
- */
-int	parser_error(char *error_msg)
-{
-	write(STDERR_FILENO, "Error\n", 6);
-	if (error_msg == NULL)
-		perror(NULL);
-	else
-		ft_putstr_fd(error_msg, STDERR_FILENO);
-	return (-1);
-}

@@ -15,9 +15,11 @@
 # include <sys/types.h>
 # include <stdlib.h>
 
+# define FLOOR	'0'
+# define WALL	'1'
+
 typedef struct s_map	t_map;
 typedef struct s_spawn	t_spawn;
-typedef struct s_wall	t_wall;
 
 struct s_spawn
 {
@@ -28,27 +30,19 @@ struct s_spawn
 
 enum e_wall
 {
-	NORTH,
-	SOUTH,
-	EAST,
-	WEST
-};
-
-struct s_wall
-{
-	void	*wall[4];
+	NORTH	=	0,
+	SOUTH	=	1,
+	EAST	=	2,
+	WEST	=	3
 };
 
 struct s_map
 {
 	char	**map;
 	t_spawn	spawn;
-	t_wall	wall;
+	char	*wall_path[4];
 	int		floor_color;
 	int		ceiling_color;
 };
-
-# define FLOOR	'0'
-# define WALL	'1'
 
 #endif
