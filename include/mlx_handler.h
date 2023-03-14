@@ -20,7 +20,9 @@
 
 # define WIN_WIDTH	1920
 # define WIN_HEIGHT	1080
-# define WIN_NAME "Cub3D"
+# define WIN_NAME	"Cub3D"
+
+# define MAX_KEY	6
 
 /* --- TYPEDEF --- */
 
@@ -60,6 +62,7 @@ struct s_mlx_data
 	void		*win_ptr;
 	t_img_data	img_data;
 	t_sprite	wall[4];
+	int			key_press[MAX_KEY];
 };
 
 struct s_cub

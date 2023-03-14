@@ -24,7 +24,9 @@ int	main(int argc, char **argv)
 		return (2);
 	if (mlx_data_init(&cub) == -1)
 		return (map_data_clear(&cub.map), 1);
+	mlx_put_image_to_window(cub.mlx_data.mlx_ptr, cub.mlx_data.win_ptr, cub.mlx_data.wall[0].img, 0, 0);
 	init_hook(&cub);
+//	mlx_loop_hook(cub.mlx_data.mlx_ptr, )
 	mlx_loop(cub.mlx_data.mlx_ptr);
 	return (0);
 }

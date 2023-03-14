@@ -46,7 +46,9 @@ SRC			=		main.c	\
 						mlx_handler/destroy/wall_sprite_destroy.c	\
 						\
 						mlx_handler/hook/init_hook.c	\
-						mlx_handler/hook/cub_exit.c	\
+						mlx_handler/hook/key_press.c	\
+						mlx_handler/hook/key_release.c	\
+						mlx_handler/hook/cub_exit.c		\
 						\
 					\
 
