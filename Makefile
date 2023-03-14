@@ -52,6 +52,11 @@ SRC			=		main.c	\
 						\
 					\
 						display/render_frame.c	\
+						\
+						display/draw_shape/mlx_put_pixel.c		\
+						display/draw_shape/draw_rectangle.c		\
+						display/draw_shape/draw_shape_utils.c	\
+						\
 					\
 
 
