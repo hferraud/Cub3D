@@ -29,7 +29,7 @@ int	is_valid_filename(char *filename)
 	return (ft_strcmp(filename + (len - 4), ".cub") == 0);
 }
 
-void	clear_map_data(t_map *map)
+void	map_data_clear(t_map *map)
 {
 	free(map->wall_path[NORTH]);
 	free(map->wall_path[SOUTH]);

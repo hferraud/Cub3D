@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_data_destroy.c                                 :+:      :+:    :+:   */
+/*   init_hook.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelage <edelage@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 03:01:00 by edelage           #+#    #+#             */
-/*   Updated: 2023/03/14 03:01:00 by edelage          ###   ########lyon.fr   */
+/*   Created: 2023/03/14 07:16:00 by edelage           #+#    #+#             */
+/*   Updated: 2023/03/14 07:16:00 by edelage          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#include "mlx_handler.h"
+#include "hook.h"
 
-void	mlx_data_destroy(t_mlx_data *mlx_data)
+void	init_hook(t_cub *cub)
 {
-	wall_sprite_destroy(mlx_data);
-	if (mlx_data->img_data.img)
-		mlx_destroy_image(mlx_data->mlx_ptr, mlx_data->img_data.img);
-	if (mlx_data->win_ptr)
-		mlx_destroy_window(mlx_data->mlx_ptr, mlx_data->win_ptr);
-	if (mlx_data->mlx_ptr)
-	{
-		mlx_destroy_display(mlx_data->mlx_ptr);
-		free(mlx_data->mlx_ptr);
-	}
+	mlx_hook(cub->mlx_data.win_ptr, ON_DESTROY, BUTTON_RELEASE_MASK,
+		cub_exit, cub);
 }

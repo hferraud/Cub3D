@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 #include "parser.h"
 #include "mlx_handler.h"
+#include "hook.h"
 
 void	print_t_map(t_map map);
 static void	print_map(t_map map);
@@ -22,9 +23,9 @@ int	main(int argc, char **argv)
 	if (parser(argc, argv, &cub.map) == -1)
 		return (2);
 	if (mlx_data_init(&cub) == -1)
-		return (clear_map_data(&cub.map), 1);
-	clear_map_data(&cub.map);
-	mlx_data_destroy(&cub.mlx_data);
+		return (map_data_clear(&cub.map), 1);
+	init_hook(&cub);
+	mlx_loop(cub.mlx_data.mlx_ptr);
 	return (0);
 }
 

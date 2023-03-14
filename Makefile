@@ -45,6 +45,9 @@ SRC			=		main.c	\
 						mlx_handler/destroy/mlx_data_destroy.c		\
 						mlx_handler/destroy/wall_sprite_destroy.c	\
 						\
+						mlx_handler/hook/init_hook.c	\
+						mlx_handler/hook/cub_exit.c	\
+						\
 					\
 
 
@@ -57,7 +60,7 @@ DEPS		=		$(addprefix $(BUILD_DIR), $(SRC:.c=.d))
 #	FLAGS
 #######################
 
-CFLAGS		=		-Wall -Werror -Wextra -g3 -fsanitize=address
+CFLAGS		=		-Wall -Werror -Wextra -g3
 
 IFLAGS		=		-I $(INC_DIR) -I $(LIBFT_DIR)include -I $(MLX_DIR)
 

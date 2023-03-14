@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_data_destroy.c                                 :+:      :+:    :+:   */
+/*   hook.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelage <edelage@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 03:01:00 by edelage           #+#    #+#             */
-/*   Updated: 2023/03/14 03:01:00 by edelage          ###   ########lyon.fr   */
+/*   Created: 2023/03/14 07:35:00 by edelage           #+#    #+#             */
+/*   Updated: 2023/03/14 07:35:00 by edelage          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#include "mlx_handler.h"
+#ifndef HOOK_H
+# define HOOK_H
 
-void	mlx_data_destroy(t_mlx_data *mlx_data)
-{
-	wall_sprite_destroy(mlx_data);
-	if (mlx_data->img_data.img)
-		mlx_destroy_image(mlx_data->mlx_ptr, mlx_data->img_data.img);
-	if (mlx_data->win_ptr)
-		mlx_destroy_window(mlx_data->mlx_ptr, mlx_data->win_ptr);
-	if (mlx_data->mlx_ptr)
-	{
-		mlx_destroy_display(mlx_data->mlx_ptr);
-		free(mlx_data->mlx_ptr);
-	}
-}
+# include "mlx_handler.h"
+# include "mlx_key.h"
+
+# define ON_DESTROY				17
+# define BUTTON_RELEASE_MASK	1L << 3
+
+void	init_hook(t_cub *cub);
+int		cub_exit(t_cub* cub);
+
+#endif

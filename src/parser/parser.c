@@ -33,11 +33,11 @@ int	parser(int argc, char **argv, t_map *map)
 		|| parse_map(map_fd, map) == -1)
 	{
 		close(map_fd);
-		return (clear_map_data(map), -1);
+		return (map_data_clear(map), -1);
 	}
 	close(map_fd);
 	if (get_spawn_position(map) == -1
 		|| !is_valid_map(map->map))
-		return (clear_map_data(map), -1);
+		return (map_data_clear(map), -1);
 	return (0);
 }

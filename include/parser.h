@@ -51,7 +51,7 @@ int		is_valid_map(char **map);
 /* --- PARSER_UTILS FUNCTIONS --- */
 
 void	init_map_data(t_map *map);
-void	clear_map_data(t_map *map);
+void	map_data_clear(t_map *map);
 int		is_valid_filename(char *filename);
 int		parse_wall(char *line, t_content_type content_type, t_map *map);
 int		parse_horizontal_plane(char *line, t_content_type type, t_map *map);
