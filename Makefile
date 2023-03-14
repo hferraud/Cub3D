@@ -51,6 +51,8 @@ SRC			=		main.c	\
 						mlx_handler/hook/cub_exit.c		\
 						\
 					\
+						display/render_frame.c	\
+					\
 
 
 

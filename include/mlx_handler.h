@@ -22,6 +22,7 @@
 # define WIN_HEIGHT	1080
 # define WIN_NAME	"Cub3D"
 
+/* Key hook: w, a, s, d, right, left */
 # define MAX_KEY	6
 
 /* --- TYPEDEF --- */

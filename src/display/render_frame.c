@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_release.c                                      :+:      :+:    :+:   */
+/*   render_frame.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelage <edelage@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 08:46:00 by edelage           #+#    #+#             */
-/*   Updated: 2023/03/14 08:46:00 by edelage          ###   ########lyon.fr   */
+/*   Created: 2023/03/14 11:22:00 by edelage           #+#    #+#             */
+/*   Updated: 2023/03/14 11:22:00 by edelage          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 #include "hook.h"
 
-static void	add_key_release(int key_code, t_cub *cub);
+static void	display_key_press(int key_press[MAX_KEY]);
 
-int	key_release(int key_code, t_cub *cub)
+int	render_frame(t_cub *cub)
 {
-	if (key_code == KEY_ESC)
-		cub_exit(cub);
-	else
-		add_key_release(key_code, cub);
+	display_key_press(cub->mlx_data.key_press);
+	mlx_put_image_to_window(cub->mlx_data.mlx_ptr, cub->mlx_data.win_ptr, cub->mlx_data.img_data.img, 0, 0);
+	usleep(500000);
 	return (0);
 }
 
-static void	add_key_release(int key_code, t_cub *cub)
+static void	display_key_press(int key_press[MAX_KEY])
 {
 	size_t	index;
 
 	index = 0;
 	while (index < MAX_KEY)
 	{
-		if (key_code == cub->mlx_data.key_press[index])
-			cub->mlx_data.key_press[index] = -1;
+		if (key_press[index] != -1)
+			printf("key press: %d\n", key_press[index]);
 		index++;
 	}
 }
