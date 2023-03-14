@@ -26,7 +26,8 @@ int	main(int argc, char **argv)
 		return (2);
 	if (mlx_data_init(&cub) == -1)
 		return (map_data_clear(&cub.map), 1);
-	mlx_put_image_to_window(cub.mlx_data.mlx_ptr, cub.mlx_data.win_ptr, cub.mlx_data.wall[0].img, 0, 0);
+	mlx_put_image_to_window(cub.mlx_data.mlx_ptr, cub.mlx_data.win_ptr,
+		cub.mlx_data.wall[0].img, 0, 0);
 	init_hook(&cub);
 	mlx_loop_hook(cub.mlx_data.mlx_ptr, render_frame, &cub);
 	mlx_loop(cub.mlx_data.mlx_ptr);
@@ -39,9 +40,12 @@ int	main(int argc, char **argv)
 //	printf("SO: %s\n", (char *)map.wall_path[SOUTH]);
 //	printf("WE: %s\n", (char *)map.wall_path[WEST]);
 //	printf("EA: %s\n\n", (char *)map.wall_path[EAST]);
-//	printf("F: %d,%d,%d\n", map.floor_color >> 16, map.floor_color >> 8 & 255, map.floor_color & 255);
-//	printf("C: %d,%d,%d\n\n", map.ceiling_color >> 16, map.ceiling_color >> 8 & 255, map.ceiling_color & 255);
-//	printf("Spawn: %zu, %zu orientation: %c\n\n", map.spawn.x, map.spawn.y, map.spawn.orientation);
+//	printf("F: %d,%d,%d\n", map.floor_color >> 16, map.floor_color >> 8 & 255,
+//		map.floor_color & 255);
+//	printf("C: %d,%d,%d\n\n", map.ceiling_color >> 16,
+//		map.ceiling_color >> 8 & 255, map.ceiling_color & 255);
+//	printf("Spawn: %zu, %zu orientation: %c\n\n", map.spawn.x, map.spawn.y,
+//		map.spawn.orientation);
 //	print_map(map);
 //}
 

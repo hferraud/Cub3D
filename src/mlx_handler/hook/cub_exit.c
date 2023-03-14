@@ -12,7 +12,7 @@
 #include "hook.h"
 #include "parser.h"
 
-int	cub_exit(t_cub* cub)
+int	cub_exit(t_cub *cub)
 {
 	mlx_do_key_autorepeaton(cub->mlx_data.mlx_ptr);
 	map_data_clear(&cub->map);

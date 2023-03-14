@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wall_sprite_init.c                                      :+:      :+:    :+:   */
+/*   wall_sprite_init.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelage <edelage@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -25,7 +25,10 @@ int	wall_sprite_init(t_cub *cub)
 	index = 0;
 	while (index < 4)
 	{
-		cub->mlx_data.wall[index].img = mlx_xpm_file_to_image(cub->mlx_data.mlx_ptr, cub->map.wall_path[index], &cub->mlx_data.wall[index].width, &cub->mlx_data.wall[index].height);
+		cub->mlx_data.wall[index].img
+			= mlx_xpm_file_to_image(cub->mlx_data.mlx_ptr,
+				cub->map.wall_path[index], &cub->mlx_data.wall[index].width,
+				&cub->mlx_data.wall[index].height);
 		free(cub->map.wall_path[index]);
 		cub->map.wall_path[index] = NULL;
 		if (cub->mlx_data.wall[index].img == NULL)
@@ -45,7 +48,8 @@ static int	error_wall_sprite_init(t_cub *cub)
 		free(cub->map.wall_path[index]);
 		cub->map.wall_path[index] = NULL;
 		if (cub->mlx_data.wall[index].img)
-			mlx_destroy_image(cub->mlx_data.mlx_ptr, cub->mlx_data.wall[index].img);
+			mlx_destroy_image(cub->mlx_data.mlx_ptr,
+				cub->mlx_data.wall[index].img);
 		cub->mlx_data.wall[index].img = NULL;
 		index++;
 	}

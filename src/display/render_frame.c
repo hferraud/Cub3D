@@ -16,8 +16,8 @@ static void	display_key_press(int key_press[MAX_KEY]);
 int	render_frame(t_cub *cub)
 {
 	display_key_press(cub->mlx_data.key_press);
-	mlx_put_image_to_window(cub->mlx_data.mlx_ptr, cub->mlx_data.win_ptr, cub->mlx_data.img_data.img, 0, 0);
-	usleep(500000);
+	mlx_put_image_to_window(cub->mlx_data.mlx_ptr, cub->mlx_data.win_ptr,
+		cub->mlx_data.img_data.img, 0, 0);
 	return (0);
 }
 

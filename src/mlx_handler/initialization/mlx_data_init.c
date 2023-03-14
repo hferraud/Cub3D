@@ -30,9 +30,11 @@ int	mlx_data_init(t_cub *cub)
 		return (cub_error("mlx_init() failed\n"));
 	if (wall_sprite_init(cub) == -1)
 		return (mlx_data_destroy(mlx_data), -1);
-	mlx_data->win_ptr = mlx_new_window(mlx_data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, WIN_NAME);
+	mlx_data->win_ptr = mlx_new_window(mlx_data->mlx_ptr, WIN_WIDTH,
+			WIN_HEIGHT, WIN_NAME);
 	if (mlx_data->win_ptr == NULL)
-		return (mlx_data_destroy(mlx_data), cub_error("mlx_new_window() failed\n"));
+		return (mlx_data_destroy(mlx_data),
+			cub_error("mlx_new_window() failed\n"));
 	init_img_data(mlx_data);
 	return (0);
 }
@@ -44,14 +46,14 @@ int	mlx_data_init(t_cub *cub)
  */
 static int	init_img_data(t_mlx_data *mlx_data)
 {
-	t_img_data *img_data;
+	t_img_data	*img_data;
 
 	img_data = &mlx_data->img_data;
 	img_data->img = mlx_new_image(mlx_data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
 	if (img_data->img == NULL)
 		return (cub_error("mlx_new_image() failed\n"));
 	img_data->addr = mlx_get_data_addr(img_data->img, &img_data->bits_per_pixel,
-		&img_data->line_length, &img_data->endian);
+			&img_data->line_length, &img_data->endian);
 	return (0);
 }
 

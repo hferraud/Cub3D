@@ -38,4 +38,3 @@ void	map_data_clear(t_map *map)
 	if (map->map)
 		free_string_array(map->map);
 }
-

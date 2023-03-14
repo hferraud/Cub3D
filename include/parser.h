@@ -24,7 +24,7 @@
 # include "map.h"
 # include "error.h"
 
-typedef enum e_content_type t_content_type;
+typedef enum e_content_type	t_content_type;
 
 enum e_content_type
 {
