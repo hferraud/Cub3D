@@ -19,18 +19,26 @@
 # define PLAYER_FOV			M_PI_2
 # define PLAYER_MOVE		0.025
 # define PLAYER_ROTATION	0.025
+# define UNCERTAINTY		0.01
 
 typedef struct s_player	t_player;
+typedef struct s_pos	t_pos;
 
-struct s_player
+struct s_pos
 {
 	float	x;
 	float	y;
+};
+
+struct s_player
+{
+	t_pos	pos;
 	float	rotation;
 };
 
 typedef struct s_cub	t_cub;
 
 void	player_update(t_cub *cub);
+t_pos	set_pos(float x, float y);
 
 #endif

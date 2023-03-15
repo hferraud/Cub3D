@@ -14,8 +14,8 @@
 
 void	player_pos_init(t_cub *cub)
 {
-	cub->player->x = (float)(cub->map->spawn.x + 0.5);
-	cub->player->y = (float)(cub->map->spawn.y + 0.5);
+	cub->player->pos.x = (float)(cub->map->spawn.x + 0.5);
+	cub->player->pos.y = (float)(cub->map->spawn.y + 0.5);
 	if (cub->map->spawn.orientation == 'S')
 		cub->player->rotation = M_PI_2;
 	else if (cub->map->spawn.orientation == 'N')
