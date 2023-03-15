@@ -54,11 +54,12 @@ SRC			=		main.c	\
 						display/render_frame.c	\
 						\
 						display/draw_shape/mlx_put_pixel.c		\
+						display/draw_shape/draw_line.c			\
 						display/draw_shape/draw_rectangle.c		\
 						display/draw_shape/draw_shape_utils.c	\
 						\
-						display/player/init_player_pos.c	\
-						display/player/movement.c	\
+						display/player/player_pos_init.c	\
+						display/player/player_movement.c	\
 						\
 						display/minimap/minimap.c	\
 						\
@@ -74,7 +75,7 @@ DEPS		=		$(addprefix $(BUILD_DIR), $(SRC:.c=.d))
 #	FLAGS
 #######################
 
-CFLAGS		=		-Wall -Werror -Wextra -g3
+CFLAGS		=		-Wall -Werror -Wextra #-fsanitize=address
 
 IFLAGS		=		-I $(INC_DIR) -I $(LIBFT_DIR)include -I $(MLX_DIR)
 

@@ -14,7 +14,7 @@
 #include "cub.h"
 
 int		render_frame(t_cub *cub);
-void	init_player_position(t_cub *cub);
+void	player_pos_init(t_cub *cub);
 
 int	main(int argc, char **argv)
 {
@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 	cub.player = &player;
 	if (parser(argc, argv, cub.map) == -1)
 		return (2);
-	init_player_position(&cub);
+	player_pos_init(&cub);
 	if (mlx_data_init(&cub) == -1)
 		return (map_data_clear(cub.map), 1);
 	init_hook(&cub);

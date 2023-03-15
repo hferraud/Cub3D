@@ -12,13 +12,13 @@
 #include <math.h>
 #include "mlx_handler.h"
 
-void	init_player_position(t_cub *cub)
+void	player_pos_init(t_cub *cub)
 {
-	cub->player->x = (float) cub->map->spawn.x;
-	cub->player->y = (float) cub->map->spawn.y;
-	if (cub->map->spawn.orientation == 'N')
+	cub->player->x = (float)(cub->map->spawn.x + 0.5);
+	cub->player->y = (float)(cub->map->spawn.y + 0.5);
+	if (cub->map->spawn.orientation == 'S')
 		cub->player->rotation = M_PI_2;
-	else if (cub->map->spawn.orientation == 'S')
+	else if (cub->map->spawn.orientation == 'N')
 		cub->player->rotation = M_PI_2 * 3;
 	else if (cub->map->spawn.orientation == 'E')
 		cub->player->rotation = 0;
