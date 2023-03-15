@@ -14,8 +14,8 @@
 
 # include "mlx_handler.h"
 
-# define PLAYER_OFFSET	0.1
-# define PLAYER_MOVE	0.05
+# define PLAYER_OFFSET	0.2
+# define PLAYER_MOVE	0.025
 
 typedef struct s_player	t_player;
 

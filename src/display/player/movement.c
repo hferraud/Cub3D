@@ -17,12 +17,22 @@ void	player_position_update(t_cub *cub)
 {
 	if (is_key_pressed(KEY_W, cub) && !is_key_pressed(KEY_S, cub))
 	{
-		if (cub->map.map[(int)(cub->player.y - PLAYER_MOVE - PLAYER_OFFSET)][(int) cub->player.x] == FLOOR)
-			cub->player.y -= PLAYER_MOVE;
+		if (cub->map->map[(int)(cub->player->y - PLAYER_MOVE - PLAYER_OFFSET)][(int) cub->player->x] == FLOOR)
+			cub->player->y -= (float) PLAYER_MOVE;
 	}
 	if (is_key_pressed(KEY_S, cub) && !is_key_pressed(KEY_W, cub))
 	{
-		if (cub->map.map[(int)(cub->player.y + PLAYER_MOVE + PLAYER_OFFSET)][(int) cub->player.x] == FLOOR)
-		cub->player.y -= PLAYER_MOVE;
+		if (cub->map->map[(int)(cub->player->y + PLAYER_MOVE + PLAYER_OFFSET)][(int) cub->player->x] == FLOOR)
+		cub->player->y += (float) PLAYER_MOVE;
+	}
+	if (is_key_pressed(KEY_A, cub) && !is_key_pressed(KEY_D, cub))
+	{
+		if (cub->map->map[(int)cub->player->y][(int) (cub->player->x - PLAYER_MOVE - PLAYER_OFFSET)] == FLOOR)
+			cub->player->x -= (float) PLAYER_MOVE;
+	}
+	if (is_key_pressed(KEY_D, cub) && !is_key_pressed(KEY_A, cub))
+	{
+		if (cub->map->map[(int)cub->player->y][(int) (cub->player->x + PLAYER_MOVE + PLAYER_OFFSET)] == FLOOR)
+			cub->player->x += (float) PLAYER_MOVE;
 	}
 }

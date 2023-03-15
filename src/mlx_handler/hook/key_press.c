@@ -29,10 +29,7 @@ static void	add_key_press(int key_code, t_cub *cub)
 	while (index < MAX_KEY)
 	{
 		if (key_code == valid_key[index])
-		{
-			printf("%d\n", key_code);
-			cub->mlx_data.key_press[index] = key_code;
-		}
+			cub->mlx_data->key_press[index] = key_code;
 		index++;
 	}
 }
@@ -43,7 +40,7 @@ int	is_key_pressed(int key_code, t_cub *cub)
 	int		*key_press;
 
 	index = 0;
-	key_press = cub->mlx_data.key_press;
+	key_press = cub->mlx_data->key_press;
 	while (index < MAX_KEY)
 	{
 		if (key_code == key_press[index])

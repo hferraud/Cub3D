@@ -29,8 +29,8 @@ static void	add_key_release(int key_code, t_cub *cub)
 	index = 0;
 	while (index < MAX_KEY)
 	{
-		if (key_code == cub->mlx_data.key_press[index])
-			cub->mlx_data.key_press[index] = -1;
+		if (key_code == cub->mlx_data->key_press[index])
+			cub->mlx_data->key_press[index] = -1;
 		index++;
 	}
 }

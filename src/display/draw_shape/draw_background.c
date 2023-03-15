@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_exit.c                                         :+:      :+:    :+:   */
+/*   draw_background.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelage <edelage@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 07:37:00 by edelage           #+#    #+#             */
-/*   Updated: 2023/03/14 07:37:00 by edelage          ###   ########lyon.fr   */
+/*   Created: 2023/03/15 02:38:00 by edelage           #+#    #+#             */
+/*   Updated: 2023/03/15 02:38:00 by edelage          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#include "hook.h"
-#include "parser.h"
+#include "draw.h"
 
-int	cub_exit(t_cub *cub)
+void	draw_background(t_cub *cub)
 {
-	mlx_do_key_autorepeaton(cub->mlx_data->mlx_ptr);
-	map_data_clear(cub->map);
-	mlx_data_destroy(cub->mlx_data);
-	exit(0);
+	draw_rectangle(&cub->mlx_data->img_data, set_rectangle(set_point(0, 0), set_point(WIN_WIDTH - 1, WIN_HEIGHT / 2), 0x00505050));
+	draw_rectangle(&cub->mlx_data->img_data, set_rectangle(set_point(0, WIN_HEIGHT / 2 + 1), set_point(WIN_WIDTH - 1, WIN_HEIGHT - 1), 0x00909090));
 }

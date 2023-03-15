@@ -11,26 +11,29 @@
 /* ************************************************************************** */
 #include "parser.h"
 #include "hook.h"
-#include "draw.h"
+#include "cub.h"
 
 int		render_frame(t_cub *cub);
 void	init_player_position(t_cub *cub);
 
-//static void	print_t_map(t_map map);
-//static void	print_map(t_map map);
-
 int	main(int argc, char **argv)
 {
-	t_cub	cub;
+	t_cub		cub;
+	t_map		map;
+	t_mlx_data	mlx_data;
+	t_player	player;
 
-	if (parser(argc, argv, &cub.map) == -1)
+	cub.map = &map;
+	cub.mlx_data = &mlx_data;
+	cub.player = &player;
+	if (parser(argc, argv, cub.map) == -1)
 		return (2);
 	init_player_position(&cub);
 	if (mlx_data_init(&cub) == -1)
-		return (map_data_clear(&cub.map), 1);
+		return (map_data_clear(cub.map), 1);
 	init_hook(&cub);
-	mlx_loop_hook(cub.mlx_data.mlx_ptr, render_frame, &cub);
-	mlx_loop(cub.mlx_data.mlx_ptr);
+	mlx_loop_hook(cub.mlx_data->mlx_ptr, render_frame, &cub);
+	mlx_loop(cub.mlx_data->mlx_ptr);
 	return (0);
 }
 

@@ -14,9 +14,8 @@
 
 # include "libft.h"
 # include "mlx.h"
-# include "map.h"
 # include "error.h"
-# include "player.h"
+# include "cub.h"
 # include <stdio.h>
 
 # define WIN_WIDTH	1800
@@ -66,13 +65,6 @@ struct s_mlx_data
 	t_img_data	img_data;
 	t_sprite	wall[4];
 	int			key_press[MAX_KEY];
-};
-
-struct s_cub
-{
-	t_mlx_data	mlx_data;
-	t_map		map;
-	t_player	player;
 };
 
 #endif

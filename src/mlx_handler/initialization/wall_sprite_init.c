@@ -25,13 +25,13 @@ int	wall_sprite_init(t_cub *cub)
 	index = 0;
 	while (index < 4)
 	{
-		cub->mlx_data.wall[index].img
-			= mlx_xpm_file_to_image(cub->mlx_data.mlx_ptr,
-				cub->map.wall_path[index], &cub->mlx_data.wall[index].width,
-				&cub->mlx_data.wall[index].height);
-		free(cub->map.wall_path[index]);
-		cub->map.wall_path[index] = NULL;
-		if (cub->mlx_data.wall[index].img == NULL)
+		cub->mlx_data->wall[index].img
+			= mlx_xpm_file_to_image(cub->mlx_data->mlx_ptr,
+				cub->map->wall_path[index], &cub->mlx_data->wall[index].width,
+				&cub->mlx_data->wall[index].height);
+		free(cub->map->wall_path[index]);
+		cub->map->wall_path[index] = NULL;
+		if (cub->mlx_data->wall[index].img == NULL)
 			return (error_wall_sprite_init(cub));
 		index++;
 	}
@@ -45,12 +45,12 @@ static int	error_wall_sprite_init(t_cub *cub)
 	index = 0;
 	while (index < 4)
 	{
-		free(cub->map.wall_path[index]);
-		cub->map.wall_path[index] = NULL;
-		if (cub->mlx_data.wall[index].img)
-			mlx_destroy_image(cub->mlx_data.mlx_ptr,
-				cub->mlx_data.wall[index].img);
-		cub->mlx_data.wall[index].img = NULL;
+		free(cub->map->wall_path[index]);
+		cub->map->wall_path[index] = NULL;
+		if (cub->mlx_data->wall[index].img)
+			mlx_destroy_image(cub->mlx_data->mlx_ptr,
+				cub->mlx_data->wall[index].img);
+		cub->mlx_data->wall[index].img = NULL;
 		index++;
 	}
 	return (cub_error("mlx_xpm_file_to_image() failed\n"));

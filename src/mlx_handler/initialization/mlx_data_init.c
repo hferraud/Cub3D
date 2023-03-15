@@ -23,7 +23,7 @@ int	mlx_data_init(t_cub *cub)
 {
 	t_mlx_data	*mlx_data;
 
-	mlx_data = &cub->mlx_data;
+	mlx_data = cub->mlx_data;
 	mlx_data_preset(mlx_data);
 	mlx_data->mlx_ptr = mlx_init();
 	if (mlx_data->mlx_ptr == NULL)
