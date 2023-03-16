@@ -107,21 +107,28 @@ static void	draw_player_view(t_cub *cub, int nb_ray, int wall_width)
 	t_point	p_pos;
 	t_point	collision_point;
 
-	theta_step = PLAYER_FOV / nb_ray;
+
 	p_pos.x = cub->player->pos.x * wall_width;
 	p_pos.y = cub->player->pos.y * wall_width;
-	theta = cub->player->rotation - PLAYER_FOV / 2;
-	theta_max = cub->player->rotation + PLAYER_FOV / 2;
-	while (theta <= theta_max)
-	{
-		dist = ray_cast(cub, theta);
-		if (dist != 0)
-		{
-			printf("step: %d dist: %f\n", (int) (theta / theta_step), dist);
-			collision_point.x = p_pos.x + cos(theta) * dist * wall_width;
-			collision_point.y = p_pos.y + sin(theta) * dist * wall_width;
-			draw_line(&cub->mlx_data->img_data, p_pos, collision_point, 0xFF00FF);
-		}
-		theta += theta_step;
-	}
+	dist = ray_cast(cub, cub->player->rotation);
+	collision_point.x = p_pos.x + cos(cub->player->rotation) * dist * wall_width;
+	collision_point.y = p_pos.y + sin(cub->player->rotation) * dist * wall_width;
+	draw_line(&cub->mlx_data->img_data, p_pos, collision_point, 0xFF00FF);
+//	theta_step = PLAYER_FOV / nb_ray;
+//	p_pos.x = cub->player->pos.x * wall_width;
+//	p_pos.y = cub->player->pos.y * wall_width;
+//	theta = cub->player->rotation - PLAYER_FOV / 2;
+//	theta_max = cub->player->rotation + PLAYER_FOV / 2;
+//	while (theta <= theta_max)
+//	{
+//		dist = ray_cast(cub, theta);
+//		if (dist != 0)
+//		{
+//			printf("step: %d dist: %f\n", (int) (theta / theta_step), dist);
+//			collision_point.x = p_pos.x + cos(theta) * dist * wall_width;
+//			collision_point.y = p_pos.y + sin(theta) * dist * wall_width;
+//			draw_line(&cub->mlx_data->img_data, p_pos, collision_point, 0xFF00FF);
+//		}
+//		theta += theta_step;
+//	}
 }

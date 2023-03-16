@@ -16,7 +16,7 @@
 # include "cub.h"
 
 # define PLAYER_OFFSET		0.2
-# define PLAYER_FOV			M_PI_2
+# define PLAYER_FOV			M_PI * 1.7
 # define PLAYER_MOVE		0.025
 # define PLAYER_ROTATION	0.025
 # define UNCERTAINTY		0.01

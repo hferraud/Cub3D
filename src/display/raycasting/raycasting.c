@@ -28,40 +28,51 @@ float	ray_cast(t_cub *cub, float theta)
 	map_index.y = (int) cub->player->pos.y;
 	if (ray.ray_chunk_length.x < ray.ray_chunk_length.y)
 	{
+		if (ray.step.x== -1)
+			ray.ray_pos.x = (int) ray.ray_pos.x;
+		else
+			ray.ray_pos.x = (int) ray.ray_pos.x + 1;
+		ray.ray_pos.y += (sinf(theta) * ray.ray_chunk_length.x * ray.step.y);
 		ray.ray_length += ray.ray_chunk_length.x;
 		map_index.x += ray.step.x;
 	}
 	else
 	{
+		ray.ray_pos.x += (cosf(theta) * ray.ray_chunk_length.y * ray.step.x);
+		if (ray.step.y == -1)
+			ray.ray_pos.y = (int) ray.ray_pos.y;
+		else
+			ray.ray_pos.y = (int) ray.ray_pos.y + 1;
 		ray.ray_length += ray.ray_chunk_length.y;
 		map_index.y += ray.step.y;
 	}
+	printf("start: %d %d\n", map_index.x, map_index.y);
 	while (map[map_index.y][map_index.x] == FLOOR)
 	{
-		ray.ray_pos.x += (ray.ray_chunk_length.x * ray.step.x);
-		ray.ray_pos.y += (ray.ray_chunk_length.y * ray.step.y);
 		ray_next_chunk(&ray);
 		if (ray.ray_chunk_length.x < ray.ray_chunk_length.y)
 		{
-			map_index.x += ray.step.x;
 			if (ray.step.x== -1)
-				ray.ray_pos.x += (int) ray.ray_pos.x;
+				ray.ray_pos.x = (int) ray.ray_pos.x;
 			else
-				ray.ray_pos.x += (int) (ray.ray_pos.x + 1);
-			ray.ray_pos.y += (cosf(theta) * ray.ray_chunk_length.x * ray.step.y);
+				ray.ray_pos.x = (int) ray.ray_pos.x + 1;
+			ray.ray_pos.y += (sinf(theta) * ray.ray_chunk_length.x * ray.step.y);
+			printf("%d %d\n", map_index.x, map_index.y);
 			if (map[map_index.y][map_index.x] == FLOOR)
 				ray.ray_length += ray.ray_chunk_length.x;
+			map_index.x += ray.step.x;
 		}
 		else
 		{
-			map_index.y += ray.step.y;
-			ray.ray_pos.x += (sinf(theta) * ray.ray_chunk_length.y * ray.step.x);
+			ray.ray_pos.x += (cosf(theta) * ray.ray_chunk_length.y * ray.step.x);
 			if (ray.step.y == -1)
-				ray.ray_pos.y += (int) ray.ray_pos.y;
+				ray.ray_pos.y = (int) ray.ray_pos.y;
 			else
-				ray.ray_pos.y += (int) (ray.ray_pos.y + 1);
+				ray.ray_pos.y = (int) ray.ray_pos.y + 1;
+			printf("%d %d\n", map_index.x, map_index.y);
 			if (map[map_index.y][map_index.x] == FLOOR)
 				ray.ray_length += ray.ray_chunk_length.y;
+			map_index.y += ray.step.y;
 		}
 	}
 	return (ray.ray_length);
@@ -77,6 +88,8 @@ static void	ray_next_chunk(t_ray *ray)
 		ray->ray_chunk_length.y = ((int)(ray->ray_pos.y) + 1 - ray->ray_pos.y) * ray->ray_unit_step.y;
 	else
 		ray->ray_chunk_length.y = (ray->ray_pos.y - (int) ray->ray_pos.y) * ray->ray_unit_step.y;
+	printf("x_length: %f\n", ray->ray_chunk_length.x);
+	printf("y_length: %f\n", ray->ray_chunk_length.y);
 }
 
 static t_ray	ray_init(t_cub *cub, float theta)
