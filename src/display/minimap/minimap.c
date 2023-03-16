@@ -10,10 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "draw.h"
+#include "raycasting.h"
 
 static void	draw_player(t_cub *cub, int wall_width);
 static void draw_player_rotation(t_cub *cub, int wall_width);
 static void draw_player_fov(t_cub *cub, int wall_width);
+static void	draw_player_view(t_cub *cub, int nb_ray, int wall_width);
 
 void	draw_minimap(t_cub *cub)
 {
@@ -63,6 +65,7 @@ static void	draw_player(t_cub *cub, int wall_width)
 	draw_rectangle(&cub->mlx_data->img_data, square);
 	draw_player_rotation(cub, wall_width);
 	draw_player_fov(cub, wall_width);
+	draw_player_view(cub, 20, wall_width);
 }
 
 static void draw_player_rotation(t_cub *cub, int wall_width)
@@ -93,4 +96,32 @@ static void draw_player_fov(t_cub *cub, int wall_width)
 	p_fovl.y = p_pos.y + sinf(cub->player->rotation - PLAYER_FOV / 2) * wall_width;
 	draw_line(&cub->mlx_data->img_data, p_pos, p_fovr, 0xFFFFFF);
 	draw_line(&cub->mlx_data->img_data, p_pos, p_fovl, 0xFFFFFF);
+}
+
+static void	draw_player_view(t_cub *cub, int nb_ray, int wall_width)
+{
+	float	theta;
+	float	theta_max;
+	float	theta_step;
+	float	dist;
+	t_point	p_pos;
+	t_point	collision_point;
+
+	theta_step = PLAYER_FOV / nb_ray;
+	p_pos.x = cub->player->pos.x * wall_width;
+	p_pos.y = cub->player->pos.y * wall_width;
+	theta = cub->player->rotation - PLAYER_FOV / 2;
+	theta_max = cub->player->rotation + PLAYER_FOV / 2;
+	while (theta <= theta_max)
+	{
+		dist = ray_cast(cub, theta);
+		if (dist != 0)
+		{
+			printf("step: %d dist: %f\n", (int) (theta / theta_step), dist);
+			collision_point.x = p_pos.x + cos(theta) * dist * wall_width;
+			collision_point.y = p_pos.y + sin(theta) * dist * wall_width;
+			draw_line(&cub->mlx_data->img_data, p_pos, collision_point, 0xFF00FF);
+		}
+		theta += theta_step;
+	}
 }

@@ -31,6 +31,8 @@ static void	player_rotation_update(t_cub *cub)
 		cub->player->rotation += (float) PLAYER_ROTATION;
 	if (cub->player->rotation > (2 * M_PI))
 		cub->player->rotation -= (float) (2 * M_PI);
+	else if (cub->player->rotation < 0)
+		cub->player->rotation += 2 * M_PI;
 }
 
 static void	player_position_update(t_cub *cub)

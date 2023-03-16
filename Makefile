@@ -63,6 +63,8 @@ SRC			=		main.c	\
 						\
 						display/minimap/minimap.c	\
 						\
+						display/raycasting/raycasting.c	\
+						\
 					\
 
 

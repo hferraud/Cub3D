@@ -1,23 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_frame.c                                     :+:      :+:    :+:   */
+/*   raycasting.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelage <edelage@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 11:22:00 by edelage           #+#    #+#             */
-/*   Updated: 2023/03/14 11:22:00 by edelage          ###   ########lyon.fr   */
+/*   Created: 2023/03/15 07:31:00 by edelage           #+#    #+#             */
+/*   Updated: 2023/03/15 07:31:00 by edelage          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#include "hook.h"
-#include "draw.h"
-#include "raycasting.h"
+#ifndef RAYCASTING_H
+# define RAYCASTING_H
 
-int	render_frame(t_cub *cub)
+# include <math.h>
+# include <stdbool.h>
+# include "cub.h"
+# include "draw.h"
+
+typedef	struct s_ray	t_ray;
+
+struct s_ray
 {
-	player_update(cub);
-	draw_minimap(cub);
-	mlx_put_image_to_window(cub->mlx_data->mlx_ptr, cub->mlx_data->win_ptr,
-		cub->mlx_data->img_data.img, 0, 0);
-	return (0);
-}
+	float	theta;
+	t_pos	ray_pos;
+	t_pos	ray_unit_step;
+	t_pos	ray_chunk_length;
+	t_point	step;
+	float	ray_length;
+};
+
+float	ray_cast(t_cub *cub, float theta);
+
+#endif
