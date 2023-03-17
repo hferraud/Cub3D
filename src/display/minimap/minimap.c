@@ -104,6 +104,7 @@ static void	draw_player_view(t_cub *cub, int nb_ray, int wall_width)
 	float	theta_max;
 	float	theta_step;
 	float	dist;
+	t_ray	ray;
 	t_point	p_pos;
 	t_point	collision_point;
 
@@ -115,7 +116,8 @@ static void	draw_player_view(t_cub *cub, int nb_ray, int wall_width)
 	theta_max = cub->player->rotation + PLAYER_FOV / 2;
 	while (theta <= theta_max)
 	{
-		dist = ray_cast(cub, theta);
+		ray = ray_cast(cub, theta);
+		dist = ray.ray_length;
 		if (dist != 0)
 		{
 			collision_point.x = p_pos.x + cos(theta) * dist * wall_width;

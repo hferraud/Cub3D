@@ -15,7 +15,7 @@ static t_ray	ray_init(t_cub *cub, float theta);
 static float	init_ray_theta(float theta);
 static void		ray_next_chunk(t_ray *ray);
 
-float	ray_cast(t_cub *cub, float theta)
+t_ray   ray_cast(t_cub *cub, float theta)
 {
 	t_ray	ray;
 	char	**map;
@@ -38,6 +38,10 @@ float	ray_cast(t_cub *cub, float theta)
 			ray.ray_pos.y += (sinf(theta) * ray.ray_chunk_length.x);
 			if (map[map_index.y][map_index.x] == FLOOR)
 				ray.ray_length += ray.ray_chunk_length.x;
+			if (ray.step.x == 1)
+				ray.wall_face = 'W';
+			else
+				ray.wall_face = 'E';
 			map_index.x += ray.step.x;
 		}
 		else
@@ -49,10 +53,14 @@ float	ray_cast(t_cub *cub, float theta)
 			ray.ray_pos.x += (cosf(theta) * ray.ray_chunk_length.y);
 			if (map[map_index.y][map_index.x] == FLOOR)
 				ray.ray_length += ray.ray_chunk_length.y;
+			if (ray.step.y == 1)
+				ray.wall_face = 'N';
+			else
+				ray.wall_face = 'S';
 			map_index.y += ray.step.y;
 		}
 	}
-	return (ray.ray_length);
+	return (ray);
 }
 
 static void	ray_next_chunk(t_ray *ray)

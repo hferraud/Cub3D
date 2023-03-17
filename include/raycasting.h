@@ -26,9 +26,10 @@ struct s_ray
 	t_pos	ray_unit_step;
 	t_pos	ray_chunk_length;
 	t_point	step;
+    char 	wall_face;
 	float	ray_length;
 };
 
-float	ray_cast(t_cub *cub, float theta);
+t_ray   ray_cast(t_cub *cub, float theta);
 
 #endif

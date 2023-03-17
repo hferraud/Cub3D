@@ -18,19 +18,36 @@ void	draw_wall(t_cub *cub, int nb_ray)
 	const float	step = PLAYER_FOV / nb_ray;
 	const float	theta_end = cub->player->rotation + PLAYER_FOV / 2;
 	float		theta;
+	t_ray		ray;
 	float		dist;
 	size_t		count;
-	int			ceilling_size;
-	int			floor_size;
+	int			draw_start;
+	int			draw_end;
+    int         line_height;
+	int			color;
 
 	theta = cub->player->rotation - PLAYER_FOV / 2;
 	count = 0;
 	while (theta <= theta_end)
 	{
-		dist = ray_cast(cub, theta);
-		ceilling_size = 0.5 * WIN_HEIGHT - tanf(1.0 / 2.0 * theta) * dist;
-		floor_size = WIN_HEIGHT - ceilling_size;
-		draw_rectangle(&cub->mlx_data->img_data, set_rectangle(set_point(count * ray_width, ceilling_size), set_point((count + 1) * ray_width, floor_size), 0xFF));
+        ray = ray_cast(cub, theta);
+		dist = ray.ray_length;
+        line_height = WIN_HEIGHT / dist;
+        draw_start = -line_height / 2 + WIN_HEIGHT / 2;
+        if (draw_start < 0)
+            draw_start = 0;
+		draw_end = line_height / 2 + WIN_HEIGHT / 2;
+        if (draw_end >= WIN_HEIGHT)
+            draw_end = WIN_HEIGHT - 1;
+		if (ray.wall_face == 'N')
+			color = 0xFF;
+		else if (ray.wall_face == 'E')
+			color = 0xCC;
+		else if (ray.wall_face == 'S')
+			color = 0xAA;
+		else
+			color = 0x77;
+		draw_rectangle(&cub->mlx_data->img_data, set_rectangle(set_point(count * ray_width, draw_start), set_point((count + 1) * ray_width, draw_end), color));
 		theta += step;
 		count++;
 	}
