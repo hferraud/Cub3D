@@ -26,40 +26,15 @@ float	ray_cast(t_cub *cub, float theta)
 	map = cub->map->map;
 	map_index.x = (int) cub->player->pos.x;
 	map_index.y = (int) cub->player->pos.y;
-	if (ray.ray_chunk_length.x < ray.ray_chunk_length.y)
-	{
-		if (ray.step.x== -1)
-			ray.ray_pos.x = (int) ray.ray_pos.x;
-		else
-			ray.ray_pos.x = (int) ray.ray_pos.x + 1;
-		ray.ray_pos.y += (sinf(theta) * ray.ray_chunk_length.x);
-		ray.ray_length += ray.ray_chunk_length.x;
-		map_index.x += ray.step.x;
-	}
-	else
-	{
-		ray.ray_pos.x += (cosf(theta) * ray.ray_chunk_length.y);
-		if (ray.step.y == -1)
-			ray.ray_pos.y = (int) ray.ray_pos.y;
-		else
-			ray.ray_pos.y = (int) ray.ray_pos.y + 1;
-		ray.ray_length += ray.ray_chunk_length.y;
-		map_index.y += ray.step.y;
-	}
 	while (map[map_index.y][map_index.x] == FLOOR)
 	{
 		ray_next_chunk(&ray);
 		if (ray.ray_chunk_length.x < ray.ray_chunk_length.y)
 		{
 			if (ray.step.x == -1)
-			{
-				if (ray.ray_pos.x == (int)ray.ray_pos.x)
-					ray.ray_pos.x -= 1;
-				else
-					ray.ray_pos.x = (int) ray.ray_pos.x;
-			}
+				ray.ray_pos.x = ceilf(ray.ray_pos.x - 1);
 			else
-				ray.ray_pos.x = (int) ray.ray_pos.x + 1;
+				ray.ray_pos.x = floorf(ray.ray_pos.x + 1);
 			ray.ray_pos.y += (sinf(theta) * ray.ray_chunk_length.x);
 			if (map[map_index.y][map_index.x] == FLOOR)
 				ray.ray_length += ray.ray_chunk_length.x;
@@ -68,14 +43,9 @@ float	ray_cast(t_cub *cub, float theta)
 		else
 		{
 			if (ray.step.y == -1)
-			{
-				if (ray.ray_pos.y == (int) ray.ray_pos.y)
-					ray.ray_pos.y -= 1;
-				else
-					ray.ray_pos.y = (int) ray.ray_pos.y;
-			}
+				ray.ray_pos.y = ceilf(ray.ray_pos.y - 1);
 			else
-				ray.ray_pos.y = (int) ray.ray_pos.y + 1;
+				ray.ray_pos.y = floorf(ray.ray_pos.y + 1);
 			ray.ray_pos.x += (cosf(theta) * ray.ray_chunk_length.y);
 			if (map[map_index.y][map_index.x] == FLOOR)
 				ray.ray_length += ray.ray_chunk_length.y;
@@ -88,23 +58,13 @@ float	ray_cast(t_cub *cub, float theta)
 static void	ray_next_chunk(t_ray *ray)
 {
 	if (ray->step.x == 1)
-		ray->ray_chunk_length.x = ((int)ray->ray_pos.x + 1 - ray->ray_pos.x) * ray->ray_unit_step.x;
+		ray->ray_chunk_length.x = (floorf(ray->ray_pos.x + 1) - ray->ray_pos.x) * ray->ray_unit_step.x;
 	else
-	{
-		if (ray->ray_pos.x == (int) ray->ray_pos.x)
-			ray->ray_chunk_length.x = ray->ray_unit_step.x;
-		else
-			ray->ray_chunk_length.x = (ray->ray_pos.x - (int)ray->ray_pos.x) * ray->ray_unit_step.x;
-	}
+		ray->ray_chunk_length.x = (ray->ray_pos.x - ceilf(ray->ray_pos.x - 1)) * ray->ray_unit_step.x;
 	if (ray->step.y == 1)
-		ray->ray_chunk_length.y = ((int)(ray->ray_pos.y) + 1 - ray->ray_pos.y) * ray->ray_unit_step.y;
+		ray->ray_chunk_length.y = (floorf(ray->ray_pos.y + 1) - ray->ray_pos.y) * ray->ray_unit_step.y;
 	else
-	{
-		if (ray->ray_pos.y == (int) ray->ray_pos.y)
-			ray->ray_chunk_length.y = ray->ray_unit_step.y;
-		else
-			ray->ray_chunk_length.y = (ray->ray_pos.y - (int) ray->ray_pos.y) * ray->ray_unit_step.y;
-	}
+		ray->ray_chunk_length.y = (ray->ray_pos.y - ceilf(ray->ray_pos.y - 1)) * ray->ray_unit_step.y;
 }
 
 static t_ray	ray_init(t_cub *cub, float theta)
