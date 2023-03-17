@@ -18,6 +18,7 @@
 
 typedef struct s_point		t_point;
 typedef struct s_rectangle	t_rectangle;
+typedef	struct s_ray		t_ray;
 
 struct s_point
 {
@@ -34,13 +35,14 @@ struct s_rectangle
 
 /* --- DRAW FUNCTIONS --- */
 
-void		draw_minimap(t_cub *cub);
-void		draw_rectangle(t_img_data *img_data, t_rectangle rectangle);
-void		draw_line(t_img_data *data, t_point a, t_point b, int color);
-void		draw_background(t_cub *cub);
-void		draw_wall(t_cub *cub, int nb_ray);
 void		mlx_put_pixel(t_img_data *img_data, int x, int y, int color);
 void		mlx_put_point(t_img_data *img_data, t_point point, int color);
+void		draw_line(t_img_data *data, t_point a, t_point b, int color);
+void		draw_rectangle(t_img_data *img_data, t_rectangle rectangle);
+void		draw_background(t_cub *cub);
+void		draw_wall(t_cub *cub, int x, t_ray ray);
+void		draw_player_view(t_cub *cub, float fov);
+void		draw_minimap(t_cub *cub);
 
 /* --- POINT_UTILS FUNCTIONS --- */
 

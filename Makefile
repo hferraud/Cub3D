@@ -58,6 +58,7 @@ SRC			=		main.c	\
 						display/draw_shape/draw_rectangle.c		\
 						display/draw_shape/draw_background.c	\
 						display/draw_shape/draw_wall.c			\
+						display/draw_shape/draw_player_view.c	\
 						display/draw_shape/draw_shape_utils.c	\
 						\
 						display/player/player_pos_init.c	\
