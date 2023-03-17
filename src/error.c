@@ -17,7 +17,8 @@
  */
 int	cub_error(char *error_msg)
 {
-	write(STDERR_FILENO, "Error\n", 6);
+	if (write(STDERR_FILENO, "Error\n", 6) == -1)
+		return (-1);
 	if (error_msg == NULL)
 		perror(NULL);
 	else

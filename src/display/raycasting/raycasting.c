@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "raycasting.h"
+#include "player.h"
 
 static t_ray	ray_init(t_cub *cub, float theta);
 static float	init_ray_theta(float theta);
@@ -31,6 +32,8 @@ t_ray   ray_cast(t_cub *cub, float theta)
 		ray_next_chunk(&ray);
 		if (ray.ray_chunk_length.x < ray.ray_chunk_length.y)
 		{
+			ray.hit_pos.x = ray.ray_pos.x;
+			ray.hit_pos.y = ray.ray_pos.y;
 			if (ray.step.x == -1)
 				ray.ray_pos.x = ceilf(ray.ray_pos.x - 1);
 			else
@@ -46,6 +49,8 @@ t_ray   ray_cast(t_cub *cub, float theta)
 		}
 		else
 		{
+			ray.hit_pos.x = ray.ray_pos.x;
+			ray.hit_pos.y = ray.ray_pos.y;
 			if (ray.step.y == -1)
 				ray.ray_pos.y = ceilf(ray.ray_pos.y - 1);
 			else

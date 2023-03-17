@@ -13,6 +13,6 @@
 
 void	draw_background(t_cub *cub)
 {
-	draw_rectangle(&cub->mlx_data->img_data, set_rectangle(set_point(0, 0), set_point(WIN_WIDTH - 1, WIN_HEIGHT / 2), 0x00505050));
+	draw_rectangle(&cub->mlx_data->img_data, set_rectangle(set_point(0, 0), set_point(WIN_WIDTH - 1, WIN_HEIGHT / 2), 0x2BFAFA));
 	draw_rectangle(&cub->mlx_data->img_data, set_rectangle(set_point(0, WIN_HEIGHT / 2 + 1), set_point(WIN_WIDTH - 1, WIN_HEIGHT - 1), 0x00909090));
 }
