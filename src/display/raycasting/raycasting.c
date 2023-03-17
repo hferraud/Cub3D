@@ -32,15 +32,12 @@ t_ray   ray_cast(t_cub *cub, float theta)
 		ray_next_chunk(&ray);
 		if (ray.ray_chunk_length.x < ray.ray_chunk_length.y)
 		{
-			ray.hit_pos.x = ray.ray_pos.x;
-			ray.hit_pos.y = ray.ray_pos.y;
 			if (ray.step.x == -1)
 				ray.ray_pos.x = ceilf(ray.ray_pos.x - 1);
 			else
 				ray.ray_pos.x = floorf(ray.ray_pos.x + 1);
 			ray.ray_pos.y += (sinf(theta) * ray.ray_chunk_length.x);
-			if (map[map_index.y][map_index.x] == FLOOR)
-				ray.ray_length += ray.ray_chunk_length.x;
+			ray.ray_length += ray.ray_chunk_length.x;
 			if (ray.step.x == 1)
 				ray.wall_face = WEST;
 			else
@@ -49,15 +46,12 @@ t_ray   ray_cast(t_cub *cub, float theta)
 		}
 		else
 		{
-			ray.hit_pos.x = ray.ray_pos.x;
-			ray.hit_pos.y = ray.ray_pos.y;
 			if (ray.step.y == -1)
 				ray.ray_pos.y = ceilf(ray.ray_pos.y - 1);
 			else
 				ray.ray_pos.y = floorf(ray.ray_pos.y + 1);
 			ray.ray_pos.x += (cosf(theta) * ray.ray_chunk_length.y);
-			if (map[map_index.y][map_index.x] == FLOOR)
-				ray.ray_length += ray.ray_chunk_length.y;
+			ray.ray_length += ray.ray_chunk_length.y;
 			if (ray.step.y == 1)
 				ray.wall_face = NORTH;
 			else

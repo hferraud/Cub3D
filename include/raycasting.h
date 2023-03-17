@@ -23,7 +23,6 @@ typedef struct s_point	t_point;
 struct s_ray
 {
 	t_pos	ray_pos;
-	t_pos	hit_pos;
 	t_pos	ray_unit_step;
 	t_pos	ray_chunk_length;
 	t_point	step;

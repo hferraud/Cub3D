@@ -50,9 +50,9 @@ static void	draw_wall_band(t_cub *cub, t_ray ray, int screen_x, int start_y, int
 		wall_sprite = cub->mlx_data->wall[WEST];
 	wall_offset.y = 0;
 	if (ray.wall_face == NORTH || ray.wall_face == SOUTH)
-		wall_offset.x = (fabs(ray.hit_pos.x) - floorf(fabs(ray.hit_pos.x))) * wall_sprite.width;
+		wall_offset.x = (fabs(ray.ray_pos.x) - floorf(fabs(ray.ray_pos.x))) * (float) wall_sprite.width;
 	else
-		wall_offset.x = (fabs(ray.hit_pos.y) - floorf(fabs(ray.hit_pos.y))) * wall_sprite.width;
+		wall_offset.x = (fabs(ray.ray_pos.y) - floorf(fabs(ray.ray_pos.y))) * (float) wall_sprite.width;
 //	printf("offset x: %d\n", wall_offset.x);
 	screen_y = start_y;
 	while (screen_y < end_y)
