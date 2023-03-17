@@ -20,6 +20,7 @@
 
 typedef struct s_map	t_map;
 typedef struct s_spawn	t_spawn;
+typedef enum e_wall		t_wall;
 
 struct s_spawn
 {

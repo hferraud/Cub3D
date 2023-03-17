@@ -22,12 +22,11 @@ typedef struct s_point	t_point;
 
 struct s_ray
 {
-	float	theta;
 	t_pos	ray_pos;
 	t_pos	ray_unit_step;
 	t_pos	ray_chunk_length;
 	t_point	step;
-    char 	wall_face;
+    t_wall	wall_face;
 	float	ray_length;
 };
 

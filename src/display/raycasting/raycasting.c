@@ -39,9 +39,9 @@ t_ray   ray_cast(t_cub *cub, float theta)
 			if (map[map_index.y][map_index.x] == FLOOR)
 				ray.ray_length += ray.ray_chunk_length.x;
 			if (ray.step.x == 1)
-				ray.wall_face = 'W';
+				ray.wall_face = WEST;
 			else
-				ray.wall_face = 'E';
+				ray.wall_face = EAST;
 			map_index.x += ray.step.x;
 		}
 		else
@@ -54,9 +54,9 @@ t_ray   ray_cast(t_cub *cub, float theta)
 			if (map[map_index.y][map_index.x] == FLOOR)
 				ray.ray_length += ray.ray_chunk_length.y;
 			if (ray.step.y == 1)
-				ray.wall_face = 'N';
+				ray.wall_face = NORTH;
 			else
-				ray.wall_face = 'S';
+				ray.wall_face = SOUTH;
 			map_index.y += ray.step.y;
 		}
 	}
