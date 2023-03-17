@@ -37,7 +37,8 @@ struct s_rectangle
 void		draw_minimap(t_cub *cub);
 void		draw_rectangle(t_img_data *img_data, t_rectangle rectangle);
 void		draw_line(t_img_data *data, t_point a, t_point b, int color);
-void		draw_circle(t_img_data *img_data, t_point center, int ray_length, int color);
+void		draw_background(t_cub *cub);
+void		draw_wall(t_cub *cub, int nb_ray);
 void		mlx_put_pixel(t_img_data *img_data, int x, int y, int color);
 void		mlx_put_point(t_img_data *img_data, t_point point, int color);
 
