@@ -63,7 +63,7 @@ static void	draw_wall_band(t_cub *cub, t_ray ray, int screen_x, int start_y, int
 //		printf("height: %f\n", display_height);
 //		printf("%d\n", wall_offset.y);
 //		printf("wall_size: %d %d\noffset: %d %d\n", wall_sprite.width, wall_sprite.height, wall_offset.x, wall_offset.y);
-		color = mlx_get_color(wall_sprite.img, wall_offset.y, wall_offset.x);
+		color = mlx_get_color(wall_sprite.img, wall_offset.x, wall_offset.y);
 		mlx_put_pixel(&cub->mlx_data->img_data, screen_x, screen_y, color);
 		screen_y++;
 	}
