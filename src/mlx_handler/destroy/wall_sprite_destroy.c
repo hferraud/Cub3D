@@ -18,10 +18,10 @@ void	wall_sprite_destroy(t_mlx_data *mlx_data)
 	index = 0;
 	while (index < 4)
 	{
-		if (mlx_data->wall[index].img)
+		if (mlx_data->wall[index].img_data.img)
 		{
-			mlx_destroy_image(mlx_data->mlx_ptr, mlx_data->wall[index].img);
-			mlx_data->wall[index].img = NULL;
+			mlx_destroy_image(mlx_data->mlx_ptr, mlx_data->wall[index].img_data.img);
+			mlx_data->wall[index].img_data.img = NULL;
 		}
 		index++;
 	}

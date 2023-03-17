@@ -53,9 +53,9 @@ struct s_img_data
 
 struct s_sprite
 {
-	void	*img;
-	int		width;
-	int		height;
+	t_img_data	img_data;
+	int			width;
+	int			height;
 };
 
 struct s_mlx_data

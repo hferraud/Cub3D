@@ -15,12 +15,9 @@ void	mlx_put_pixel(t_img_data *img_data, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x >= 0 && x < WIN_WIDTH && y >= 0 && y < WIN_HEIGHT)
-	{
 		dst = img_data->addr
 			+ (y * img_data->line_length + x * (img_data->bit_ratio));
 		*(unsigned int *)dst = color;
-	}
 }
 
 void	mlx_put_point(t_img_data *img_data, t_point point, int color)

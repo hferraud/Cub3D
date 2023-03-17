@@ -14,19 +14,20 @@
 
 void	draw_player_view(t_cub *cub, float fov)
 {
-	float	yaw;
-	float	theta;
-	int		x;
-	t_ray	ray;
+	const float	step = fov / WIN_WIDTH;
+	float		yaw;
+	float		theta;
+	float		theta_max;
+	int			x;
 
 	yaw = cub->player->rotation;
 	x = 0;
 	theta = yaw - fov / 2;
-	while (theta < yaw + fov / 2)
+	theta_max = yaw + fov / 2;
+	while (theta < theta_max)
 	{
-		ray = ray_cast(cub, theta);
-		draw_wall(cub, x, ray);
-		theta += fov / WIN_WIDTH;
+		draw_wall(cub, x, ray_cast(cub, theta));
+		theta += step;
 		x++;
 	}
 }
