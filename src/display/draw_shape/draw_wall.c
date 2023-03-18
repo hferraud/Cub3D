@@ -17,27 +17,23 @@ static void	draw_wall_band(t_cub *cub, t_ray ray, int screen_x, int start_y, int
 
 void	draw_wall(t_cub *cub, int x, t_ray ray)
 {
-	float		dist;
-	int			draw_start;
-	int			draw_end;
-    int         line_height;
+	float	dist;
+	int		draw_start;
+	int		draw_end;
+	int		wall_height;
 
 	dist = ray.ray_length;
-	line_height = WIN_HEIGHT / dist;
-	draw_start = -line_height / 2 + WIN_HEIGHT / 2;
-	if (draw_start < 0)
-		draw_start = 0;
-	draw_end = line_height / 2 + WIN_HEIGHT / 2;
-	if (draw_end >= WIN_HEIGHT)
-		draw_end = WIN_HEIGHT;
+	wall_height = WIN_HEIGHT / dist;
+	draw_start = -wall_height / 2 + WIN_HEIGHT / 2;
+	draw_end = wall_height / 2 + WIN_HEIGHT / 2;
 	draw_wall_band(cub, ray, x, draw_start, draw_end);
 }
 
 static void	draw_wall_band(t_cub *cub, t_ray ray, int screen_x, int start_y, int end_y)
 {
 	t_sprite	wall_sprite;
-	t_point 	wall_offset;
-	float 		display_height;
+	t_point		wall_offset;
+	int			display_height;
 	int			screen_y;
 	int			color;
 
@@ -49,9 +45,13 @@ static void	draw_wall_band(t_cub *cub, t_ray ray, int screen_x, int start_y, int
 		wall_offset.x = (ray.ray_pos.y - (int) ray.ray_pos.y) * wall_sprite.width;
 	display_height = end_y - start_y;
 	screen_y = start_y;
-	while (screen_y < end_y)
+	if (screen_y < 0)
+		screen_y = 0;
+	while (screen_y < end_y && screen_y < WIN_HEIGHT)
 	{
-		wall_offset.y = ((screen_y - start_y) / display_height) * wall_sprite.height;
+		wall_offset.y = ((screen_y - start_y) / (float) display_height) * (float) wall_sprite.height;
+//		printf("txt_y: %d scr_y: %d scr_h: %d txt_h: %d\n", wall_offset.y, screen_y, display_height, wall_sprite.height);
+//		printf("here\n");
 		color = mlx_get_color(wall_sprite, wall_offset.x, wall_offset.y);
 		mlx_put_pixel(&cub->mlx_data->img_data, screen_x, screen_y, color);
 		screen_y++;
