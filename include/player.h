@@ -19,7 +19,7 @@
 # define PLAYER_FOV			M_PI_2
 # define PLAYER_MOVE		0.025
 # define PLAYER_ROTATION	0.025
-# define UNCERTAINTY		0.01
+# define UNCERTAINTY		0.001
 
 typedef struct s_player	t_player;
 typedef struct s_pos	t_pos;
