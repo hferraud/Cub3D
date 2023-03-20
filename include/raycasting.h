@@ -17,7 +17,7 @@
 # include "cub.h"
 # include "draw.h"
 
-typedef	struct s_ray	t_ray;
+typedef struct s_ray	t_ray;
 typedef struct s_point	t_point;
 
 struct s_ray
@@ -26,10 +26,10 @@ struct s_ray
 	t_pos	ray_unit_step;
 	t_pos	ray_chunk_length;
 	t_point	step;
-    t_wall	wall_face;
+	t_wall	wall_face;
 	float	ray_length;
 };
 
-t_ray   ray_cast(t_cub *cub, float theta);
+t_ray	ray_cast(t_cub *cub, float theta);
 
 #endif

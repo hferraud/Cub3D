@@ -28,5 +28,4 @@ struct s_cub
 	t_player	*player;
 };
 
-
 #endif
