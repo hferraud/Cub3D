@@ -12,7 +12,7 @@
 #include "draw.h"
 #include "raycasting.h"
 
-int			mlx_get_color(t_sprite img_ptr, int x, int y);
+static int	mlx_get_color(t_sprite sprite, int x, int y);
 static void	draw_wall_band(t_cub *cub, t_ray ray, int screen_x, int start_y, int end_y);
 
 void	draw_wall(t_cub *cub, int x, t_ray ray)
@@ -56,7 +56,7 @@ static void	draw_wall_band(t_cub *cub, t_ray ray, int screen_x, int start_y, int
 	}
 }
 
-int	mlx_get_color(t_sprite sprite, int x, int y)
+static int	mlx_get_color(t_sprite sprite, int x, int y)
 {
 	t_img_data	sprite_data;
 

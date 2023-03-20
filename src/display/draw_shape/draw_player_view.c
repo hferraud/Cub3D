@@ -12,6 +12,9 @@
 #include "draw.h"
 #include "raycasting.h"
 
+/**
+ * @brief Draws the player's vision on an image of the mlx
+ */
 void	draw_player_view(t_cub *cub, float fov)
 {
 	const float	step = fov / WIN_WIDTH;

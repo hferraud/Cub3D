@@ -17,6 +17,9 @@ static void		player_position_update(t_cub *cub);
 static t_pos	new_position_calculate(t_cub *cub);
 static int		is_valid_position(t_cub *cub, float x, float y);
 
+/**
+ * @brief Update the position and rotation of the player
+ */
 void	player_update(t_cub *cub)
 {
 	player_rotation_update(cub);
@@ -35,6 +38,9 @@ static void	player_rotation_update(t_cub *cub)
 		cub->player->rotation += 2 * M_PI;
 }
 
+/**
+ * @brief Update the position player and check the collision with the walls
+ */
 static void	player_position_update(t_cub *cub)
 {
 	t_player	*player;

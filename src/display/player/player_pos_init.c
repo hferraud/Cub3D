@@ -12,6 +12,9 @@
 #include <math.h>
 #include "mlx_handler.h"
 
+/**
+ * @brief Set the position player to the spawn point
+ */
 void	player_pos_init(t_cub *cub)
 {
 	cub->player->pos.x = (float)(cub->map->spawn.x + 0.5);

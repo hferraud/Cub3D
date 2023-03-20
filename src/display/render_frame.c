@@ -12,6 +12,9 @@
 #include "hook.h"
 #include "draw.h"
 
+/**
+ * @brief Update player params and calculate the next image to display
+ */
 int	render_frame(t_cub *cub)
 {
 	player_update(cub);
