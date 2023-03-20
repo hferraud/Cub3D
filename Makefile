@@ -70,8 +70,6 @@ SRC			=		main.c	\
 						\
 					\
 
-
-
 OBJ			=		$(addprefix $(BUILD_DIR), $(SRC:.c=.o))
 
 DEPS		=		$(addprefix $(BUILD_DIR), $(SRC:.c=.d))

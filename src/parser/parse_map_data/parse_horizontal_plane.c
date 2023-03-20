@@ -14,6 +14,10 @@
 static int				get_rgb(char *line, int *index);
 static unsigned char	iatoc(char *str, int *index);
 
+/**
+ * @brief Get the color of an horizontal plane and fill it in map
+ * @return 0 on success, -1 otherwise
+ */
 int	parse_horizontal_plane(char *line, t_content_type type, t_map *map)
 {
 	int	rgb;
