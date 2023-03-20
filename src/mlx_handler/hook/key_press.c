@@ -13,6 +13,10 @@
 
 static void	add_key_press(int key_code, t_cub *cub);
 
+/**
+ * @brief Adds the key_code of the pressed key in the array
+ * if the key should be hooked
+ */
 int	key_press(int key_code, t_cub *cub)
 {
 	add_key_press(key_code, cub);

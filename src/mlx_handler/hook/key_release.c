@@ -13,6 +13,10 @@
 
 static void	add_key_release(int key_code, t_cub *cub);
 
+/**
+ * @brief Remove the key_code in the array of the release key,
+ * or exit the program if the <Esc> key is release
+ */
 int	key_release(int key_code, t_cub *cub)
 {
 	if (key_code == KEY_ESC)

@@ -12,6 +12,10 @@
 #include "hook.h"
 #include "parser.h"
 
+/**
+ * @brief This function allows to free all the memories
+ * at the end of the execution of the program
+ */
 int	cub_exit(t_cub *cub)
 {
 	mlx_do_key_autorepeaton(cub->mlx_data->mlx_ptr);
