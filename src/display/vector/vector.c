@@ -30,7 +30,7 @@ t_vector	vector_sub(t_vector v1, t_vector v2)
 	return (vector_init(v1.x - v2.x, v1.y - v2.y));
 }
 
-t_vector	vector_mult(t_vector v, float m)
+t_vector	vector_mul(t_vector v, float m)
 {
 	return (vector_init(v.x * m, v.y * m));
 }

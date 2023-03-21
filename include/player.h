@@ -14,6 +14,7 @@
 
 # include <math.h>
 # include "cub.h"
+# include "vector.h"
 
 # define PLAYER_OFFSET		0.2
 # define PLAYER_FOV			M_PI_2
@@ -22,23 +23,15 @@
 # define UNCERTAINTY		0.01
 
 typedef struct s_player	t_player;
-typedef struct s_pos	t_pos;
-
-struct s_pos
-{
-	float	x;
-	float	y;
-};
 
 struct s_player
 {
-	t_pos	pos;
-	float	rotation;
+	t_fvector	pos;
+	t_fvector	rotation;
 };
 
 typedef struct s_cub	t_cub;
 
 void	player_update(t_cub *cub);
-t_pos	set_pos(float x, float y);
 
 #endif
