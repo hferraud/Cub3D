@@ -17,7 +17,7 @@
  */
 void	draw_player_view(t_cub *cub, float fov)
 {
-	const float		step = (2 * tanf(fov / 2)) / (WIN_WIDTH + 1);
+	const float		step = (2 * tanf(fov / 2)) / (WIN_WIDTH - 1);
 	float			yaw;
 	float			theta;
 	int				x;
