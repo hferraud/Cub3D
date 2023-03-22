@@ -59,6 +59,7 @@ t_ray   ray_cast(t_cub *cub, float theta)
 			map_index.y += ray.step.y;
 		}
 	}
+	ray.ray_length *= cosf(theta - cub->player->rotation);
 	return (ray);
 }
 
@@ -83,8 +84,8 @@ static t_ray	ray_init(t_cub *cub, float theta)
 	ray.ray_pos = cub->player->pos;
 	delta.x = cosf(theta);
 	delta.y = sinf(theta);
-	ray.ray_unit_step.x = sqrtf(1 + (delta.y * delta.y) / (delta.x * delta.x));
-	ray.ray_unit_step.y = sqrtf(1 + (delta.x * delta.x) / (delta.y * delta.y));
+	ray.ray_unit_step.x = 1.0f / fabsf(delta.x);
+	ray.ray_unit_step.y = 1.0f / fabsf(delta.y);
 	ray.ray_length = 0;
 	if (theta < M_PI_2 || theta > 3 * M_PI_2)
 	{
