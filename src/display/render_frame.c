@@ -12,6 +12,8 @@
 #include "hook.h"
 #include "draw.h"
 
+void	fps_count();
+
 /**
  * @brief Update player params and calculate the next image to display
  */
@@ -22,5 +24,6 @@ int	render_frame(t_cub *cub)
 	draw_player_view(cub, PLAYER_FOV);
 	mlx_put_image_to_window(cub->mlx_data->mlx_ptr, cub->mlx_data->win_ptr,
 		cub->mlx_data->img_data.img, 0, 0);
+	fps_count();
 	return (0);
 }
