@@ -22,14 +22,15 @@ typedef struct s_point	t_point;
 
 struct s_ray
 {
-	t_pos	ray_pos;
-	t_pos	ray_unit_step;
-	t_pos	ray_chunk_length;
-	t_point	step;
-    t_wall	wall_face;
-	float	ray_length;
+	t_fvector	ray;
+	t_fvector	pos;
+	t_fvector	unit_step;
+	t_fvector	chunk_length;
+	t_vector 	step;
+    t_wall		wall_face;
+	float		length;
 };
 
-t_ray   ray_cast(t_cub *cub, float theta);
+t_ray   ray_cast(t_cub *cub, t_fvector ray_dir);
 
 #endif

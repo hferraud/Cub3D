@@ -12,110 +12,91 @@
 #include "raycasting.h"
 #include "player.h"
 
-static t_ray	ray_init(t_cub *cub, float theta);
-static float	init_ray_theta(float theta);
-static void		ray_next_chunk(t_ray *ray);
+static t_ray	ray_init(t_cub *cub, t_fvector ray_dir);
+//static void		ray_next_chunk(t_ray *ray);
 
-t_ray   ray_cast(t_cub *cub, float theta)
+t_ray   ray_cast(t_cub *cub, t_fvector ray_dir)
 {
-	t_ray	ray;
-	char	**map;
-	t_point	map_index;
+	t_ray		ray;
+	t_vector	map_index;
 
-	theta = init_ray_theta(theta);
-	ray = ray_init(cub, theta);
-	map = cub->map->map;
-	map_index.x = (int) cub->player->pos.x;
-	map_index.y = (int) cub->player->pos.y;
-	while (map[map_index.y][map_index.x] == FLOOR)
+	ray = ray_init(cub, ray_dir);
+	map_index = vector_init((int) cub->player->pos.x, (int) cub->player->pos.y);
+	while (cub->map->map[map_index.y][map_index.x] == FLOOR)
 	{
-		ray_next_chunk(&ray);
-		if (ray.ray_chunk_length.x < ray.ray_chunk_length.y)
+//		ray_next_chunk(&ray);
+		if (ray.chunk_length.x < ray.chunk_length.y)
 		{
-			if (ray.step.x == -1)
-				ray.ray_pos.x = ceilf(ray.ray_pos.x - 1);
-			else
-				ray.ray_pos.x = floorf(ray.ray_pos.x + 1);
-			ray.ray_pos.y += (sinf(theta) * ray.ray_chunk_length.x);
-			ray.ray_length += ray.ray_chunk_length.x;
-			if (ray.step.x == 1)
-				ray.wall_face = WEST;
-			else
-				ray.wall_face = EAST;
+			ray.ray.x += ray.chunk_length.x;
 			map_index.x += ray.step.x;
 		}
 		else
 		{
-			if (ray.step.y == -1)
-				ray.ray_pos.y = ceilf(ray.ray_pos.y - 1);
-			else
-				ray.ray_pos.y = floorf(ray.ray_pos.y + 1);
-			ray.ray_pos.x += (cosf(theta) * ray.ray_chunk_length.y);
-			ray.ray_length += ray.ray_chunk_length.y;
-			if (ray.step.y == 1)
-				ray.wall_face = NORTH;
-			else
-				ray.wall_face = SOUTH;
+			ray.ray.y += ray.chunk_length.y;
 			map_index.y += ray.step.y;
 		}
 	}
+	if (ray.chunk_length.x < ray.chunk_length.y)
+	{
+		if (ray.step.x == 1)
+			ray.wall_face = WEST;
+		else
+			ray.wall_face = EAST;
+	}
+	else
+	{
+		if (ray.step.y == 1)
+			ray.wall_face = NORTH;
+		else
+			ray.wall_face = SOUTH;
+	}
+	if (ray.wall_face == WEST || ray.wall_face == EAST)
+		ray.length = ray.ray.x - ray.chunk_length.x;
+	else
+		ray.length = ray.ray.y - ray.chunk_length.y;
+	printf("length: %f\n", ray.length);
 	return (ray);
 }
 
-static void	ray_next_chunk(t_ray *ray)
-{
-	if (ray->step.x == 1)
-		ray->ray_chunk_length.x = (floorf(ray->ray_pos.x + 1) - ray->ray_pos.x) * ray->ray_unit_step.x;
-	else
-		ray->ray_chunk_length.x = (ray->ray_pos.x - ceilf(ray->ray_pos.x - 1)) * ray->ray_unit_step.x;
-	if (ray->step.y == 1)
-		ray->ray_chunk_length.y = (floorf(ray->ray_pos.y + 1) - ray->ray_pos.y) * ray->ray_unit_step.y;
-	else
-		ray->ray_chunk_length.y = (ray->ray_pos.y - ceilf(ray->ray_pos.y - 1)) * ray->ray_unit_step.y;
-}
+//static void	ray_next_chunk(t_ray *ray)
+//{
+//	if (ray->step.x == 1)
+//		ray->chunk_length.x = (floorf(ray->pos.x + 1) - ray->pos.x) * ray->unit_step.x;
+//	else
+//		ray->chunk_length.x = (ray->pos.x - ceilf(ray->pos.x - 1)) * ray->unit_step.x;
+//	if (ray->step.y == 1)
+//		ray->chunk_length.y = (floorf(ray->pos.y + 1) - ray->pos.y) * ray->unit_step.y;
+//	else
+//		ray->chunk_length.y = (ray->pos.y - ceilf(ray->pos.y - 1)) * ray->unit_step.y;
+//}
 
-static t_ray	ray_init(t_cub *cub, float theta)
+static t_ray	ray_init(t_cub *cub, t_fvector ray_dir)
 {
 	t_ray	ray;
-	t_pos	delta;
 
-
-	ray.ray_pos = cub->player->pos;
-	delta.x = cosf(theta);
-	delta.y = sinf(theta);
-	ray.ray_unit_step.x = sqrtf(1 + (delta.y * delta.y) / (delta.x * delta.x));
-	ray.ray_unit_step.y = sqrtf(1 + (delta.x * delta.x) / (delta.y * delta.y));
-	ray.ray_length = 0;
-	if (theta < M_PI_2 || theta > 3 * M_PI_2)
+	ray.pos = cub->player->pos;
+	ray.unit_step.x = fabsf(1 / ray_dir.x);
+	ray.unit_step.y = fabsf(1 / ray_dir.y);
+	ray.ray = fvector_init(0, 0);
+	if (ray_dir.x > 0)
 	{
 		ray.step.x = 1;
-		ray.ray_chunk_length.x = ((int) ray.ray_pos.x + 1 - ray.ray_pos.x) * ray.ray_unit_step.x;
+		ray.chunk_length.x = ((int) ray.pos.x + 1 - ray.pos.x) * ray.unit_step.x;
 	}
 	else
 	{
 		ray.step.x = -1;
-		ray.ray_chunk_length.x = (ray.ray_pos.x - (int) ray.ray_pos.x) * ray.ray_unit_step.x;
+		ray.chunk_length.x = (ray.pos.x - (int) ray.pos.x) * ray.unit_step.x;
 	}
-	if (theta < M_PI)
+	if (ray_dir.y > 0)
 	{
 		ray.step.y = 1;
-		ray.ray_chunk_length.y = ((int) ray.ray_pos.y + 1 - ray.ray_pos.y) * ray.ray_unit_step.y;
+		ray.chunk_length.y = ((int) ray.pos.y + 1 - ray.pos.y) * ray.unit_step.y;
 	}
 	else
 	{
 		ray.step.y = -1;
-		ray.ray_chunk_length.y = ( ray.ray_pos.y - (int) ray.ray_pos.y) * ray.ray_unit_step.y;
+		ray.chunk_length.y = ( ray.pos.y - (int) ray.pos.y) * ray.unit_step.y;
 	}
 	return (ray);
-}
-
-static float	init_ray_theta(float theta)
-{
-	if (theta > 2 * M_PI)
-		while (theta > 2 * M_PI)
-			theta -= 2.0 * M_PI;
-	else if (theta < 0)
-		while (theta < 0)
-			theta += 2 * M_PI;
-	return (theta);
 }
