@@ -26,9 +26,9 @@ void	player_update(t_cub *cub)
 static void	player_rotation_update(t_cub *cub)
 {
 	if (is_key_pressed(KEY_LEFT, cub))
-		cub->player->rotation = fvector_rotate(cub->player->rotation, 0.1f);
+		cub->player->rotation = fvector_rotate(cub->player->rotation, -0.03f);
 	if (is_key_pressed(KEY_RIGHT, cub))
-		cub->player->rotation = fvector_rotate(cub->player->rotation, -0.1f);
+		cub->player->rotation = fvector_rotate(cub->player->rotation, 0.03f);
 }
 
 static void	player_position_update(t_cub *cub)
@@ -83,12 +83,12 @@ static t_fvector	new_position_calculate(t_cub *cub)
 	}
 	if (is_key_pressed(KEY_D, cub))
 	{
-		rotation = fvector_rotate(rotation, -M_PI_2);
+		rotation = fvector_rotate(rotation, M_PI_2);
 		new_pos = fvector_add(new_pos, fvector_mul(rotation, PLAYER_MOVE));
 	}
 	if (is_key_pressed(KEY_A, cub))
 	{
-		rotation = fvector_rotate(rotation, M_PI_2);
+		rotation = fvector_rotate(rotation, -M_PI_2);
 		new_pos = fvector_add(new_pos, fvector_mul(rotation, PLAYER_MOVE));
 	}
 	return (new_pos);

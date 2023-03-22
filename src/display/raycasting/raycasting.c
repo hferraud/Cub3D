@@ -13,7 +13,6 @@
 #include "player.h"
 
 static t_ray	ray_init(t_cub *cub, t_fvector ray_dir);
-//static void		ray_next_chunk(t_ray *ray);
 
 t_ray   ray_cast(t_cub *cub, t_fvector ray_dir)
 {
@@ -24,51 +23,33 @@ t_ray   ray_cast(t_cub *cub, t_fvector ray_dir)
 	map_index = vector_init((int) cub->player->pos.x, (int) cub->player->pos.y);
 	while (cub->map->map[map_index.y][map_index.x] == FLOOR)
 	{
-//		ray_next_chunk(&ray);
-		if (ray.chunk_length.x < ray.chunk_length.y)
+		if (ray.ray.x < ray.ray.y)
 		{
-			ray.ray.x += ray.chunk_length.x;
-			map_index.x += ray.step.x;
+            map_index.x += ray.step.x;
+			ray.ray.x += ray.unit_step.x;
+            if (ray.step.x == 1)
+                ray.wall_face = WEST;
+            else
+                ray.wall_face = EAST;
 		}
 		else
 		{
-			ray.ray.y += ray.chunk_length.y;
-			map_index.y += ray.step.y;
+            map_index.y += ray.step.y;
+			ray.ray.y += ray.unit_step.y;
+            if (ray.step.y == 1)
+                ray.wall_face = NORTH;
+            else
+                ray.wall_face = SOUTH;
 		}
-	}
-	if (ray.chunk_length.x < ray.chunk_length.y)
-	{
-		if (ray.step.x == 1)
-			ray.wall_face = WEST;
-		else
-			ray.wall_face = EAST;
-	}
-	else
-	{
-		if (ray.step.y == 1)
-			ray.wall_face = NORTH;
-		else
-			ray.wall_face = SOUTH;
 	}
 	if (ray.wall_face == WEST || ray.wall_face == EAST)
-		ray.length = ray.ray.x - ray.chunk_length.x;
+		ray.length = ray.ray.x - ray.unit_step.x;
 	else
-		ray.length = ray.ray.y - ray.chunk_length.y;
-	printf("length: %f\n", ray.length);
+		ray.length = ray.ray.y - ray.unit_step.y;
+    ray.pos.x = fabsf(cub->player->pos.x + ray.ray.x * ray.step.x);
+    ray.pos.y = fabsf(cub->player->pos.y + ray.ray.y * ray.step.y);
 	return (ray);
 }
-
-//static void	ray_next_chunk(t_ray *ray)
-//{
-//	if (ray->step.x == 1)
-//		ray->chunk_length.x = (floorf(ray->pos.x + 1) - ray->pos.x) * ray->unit_step.x;
-//	else
-//		ray->chunk_length.x = (ray->pos.x - ceilf(ray->pos.x - 1)) * ray->unit_step.x;
-//	if (ray->step.y == 1)
-//		ray->chunk_length.y = (floorf(ray->pos.y + 1) - ray->pos.y) * ray->unit_step.y;
-//	else
-//		ray->chunk_length.y = (ray->pos.y - ceilf(ray->pos.y - 1)) * ray->unit_step.y;
-//}
 
 static t_ray	ray_init(t_cub *cub, t_fvector ray_dir)
 {
@@ -81,22 +62,22 @@ static t_ray	ray_init(t_cub *cub, t_fvector ray_dir)
 	if (ray_dir.x > 0)
 	{
 		ray.step.x = 1;
-		ray.chunk_length.x = ((int) ray.pos.x + 1 - ray.pos.x) * ray.unit_step.x;
+		ray.ray.x = ((int) ray.pos.x + 1 - ray.pos.x) * ray.unit_step.x;
 	}
 	else
 	{
 		ray.step.x = -1;
-		ray.chunk_length.x = (ray.pos.x - (int) ray.pos.x) * ray.unit_step.x;
+		ray.ray.x = (ray.pos.x - (int) ray.pos.x) * ray.unit_step.x;
 	}
 	if (ray_dir.y > 0)
 	{
 		ray.step.y = 1;
-		ray.chunk_length.y = ((int) ray.pos.y + 1 - ray.pos.y) * ray.unit_step.y;
+		ray.ray.y = ((int) ray.pos.y + 1 - ray.pos.y) * ray.unit_step.y;
 	}
 	else
 	{
 		ray.step.y = -1;
-		ray.chunk_length.y = ( ray.pos.y - (int) ray.pos.y) * ray.unit_step.y;
+		ray.ray.y = ( ray.pos.y - (int) ray.pos.y) * ray.unit_step.y;
 	}
 	return (ray);
 }

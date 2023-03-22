@@ -22,12 +22,13 @@ t_matrix	matrix_rotation(float theta)
 	return (matrix);
 }
 
-t_fvector	fvector_rotate(t_fvector fvector, float theta)
+t_fvector	fvector_rotate(t_fvector vector, float theta)
 {
 	t_matrix	matrix;
+	t_fvector	res;
 
 	matrix = matrix_rotation(theta);
-	fvector.x = matrix.m[0][0] * fvector.x + matrix.m[0][1] * fvector.y;
-	fvector.y = matrix.m[1][0] * fvector.x + matrix.m[1][1] * fvector.y;
-	return (fvector);
+	res.x = matrix.m[0][0] * vector.x + matrix.m[0][1] * vector.y;
+	res.y = matrix.m[1][0] * vector.x + matrix.m[1][1] * vector.y;
+	return (res);
 }
