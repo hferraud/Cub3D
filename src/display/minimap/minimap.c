@@ -13,8 +13,8 @@
 #include "raycasting.h"
 
 static void	draw_player(t_cub *cub, int wall_width);
-static void draw_player_rotation(t_cub *cub, int wall_width);
-static void draw_player_fov(t_cub *cub, int wall_width);
+//static void draw_player_rotation(t_cub *cub, int wall_width);
+//static void draw_player_fov(t_cub *cub, int wall_width);
 
 void	draw_minimap(t_cub *cub)
 {
@@ -63,36 +63,36 @@ static void	draw_player(t_cub *cub, int wall_width)
 								  (cub->player->pos.y - PLAYER_OFFSET) * wall_width), wall_width * 2 * PLAYER_OFFSET, 0x779bf7);
 	//draw_player_view(cub, 90, wall_width);
 	draw_rectangle(&cub->mlx_data->img_data, square);
-	draw_player_rotation(cub, wall_width);
-	draw_player_fov(cub, wall_width);
+//	draw_player_rotation(cub, wall_width);
+//	draw_player_fov(cub, wall_width);
 }
 
-static void draw_player_rotation(t_cub *cub, int wall_width)
-{
-	t_point	p_rot;
-	t_point	p_pos;
+//static void draw_player_rotation(t_cub *cub, int wall_width)
+//{
+//	t_point	p_rot;
+//	t_point	p_pos;
+//
+//	(void) wall_width;
+//	p_rot.x = cub->player->pos.x * wall_width + cosf(cub->player->rotation) * wall_width;
+//	p_rot.y = cub->player->pos.y * wall_width + sinf(cub->player->rotation) * wall_width;
+//	p_pos.x = cub->player->pos.x * wall_width;
+//	p_pos.y = cub->player->pos.y * wall_width;
+//	draw_line(&cub->mlx_data->img_data, p_pos, p_rot, 0x222222);
+//}
 
-	(void) wall_width;
-	p_rot.x = cub->player->pos.x * wall_width + cosf(cub->player->rotation) * wall_width;
-	p_rot.y = cub->player->pos.y * wall_width + sinf(cub->player->rotation) * wall_width;
-	p_pos.x = cub->player->pos.x * wall_width;
-	p_pos.y = cub->player->pos.y * wall_width;
-	draw_line(&cub->mlx_data->img_data, p_pos, p_rot, 0x222222);
-}
 
-
-static void draw_player_fov(t_cub *cub, int wall_width)
-{
-	t_point	p_fovr;
-	t_point	p_fovl;
-	t_point	p_pos;
-
-	p_pos.x = cub->player->pos.x * wall_width;
-	p_pos.y = cub->player->pos.y * wall_width;
-	p_fovr.x = p_pos.x + cosf(cub->player->rotation + PLAYER_FOV / 2) * wall_width;
-	p_fovr.y = p_pos.y + sinf(cub->player->rotation + PLAYER_FOV / 2) * wall_width;
-	p_fovl.x = p_pos.x + cosf(cub->player->rotation - PLAYER_FOV / 2) * wall_width;
-	p_fovl.y = p_pos.y + sinf(cub->player->rotation - PLAYER_FOV / 2) * wall_width;
-	draw_line(&cub->mlx_data->img_data, p_pos, p_fovr, 0xFFFFFF);
-	draw_line(&cub->mlx_data->img_data, p_pos, p_fovl, 0xFFFFFF);
-}
+//static void draw_player_fov(t_cub *cub, int wall_width)
+//{
+//	t_point	p_fovr;
+//	t_point	p_fovl;
+//	t_point	p_pos;
+//
+//	p_pos.x = cub->player->pos.x * wall_width;
+//	p_pos.y = cub->player->pos.y * wall_width;
+//	p_fovr.x = p_pos.x + cosf(cub->player->rotation + PLAYER_FOV / 2) * wall_width;
+//	p_fovr.y = p_pos.y + sinf(cub->player->rotation + PLAYER_FOV / 2) * wall_width;
+//	p_fovl.x = p_pos.x + cosf(cub->player->rotation - PLAYER_FOV / 2) * wall_width;
+//	p_fovl.y = p_pos.y + sinf(cub->player->rotation - PLAYER_FOV / 2) * wall_width;
+//	draw_line(&cub->mlx_data->img_data, p_pos, p_fovr, 0xFFFFFF);
+//	draw_line(&cub->mlx_data->img_data, p_pos, p_fovl, 0xFFFFFF);
+//}

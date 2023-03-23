@@ -19,12 +19,12 @@ void	player_pos_init(t_cub *cub)
 {
 	cub->player->pos.x = (float)(cub->map->spawn.x + 0.5);
 	cub->player->pos.y = (float)(cub->map->spawn.y + 0.5);
-	if (cub->map->spawn.orientation == 'S')
-		cub->player->rotation = M_PI_2;
-	else if (cub->map->spawn.orientation == 'N')
-		cub->player->rotation = M_PI_2 * 3;
+	if (cub->map->spawn.orientation == 'N')
+		cub->player->rotation = fvector_init(0, 1);
+	else if (cub->map->spawn.orientation == 'S')
+		cub->player->rotation = fvector_init(0, -1);
 	else if (cub->map->spawn.orientation == 'E')
-		cub->player->rotation = 0;
+		cub->player->rotation = fvector_init(1, 0);
 	else
-		cub->player->rotation = M_PI;
+		cub->player->rotation = fvector_init(-1, 0);
 }

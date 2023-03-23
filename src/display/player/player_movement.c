@@ -12,10 +12,10 @@
 #include "hook.h"
 #include "player.h"
 
-static void		player_rotation_update(t_cub *cub);
-static void		player_position_update(t_cub *cub);
-static t_pos	new_position_calculate(t_cub *cub);
-static int		is_valid_position(t_cub *cub, float x, float y);
+static void			player_rotation_update(t_cub *cub);
+static void			player_position_update(t_cub *cub);
+static t_fvector	new_position_calculate(t_cub *cub);
+static int			is_valid_position(t_cub *cub, float x, float y);
 
 /**
  * @brief Update the position and rotation of the player
@@ -29,13 +29,9 @@ void	player_update(t_cub *cub)
 static void	player_rotation_update(t_cub *cub)
 {
 	if (is_key_pressed(KEY_LEFT, cub))
-		cub->player->rotation -= (float) PLAYER_ROTATION;
+		cub->player->rotation = fvector_rotate(cub->player->rotation, -0.03f);
 	if (is_key_pressed(KEY_RIGHT, cub))
-		cub->player->rotation += (float) PLAYER_ROTATION;
-	if (cub->player->rotation > (2 * M_PI))
-		cub->player->rotation -= (float) (2 * M_PI);
-	else if (cub->player->rotation < 0)
-		cub->player->rotation += 2 * M_PI;
+		cub->player->rotation = fvector_rotate(cub->player->rotation, 0.03f);
 }
 
 /**
@@ -44,8 +40,8 @@ static void	player_rotation_update(t_cub *cub)
 static void	player_position_update(t_cub *cub)
 {
 	t_player	*player;
-	t_pos		new_pos;
-	char 		**map;
+	t_fvector	new_pos;
+	char		**map;
 
 	player = cub->player;
 	map = cub->map->map;
@@ -77,33 +73,29 @@ static void	player_position_update(t_cub *cub)
 	}
 }
 
-static t_pos	new_position_calculate(t_cub *cub)
+static t_fvector	new_position_calculate(t_cub *cub)
 {
-	t_player	*player;
-	t_pos	new_pos;
+	t_fvector	new_pos;
+	t_fvector	rotation;
 
-	player = cub->player;
-	new_pos.x = player->pos.x;
-	new_pos.y = player->pos.y;
+	new_pos = cub->player->pos;
+	rotation = cub->player->rotation;
+	if (is_key_pressed(KEY_W, cub))
+		new_pos = fvector_add(new_pos, fvector_mul(rotation, PLAYER_MOVE));
 	if (is_key_pressed(KEY_S, cub))
 	{
-		new_pos.x -= cosf(player->rotation) * PLAYER_MOVE;
-		new_pos.y -= sinf(player->rotation) * PLAYER_MOVE;
-	}
-	if (is_key_pressed(KEY_W, cub))
-	{
-		new_pos.x += cosf(player->rotation) * PLAYER_MOVE;
-		new_pos.y += sinf(player->rotation) * PLAYER_MOVE;
+		rotation = fvector_rotate(rotation, M_PI);
+		new_pos = fvector_add(new_pos, fvector_mul(rotation, PLAYER_MOVE));
 	}
 	if (is_key_pressed(KEY_D, cub))
 	{
-		new_pos.x += cosf(player->rotation + M_PI_2) * PLAYER_MOVE;
-		new_pos.y += sinf(player->rotation + M_PI_2) * PLAYER_MOVE;
+		rotation = fvector_rotate(rotation, M_PI_2);
+		new_pos = fvector_add(new_pos, fvector_mul(rotation, PLAYER_MOVE));
 	}
 	if (is_key_pressed(KEY_A, cub))
 	{
-		new_pos.x += cosf(player->rotation - M_PI_2) * PLAYER_MOVE;
-		new_pos.y += sinf(player->rotation - M_PI_2) * PLAYER_MOVE;
+		rotation = fvector_rotate(rotation, -M_PI_2);
+		new_pos = fvector_add(new_pos, fvector_mul(rotation, PLAYER_MOVE));
 	}
 	return (new_pos);
 }
