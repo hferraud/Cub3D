@@ -56,7 +56,7 @@ static void	player_position_update(t_cub *cub)
 		{
 			player->pos.y = new_pos.y;
 			if (new_pos.x > player->pos.x)
-				player->pos.x =	1. - UNCERTAINTY - PLAYER_OFFSET + ((int) player->pos.x);
+				player->pos.x =	1.f - UNCERTAINTY - PLAYER_OFFSET + ((int) player->pos.x);
 			else
 				player->pos.x =	PLAYER_OFFSET + UNCERTAINTY + ((int) player->pos.x);
 		}
@@ -66,7 +66,7 @@ static void	player_position_update(t_cub *cub)
 		{
 			player->pos.x = new_pos.x;
 			if (new_pos.y > player->pos.y)
-				player->pos.y =	1. - UNCERTAINTY - PLAYER_OFFSET + ((int) player->pos.y);
+				player->pos.y =	1.f - UNCERTAINTY - PLAYER_OFFSET + ((int) player->pos.y);
 			else
 				player->pos.y =	PLAYER_OFFSET + UNCERTAINTY + ((int) player->pos.y);
 		}
@@ -84,8 +84,7 @@ static t_fvector	new_position_calculate(t_cub *cub)
 		new_pos = fvector_add(new_pos, fvector_mul(rotation, PLAYER_MOVE));
 	if (is_key_pressed(KEY_S, cub))
 	{
-		rotation = fvector_rotate(rotation, M_PI);
-		new_pos = fvector_add(new_pos, fvector_mul(rotation, PLAYER_MOVE));
+		new_pos = fvector_sub(new_pos, fvector_mul(rotation, PLAYER_MOVE));
 	}
 	if (is_key_pressed(KEY_D, cub))
 	{

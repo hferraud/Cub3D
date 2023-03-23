@@ -24,9 +24,6 @@ void	draw_rectangle(t_img_data *img_data, t_rectangle rectangle)
 	int		height;
 	char	*dst;
 
-	if (!is_valid_point(rectangle.start)
-		|| !is_valid_point(rectangle.end))
-		return ;
 	column = rectangle.start.x;
 	dst = img_data->addr + (rectangle.start.y * img_data->line_length
 			+ (rectangle.start.x) * (img_data->bit_ratio));
