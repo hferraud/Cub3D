@@ -23,9 +23,12 @@ void	draw_player_view(t_cub *cub, float fov)
 	x = 0;
 	theta = PLAYER_FOV / -2.f;
 	theta_max = PLAYER_FOV / 2.f;
+	printf("\n\n\n\n");
+	yaw = fvector_rotate(cub->player->rotation, theta);
 	while (theta < theta_max)
 	{
-		yaw = fvector_rotate(cub->player->rotation, theta);
+		yaw = fvector_rotate(yaw, step);
+//		printf("yaw: %f %f\n", yaw.x, yaw.y);
 		draw_wall(cub, x, ray_cast(cub, yaw));
 		theta += step;
 		x++;

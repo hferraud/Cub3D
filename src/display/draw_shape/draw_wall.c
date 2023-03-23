@@ -43,6 +43,7 @@ static void	draw_wall_band(t_cub *cub, t_ray ray, int screen_x, int start_y, int
 
 	wall_sprite = cub->mlx_data->wall[ray.wall_face];
 	wall_offset.y = 0;
+//	printf("\nscreen x: %d\n", screen_x);
 //    printf("map: %zu %zu\n", cub->map->width, cub->map->height);
 //    printf("player pos: %f %f\n", cub->player->pos.x, cub->player->pos.y);
 //    printf("ray pos: %f %f\n", ray.pos.x, ray.pos.y);

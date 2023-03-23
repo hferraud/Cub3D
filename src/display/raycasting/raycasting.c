@@ -43,11 +43,15 @@ t_ray   ray_cast(t_cub *cub, t_fvector ray_dir)
 		}
 	}
 	if (ray.wall_face == WEST || ray.wall_face == EAST)
+	{
 		ray.length = ray.ray.x - ray.unit_step.x;
+		ray.pos.y = cub->player->pos.y + ray.length * ray_dir.y;
+	}
 	else
+	{
 		ray.length = ray.ray.y - ray.unit_step.y;
-    ray.pos.x = fabsf(cub->player->pos.x + ray.ray.x * ray.step.x);
-    ray.pos.y = fabsf(cub->player->pos.y + ray.ray.y * ray.step.y);
+		ray.pos.x = cub->player->pos.x + ray.length * ray_dir.x;
+	}
 	return (ray);
 }
 
@@ -79,5 +83,6 @@ static t_ray	ray_init(t_cub *cub, t_fvector ray_dir)
 		ray.step.y = -1;
 		ray.ray.y = ( ray.pos.y - (int) ray.pos.y) * ray.unit_step.y;
 	}
+//	printf("ray unit step: %f %f\n",ray.unit_step.x, ray.unit_step.y);
 	return (ray);
 }
