@@ -1,13 +1,13 @@
-NO map/texture/wall_texture.xpm
-SO map/texture/wall_texture.xpm
-EA map/texture/wall_texture.xpm
-WE map/texture/wall_texture.xpm
+NO map/texture/test.xpm
+SO map/texture/test.xpm
+EA map/texture/test.xpm
+WE map/texture/test.xpm
 F 220,100,20
 C 225,253,0
         1111111111111111111111111
         1000000000110000000000001
         1011000001110001000010001
-        10010000000000000000000E1
+        10010000000000000000000W1
 111111111011000001110000000000001
 100000000011000001110111111111111
 11110111111111011100000010001

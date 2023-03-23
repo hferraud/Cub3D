@@ -14,23 +14,19 @@
 
 void	draw_player_view(t_cub *cub, float fov)
 {
-	const float	step = fov / WIN_WIDTH;
-	t_fvector	yaw;
-	float		theta;
-	float		theta_max;
-	int			x;
+	t_fvector	ray_dir;
+	t_fvector	camera_plane;
+	int			screen_x;
+	float		camera_x;
 
-	x = 0;
-	theta = PLAYER_FOV / -2.f;
-	theta_max = PLAYER_FOV / 2.f;
-	printf("\n\n\n\n");
-	yaw = fvector_rotate(cub->player->rotation, theta);
-	while (theta < theta_max)
+	(void) fov;
+	camera_plane = fvector_rotate(cub->player->rotation, M_PI_2);
+	screen_x = 0;
+	while (screen_x < WIN_WIDTH)
 	{
-		yaw = fvector_rotate(yaw, step);
-//		printf("yaw: %f %f\n", yaw.x, yaw.y);
-		draw_wall(cub, x, ray_cast(cub, yaw));
-		theta += step;
-		x++;
+		camera_x = 2.f * screen_x / (float) WIN_WIDTH - 1;
+		ray_dir = fvector_add(cub->player->rotation, fvector_mul(camera_plane, camera_x));
+		draw_wall(cub, screen_x, ray_cast(cub, ray_dir));
+		screen_x++;
 	}
 }

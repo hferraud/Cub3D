@@ -25,11 +25,7 @@ void	draw_wall(t_cub *cub, int x, t_ray ray)
 	dist = ray.length;
 	line_height = WIN_HEIGHT / dist;
 	draw_start = -line_height / 2 + WIN_HEIGHT / 2;
-	if (draw_start < 0)
-		draw_start = 0;
 	draw_end = line_height / 2 + WIN_HEIGHT / 2;
-	if (draw_end >= WIN_HEIGHT)
-		draw_end = WIN_HEIGHT;
 	draw_wall_band(cub, ray, x, draw_start, draw_end);
 }
 
@@ -53,7 +49,9 @@ static void	draw_wall_band(t_cub *cub, t_ray ray, int screen_x, int start_y, int
 		wall_offset.x = (ray.pos.y - (int) ray.pos.y) * wall_sprite.width;
 	display_height = end_y - start_y;
 	screen_y = start_y;
-	while (screen_y < end_y)
+	if (screen_y < 0)
+		screen_y = 0;
+	while (screen_y < WIN_HEIGHT && screen_y < end_y)
 	{
 		wall_offset.y = ((screen_y - start_y) / display_height) * wall_sprite.height;
 		color = mlx_get_color(wall_sprite, wall_offset.x, wall_offset.y);
