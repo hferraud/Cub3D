@@ -50,6 +50,7 @@ static void	player_position_update(t_cub *cub)
 		player->pos = new_pos;
 	else
 	{
+        cub_exit(cub);
 		if (map[(int)(new_pos.y - PLAYER_OFFSET)][(int) new_pos.x] == FLOOR
 			&& map[(int)(new_pos.y + PLAYER_OFFSET)][(int) new_pos.x] == FLOOR
 			&& is_valid_position(cub, player->pos.x, new_pos.y))
@@ -80,7 +81,7 @@ static t_fvector	new_position_calculate(t_cub *cub)
 
 	new_pos = cub->player->pos;
 	rotation = cub->player->rotation;
-	if (is_key_pressed(KEY_W, cub))
+	if (!is_key_pressed(KEY_W, cub))
 		new_pos = fvector_add(new_pos, fvector_mul(rotation, PLAYER_MOVE));
 	if (is_key_pressed(KEY_S, cub))
 	{
