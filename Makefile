@@ -1,5 +1,7 @@
 NAME		=		cub3D
 
+NAME_BONUS	=		cub3D_online
+
 #######################
 #	DIR
 #######################
@@ -76,7 +78,13 @@ SRC			=		main.c	\
 
 OBJ			=		$(addprefix $(BUILD_DIR), $(SRC:.c=.o))
 
-DEPS		=		$(addprefix $(BUILD_DIR), $(SRC:.c=.d))
+SRC_BONUS	=		bonus/server.c	\
+					\
+
+OBJ_BONUS	=		$(addprefix $(BUILD_DIR), $(SRC_BONUS:.c=.o))
+
+DEPS		=		$(addprefix $(BUILD_DIR), $(SRC:.c=.d))			\
+					$(addprefix $(BUILD_DIR), $(SRC_BONUS:.c=.d))	\
 
 #######################
 #	FLAGS
@@ -103,6 +111,9 @@ all:				$(NAME)
 
 $(NAME):			$(LIBFT) $(MLX) $(OBJ)
 					$(CC) $(CFLAGS) $(OBJ) $(LFLAGS) $(MLX_FLAGS) -o $@
+
+bonus:				$(LIBFT) $(MLX) $(OBJ_BONUS)
+					$(CC) $(CFLAGS) $(OBJ_BONUS) $(LFLAGS) $(MLX_FLAGS) -o $(NAME_BONUS)
 
 $(LIBFT):			FORCE
 					$(MAKE) -C $(LIBFT_DIR)
