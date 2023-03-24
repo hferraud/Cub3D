@@ -52,17 +52,13 @@ static void	mlx_get_wall_stripe(t_cub *cub, t_sprite wall_sprite, int texture_x,
 	float	step;
 
 	wall_height = screen_end_y - screen_start_y;
-	step = wall_height / (float) wall_sprite.height;
+	step = (float) wall_sprite.height / wall_height;
 	if (screen_start_y < 0)
 		screen_start_y = 0;
-	if (screen_end_y > WIN_HEIGHT)
-		screen_end_y = WIN_HEIGHT;
 	screen_y = screen_start_y;
-	printf("texture height: %d\n", wall_sprite.height);
-	while (screen_y < screen_end_y)
+	while (screen_y < WIN_HEIGHT && screen_y < screen_end_y)
 	{
-		texture_y = (int) (screen_y * step + 0.5f);
-		printf("texture: %d %d\n", texture_x, texture_y);
+		texture_y = (screen_end_y - screen_y) * step;
 		color = mlx_get_color(wall_sprite, texture_x, texture_y);
 		mlx_put_pixel(&cub->mlx_data->img_data, screen_x, screen_y, color);
 		screen_y++;
