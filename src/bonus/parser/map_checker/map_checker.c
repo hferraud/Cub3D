@@ -14,7 +14,7 @@
 static int	is_valid_extremum(char *line);
 static int	is_valid_line(char **map, size_t line);
 static int	is_valid_cell(char c);
-static void	map_error(size_t line, size_t column);
+static int	is_non_wall_cell(char c);
 
 /**
  * @brief Check if the map is surrounded by walls.
@@ -43,12 +43,12 @@ static int	is_valid_line(char **map, size_t line)
 {
 	size_t	column;
 
-	if (map[line][0] == FLOOR)
+	if (is_non_wall_cell(map[line][0]))
 		return (0);
 	column = 1;
 	while (map[line][column])
 	{
-		if (map[line][column] == FLOOR
+		if (is_non_wall_cell(map[line][column])
 			&& (!is_valid_cell(map[line][column -1])
 				|| !is_valid_cell(map[line][column + 1])
 				|| !is_valid_cell(map[line - 1][column])
@@ -66,7 +66,7 @@ static int	is_valid_extremum(char *line)
 	index = 0;
 	while (line[index])
 	{
-		if (line[index] == FLOOR)
+		if (is_non_wall_cell(line[index]))
 			return (map_error(0, index + 1), 0);
 		index++;
 	}
@@ -75,14 +75,12 @@ static int	is_valid_extremum(char *line)
 
 static int	is_valid_cell(char c)
 {
-	return (c == FLOOR || c == WALL);
+	return (c == FLOOR || c == WALL || c == DOOR_CLOSE || c == DOOR_OPEN
+		|| c == LIFE_PACK || c == AMMO || c == PISTOL || c == ASSAULT_RIFLE);
 }
 
-static void	map_error(size_t line, size_t column)
+static int	is_non_wall_cell(char c)
 {
-	ft_putstr_fd("Error\nMap error at ", STDERR_FILENO);
-	ft_putsize_t_fd(line, STDERR_FILENO);
-	ft_putstr_fd(", ", STDERR_FILENO);
-	ft_putsize_t_fd(column, STDERR_FILENO);
-	ft_putchar_fd('\n', STDERR_FILENO);
+	return (c == FLOOR || c == DOOR_CLOSE || c == DOOR_OPEN
+		|| c == LIFE_PACK || c == AMMO || c == PISTOL || c == ASSAULT_RIFLE);
 }

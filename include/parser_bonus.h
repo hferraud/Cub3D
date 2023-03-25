@@ -50,6 +50,7 @@ int		parse_map(int map_fd, t_map *map);
 
 int		get_spawn_position(t_map *map);
 int		is_valid_map(char **map);
+void	map_error(size_t line, size_t column);
 
 /* --- PARSER_UTILS FUNCTIONS --- */
 

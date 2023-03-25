@@ -94,6 +94,7 @@ SRC_SERVER	=		error.c	\
 						bonus/parser/parse_map/parse_map_utils.c	\
 						\
 						bonus/parser/map_checker/map_checker.c		\
+						bonus/parser/map_checker/map_error.c		\
 						bonus/parser/map_checker/get_spawn.c		\
 						\
 					\

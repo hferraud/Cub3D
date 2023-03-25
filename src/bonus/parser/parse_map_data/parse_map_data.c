@@ -62,8 +62,8 @@ static t_content_type	get_content_type(const char *line)
 {
 	int						i;
 	int						j;
-	const char				*content_id[] = {"NO", "SO", "WE", "EA", "F", "C", "D",
-		NULL};
+	const char				*content_id[] = {"NO", "SO", "WE", "EA", "F", "C",
+		"D", NULL};
 	const t_content_type	content_type[]
 		= {NORTH_ID, SOUTH_ID, WEST_ID, EAST_ID, FLOOR_ID, CEILING_ID, DOOR_ID};
 
