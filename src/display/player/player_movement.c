@@ -29,9 +29,9 @@ void	player_update(t_cub *cub)
 static void	player_rotation_update(t_cub *cub)
 {
 	if (is_key_pressed(KEY_LEFT, cub))
-		cub->player->rotation = fvector_rotate(cub->player->rotation, -0.03f);
+		cub->player->rotation = fvector_rotate(cub->player->rotation, -PLAYER_ROTATION);
 	if (is_key_pressed(KEY_RIGHT, cub))
-		cub->player->rotation = fvector_rotate(cub->player->rotation, 0.03f);
+		cub->player->rotation = fvector_rotate(cub->player->rotation, PLAYER_ROTATION);
 }
 
 /**
