@@ -1,6 +1,8 @@
 NAME		=		cub3D
 
-NAME_BONUS	=		cub3D_online
+SERVER		=		cub3D_server
+
+CLIENT		=		cub3D_client
 
 #######################
 #	DIR
@@ -78,13 +80,17 @@ SRC			=		main.c	\
 
 OBJ			=		$(addprefix $(BUILD_DIR), $(SRC:.c=.o))
 
-SRC_BONUS	=		bonus/server.c	\
-					\
+SRC_SERVER	=		bonus/server.c
 
-OBJ_BONUS	=		$(addprefix $(BUILD_DIR), $(SRC_BONUS:.c=.o))
+SRC_CLIENT	=		\
+
+OBJ_SERVER	=		$(addprefix $(BUILD_DIR), $(SRC_SERVER:.c=.o))
+
+OBJ_CLIENT	=		$(addprefix $(BUILD_DIR), $(SRC_CLIENT:.c=.o))
 
 DEPS		=		$(addprefix $(BUILD_DIR), $(SRC:.c=.d))			\
-					$(addprefix $(BUILD_DIR), $(SRC_BONUS:.c=.d))	\
+					$(addprefix $(BUILD_DIR), $(SRC_SERVER:.c=.d))	\
+					$(addprefix $(BUILD_DIR), $(SRC_CLIENT:.c=.d))	\
 
 #######################
 #	FLAGS
@@ -104,16 +110,64 @@ DFLAGS		=		-MMD -MP
 #	RULES
 #######################
 
+##################
+#	GENERAL
+##################
+
 .PHONY:				all
 all:				$(NAME)
+
+.PHONY:				bonus
+bonus:				$(SERVER) $(CLIENT)
+
+.PHONY:				server
+server:				$(SERVER)
+
+.PHONY:				client
+client:				$(CLIENT)
+
+.PHONY:				clean
+clean:
+					$(MAKE) clean -C $(LIBFT_DIR)
+					$(MAKE) clean -C $(MLX_DIR)
+					$(RM) $(MLX) $(OBJ) $(OBJ_SERVER) $(OBJ_CLIENT) $(DEPS)
+
+.PHONY:				fclean
+fclean:
+					$(MAKE) fclean -C $(LIBFT_DIR)
+					$(MAKE) clean -C $(MLX_DIR)
+					$(RM) $(MLX) $(OBJ) $(OBJ_SERVER) $(OBJ_CLIENT) $(DEPS) $(NAME) $(SERVER) $(CLIENT)
+
+.PHONY:				re
+re:					fclean
+					$(MAKE)
+
+##################
+#	EXECUTABLES
+##################
 
 -include			$(DEPS)
 
 $(NAME):			$(LIBFT) $(MLX) $(OBJ)
 					$(CC) $(CFLAGS) $(OBJ) $(LFLAGS) $(MLX_FLAGS) -o $@
 
-bonus:				$(LIBFT) $(MLX) $(OBJ_BONUS)
-					$(CC) $(CFLAGS) $(OBJ_BONUS) $(LFLAGS) $(MLX_FLAGS) -o $(NAME_BONUS)
+$(SERVER):			$(LIBFT) $(MLX) $(OBJ_SERVER)
+					$(CC) $(CFLAGS) $(OBJ_SERVER) $(LFLAGS) $(MLX_FLAGS) -o $@
+
+$(CLIENT):			$(LIBFT) $(MLX) $(OBJ_CLIENT)
+					$(CC) $(CFLAGS) $(OBJ_CLIENT) $(LFLAGS) $(MLX_FLAGS) -o $@
+
+##################
+#	OBJECTS FILES
+##################
+
+$(BUILD_DIR)%.o:	$(SRC_DIR)%.c
+					mkdir -p $(shell dirname $@)
+					$(CC) $(CFLAGS) $(DFLAGS) $(IFLAGS) -c $< -o $@
+
+############
+#	LIBRARY
+############
 
 $(LIBFT):			FORCE
 					$(MAKE) -C $(LIBFT_DIR)
@@ -123,23 +177,3 @@ $(MLX):				FORCE
 
 .PHONY:				FORCE
 FORCE:
-
-$(BUILD_DIR)%.o:	$(SRC_DIR)%.c
-					mkdir -p $(shell dirname $@)
-					$(CC) $(CFLAGS) $(DFLAGS) $(IFLAGS) -c $< -o $@
-
-.PHONY:				clean
-clean:
-					$(MAKE) clean -C $(LIBFT_DIR)
-					$(MAKE) clean -C $(MLX_DIR)
-					$(RM) $(OBJ) $(DEPS)
-
-.PHONY:				fclean
-fclean:
-					$(MAKE) fclean -C $(LIBFT_DIR)
-					$(MAKE) clean -C $(MLX_DIR)
-					$(RM) $(MLX) $(OBJ) $(DEPS) $(NAME)
-
-.PHONY:				re
-re:					fclean
-					$(MAKE)

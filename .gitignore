@@ -1,6 +1,8 @@
 .build
 .idea
 cub3D
+cub3D_server
+cub3D_client
 a.out
 cmake-build-debug
 *.o
