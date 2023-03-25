@@ -80,7 +80,23 @@ SRC			=		main.c	\
 
 OBJ			=		$(addprefix $(BUILD_DIR), $(SRC:.c=.o))
 
-SRC_SERVER	=		bonus/server.c
+SRC_SERVER	=		error.c	\
+					\
+					bonus/server.c	\
+					\
+						bonus/parser/parser.c		\
+						bonus/parser/parser_utils.c	\
+						\
+						bonus/parser/parse_map_data/parse_path.c				\
+						bonus/parser/parse_map_data/parse_map_data.c			\
+						\
+						bonus/parser/parse_map/parse_map.c			\
+						bonus/parser/parse_map/parse_map_utils.c	\
+						\
+						bonus/parser/map_checker/map_checker.c		\
+						bonus/parser/map_checker/get_spawn.c		\
+						\
+					\
 
 SRC_CLIENT	=		\
 
@@ -110,9 +126,9 @@ DFLAGS		=		-MMD -MP
 #	RULES
 #######################
 
-##################
+############
 #	GENERAL
-##################
+############
 
 .PHONY:				all
 all:				$(NAME)
@@ -142,9 +158,9 @@ fclean:
 re:					fclean
 					$(MAKE)
 
-##################
+################
 #	EXECUTABLES
-##################
+################
 
 -include			$(DEPS)
 

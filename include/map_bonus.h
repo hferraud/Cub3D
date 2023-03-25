@@ -14,6 +14,7 @@
 
 # include <sys/types.h>
 # include <stdlib.h>
+# include "libft.h"
 
 # define FLOOR			'0'
 # define WALL			'1'
@@ -44,14 +45,21 @@ enum e_wall
 	WEST	=	3
 };
 
+enum e_horizontal_plane
+{
+	P_FLOOR		=	0,
+	P_CEILING	=	1,
+};
+
 struct s_map
 {
 	char	**map;
 	size_t	height;
 	size_t	width;
-	t_spawn	spawn;
+	t_list	*spawn;
 	char	*wall_path[4];
-	char	*horizontal_plane[2];
+	char	*horizontal_plane_path[2];
+	char	*door_path;
 };
 
 #endif
