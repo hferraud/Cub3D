@@ -82,21 +82,21 @@ OBJ			=		$(addprefix $(BUILD_DIR), $(SRC:.c=.o))
 
 SRC_SERVER	=		error.c	\
 					\
-					bonus/server.c	\
+						bonus/server/server.c	\
 					\
-						bonus/parser/parser.c		\
-						bonus/parser/parser_utils.c	\
-						\
-						bonus/parser/parse_map_data/parse_path.c				\
-						bonus/parser/parse_map_data/parse_map_data.c			\
-						\
-						bonus/parser/parse_map/parse_map.c			\
-						bonus/parser/parse_map/parse_map_utils.c	\
-						\
-						bonus/parser/map_checker/map_checker.c		\
-						bonus/parser/map_checker/map_error.c		\
-						bonus/parser/map_checker/get_spawn.c		\
-						\
+							bonus/server/parser/parser.c		\
+							bonus/server/parser/parser_utils.c	\
+							\
+							bonus/server/parser/parse_map_data/parse_path.c				\
+							bonus/server/parser/parse_map_data/parse_map_data.c			\
+							\
+							bonus/server/parser/parse_map/parse_map.c			\
+							bonus/server/parser/parse_map/parse_map_utils.c	\
+							\
+							bonus/server/parser/map_checker/map_checker.c		\
+							bonus/server/parser/map_checker/map_error.c		\
+							bonus/server/parser/map_checker/get_spawn.c		\
+							\
 					\
 
 SRC_CLIENT	=		\
