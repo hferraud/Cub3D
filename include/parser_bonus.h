@@ -42,7 +42,7 @@ enum e_content_type
 
 /* --- PARSER FUNCTION --- */
 
-int		parser(int argc, char **argv, t_map *map);
+int		parser(char **argv, t_map *map);
 int		parse_map_data(int map_fd, t_map *map);
 int		parse_map(int map_fd, t_map *map);
 

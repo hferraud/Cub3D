@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "parser_bonus.h"
+#include "socket_server.h"
 
 static void	print_t_map(t_map map);
 static void	print_map(t_map map);
@@ -18,12 +19,26 @@ static void	print_spawn(t_list *head);
 int	main(int argc, char **argv)
 {
 	t_map	map;
+	int		port;
+	int		socket_fd;
 
-	if (parser(argc, argv, &map) == -1)
+	if (argc != 4)
+		return (cub_error("./cub3D_server map.cub ip port\n"));
+	if (parser(argv, &map) == -1)
 		return (2);
-	//TODO: Add parse port for the server
 	print_t_map(map);
+	port = port_get(argv[3]);
+	if (port == -1)
+	{
+		map_data_clear(&map);
+		cub_error("Invalid port\n");
+		return (EINVAL);
+	}
+	socket_fd = socket_init(argv[2], argv[3]);
+	if (socket_fd == -1)
+		return (map_data_clear(&map), 1);
 	map_data_clear(&map);
+	close(socket_fd);
 }
 
 static void	print_t_map(t_map map)

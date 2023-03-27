@@ -98,6 +98,9 @@ SRC_SERVER	=		error.c	\
 							bonus/server/parser/map_checker/get_spawn.c		\
 							\
 					\
+							bonus/server/socket/socket_init.c	\
+							bonus/server/socket/port_get.c	\
+					\
 
 SRC_CLIENT	=		\
 

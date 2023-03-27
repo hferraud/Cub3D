@@ -15,14 +15,10 @@
  * @brief Parse the map file
  * @return Return 0 on success, -1 otherwise
  */
-int	parser(int argc, char **argv, t_map *map)
+int	parser(char **argv, t_map *map)
 {
 	int		map_fd;
 
-	if (argc < 2)
-		return (cub_error("Too few argument\n"));
-	else if (argc > 2)
-		return (cub_error("Too many argument\n"));
 	if (!is_valid_filename(argv[1]))
 		return (cub_error("Invalid filename\n"));
 	map_fd = open(argv[1], O_RDONLY);
