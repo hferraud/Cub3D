@@ -12,8 +12,12 @@
 #ifndef SOCKET_SERVER_H
 # define SOCKET_SERVER_H
 
+# include <ifaddrs.h>
+# include <netdb.h>
 # include "socket_bonus.h"
 
-int	socket_init(const char *ip, const char *ascii_port);
+typedef struct ifaddrs	t_ifaddrs;
+
+int	socket_init(const char *ascii_port, int n);
 
 #endif

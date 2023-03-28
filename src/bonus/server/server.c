@@ -22,19 +22,19 @@ int	main(int argc, char **argv)
 	int		port;
 	int		socket_fd;
 
-	if (argc != 4)
-		return (cub_error("./cub3D_server map.cub ip port\n"));
+	if (argc != 3)
+		return (cub_error("./cub3D_server map.cub port\n"));
 	if (parser(argv, &map) == -1)
 		return (2);
 	print_t_map(map);
-	port = port_get(argv[3]);
+	port = port_get(argv[2]);
 	if (port == -1)
 	{
 		map_data_clear(&map);
 		cub_error("Invalid port\n");
 		return (EINVAL);
 	}
-	socket_fd = socket_init(argv[2], argv[3]);
+	socket_fd = socket_init(argv[2], ft_lstsize(map.spawn));
 	if (socket_fd == -1)
 		return (map_data_clear(&map), 1);
 	map_data_clear(&map);

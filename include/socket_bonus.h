@@ -17,6 +17,7 @@
 # include <netinet/in.h>
 # include <arpa/inet.h>
 # include <unistd.h>
+# include <errno.h>
 # include "error.h"
 
 typedef struct sockaddr_in	t_sockaddr_in;
