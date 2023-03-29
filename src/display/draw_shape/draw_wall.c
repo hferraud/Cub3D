@@ -49,7 +49,7 @@ static void	draw_wall_band(t_cub *cub, t_ray ray, int screen_x, int start_y, int
 	mlx_put_wall_stripe(cub, stripe, screen_pos, end_y);
 }
 
-static void mlx_get_wall_stripe(int stripe[WIN_HEIGHT], t_sprite wall_sprite, t_vector texture_pos, t_vector screen_pos, int screen_start_y, int screen_end_y)
+static void mlx_get_wall_stripe(int *stripe, t_sprite wall_sprite, t_vector texture_pos, t_vector screen_pos, int screen_start_y, int screen_end_y)
 {
 	int		wall_height;
 	int		i;
