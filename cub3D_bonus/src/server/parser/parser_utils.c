@@ -13,9 +13,7 @@
 
 void	init_map_data(t_map *map)
 {
-	ft_bzero(map->wall_path, sizeof (char *) * 4);
-	ft_bzero(map->horizontal_plane_path, sizeof (char *) * 2);
-	map->door_path = NULL;
+	ft_bzero(map->path, sizeof (char *) * 7);
 	map->spawn = NULL;
 	map->map = NULL;
 }
@@ -32,12 +30,13 @@ int	is_valid_filename(char *filename)
 
 void	map_data_clear(t_map *map)
 {
-	free(map->wall_path[NORTH]);
-	free(map->wall_path[SOUTH]);
-	free(map->wall_path[EAST]);
-	free(map->wall_path[WEST]);
-	free(map->horizontal_plane_path[P_FLOOR]);
-	free(map->horizontal_plane_path[P_CEILING]);
+	free(map->path[NORTH_ID]);
+	free(map->path[SOUTH_ID]);
+	free(map->path[EAST_ID]);
+	free(map->path[WEST_ID]);
+	free(map->path[FLOOR_ID]);
+	free(map->path[CEILING_ID]);
+	free(map->path[DOOR_ID]);
 	ft_lstclear(&map->spawn, free);
 	if (map->map)
 		free_string_array(map->map);

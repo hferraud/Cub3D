@@ -170,4 +170,4 @@ add_executable(Cub3D
         minilibx/mlx_screen_size.c
         minilibx/mlx_set_font.c
         minilibx/mlx_string_put.c
-        minilibx/mlx_xpm.c cub3D_bonus/src/client/socket/socket_init.c cub3D_bonus/src/client/socket/socket_init.c cub3D_bonus/src/server/socket/client_accept.c)
+        minilibx/mlx_xpm.c cub3D_bonus/src/client/socket/socket_init.c cub3D_bonus/src/client/socket/socket_init.c cub3D_bonus/src/server/socket/client_accept.c cub3D_bonus/include/cub.h)

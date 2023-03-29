@@ -17,7 +17,7 @@ static int	set_path(char **sprite, char *sprite_path);
  * @brief Get the path associated with a wall texture and add it to map struct
  * @return 0 on success, -1 otherwise
  */
-int	parse_path(char *line, t_content_type type, t_map *map)
+int	parse_path(char *line, t_texture_id type, t_map *map)
 {
 	char	*sprite_path;
 
@@ -28,20 +28,8 @@ int	parse_path(char *line, t_content_type type, t_map *map)
 	sprite_path = ft_substr(line, 0, ft_strlen(line) - 1);
 	if (sprite_path == NULL)
 		return (cub_error(NULL));
-	if (type == NORTH_ID)
-		return (set_path(&map->wall_path[NORTH], sprite_path));
-	else if (type == SOUTH_ID)
-		return (set_path(&map->wall_path[SOUTH], sprite_path));
-	else if (type == WEST_ID)
-		return (set_path(&map->wall_path[WEST], sprite_path));
-	else if (type == EAST_ID)
-		return (set_path(&map->wall_path[EAST], sprite_path));
-	else if (type == FLOOR_ID)
-		return (set_path(&map->horizontal_plane_path[P_FLOOR], sprite_path));
-	else if (type == CEILING_ID)
-		return (set_path(&map->horizontal_plane_path[P_CEILING], sprite_path));
-	else if (type == DOOR_ID)
-		return (set_path(&map->door_path, sprite_path));
+	if (type != UNDEFINED_ID)
+		return (set_path(&map->path[type], sprite_path));
 	return (0);
 }
 

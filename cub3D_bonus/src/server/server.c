@@ -52,13 +52,13 @@ int	main(int argc, char **argv)
 
 static void	print_t_map(t_map map)
 {
-	printf("NO: %s\n", (char *)map.wall_path[NORTH]);
-	printf("SO: %s\n", (char *)map.wall_path[SOUTH]);
-	printf("WE: %s\n", (char *)map.wall_path[WEST]);
-	printf("EA: %s\n\n", (char *)map.wall_path[EAST]);
-	printf("F: %s\n", map.horizontal_plane_path[P_FLOOR]);
-	printf("C: %s\n\n", map.horizontal_plane_path[P_CEILING]);
-	printf("D: %s\n\n", map.door_path);
+	printf("NO: %s\n", map.path[NORTH_ID]);
+	printf("SO: %s\n", map.path[SOUTH_ID]);
+	printf("WE: %s\n", map.path[WEST_ID]);
+	printf("EA: %s\n\n", map.path[EAST_ID]);
+	printf("F: %s\n", map.path[FLOOR_ID]);
+	printf("C: %s\n\n", map.path[CEILING_ID]);
+	printf("D: %s\n\n", map.path[DOOR_ID]);
 	print_spawn(map.spawn);
 	print_map(map);
 }

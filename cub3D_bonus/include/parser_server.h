@@ -9,8 +9,8 @@
 /*   Updated: 2023/03/25 16:01:00 by edelage          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef PARSER_BONUS_H
-# define PARSER_BONUS_H
+#ifndef PARSER_SERVER_H
+# define PARSER_SERVER_H
 
 # include <sys/types.h>
 # include <unistd.h>
@@ -25,20 +25,6 @@
 # include "error.h"
 
 # define PLAYER_LIMIT	10
-
-typedef enum e_content_type	t_content_type;
-
-enum e_content_type
-{
-	NORTH_ID,
-	SOUTH_ID,
-	WEST_ID,
-	EAST_ID,
-	FLOOR_ID,
-	CEILING_ID,
-	DOOR_ID,
-	UNDEFINED_ID
-};
 
 /* --- PARSER FUNCTION --- */
 
@@ -57,7 +43,7 @@ void	map_error(size_t line, size_t column);
 void	init_map_data(t_map *map);
 void	map_data_clear(t_map *map);
 int		is_valid_filename(char *filename);
-int		parse_path(char *line, t_content_type type, t_map *map);
+int		parse_path(char *line, t_texture_id type, t_map *map);
 
 /* --- PARSER_MAP_UTILS FUNCTIONS --- */
 

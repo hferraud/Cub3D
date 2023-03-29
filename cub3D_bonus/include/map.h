@@ -9,11 +9,12 @@
 /*   Updated: 2023/03/24 15:29:00 by ethan            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef MAP_BONUS_H
-# define MAP_BONUS_H
+#ifndef MAP_H
+# define MAP_H
 
 # include <sys/types.h>
 # include <stdlib.h>
+# include "cub.h"
 # include "libft.h"
 
 # define FLOOR			'0'
@@ -26,9 +27,8 @@
 # define ASSAULT_RIFLE	'R'
 # define ENEMY			'P'
 
-typedef struct s_map	t_map;
-typedef struct s_spawn	t_spawn;
-typedef enum e_wall		t_wall;
+typedef struct s_map		t_map;
+typedef struct s_spawn		t_spawn;
 
 struct s_spawn
 {
@@ -37,29 +37,13 @@ struct s_spawn
 	char	orientation;
 };
 
-enum e_wall
-{
-	NORTH	=	0,
-	SOUTH	=	1,
-	EAST	=	2,
-	WEST	=	3
-};
-
-enum e_horizontal_plane
-{
-	P_FLOOR		=	0,
-	P_CEILING	=	1,
-};
-
 struct s_map
 {
 	char	**map;
 	size_t	height;
 	size_t	width;
 	t_list	*spawn;
-	char	*wall_path[4];
-	char	*horizontal_plane_path[2];
-	char	*door_path;
+	char	*path[7];
 };
 
 #endif
