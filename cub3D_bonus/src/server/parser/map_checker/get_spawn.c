@@ -9,7 +9,7 @@
 /*   Updated: 2023/03/13 04:15:00 by ethan            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#include "parser_bonus.h"
+#include "parser_server.h"
 
 static int	is_spawn(char c);
 static int	add_spawn(size_t line, size_t column, t_map *map);

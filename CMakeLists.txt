@@ -1,13 +1,79 @@
 cmake_minimum_required(VERSION 3.24)
-project(42_Cub3D C)
+project(Cub3D C)
 
 set(CMAKE_C_STANDARD 11)
 
+include_directories(cub3D/include)
+include_directories(cub3D_bonus/include)
 include_directories(libft/include)
-include_directories(include)
 include_directories(minilibx)
 
-add_executable(42_Cub3D
+add_executable(Cub3D
+        cub3D/include/cub.h
+        cub3D/include/draw.h
+        cub3D/include/error.h
+        cub3D/include/hook.h
+        cub3D/include/map.h
+        cub3D/include/mlx_handler.h
+        cub3D/include/mlx_key.h
+        cub3D/include/parser.h
+        cub3D/include/player.h
+        cub3D/include/raycasting.h
+        cub3D/include/vector.h
+        cub3D/src/display/draw_shape/draw_background.c
+        cub3D/src/display/draw_shape/draw_line.c
+        cub3D/src/display/draw_shape/draw_player_view.c
+        cub3D/src/display/draw_shape/draw_rectangle.c
+        cub3D/src/display/draw_shape/draw_shape_utils.c
+        cub3D/src/display/draw_shape/draw_wall.c
+        cub3D/src/display/draw_shape/mlx_put_pixel.c
+        cub3D/src/display/minimap/minimap.c
+        cub3D/src/display/player/player_movement.c
+        cub3D/src/display/player/player_pos_init.c
+        cub3D/src/display/raycasting/raycasting.c
+        cub3D/src/display/vector/fvector.c
+        cub3D/src/display/vector/matrix.c
+        cub3D/src/display/vector/vector.c
+        cub3D/src/display/render_frame.c
+        cub3D/src/mlx_handler/destroy/mlx_data_destroy.c
+        cub3D/src/mlx_handler/destroy/wall_sprite_destroy.c
+        cub3D/src/mlx_handler/hook/cub_exit.c
+        cub3D/src/mlx_handler/hook/init_hook.c
+        cub3D/src/mlx_handler/hook/key_press.c
+        cub3D/src/mlx_handler/hook/key_release.c
+        cub3D/src/mlx_handler/initialization/mlx_data_init.c
+        cub3D/src/mlx_handler/initialization/wall_sprite_init.c
+        cub3D/src/parser/map_checker/get_spawn.c
+        cub3D/src/parser/map_checker/map_checker.c
+        cub3D/src/parser/parse_map/parse_map.c
+        cub3D/src/parser/parse_map/parse_map_utils.c
+        cub3D/src/parser/parse_map_data/parse_horizontal_plane.c
+        cub3D/src/parser/parse_map_data/parse_map_data.c
+        cub3D/src/parser/parse_map_data/parse_wall.c
+        cub3D/src/parser/parser.c
+        cub3D/src/parser/parser_utils.c
+        cub3D/src/error.c
+        cub3D/src/main.c
+        cub3D_bonus/include/error.h
+        cub3D_bonus/include/map.h
+        cub3D_bonus/include/my_socket.h
+        cub3D_bonus/include/parser_server.h
+        cub3D_bonus/include/socket_client.h
+        cub3D_bonus/include/socket_server.h
+        cub3D_bonus/src/client/client.c
+        cub3D_bonus/src/server/parser/map_checker/get_spawn.c
+        cub3D_bonus/src/server/parser/map_checker/map_checker.c
+        cub3D_bonus/src/server/parser/map_checker/map_error.c
+        cub3D_bonus/src/server/parser/parse_map/parse_map.c
+        cub3D_bonus/src/server/parser/parse_map/parse_map_utils.c
+        cub3D_bonus/src/server/parser/parse_map_data/parse_map_data.c
+        cub3D_bonus/src/server/parser/parse_map_data/parse_path.c
+        cub3D_bonus/src/server/parser/parser.c
+        cub3D_bonus/src/server/parser/parser_utils.c
+        cub3D_bonus/src/utils/socket/port_get.c
+        cub3D_bonus/src/server/socket/socket_init.c
+        cub3D_bonus/src/server/server.c
+        cub3D_bonus/src/error.c
         libft/include/get_next_line.h
         libft/include/libft.h
         libft/srcs/char/ft_isalnum.c
@@ -22,6 +88,7 @@ add_executable(42_Cub3D
         libft/srcs/convert/ft_atoi.c
         libft/srcs/convert/ft_atoll.c
         libft/srcs/convert/ft_itoa.c
+        libft/srcs/convert/ft_stoa.c
         libft/srcs/fd/ft_putchar_fd.c
         libft/srcs/fd/ft_putendl_fd.c
         libft/srcs/fd/ft_putnbr_fd.c
@@ -36,6 +103,7 @@ add_executable(42_Cub3D
         libft/srcs/list/ft_lstlast.c
         libft/srcs/list/ft_lstmap.c
         libft/srcs/list/ft_lstnew.c
+        libft/srcs/list/ft_lstrev.c
         libft/srcs/list/ft_lstsize.c
         libft/srcs/memory/ft_bzero.c
         libft/srcs/memory/ft_calloc.c
@@ -48,6 +116,7 @@ add_executable(42_Cub3D
         libft/srcs/stdout/ft_putendl.c
         libft/srcs/stdout/ft_putnbr.c
         libft/srcs/stdout/ft_putstr.c
+        libft/srcs/string/free_string_array.c
         libft/srcs/string/ft_split.c
         libft/srcs/string/ft_strchr.c
         libft/srcs/string/ft_strcmp.c
@@ -65,6 +134,8 @@ add_executable(42_Cub3D
         libft/srcs/string/ft_strrchr.c
         libft/srcs/string/ft_strtrim.c
         libft/srcs/string/ft_substr.c
+        minilibx/test/main.c
+        minilibx/test/new_win.c
         minilibx/mlx.h
         minilibx/mlx_clear_window.c
         minilibx/mlx_destroy_display.c
@@ -99,6 +170,4 @@ add_executable(42_Cub3D
         minilibx/mlx_screen_size.c
         minilibx/mlx_set_font.c
         minilibx/mlx_string_put.c
-        minilibx/mlx_xpm.c
-        src/parser/parser.c
-        src/main.c include/map.h include/parser.h src/parser/parse_map_data/parse_map_data.c src/parser/parse_map_data/parse_wall.c src/parser/parse_map_data/parse_horizontal_plane.c src/parser/parse_map/parse_map.c libft/srcs/list/ft_lstrev.c libft/srcs/string/free_string_array.c src/parser/map_checker/map_checker.c src/parser/parse_map/parse_map_utils.c libft/srcs/convert/ft_stoa.c src/parser/parser_utils.c src/parser/map_checker/get_spawn.c src/mlx_handler/initialization/wall_sprite_init.c include/mlx_handler.h src/mlx_handler/initialization/mlx_data_init.c src/mlx_handler/destroy/wall_sprite_destroy.c src/mlx_handler/destroy/mlx_data_destroy.c src/error.c include/error.h src/mlx_handler/hook/init_hook.c include/hook.h src/mlx_handler/hook/cub_exit.c include/mlx_key.h src/mlx_handler/hook/key_press.c src/mlx_handler/hook/key_release.c src/display/render_frame.c src/display/draw_shape/mlx_put_pixel.c include/draw.h src/display/draw_shape/draw_shape_utils.c src/display/draw_shape/draw_rectangle.c include/player.h src/display/minimap/minimap.c src/display/player/player_pos_init.c src/display/player/player_movement.c src/display/player/player_movement.c src/display/draw_shape/draw_background.c include/cub.h src/display/draw_shape/draw_line.c src/display/raycasting/raycasting.c include/raycasting.h src/display/draw_shape/draw_wall.c src/display/draw_shape/draw_player_view.c src/display/vector/matrix.c src/display/vector/vector.c src/display/vector/fvector.c src/bonus/server/server.c include/map_bonus.h src/bonus/server/parser/map_checker/map_error.c include/socket_bonus.h src/bonus/server/socket/socket_init.c include/socket_server.h src/bonus/server/socket/port_get.c)
+        minilibx/mlx_xpm.c cub3D_bonus/src/client/socket/socket_init.c cub3D_bonus/src/client/socket/socket_init.c cub3D_bonus/src/server/socket/client_accept.c)

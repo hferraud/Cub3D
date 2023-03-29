@@ -9,7 +9,7 @@
 /*   Updated: 2023/03/24 15:10:00 by ethan            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#include "parser_bonus.h"
+#include "parser_server.h"
 #include "socket_server.h"
 
 static void	print_t_map(t_map map);
@@ -20,7 +20,8 @@ int	main(int argc, char **argv)
 {
 	t_map	map;
 	int		port;
-	int		socket_fd;
+	int		server_socket_fd;
+	int		client_socket_fd;
 
 	if (argc != 3)
 		return (cub_error("./cub3D_server map.cub port\n"));
@@ -34,11 +35,19 @@ int	main(int argc, char **argv)
 		cub_error("Invalid port\n");
 		return (EINVAL);
 	}
-	socket_fd = socket_init(argv[2], ft_lstsize(map.spawn));
-	if (socket_fd == -1)
+	server_socket_fd = socket_init(argv[2], ft_lstsize(map.spawn));
+	if (server_socket_fd == -1)
 		return (map_data_clear(&map), 1);
+	client_socket_fd = client_accept(server_socket_fd);
+	if (client_socket_fd == -1)
+	{
+		close(server_socket_fd);
+		map_data_clear(&map);
+		return (1);
+	}
+	close(server_socket_fd);
+	close(client_socket_fd);
 	map_data_clear(&map);
-	close(socket_fd);
 }
 
 static void	print_t_map(t_map map)

@@ -9,7 +9,7 @@
 /*   Updated: 2023/03/12 02:55:00 by mururoah         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#include "parser_bonus.h"
+#include "parser_server.h"
 
 static int	set_path(char **sprite, char *sprite_path);
 

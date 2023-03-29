@@ -9,7 +9,7 @@
 /*   Updated: 2023/03/13 03:23:00 by ethan            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#include "parser_bonus.h"
+#include "parser_server.h"
 
 void	init_map_data(t_map *map)
 {

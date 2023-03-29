@@ -9,7 +9,7 @@
 /*   Updated: 2023/03/13 02:02:00 by ethan            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#include "parser_bonus.h"
+#include "parser_server.h"
 
 static int	is_valid_extremum(char *line);
 static int	is_valid_line(char **map, size_t line);

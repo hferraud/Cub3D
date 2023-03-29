@@ -14,9 +14,9 @@ INC_DIR		=		include/
 
 BUILD_DIR	=		.build/
 
-LIBFT_DIR	=		libft/
+LIBFT_DIR	=		../libft/
 
-MLX_DIR		=		minilibx/
+MLX_DIR		=		../minilibx/
 
 #######################
 #	FILES

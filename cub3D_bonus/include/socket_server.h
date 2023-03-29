@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_error.c                                        :+:      :+:    :+:   */
+/*   socket_server.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ethan <ethan@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/25 23:28:00 by ethan             #+#    #+#             */
-/*   Updated: 2023/03/25 23:28:00 by ethan            ###   ########lyon.fr   */
+/*   Created: 2023/03/27 01:13:00 by ethan             #+#    #+#             */
+/*   Updated: 2023/03/27 01:13:00 by ethan            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#include "parser_bonus.h"
+#ifndef SOCKET_SERVER_H
+# define SOCKET_SERVER_H
 
-void	map_error(size_t line, size_t column)
-{
-	ft_putstr_fd("Error\nMap error at ", STDERR_FILENO);
-	ft_putsize_t_fd(line, STDERR_FILENO);
-	ft_putstr_fd(", ", STDERR_FILENO);
-	ft_putsize_t_fd(column, STDERR_FILENO);
-	ft_putchar_fd('\n', STDERR_FILENO);
-}
+# include <ifaddrs.h>
+# include "my_socket.h"
+
+typedef struct ifaddrs	t_ifaddrs;
+
+int	socket_init(const char *ascii_port, int n);
+int client_accept(int server_socket_fd);
+
+#endif

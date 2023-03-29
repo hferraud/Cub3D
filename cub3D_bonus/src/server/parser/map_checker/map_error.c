@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   socket_bonus.h                                     :+:      :+:    :+:   */
+/*   map_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ethan <ethan@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/26 23:17:00 by ethan             #+#    #+#             */
-/*   Updated: 2023/03/26 23:17:00 by ethan            ###   ########lyon.fr   */
+/*   Created: 2023/03/25 23:28:00 by ethan             #+#    #+#             */
+/*   Updated: 2023/03/25 23:28:00 by ethan            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef SOCKET_BONUS_H
-# define SOCKET_BONUS_H
+#include "parser_server.h"
 
-# include <sys/types.h>
-# include <sys/socket.h>
-# include <netinet/in.h>
-# include <arpa/inet.h>
-# include <unistd.h>
-# include <errno.h>
-# include "error.h"
-
-typedef struct sockaddr_in	t_sockaddr_in;
-typedef struct sockaddr		t_sockaddr;
-
-int	port_get(const char *ascii_port);
-
-#endif
+void	map_error(size_t line, size_t column)
+{
+	ft_putstr_fd("Error\nMap error at ", STDERR_FILENO);
+	ft_putsize_t_fd(line, STDERR_FILENO);
+	ft_putstr_fd(", ", STDERR_FILENO);
+	ft_putsize_t_fd(column, STDERR_FILENO);
+	ft_putchar_fd('\n', STDERR_FILENO);
+}
