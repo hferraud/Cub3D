@@ -37,7 +37,7 @@ int	socket_init(const char *ascii_port, int n) {
 	ft_putstr("Socket created\n");
 	if (server_display_ip() == -1)
 		return (close(socket_fd), -1);
-	printf("Port:\t%d\n", port);
+	printf("Port\t  : %d\n", port);
 	return (socket_fd);
 }
 
@@ -74,30 +74,31 @@ static int	server_display_ip(void)
 	t_ifaddrs	*ifap;
 	t_ifaddrs	*current;
 	int			family;
+	int			ip_found;
 	char		host[1028];
 
 	if (getifaddrs(&ifap) == -1)
 		return (perror("getifaddrs()"), -1);
 	current = ifap;
+	ip_found = 0;
 	while (current)
 	{
 		family = current->ifa_addr->sa_family;
 		if (family == AF_INET)
 		{
-			if (ft_strcmp("enp4s0f0", current->ifa_name) ==  0)
+			ip_found = 1;
+			if (getnameinfo(current->ifa_addr, sizeof(t_sockaddr_in), host,
+					1028, NULL, 0, NI_NUMERICHOST) != 0)
 			{
-				if (getnameinfo(current->ifa_addr, sizeof(t_sockaddr_in), host,
-								1028, NULL, 0, NI_NUMERICHOST) != 0)
-				{
-					freeifaddrs(ifap);
-					return (perror("getnameinfo()"), -1);
-				}
-				printf("IP:\t%s\n", host);
-				return (freeifaddrs(ifap), 0);
+				freeifaddrs(ifap);
+				return (perror("getnameinfo()"), -1);
 			}
+			printf("%-10s: IP:\t%s\n", current->ifa_name, host);
 		}
 		current = current->ifa_next;
 	}
 	freeifaddrs(ifap);
-	return (cub_error("IP not found\n"));
+	if (!ip_found)
+		return (cub_error("IP not found\n"));
+	return (0);
 }
