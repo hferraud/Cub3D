@@ -81,7 +81,7 @@ CFLAGS		=		-Wall -Werror -Wextra #-fsanitize=address
 
 IFLAGS		=		-I $(INC_DIR) -I $(LIBFT_DIR)include -I $(MLX_DIR)
 
-LFLAGS		=		-L $(LIBFT_DIR) -lft -L $(MLX_DIR) -lmlx -lm
+LFLAGS		=		-L $(LIBFT_DIR) -lft -L $(MLX_DIR) -lmlx -lm -lpthread
 
 MLX_FLAGS	=		-lXext -lX11
 

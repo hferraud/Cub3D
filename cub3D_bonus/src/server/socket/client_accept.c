@@ -18,7 +18,8 @@ void	listen_connections(int server_socket_fd, t_server_data *server_data)
 {
 	int	client_socket_fd;
 
-	while (1)
+	int i = 0;
+	while (i < 3)
 	{
 		client_socket_fd = client_accept(server_socket_fd);
 		if (client_socket_fd == -1)
@@ -31,7 +32,9 @@ void	listen_connections(int server_socket_fd, t_server_data *server_data)
 			server_data_destroy(server_data);
 			exit(1);
 		}
+		i++;
 	}
+	server_data_destroy(server_data);
 }
 
 /**
