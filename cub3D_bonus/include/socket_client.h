@@ -12,7 +12,7 @@
 #ifndef SOCKET_CLIENT_H
 # define SOCKET_CLIENT_H
 
-# include "my_socket.h"
+# include "cub_socket.h"
 
 typedef struct hostent	t_hostent;
 

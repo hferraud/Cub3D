@@ -56,7 +56,7 @@ add_executable(Cub3D
         cub3D/src/main.c
         cub3D_bonus/include/error.h
         cub3D_bonus/include/map.h
-        cub3D_bonus/include/my_socket.h
+        cub3D_bonus/include/cub_socket.h
         cub3D_bonus/include/parser_server.h
         cub3D_bonus/include/socket_client.h
         cub3D_bonus/include/socket_server.h
@@ -170,4 +170,4 @@ add_executable(Cub3D
         minilibx/mlx_screen_size.c
         minilibx/mlx_set_font.c
         minilibx/mlx_string_put.c
-        minilibx/mlx_xpm.c cub3D_bonus/src/client/socket/socket_init.c cub3D_bonus/src/client/socket/socket_init.c cub3D_bonus/src/server/socket/client_accept.c cub3D_bonus/include/cub.h)
+        minilibx/mlx_xpm.c cub3D_bonus/src/client/socket/socket_init.c cub3D_bonus/src/client/socket/socket_init.c cub3D_bonus/src/server/socket/client_accept.c cub3D_bonus/include/cub.h cub3D_bonus/include/server_data.h cub3D_bonus/src/server/thread/initialization/thread_init.c cub3D_bonus/src/server/thread/initialization/server_data_init.c cub3D_bonus/src/server/thread/destroy/server_data_destroy.c cub3D_bonus/src/server/thread/routines/launch_routine/launch_routine.c cub3D_bonus/src/server/thread/routines/in_game_routine/in_game_routine.c)

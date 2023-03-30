@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   socket_server.h                                    :+:      :+:    :+:   */
+/*   launch_routine.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ethan <ethan@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/27 01:13:00 by ethan             #+#    #+#             */
-/*   Updated: 2023/03/27 01:13:00 by ethan            ###   ########lyon.fr   */
+/*   Created: 2023/03/30 01:53:00 by ethan             #+#    #+#             */
+/*   Updated: 2023/03/30 01:53:00 by ethan            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef SOCKET_SERVER_H
-# define SOCKET_SERVER_H
+#include "server_data.h"
 
-# include <ifaddrs.h>
-# include "cub_socket.h"
-
-typedef struct ifaddrs	t_ifaddrs;
-
-int	socket_init(const char *ascii_port, int n);
-int	client_accept(int server_socket_fd);
-
-#endif
+void	launch_routine(t_launch_data *launch_data)
+{
+	(void) launch_data;
+	printf("Launch Thread created\n");
+}

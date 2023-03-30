@@ -11,7 +11,11 @@
 /* ************************************************************************** */
 #include "socket_client.h"
 
-int client_accept(int server_socket_fd)
+/**
+ * @brief Accept a request from a client
+ * @return The file descriptor of the client socket, -1 otherwise
+ */
+int	client_accept(int server_socket_fd)
 {
 	int				client_socket_fd;
 	socklen_t		client_addr_len;
@@ -20,7 +24,7 @@ int client_accept(int server_socket_fd)
 
 	client_addr_len = sizeof(t_sockaddr_in);
 	client_socket_fd = accept(server_socket_fd, (t_sockaddr *) &client_addr,
-		&client_addr_len);
+			&client_addr_len);
 	if (client_socket_fd == -1)
 		return (perror("accept()"), errno);
 	printf("Connection with the client established\n");

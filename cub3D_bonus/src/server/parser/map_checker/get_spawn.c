@@ -43,6 +43,7 @@ int	get_spawn_position(t_map *map)
 		}
 		line++;
 	}
+	map->nb_spawn = nb_spawn;
 	if (nb_spawn == 0 || nb_spawn > PLAYER_LIMIT)
 		return (spawn_error(nb_spawn));
 	return (0);
@@ -59,6 +60,7 @@ static int	add_spawn(size_t line, size_t column, t_map *map)
 	new_spawn->orientation = map->map[line][column];
 	new_spawn->x = column;
 	new_spawn->y = line;
+	new_spawn->player_id = -1;
 	map->map[line][column] = '0';
 	node = ft_lstnew(new_spawn);
 	if (node == NULL)

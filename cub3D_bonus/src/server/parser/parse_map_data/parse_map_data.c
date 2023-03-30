@@ -37,7 +37,6 @@ int	parse_map_data(int map_fd, t_map *map)
 	}
 	if (errno)
 		return (cub_error(NULL));
-	printf("path west: %s\n", map->path[WEST_ID]);
 	return (0);
 }
 

@@ -17,11 +17,12 @@ static int	server_display_ip(void);
 /**
  * @brief Parse the port and create the socket for the server
  * @param n The maximum number of clients
- * @return The socket file descriptor on success, -1 otherwise
+ * @return The file descriptor of the socket on success, -1 otherwise
  */
-int	socket_init(const char *ascii_port, int n) {
+int	socket_init(const char *ascii_port, int n)
+{
 	uint16_t	port;
-	int 		socket_fd;
+	int			socket_fd;
 
 	port = port_get(ascii_port);
 	if (errno)
@@ -52,7 +53,7 @@ static int	socket_create(uint16_t port)
 		return (perror("socket()"), -1);
 	optval = 1;
 	if (setsockopt(socket_fd, SOL_SOCKET,
-				   SO_REUSEADDR | SO_REUSEPORT, &optval, sizeof(int)) == -1)
+			SO_REUSEADDR | SO_REUSEPORT, &optval, sizeof(int)) == -1)
 	{
 		close(socket_fd);
 		return (perror("setsockopt()"), -1);

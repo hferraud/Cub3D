@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 #include "parser_server.h"
 #include "socket_server.h"
+#include "server_data.h"
 
 static void	print_t_map(t_map map);
 static void	print_map(t_map map);
@@ -18,36 +19,44 @@ static void	print_spawn(t_list *head);
 
 int	main(int argc, char **argv)
 {
-	t_map	map;
-	int		port;
-	int		server_socket_fd;
-	int		client_socket_fd;
+	t_server_data	*server_data;
+	t_map			map;
+	int				port;
+	int				server_socket_fd;
+	int				client_socket_fd;
 
 	if (argc != 3)
 		return (cub_error("./cub3D_server map.cub port\n"));
 	if (parser(argv, &map) == -1)
 		return (2);
 	print_t_map(map);
+	server_data = thread_init(&map);
+	if (server_data == NULL)
+	{
+		map_data_clear(&map);
+		return (1);
+	}
 	port = port_get(argv[2]);
 	if (port == -1)
 	{
-		map_data_clear(&map);
+		server_data_destroy(server_data);
 		cub_error("Invalid port\n");
 		return (EINVAL);
 	}
-	server_socket_fd = socket_init(argv[2], ft_lstsize(map.spawn));
+	server_socket_fd = socket_init(argv[2], map.nb_spawn);
 	if (server_socket_fd == -1)
-		return (map_data_clear(&map), 1);
+		return (server_data_destroy(server_data), 1);
 	client_socket_fd = client_accept(server_socket_fd);
 	if (client_socket_fd == -1)
 	{
 		close(server_socket_fd);
-		map_data_clear(&map);
+		server_data_destroy(server_data);
 		return (1);
 	}
 	close(server_socket_fd);
 	close(client_socket_fd);
-	map_data_clear(&map);
+	server_data_destroy(server_data);
+	return (0);
 }
 
 static void	print_t_map(t_map map)

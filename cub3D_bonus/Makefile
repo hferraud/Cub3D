@@ -40,6 +40,15 @@ SRC_SERVER	=		error.c	\
 							server/parser/map_checker/map_checker.c	\
 							server/parser/map_checker/map_error.c	\
 							server/parser/map_checker/get_spawn.c	\
+					\
+							server/thread/initialization/thread_init.c		\
+							server/thread/initialization/server_data_init.c	\
+							\
+							server/thread/destroy/server_data_destroy.c	\
+							\
+								server/thread/routines/launch_routine/launch_routine.c	\
+								\
+								server/thread/routines/in_game_routine/in_game_routine.c	\
 							\
 					\
 							server/socket/socket_init.c		\

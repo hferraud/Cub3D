@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_bonus.h                                        :+:      :+:    :+:   */
+/*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ethan <ethan@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -35,6 +35,7 @@ struct s_spawn
 	size_t	x;
 	size_t	y;
 	char	orientation;
+	int		player_id;
 };
 
 struct s_map
@@ -43,6 +44,7 @@ struct s_map
 	size_t	height;
 	size_t	width;
 	t_list	*spawn;
+	int		nb_spawn;
 	char	*path[7];
 };
 
