@@ -53,7 +53,8 @@ enum
 
 struct s_server_data
 {
-	t_list			*new_player;
+	int				server_socket_fd;
+	t_list			*new_players;
 	pthread_mutex_t	*mut_new_player;
 	t_players		*players;
 	t_map			*map;

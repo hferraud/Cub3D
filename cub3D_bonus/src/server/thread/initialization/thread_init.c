@@ -50,7 +50,7 @@ static t_launch_data	launch_data_init(t_server_data *server_data)
 {
 	t_launch_data	launch_data;
 
-	launch_data.new_player = &server_data->new_player;
+	launch_data.new_player = &server_data->new_players;
 	launch_data.mut_new_player = server_data->mut_new_player;
 	launch_data.players = server_data->players;
 	launch_data.map = server_data->map;

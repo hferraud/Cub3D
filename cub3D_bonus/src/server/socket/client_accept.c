@@ -9,13 +9,36 @@
 /*   Updated: 2023/03/29 02:37:00 by edelage          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#include "socket_client.h"
+#include "socket_server.h"
+
+static int	client_accept(int server_socket_fd);
+static int	new_player_add(int player_socket_fd, t_server_data *server_data);
+
+void	listen_connections(int server_socket_fd, t_server_data *server_data)
+{
+	int	client_socket_fd;
+
+	while (1)
+	{
+		client_socket_fd = client_accept(server_socket_fd);
+		if (client_socket_fd == -1)
+		{
+			server_data_destroy(server_data);
+			exit(1);
+		}
+		if (new_player_add(client_socket_fd, server_data) == -1)
+		{
+			server_data_destroy(server_data);
+			exit(1);
+		}
+	}
+}
 
 /**
  * @brief Accept a request from a client
  * @return The file descriptor of the client socket, -1 otherwise
  */
-int	client_accept(int server_socket_fd)
+static int	client_accept(int server_socket_fd)
 {
 	int				client_socket_fd;
 	socklen_t		client_addr_len;
@@ -27,6 +50,27 @@ int	client_accept(int server_socket_fd)
 			&client_addr_len);
 	if (client_socket_fd == -1)
 		return (perror("accept()"), errno);
-	printf("Connection with the client established\n");
+	printf("Connection with a client established\n");
 	return (client_socket_fd);
+}
+
+static int	new_player_add(int player_socket_fd, t_server_data *server_data)
+{
+	t_list	*new;
+	int		*content;
+
+	pthread_mutex_lock(server_data->mut_new_player);
+	content = (int *) malloc(sizeof(int));
+	if (content == NULL)
+		return (perror("malloc()"), -1);
+	*content = player_socket_fd;
+	new = ft_lstnew(content);
+	if (new == NULL)
+	{
+		free(content);
+		return (perror("malloc()"), -1);
+	}
+	ft_lstadd_back(&server_data->new_players, new);
+	pthread_mutex_unlock(server_data->mut_new_player);
+	return (0);
 }

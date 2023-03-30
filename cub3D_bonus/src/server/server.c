@@ -23,7 +23,6 @@ int	main(int argc, char **argv)
 	t_map			map;
 	int				port;
 	int				server_socket_fd;
-	int				client_socket_fd;
 
 	if (argc != 3)
 		return (cub_error("./cub3D_server map.cub port\n"));
@@ -46,17 +45,7 @@ int	main(int argc, char **argv)
 	server_socket_fd = socket_init(argv[2], map.nb_spawn);
 	if (server_socket_fd == -1)
 		return (server_data_destroy(server_data), 1);
-	client_socket_fd = client_accept(server_socket_fd);
-	if (client_socket_fd == -1)
-	{
-		close(server_socket_fd);
-		server_data_destroy(server_data);
-		return (1);
-	}
-	close(server_socket_fd);
-	close(client_socket_fd);
-	server_data_destroy(server_data);
-	return (0);
+	listen_connections(server_socket_fd, server_data);
 }
 
 static void	print_t_map(t_map map)

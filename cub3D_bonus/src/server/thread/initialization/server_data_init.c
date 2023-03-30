@@ -89,7 +89,8 @@ static int	mutexes_init(t_server_data *server_data)
 
 static void	server_data_set_to_default(t_server_data *server_data, t_map *map)
 {
-	server_data->new_player = NULL;
+	server_data->server_socket_fd = -1;
+	server_data->new_players = NULL;
 	server_data->players = NULL;
 	server_data->map = map;
 	server_data->mut_map = NULL;
