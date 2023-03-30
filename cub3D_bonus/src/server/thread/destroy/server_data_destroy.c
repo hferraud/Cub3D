@@ -21,9 +21,13 @@ void	server_data_destroy(t_server_data *server_data)
 		free(server_data->players->players_fd);
 		if (server_data->players->mut_players_fd)
 			pthread_mutex_destroy(server_data->players->mut_players_fd);
+		free(server_data->players->mut_players_fd);
 		free(server_data->players);
 	}
 	map_data_clear(server_data->map);
+	if (server_data->mut_new_player)
+		pthread_mutex_destroy(server_data->mut_new_player);
+	free(server_data->mut_new_player);
 	if (server_data->mut_map)
 		pthread_mutex_destroy(server_data->mut_map);
 	free(server_data->mut_map);
