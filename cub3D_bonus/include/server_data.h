@@ -31,7 +31,7 @@ struct s_players
 
 struct s_launch_data
 {
-	t_list			**new_player;
+	t_list			**new_client;
 	pthread_mutex_t	*mut_new_player;
 	t_players		*players;
 	t_map			*map;
@@ -53,8 +53,8 @@ enum
 
 struct s_server_data
 {
-	int				server_socket_fd;
-	t_list			*new_players;
+	int				server_fd;
+	t_list			*new_client;
 	pthread_mutex_t	*mut_new_player;
 	t_players		*players;
 	t_map			*map;

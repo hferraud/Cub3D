@@ -47,6 +47,7 @@ SRC_SERVER	=		error.c	\
 							server/thread/destroy/server_data_destroy.c	\
 							\
 								server/thread/routines/launch_routine/launch_routine.c	\
+								server/thread/routines/launch_routine/map_send.c		\
 								\
 								server/thread/routines/in_game_routine/in_game_routine.c	\
 							\
@@ -63,6 +64,9 @@ SRC_CLIENT	=		error.c	\
 					\
 						client/socket/socket_init.c	\
 					\
+						client/parser/parser.c		\
+						client/parser/map_parse.c	\
+					\
 						utils/socket/port_get.c	\
 					\
 
@@ -77,7 +81,7 @@ DEPS		=		$(addprefix $(BUILD_DIR), $(SRC_SERVER:.c=.d))	\
 #	FLAGS
 #######################
 
-CFLAGS		=		-Wall -Werror -Wextra #-fsanitize=address
+CFLAGS		=		-Wall -Werror -Wextra -g3 #-fsanitize=address
 
 IFLAGS		=		-I $(INC_DIR) -I $(LIBFT_DIR)include -I $(MLX_DIR)
 

@@ -10,11 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "socket_client.h"
+#include "parser_client.h"
 
 int	main(int argc, char **argv)
 {
 	uint16_t	port;
 	int			socket_fd;
+	t_map		map;
 
 	if (argc != 3)
 		return (cub_error("./cub3D IP port\n"));
@@ -24,6 +26,7 @@ int	main(int argc, char **argv)
 	socket_fd = socket_client_init(argv[1], port);
 	if (socket_fd == -1)
 		return (-1);
+	parser(&map, socket_fd);
 	close(socket_fd);
 	return (0);
 }

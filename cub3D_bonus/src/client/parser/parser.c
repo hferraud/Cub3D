@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelage <edelage@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 03:04:00 by edelage           #+#    #+#             */
-/*   Updated: 2023/03/14 03:04:00 by edelage          ###   ########lyon.fr   */
+/*   Created: 2023/04/01 15:22:00 by edelage           #+#    #+#             */
+/*   Updated: 2023/04/01 15:22:00 by edelage          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#include "error.h"
+#include "parser_client.h"
 
-/**
- * @brief Print the error message, use errno if error_msg is NULL.
- * @return Always return -1
- */
-int	cub_error(char *error_msg)
+static void	map_preset(t_map *map);
+
+int parser(t_map *map, int server_fd)
 {
-	dprintf(STDERR_FILENO, "Error\n");
-	if (error_msg == NULL)
-		perror(NULL);
-	else
-		dprintf(STDERR_FILENO, "%s", error_msg);
-	return (-1);
+	map_preset(map);
+	map_parse(map, server_fd);
+	return (0);
+}
+
+static void	map_preset(t_map *map)
+{
+	map->map = NULL;
+	map->spawn = NULL;
+	ft_bzero(map->path, sizeof(char *) * 7);
 }

@@ -31,8 +31,8 @@ void	server_data_destroy(t_server_data *server_data)
 		pthread_cancel(server_data->thread[LAUNCH]);
 	if (server_data->thread[IN_GAME] != 0)
 		pthread_cancel(server_data->thread[IN_GAME]);
-	disconnect_client(server_data->new_players, server_data->players);
-	ft_lstclear(&server_data->new_players, free);
+	disconnect_client(server_data->new_client, server_data->players);
+	ft_lstclear(&server_data->new_client, free);
 	if (server_data->players)
 	{
 		free(server_data->players->players_fd);
@@ -41,8 +41,8 @@ void	server_data_destroy(t_server_data *server_data)
 		free(server_data->players->mut_players_fd);
 		free(server_data->players);
 	}
-	if (server_data->server_socket_fd != -1)
-		close(server_data->server_socket_fd);
+	if (server_data->server_fd != -1)
+		close(server_data->server_fd);
 	free(server_data);
 }
 

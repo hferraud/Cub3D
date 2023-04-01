@@ -11,8 +11,12 @@
 /* ************************************************************************** */
 #ifndef CUB_H
 # define CUB_H
+# include "map.h"
+# include "error.h"
 
 typedef enum e_texture_id	t_texture_id;
+typedef struct s_cub		t_cub;
+typedef struct s_map		t_map;
 
 enum e_texture_id
 {
