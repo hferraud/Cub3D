@@ -28,8 +28,10 @@ int	main(int argc, char **argv)
 	socket_fd = socket_client_init(argv[1], port);
 	if (socket_fd == -1)
 		return (-1);
-	parser(&map, socket_fd);
+	if (parser(&map, socket_fd) == -1)
+		return (1);
 	print_map(map);
+	while (1);
 	close(socket_fd);
 	return (0);
 }

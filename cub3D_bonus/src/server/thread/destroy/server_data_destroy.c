@@ -13,7 +13,7 @@
 
 void		map_data_clear(t_map *map);
 
-static void	disconnect_client(t_list *new_players, t_player *players);
+static void	disconnect_client(t_list *new_players, t_players *players);
 
 void	server_data_destroy(t_server_data *server_data)
 {
@@ -46,7 +46,7 @@ void	server_data_destroy(t_server_data *server_data)
 	free(server_data);
 }
 
-static void	disconnect_client(t_list *new_players, t_player *players)
+static void	disconnect_client(t_list *new_players, t_players *players)
 {
 	int	index;
 

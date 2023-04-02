@@ -18,8 +18,8 @@ void	listen_connections(int server_socket_fd, t_server_data *server_data)
 {
 	int	client_socket_fd;
 
-	int i = 0;
-	while (i < 3)
+//	int i = 0;
+	while (1)
 	{
 		client_socket_fd = client_accept(server_socket_fd);
 		if (client_socket_fd == -1)
@@ -32,7 +32,6 @@ void	listen_connections(int server_socket_fd, t_server_data *server_data)
 			server_data_destroy(server_data);
 			exit(1);
 		}
-		i++;
 	}
 	server_data_destroy(server_data);
 }
@@ -65,12 +64,16 @@ static int	new_player_add(int player_socket_fd, t_server_data *server_data)
 	pthread_mutex_lock(server_data->client_lock);
 	content = (int *) malloc(sizeof(int));
 	if (content == NULL)
+	{
+		pthread_mutex_unlock(server_data->client_lock);
 		return (perror("malloc()"), -1);
+	}
 	*content = player_socket_fd;
 	new = ft_lstnew(content);
 	if (new == NULL)
 	{
 		free(content);
+		pthread_mutex_unlock(server_data->client_lock);
 		return (perror("malloc()"), -1);
 	}
 	ft_lstadd_back(&server_data->client_socket, new);

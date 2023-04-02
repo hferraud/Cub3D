@@ -17,26 +17,28 @@ int				map_send(int client_socket, t_server_data *server_data,
 static int		client_get_socket(t_server_data *server_data);
 static t_spawn	*client_get_spawn(int client_socket,
 					t_server_data *server_data);
+static void	client_to_player(int client_socket, t_server_data *server_data);
 
 void	connection_routine(t_server_data *server_data)
 {
-	int		new_player_fd;
+	int		client_fd;
 	t_spawn	*spawn;
 
-	printf("Launch Thread created\n");
+	printf("Connection Thread created\n");
 	while (1)
 	{
-		new_player_fd = client_get_socket(server_data);
-		if (new_player_fd != -1)
+		client_fd = client_get_socket(server_data);
+		if (client_fd != -1)
 		{
-			spawn = client_get_spawn(new_player_fd, server_data);
+			spawn = client_get_spawn(client_fd, server_data);
 			if (spawn == NULL)
 			{
 				dprintf(STDERR_FILENO, "Spawn not found\n");
+				printf("Quit connection Thread\n");
 				return ;
 			}
-			if (map_send(new_player_fd, server_data, spawn) == -1)
-				return ;
+			if (map_send(client_fd, server_data, spawn) != -1)
+				client_to_player(client_fd, server_data);
 		}
 		else
 			sleep(1);
@@ -77,4 +79,20 @@ static t_spawn	*client_get_spawn(int client_socket, t_server_data *server_data)
 	}
 	pthread_mutex_unlock(server_data->spawn_lock);
 	return (spawn);
+}
+
+static void	client_to_player(int client_socket, t_server_data *server_data)
+{
+	int			index;
+	t_players	*players;
+
+	players = server_data->player;
+	index = 0;
+	lst_del_client(client_socket, server_data);
+	pthread_mutex_lock(players->players_lock);
+	while (index < players->size && players->players_socket[index] == -1)
+		index++;
+	players->players_socket[index] = client_socket;
+	pthread_mutex_unlock(players->players_lock);
+	printf("Data has been sent to the client\n\n");
 }

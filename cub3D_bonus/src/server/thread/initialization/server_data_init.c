@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "server_data.h"
 
-static int				players_init(t_player *players, int nb_spawn);
+static int				players_init(t_players *players, int nb_spawn);
 static int				mutexes_init(t_server_data *server_data);
 static void				server_data_set_to_default(t_server_data *server_data,
 							t_map *map);
@@ -26,7 +26,7 @@ t_server_data	*server_data_init(t_map *map)
 	if (server_data == NULL)
 		return (server_data_init_error(NULL, "malloc()"));
 	server_data_set_to_default(server_data, map);
-	server_data->player = (t_player *) malloc(sizeof(t_player));
+	server_data->player = (t_players *) malloc(sizeof(t_players));
 	if (server_data->player == NULL)
 		return (server_data_init_error(server_data, "malloc()"));
 	if (players_init(server_data->player, map->nb_spawn) == -1)
@@ -36,9 +36,9 @@ t_server_data	*server_data_init(t_map *map)
 	return (server_data);
 }
 
-static int	players_init(t_player *players, int nb_spawn)
+static int	players_init(t_players *players, int nb_spawn)
 {
-	ft_bzero(players, sizeof(t_player));
+	ft_bzero(players, sizeof(t_players));
 	players->players_socket = (int *) malloc(sizeof(int) * nb_spawn);
 	if (players->players_socket == NULL)
 		return (-1);

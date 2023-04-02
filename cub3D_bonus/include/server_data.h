@@ -18,9 +18,9 @@
 # include "map_server.h"
 
 typedef struct s_server_data		t_server_data;
-typedef struct s_player				t_player;
+typedef struct s_players			t_players;
 
-struct s_player
+struct s_players
 {
 	int				*players_socket;
 	int				size;
@@ -38,7 +38,7 @@ struct s_server_data
 	int				server_socket;
 	t_list			*client_socket;
 	pthread_mutex_t	*client_lock;
-	t_player		*player;
+	t_players		*player;
 	t_map			*map;
 	pthread_mutex_t	*map_lock;
 	pthread_mutex_t	*spawn_lock;
@@ -56,6 +56,7 @@ void			in_game_routine(t_server_data *server_data);
 
 /* --- CONNECTION_ROUTINE UTILS FUNCTIONS --- */
 
+void			lst_del_client(int client_socket, t_server_data *server_data);
 int				connection_error(int client_socket, char *error_msg,
 					t_server_data *server_data);
 

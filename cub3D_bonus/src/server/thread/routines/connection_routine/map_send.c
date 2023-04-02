@@ -54,14 +54,23 @@ static int	map_content_send(int client_socket, t_server_data *server_data)
 	while (index < server_data->map->height)
 	{
 		if (write(client_socket, map[index], server_data->map->width) == -1)
+		{
+			pthread_mutex_unlock(server_data->map_lock);
 			return (cub_error("Connection with client_socket lost\n"));
+		}
 		index++;
 	}
 	pthread_mutex_unlock(server_data->map_lock);
 	if (read(client_socket, &buf, sizeof(char )) <= 0)
+	{
+		pthread_mutex_unlock(server_data->map_lock);
 		return (cub_error("Connection with client_socket lost\n"));
+	}
 	if (buf == '1')
+	{
+		pthread_mutex_unlock(server_data->map_lock);
 		return (cub_error("Error in client_socket\n"));
+	}
 	printf("Map content send\n");
 	return (0);
 }

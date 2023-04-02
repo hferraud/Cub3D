@@ -14,8 +14,9 @@
 int parser(t_map_client *map, int server_fd)
 {
 	if (map_parse(map, server_fd) == -1)
-		if (write(server_fd, "1", 1) == -1)
-			return (-1);
-
+	{
+		write(server_fd, "1", 1);
+		return (-1);
+	}
 	return (0);
 }

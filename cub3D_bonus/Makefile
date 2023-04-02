@@ -48,7 +48,8 @@ SRC_SERVER	=		error.c	\
 							\
 								server/thread/routines/connection_routine/connection_routine.c	\
 								server/thread/routines/connection_routine/map_send.c			\
-								server/thread/routines/connection_routine/connection_error.c			\
+								server/thread/routines/connection_routine/connection_error.c	\
+								server/thread/routines/connection_routine/client_delete.c		\
 								\
 								server/thread/routines/in_game_routine/in_game_routine.c	\
 							\
@@ -82,7 +83,7 @@ DEPS		=		$(addprefix $(BUILD_DIR), $(SRC_SERVER:.c=.d))	\
 #	FLAGS
 #######################
 
-CFLAGS		=		-Wall -Werror -Wextra -g3 #-fsanitize=address
+CFLAGS		=		-Wall -Werror -Wextra #-g3 #-fsanitize=address
 
 IFLAGS		=		-I $(INC_DIR) -I $(LIBFT_DIR)include -I $(MLX_DIR)
 
