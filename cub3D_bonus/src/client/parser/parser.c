@@ -11,18 +11,11 @@
 /* ************************************************************************** */
 #include "parser_client.h"
 
-static void	map_preset(t_map *map);
-
-int parser(t_map *map, int server_fd)
+int parser(t_map_client *map, int server_fd)
 {
-	map_preset(map);
-	map_parse(map, server_fd);
+	if (map_parse(map, server_fd) == -1)
+		if (write(server_fd, "1", 1) == -1)
+			return (-1);
+
 	return (0);
-}
-
-static void	map_preset(t_map *map)
-{
-	map->map = NULL;
-	map->spawn = NULL;
-	ft_bzero(map->path, sizeof(char *) * 7);
 }

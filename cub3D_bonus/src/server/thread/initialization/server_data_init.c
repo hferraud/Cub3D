@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "server_data.h"
 
-static int				players_init(t_players *players, int nb_spawn);
+static int				players_init(t_player *players, int nb_spawn);
 static int				mutexes_init(t_server_data *server_data);
 static void				server_data_set_to_default(t_server_data *server_data,
 							t_map *map);
@@ -26,29 +26,29 @@ t_server_data	*server_data_init(t_map *map)
 	if (server_data == NULL)
 		return (server_data_init_error(NULL, "malloc()"));
 	server_data_set_to_default(server_data, map);
-	server_data->players = (t_players *) malloc(sizeof(t_players));
-	if (server_data->players == NULL)
+	server_data->player = (t_player *) malloc(sizeof(t_player));
+	if (server_data->player == NULL)
 		return (server_data_init_error(server_data, "malloc()"));
-	if (players_init(server_data->players, map->nb_spawn) == -1)
+	if (players_init(server_data->player, map->nb_spawn) == -1)
 		return (server_data_init_error(server_data, "players_init()"));
 	if (mutexes_init(server_data) == -1)
 		return (server_data_init_error(server_data, "mutexes_init()"));
 	return (server_data);
 }
 
-static int	players_init(t_players *players, int nb_spawn)
+static int	players_init(t_player *players, int nb_spawn)
 {
-	ft_bzero(players, sizeof(t_players));
+	ft_bzero(players, sizeof(t_player));
 	players->players_socket = (int *) malloc(sizeof(int) * nb_spawn);
 	if (players->players_socket == NULL)
 		return (-1);
-	players->socket_lock = malloc(sizeof(pthread_mutex_t));
-	if (players->socket_lock == NULL)
+	players->players_lock = malloc(sizeof(pthread_mutex_t));
+	if (players->players_lock == NULL)
 		return (-1);
-	if (pthread_mutex_init(players->socket_lock, NULL) != 0)
+	if (pthread_mutex_init(players->players_lock, NULL) != 0)
 	{
-		free(players->socket_lock);
-		players->socket_lock = NULL;
+		free(players->players_lock);
+		players->players_lock = NULL;
 		return (-1);
 	}
 	players->size = nb_spawn;
@@ -57,13 +57,13 @@ static int	players_init(t_players *players, int nb_spawn)
 
 static int	mutexes_init(t_server_data *server_data)
 {
-	server_data->new_client_lock = malloc(sizeof(pthread_mutex_t));
-	if (server_data->new_client_lock == NULL)
+	server_data->client_lock = malloc(sizeof(pthread_mutex_t));
+	if (server_data->client_lock == NULL)
 		return (-1);
-	if (pthread_mutex_init(server_data->new_client_lock, NULL) != 0)
+	if (pthread_mutex_init(server_data->client_lock, NULL) != 0)
 	{
-		free(server_data->new_client_lock);
-		server_data->new_client_lock = NULL;
+		free(server_data->client_lock);
+		server_data->client_lock = NULL;
 		return (-1);
 	}
 	server_data->map_lock = malloc(sizeof(pthread_mutex_t));
@@ -90,8 +90,8 @@ static int	mutexes_init(t_server_data *server_data)
 static void	server_data_set_to_default(t_server_data *server_data, t_map *map)
 {
 	server_data->server_socket = -1;
-	server_data->new_client = NULL;
-	server_data->players = NULL;
+	server_data->client_socket = NULL;
+	server_data->player = NULL;
 	server_data->map = map;
 	server_data->map_lock = NULL;
 	server_data->spawn_lock = NULL;

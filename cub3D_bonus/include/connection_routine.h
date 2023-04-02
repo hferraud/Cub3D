@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_client.h                                    :+:      :+:    :+:   */
+/*   connection_routine.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edelage <edelage@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: ethan <ethan@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/01 15:22:00 by edelage           #+#    #+#             */
-/*   Updated: 2023/04/01 15:22:00 by edelage          ###   ########lyon.fr   */
+/*   Created: 2023/04/02 17:36:00 by ethan             #+#    #+#             */
+/*   Updated: 2023/04/02 17:36:00 by ethan            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef PARSER_CLIENT_H
-# define PARSER_CLIENT_H
+#ifndef CONNECTION_ROUTINE_H
+# define CONNECTION_ROUTINE_H
 
-# include "cub.h"
+# include "server_data.h"
 
-int	parser(t_map_client *map, int server_fd);
-int	map_parse(t_map_client *map, int server_fd);
+void			connection_routine(t_server_data *server_data);
+
+/* ---
 
 #endif

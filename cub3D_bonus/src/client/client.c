@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_socket.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelage <edelage@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,11 +12,13 @@
 #include "socket_client.h"
 #include "parser_client.h"
 
+static void	print_map(t_map_client map);
+
 int	main(int argc, char **argv)
 {
-	uint16_t	port;
-	int			socket_fd;
-	t_map		map;
+	uint16_t		port;
+	int				socket_fd;
+	t_map_client	map;
 
 	if (argc != 3)
 		return (cub_error("./cub3D IP port\n"));
@@ -27,6 +29,20 @@ int	main(int argc, char **argv)
 	if (socket_fd == -1)
 		return (-1);
 	parser(&map, socket_fd);
+	print_map(map);
 	close(socket_fd);
 	return (0);
+}
+
+static void	print_map(t_map_client map)
+{
+	size_t	i;
+
+	i = 0;
+	while (map.map[i])
+	{
+		printf("%s\n", map.map[i]);
+		i++;
+	}
+	printf("spawn:\nx: %zu\ny: %zu\nor: %c\n", map.spawn.x, map.spawn.y, map.spawn.orientation);
 }

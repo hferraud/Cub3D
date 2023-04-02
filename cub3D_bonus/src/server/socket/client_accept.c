@@ -38,8 +38,8 @@ void	listen_connections(int server_socket_fd, t_server_data *server_data)
 }
 
 /**
- * @brief Accept a request from a client
- * @return The file descriptor of the client socket, -1 otherwise
+ * @brief Accept a request from a client_socket
+ * @return The file descriptor of the client_socket socket, -1 otherwise
  */
 static int	client_accept(int server_socket_fd)
 {
@@ -53,7 +53,7 @@ static int	client_accept(int server_socket_fd)
 			&client_addr_len);
 	if (client_socket_fd == -1)
 		return (perror("accept()"), errno);
-	printf("Connection with a client established\n");
+	printf("Connection with a client_socket established\n");
 	return (client_socket_fd);
 }
 
@@ -62,7 +62,7 @@ static int	new_player_add(int player_socket_fd, t_server_data *server_data)
 	t_list	*new;
 	int		*content;
 
-	pthread_mutex_lock(server_data->new_client_lock);
+	pthread_mutex_lock(server_data->client_lock);
 	content = (int *) malloc(sizeof(int));
 	if (content == NULL)
 		return (perror("malloc()"), -1);
@@ -73,7 +73,7 @@ static int	new_player_add(int player_socket_fd, t_server_data *server_data)
 		free(content);
 		return (perror("malloc()"), -1);
 	}
-	ft_lstadd_back(&server_data->new_client, new);
-	pthread_mutex_unlock(server_data->new_client_lock);
+	ft_lstadd_back(&server_data->client_socket, new);
+	pthread_mutex_unlock(server_data->client_lock);
 	return (0);
 }

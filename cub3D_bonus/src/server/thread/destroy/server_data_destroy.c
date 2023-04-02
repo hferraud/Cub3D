@@ -13,14 +13,14 @@
 
 void		map_data_clear(t_map *map);
 
-static void	disconnect_client(t_list *new_players, t_players *players);
+static void	disconnect_client(t_list *new_players, t_player *players);
 
 void	server_data_destroy(t_server_data *server_data)
 {
 	map_data_clear(server_data->map);
-	if (server_data->new_client_lock)
-		pthread_mutex_destroy(server_data->new_client_lock);
-	free(server_data->new_client_lock);
+	if (server_data->client_lock)
+		pthread_mutex_destroy(server_data->client_lock);
+	free(server_data->client_lock);
 	if (server_data->map_lock)
 		pthread_mutex_destroy(server_data->map_lock);
 	free(server_data->map_lock);
@@ -31,22 +31,22 @@ void	server_data_destroy(t_server_data *server_data)
 		pthread_cancel(server_data->thread[LAUNCH]);
 	if (server_data->thread[IN_GAME] != 0)
 		pthread_cancel(server_data->thread[IN_GAME]);
-	disconnect_client(server_data->new_client, server_data->players);
-	ft_lstclear(&server_data->new_client, free);
-	if (server_data->players)
+	disconnect_client(server_data->client_socket, server_data->player);
+	ft_lstclear(&server_data->client_socket, free);
+	if (server_data->player)
 	{
-		free(server_data->players->players_socket);
-		if (server_data->players->socket_lock)
-			pthread_mutex_destroy(server_data->players->socket_lock);
-		free(server_data->players->socket_lock);
-		free(server_data->players);
+		free(server_data->player->players_socket);
+		if (server_data->player->players_lock)
+			pthread_mutex_destroy(server_data->player->players_lock);
+		free(server_data->player->players_lock);
+		free(server_data->player);
 	}
 	if (server_data->server_socket != -1)
 		close(server_data->server_socket);
 	free(server_data);
 }
 
-static void	disconnect_client(t_list *new_players, t_players *players)
+static void	disconnect_client(t_list *new_players, t_player *players)
 {
 	int	index;
 

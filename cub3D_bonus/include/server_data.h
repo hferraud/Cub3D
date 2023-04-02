@@ -18,13 +18,13 @@
 # include "map_server.h"
 
 typedef struct s_server_data		t_server_data;
-typedef struct s_players			t_players;
+typedef struct s_player				t_player;
 
-struct s_players
+struct s_player
 {
 	int				*players_socket;
 	int				size;
-	pthread_mutex_t	*socket_lock;
+	pthread_mutex_t	*players_lock;
 };
 
 enum
@@ -36,9 +36,9 @@ enum
 struct s_server_data
 {
 	int				server_socket;
-	t_list			*new_client;
-	pthread_mutex_t	*new_client_lock;
-	t_players		*players;
+	t_list			*client_socket;
+	pthread_mutex_t	*client_lock;
+	t_player		*player;
 	t_map			*map;
 	pthread_mutex_t	*map_lock;
 	pthread_mutex_t	*spawn_lock;
@@ -53,6 +53,11 @@ t_server_data	*thread_init(t_map *map);
 
 void			connection_routine(t_server_data *server_data);
 void			in_game_routine(t_server_data *server_data);
+
+/* --- CONNECTION_ROUTINE UTILS FUNCTIONS --- */
+
+int				connection_error(int client_socket, char *error_msg,
+					t_server_data *server_data);
 
 /* ---	SERVER_DATA FUNCTIONS --- */
 

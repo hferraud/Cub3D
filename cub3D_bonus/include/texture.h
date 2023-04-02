@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_client.h                                    :+:      :+:    :+:   */
+/*   texture.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edelage <edelage@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: ethan <ethan@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/01 15:22:00 by edelage           #+#    #+#             */
-/*   Updated: 2023/04/01 15:22:00 by edelage          ###   ########lyon.fr   */
+/*   Created: 2023/04/02 16:40:00 by ethan             #+#    #+#             */
+/*   Updated: 2023/04/02 16:40:00 by ethan            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef PARSER_CLIENT_H
-# define PARSER_CLIENT_H
+#ifndef TEXTURE_H
+# define TEXTURE_H
 
-# include "cub.h"
+typedef enum e_texture_id	t_texture_id;
 
-int	parser(t_map_client *map, int server_fd);
-int	map_parse(t_map_client *map, int server_fd);
+enum e_texture_id
+{
+	NORTH_ID		=	0,
+	SOUTH_ID		=	1,
+	WEST_ID			=	2,
+	EAST_ID			=	3,
+	DOOR_ID			=	4,
+	FLOOR_ID		=	5,
+	CEILING_ID		=	6,
+	UNDEFINED_ID	=	7
+};
 
 #endif

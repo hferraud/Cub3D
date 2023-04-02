@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   connection_routine.c                                   :+:      :+:    :+:   */
+/*   connection_routine.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ethan <ethan@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,11 +11,12 @@
 /* ************************************************************************** */
 #include "server_data.h"
 
-int				map_send(int client_fd, t_server_data *server_data,
+int				map_send(int client_socket, t_server_data *server_data,
 					t_spawn *spawn);
 
 static int		client_get_socket(t_server_data *server_data);
-static t_spawn	*client_get_spawn(int client_fd, t_server_data *server_data);
+static t_spawn	*client_get_spawn(int client_socket,
+					t_server_data *server_data);
 
 void	connection_routine(t_server_data *server_data)
 {
@@ -46,18 +47,18 @@ static int	client_get_socket(t_server_data *server_data)
 {
 	int	client_socket;
 
-	pthread_mutex_lock(server_data->new_client_lock);
-	if (server_data->new_client == NULL)
+	pthread_mutex_lock(server_data->client_lock);
+	if (server_data->client_socket == NULL)
 	{
-		pthread_mutex_unlock(server_data->new_client_lock);
+		pthread_mutex_unlock(server_data->client_lock);
 		return (-1);
 	}
-	client_socket = *((int *) server_data->new_client->content);
-	pthread_mutex_unlock(server_data->new_client_lock);
+	client_socket = *((int *) server_data->client_socket->content);
+	pthread_mutex_unlock(server_data->client_lock);
 	return (client_socket);
 }
 
-static t_spawn	*client_get_spawn(int client_fd, t_server_data *server_data)
+static t_spawn	*client_get_spawn(int client_socket, t_server_data *server_data)
 {
 	t_list	*head;
 	t_spawn	*spawn;
@@ -70,7 +71,7 @@ static t_spawn	*client_get_spawn(int client_fd, t_server_data *server_data)
 		if (((t_spawn *) head->content)->player_id == -1)
 		{
 			spawn = (t_spawn *) head->content;
-			spawn->player_id = client_fd;
+			spawn->player_id = client_socket;
 		}
 		head = head->next;
 	}

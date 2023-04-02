@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.h                                              :+:      :+:    :+:   */
+/*   map_client.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ethan <ethan@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/24 15:29:00 by ethan             #+#    #+#             */
-/*   Updated: 2023/03/24 15:29:00 by ethan            ###   ########lyon.fr   */
+/*   Created: 2023/04/02 16:36:00 by ethan             #+#    #+#             */
+/*   Updated: 2023/04/02 16:36:00 by ethan            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef MAP_SERVER_H
-# define MAP_SERVER_H
+#ifndef MAP_CLIENT_H
+# define MAP_CLIENT_H
 
 # include <sys/types.h>
 # include <stdlib.h>
-# include "texture.h"
-# include "error.h"
+# include "cub.h"
 # include "libft.h"
 
 # define FLOOR			'0'
@@ -28,7 +27,7 @@
 # define ASSAULT_RIFLE	'R'
 # define ENEMY			'P'
 
-typedef struct s_map		t_map;
+typedef struct s_map_client	t_map_client;
 typedef struct s_spawn		t_spawn;
 
 struct s_spawn
@@ -36,16 +35,14 @@ struct s_spawn
 	size_t	x;
 	size_t	y;
 	char	orientation;
-	int		player_id;
 };
 
-struct s_map
+struct s_map_client
 {
 	char	**map;
 	size_t	height;
 	size_t	width;
-	t_list	*spawn;
-	int		nb_spawn;
+	t_spawn	spawn;
 	char	*path[7];
 };
 
