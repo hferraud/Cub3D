@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   launch_routine.c                                   :+:      :+:    :+:   */
+/*   connection_routine.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ethan <ethan@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,12 +11,13 @@
 /* ************************************************************************** */
 #include "server_data.h"
 
-int	map_send(int client_fd, t_launch_data *launch_data, t_spawn *spawn);
+int				map_send(int client_fd, t_server_data *server_data,
+					t_spawn *spawn);
 
-static int		new_player_fd_get(t_launch_data *launch_data);
-static t_spawn	*new_player_get_spawn(int client_fd, t_launch_data *launch_data);
+static int		client_get_socket(t_server_data *server_data);
+static t_spawn	*client_get_spawn(int client_fd, t_server_data *server_data);
 
-void	launch_routine(t_launch_data *launch_data)
+void	connection_routine(t_server_data *server_data)
 {
 	int		new_player_fd;
 	t_spawn	*spawn;
@@ -24,16 +25,16 @@ void	launch_routine(t_launch_data *launch_data)
 	printf("Launch Thread created\n");
 	while (1)
 	{
-		new_player_fd = new_player_fd_get(launch_data);
+		new_player_fd = client_get_socket(server_data);
 		if (new_player_fd != -1)
 		{
-			spawn = new_player_get_spawn(new_player_fd, launch_data);
+			spawn = client_get_spawn(new_player_fd, server_data);
 			if (spawn == NULL)
 			{
 				dprintf(STDERR_FILENO, "Spawn not found\n");
 				return ;
 			}
-			if (map_send(new_player_fd, launch_data, spawn) == -1)
+			if (map_send(new_player_fd, server_data, spawn) == -1)
 				return ;
 		}
 		else
@@ -41,29 +42,29 @@ void	launch_routine(t_launch_data *launch_data)
 	}
 }
 
-static int	new_player_fd_get(t_launch_data *launch_data)
+static int	client_get_socket(t_server_data *server_data)
 {
-	int	new_player_fd;
+	int	client_socket;
 
-	pthread_mutex_lock(launch_data->mut_new_player);
-	if (*launch_data->new_client == NULL)
+	pthread_mutex_lock(server_data->new_client_lock);
+	if (server_data->new_client == NULL)
 	{
-		pthread_mutex_unlock(launch_data->mut_new_player);
+		pthread_mutex_unlock(server_data->new_client_lock);
 		return (-1);
 	}
-	new_player_fd = *((int *) (*launch_data->new_client)->content);
-	pthread_mutex_unlock(launch_data->mut_new_player);
-	return (new_player_fd);
+	client_socket = *((int *) server_data->new_client->content);
+	pthread_mutex_unlock(server_data->new_client_lock);
+	return (client_socket);
 }
 
-static t_spawn	*new_player_get_spawn(int client_fd, t_launch_data *launch_data)
+static t_spawn	*client_get_spawn(int client_fd, t_server_data *server_data)
 {
 	t_list	*head;
 	t_spawn	*spawn;
 
 	spawn = NULL;
-	pthread_mutex_lock(launch_data->mut_spawn);
-	head = launch_data->map->spawn;
+	pthread_mutex_lock(server_data->spawn_lock);
+	head = server_data->map->spawn;
 	while (head && spawn == NULL)
 	{
 		if (((t_spawn *) head->content)->player_id == -1)
@@ -73,6 +74,6 @@ static t_spawn	*new_player_get_spawn(int client_fd, t_launch_data *launch_data)
 		}
 		head = head->next;
 	}
-	pthread_mutex_unlock(launch_data->mut_spawn);
+	pthread_mutex_unlock(server_data->spawn_lock);
 	return (spawn);
 }

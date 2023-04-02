@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 #include "server_data.h"
 
-void	in_game_routine(t_in_game_data *in_game_data)
+void	in_game_routine(t_server_data *server_data)
 {
-	(void) in_game_data;
+	(void) server_data;
 	printf("In Game Thread created\n");
 }

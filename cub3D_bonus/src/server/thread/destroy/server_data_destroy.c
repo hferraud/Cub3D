@@ -18,15 +18,15 @@ static void	disconnect_client(t_list *new_players, t_players *players);
 void	server_data_destroy(t_server_data *server_data)
 {
 	map_data_clear(server_data->map);
-	if (server_data->mut_new_player)
-		pthread_mutex_destroy(server_data->mut_new_player);
-	free(server_data->mut_new_player);
-	if (server_data->mut_map)
-		pthread_mutex_destroy(server_data->mut_map);
-	free(server_data->mut_map);
-	if (server_data->mut_spawn)
-		pthread_mutex_destroy(server_data->mut_spawn);
-	free(server_data->mut_spawn);
+	if (server_data->new_client_lock)
+		pthread_mutex_destroy(server_data->new_client_lock);
+	free(server_data->new_client_lock);
+	if (server_data->map_lock)
+		pthread_mutex_destroy(server_data->map_lock);
+	free(server_data->map_lock);
+	if (server_data->spawn_lock)
+		pthread_mutex_destroy(server_data->spawn_lock);
+	free(server_data->spawn_lock);
 	if (server_data->thread[LAUNCH] != 0)
 		pthread_cancel(server_data->thread[LAUNCH]);
 	if (server_data->thread[IN_GAME] != 0)
@@ -35,14 +35,14 @@ void	server_data_destroy(t_server_data *server_data)
 	ft_lstclear(&server_data->new_client, free);
 	if (server_data->players)
 	{
-		free(server_data->players->players_fd);
-		if (server_data->players->mut_players_fd)
-			pthread_mutex_destroy(server_data->players->mut_players_fd);
-		free(server_data->players->mut_players_fd);
+		free(server_data->players->players_socket);
+		if (server_data->players->socket_lock)
+			pthread_mutex_destroy(server_data->players->socket_lock);
+		free(server_data->players->socket_lock);
 		free(server_data->players);
 	}
-	if (server_data->server_fd != -1)
-		close(server_data->server_fd);
+	if (server_data->server_socket != -1)
+		close(server_data->server_socket);
 	free(server_data);
 }
 
@@ -60,8 +60,8 @@ static void	disconnect_client(t_list *new_players, t_players *players)
 	index = 0;
 	while (index < players->size)
 	{
-		if (players->players_fd[index] != -1)
-			close(players->players_fd[index]);
+		if (players->players_socket[index] != -1)
+			close(players->players_socket[index]);
 		index++;
 	}
 }

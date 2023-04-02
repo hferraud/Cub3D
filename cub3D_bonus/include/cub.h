@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #ifndef CUB_H
 # define CUB_H
-# include "map.h"
+# include "map_server.h"
 # include "error.h"
 
 typedef enum e_texture_id	t_texture_id;

@@ -21,7 +21,7 @@
 # include <stdbool.h>
 # include "libft.h"
 # include "get_next_line.h"
-# include "map.h"
+# include "map_server.h"
 # include "error.h"
 
 # define PLAYER_LIMIT	10

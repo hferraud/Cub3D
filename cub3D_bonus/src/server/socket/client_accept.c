@@ -62,7 +62,7 @@ static int	new_player_add(int player_socket_fd, t_server_data *server_data)
 	t_list	*new;
 	int		*content;
 
-	pthread_mutex_lock(server_data->mut_new_player);
+	pthread_mutex_lock(server_data->new_client_lock);
 	content = (int *) malloc(sizeof(int));
 	if (content == NULL)
 		return (perror("malloc()"), -1);
@@ -74,6 +74,6 @@ static int	new_player_add(int player_socket_fd, t_server_data *server_data)
 		return (perror("malloc()"), -1);
 	}
 	ft_lstadd_back(&server_data->new_client, new);
-	pthread_mutex_unlock(server_data->mut_new_player);
+	pthread_mutex_unlock(server_data->new_client_lock);
 	return (0);
 }

@@ -11,17 +11,18 @@
 /* ************************************************************************** */
 #include "server_data.h"
 
-static int map_size_send(int client_fd, size_t height, size_t width);
+static int	map_size_send(int client_fd, size_t height, size_t width);
 
-int	map_send(int client_fd, t_launch_data *launch_data, t_spawn *spawn)
+int	map_send(int client_fd, t_server_data *server_data, t_spawn *spawn)
 {
 	(void) spawn;
-	if (map_size_send(client_fd, launch_data->map->height, launch_data->map->width) == -1)
+	if (map_size_send(client_fd, server_data->map->height,
+			server_data->map->width) == -1)
 		return (-1);
 	return (0);
 }
 
-static int map_size_send(int client_fd, size_t height, size_t width)
+static int	map_size_send(int client_fd, size_t height, size_t width)
 {
 	char	buf;
 

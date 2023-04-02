@@ -46,7 +46,7 @@ int map_parse(t_map *map, int server_fd)
 
 static int	map_size_parse(t_map *map, int server_fd)
 {
-	size_t buf;
+	size_t	buf;
 
 	buf = 0;
 	if (read(server_fd, &buf, sizeof(size_t)) <= 0)
@@ -56,5 +56,6 @@ static int	map_size_parse(t_map *map, int server_fd)
 	if (read(server_fd, &buf, sizeof(size_t)) <= 0)
 		return (cub_error("Connection with server lost\n"));
 	map->width = buf;
+	printf("%zu\n", map->width);
 	return (0);
 }

@@ -46,8 +46,8 @@ SRC_SERVER	=		error.c	\
 							\
 							server/thread/destroy/server_data_destroy.c	\
 							\
-								server/thread/routines/launch_routine/launch_routine.c	\
-								server/thread/routines/launch_routine/map_send.c		\
+								server/thread/routines/connection_routine/connection_routine.c	\
+								server/thread/routines/connection_routine/map_send.c			\
 								\
 								server/thread/routines/in_game_routine/in_game_routine.c	\
 							\
