@@ -12,7 +12,7 @@
 #include "socket_client.h"
 #include "parser_client.h"
 
-static void	print_map(t_map_client map);
+//static void	print_map(t_map_client map);
 
 int	main(int argc, char **argv)
 {
@@ -30,20 +30,19 @@ int	main(int argc, char **argv)
 		return (-1);
 	if (parser(&map, socket_fd) == -1)
 		return (1);
-	print_map(map);
 	close(socket_fd);
 	return (0);
 }
 
-static void	print_map(t_map_client map)
-{
-	size_t	i;
-
-	i = 0;
-	while (map.map[i])
-	{
-		printf("%s\n", map.map[i]);
-		i++;
-	}
-	printf("spawn:\nx: %zu\ny: %zu\nor: %c\n", map.spawn.x, map.spawn.y, map.spawn.orientation);
-}
+//static void	print_map(t_map_client map)
+//{
+//	size_t	i;
+//
+//	i = 0;
+//	while (map.map[i])
+//	{
+//		printf("%s\n", map.map[i]);
+//		i++;
+//	}
+//	printf("spawn:\nx: %zu\ny: %zu\nor: %c\n", map.spawn.x, map.spawn.y, map.spawn.orientation);
+//}

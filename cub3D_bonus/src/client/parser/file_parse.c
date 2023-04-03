@@ -26,7 +26,6 @@ int	file_parse(t_map_client *map, int server_socket)
 	{
 		if (filename_parse(&map->path[id], server_socket) == -1)
 			return (write(server_socket, SOCK_ERROR, 1), -1);
-		printf("path: %s\n", map->path[id]);
 		req_code = file_request(map->path[id], server_socket);
 		if (req_code == -1)
 			return (write(server_socket, SOCK_ERROR, 1), -1);
@@ -34,12 +33,12 @@ int	file_parse(t_map_client *map, int server_socket)
 		{
 			file_fd = open(map->path[id], O_WRONLY | O_CREAT, 0644);
 			if (file_fd == -1)
-			{
-				printf("here\n");
 				return (cub_error(NULL));
-			}
+			printf("Loading %s\n", map->path[id]);
 			if (file_receive(file_fd, server_socket) == -1)
 				return (close(file_fd), -1);
+
+			printf("%s successfully loaded\n", map->path[id]);
 			close(file_fd);
 		}
 		id++;
@@ -52,6 +51,7 @@ static int	filename_parse(char **path, int server_socket)
 	size_t	size;
 	size_t	dir_len;
 
+	printf("Loading texture file name\n");
 	if (read(server_socket, &size, sizeof(size_t)) <= 0)
 		return (cub_error(SERVER_LOST));
 	dir_len = ft_strlen(DIR_SPRITE);
@@ -65,7 +65,6 @@ static int	filename_parse(char **path, int server_socket)
 	if (read(server_socket, *path + dir_len, size * sizeof(char)) <= 0)
 		return (cub_error(SERVER_LOST));
 	(*path)[size] = '\0';
-	printf("path: %s\n", *path);
 	return (0);
 }
 
@@ -81,12 +80,14 @@ static int	file_request(char *path, int server_socket)
 		if (errno == ENOENT)
 		{
 			errno = 0;
+			printf("Requesting %s\n", path);
 			if (write(server_socket, SOCK_SUCCESS, 1) == -1)
 				return (cub_error(SERVER_LOST));
 			return (0);
 		}
 		return (cub_error(NULL));
 	}
+	printf("%s already loaded\n", path);
 	if (write(server_socket, FILE_EXIST, 1) == -1)
 		return (cub_error(SERVER_LOST));
 	return (1);

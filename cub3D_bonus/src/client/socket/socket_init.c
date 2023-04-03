@@ -38,6 +38,6 @@ int	socket_client_init(const char *ip, uint16_t port)
 		close(socket_fd);
 		return (perror("connect()"), -1);
 	}
-	ft_putstr("Connected with the server established\n");
+	ft_putstr("Connection with server established\n");
 	return (socket_fd);
 }

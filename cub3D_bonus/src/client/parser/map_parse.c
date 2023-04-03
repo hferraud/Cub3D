@@ -42,15 +42,14 @@ static int	map_size_parse(t_map_client *map, int server_socket)
 {
 	size_t	buf;
 
+	printf("Loading map size\n");
 	buf = 0;
 	if (read(server_socket, &buf, sizeof(size_t)) <= 0)
 		return (cub_error("Connection with server lost\n"));
 	map->height = buf;
-	printf("%zu\n", map->height);
 	if (read(server_socket, &buf, sizeof(size_t)) <= 0)
 		return (cub_error("Connection with server lost\n"));
 	map->width = buf;
-	printf("%zu\n", map->width);
 	return (0);
 }
 
@@ -58,6 +57,7 @@ static int	map_content_parse(t_map_client *map, int server_socket)
 {
 	size_t	index;
 
+	printf("Loading map content\n");
 	index = 0;
 	while (index < map->height)
 	{
@@ -71,6 +71,7 @@ static int	map_content_parse(t_map_client *map, int server_socket)
 
 static int	map_spawn_parse(t_map_client *map, int server_socket)
 {
+	printf("Loading map spawn\n");
 	if (read(server_socket, &map->spawn.x, sizeof(size_t)) <= 0)
 		return (cub_error("Connection with server lost\n"));
 	if (read(server_socket, &map->spawn.y, sizeof(size_t)) <= 0)
@@ -84,6 +85,7 @@ static int	map_init(t_map_client *map)
 {
 	size_t	index;
 
+	printf("Initializing map\n");
 	map->map = malloc(sizeof(char *) * (map->height + 1));
 	if (map->map == NULL)
 		return (cub_error(NULL));
