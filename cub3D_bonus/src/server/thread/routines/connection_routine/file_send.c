@@ -79,6 +79,7 @@ static int	content_send(int client_socket, char *path)
 	int			fd;
 	struct stat	stat_buf;
 	size_t		file_size;
+	char		receive;
 
 	if (file_open(path, &fd, &stat_buf) == -1)
 		return (1);
@@ -97,13 +98,16 @@ static int	content_send(int client_socket, char *path)
 		if (write(client_socket, buf, ret) == -1)
 			return (close(fd), cub_error(CLIENT_LOST));
 	}
+	if (read(client_socket, &receive, sizeof(char)) <= 0)
+		return (cub_error(CLIENT_LOST));
+	if (receive != *SOCK_SUCCESS)
+		return (cub_error(CLIENT_ERR_MSG));
 	printf("Texture file %s has been sent\n", path);
 	return (close(fd), 0);
 }
 
 static int	file_open(char *path, int *fd, struct stat *stat_buf)
 {
-	printf("%s\n", path);
 	*fd = open(path, O_RDONLY);
 	if (*fd == -1)
 		return (cub_error("Error while opening file\n"));

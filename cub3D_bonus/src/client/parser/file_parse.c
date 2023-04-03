@@ -39,7 +39,7 @@ int	file_parse(t_map_client *map, int server_socket)
 				return (cub_error(NULL));
 			}
 			if (file_receive(file_fd, server_socket) == -1)
-				return (-1);
+				return (close(file_fd), -1);
 			close(file_fd);
 		}
 		id++;
@@ -66,8 +66,6 @@ static int	filename_parse(char **path, int server_socket)
 	if (read(server_socket, *path + dir_len, size * sizeof(char)) <= 0)
 		return (cub_error(SERVER_LOST));
 	(*path)[size] = '\0';
-	if (write(server_socket, SOCK_SUCCESS, 1) == -1)
-		return (cub_error(SERVER_LOST));
 	printf("path: %s\n", *path);
 	return (0);
 }
