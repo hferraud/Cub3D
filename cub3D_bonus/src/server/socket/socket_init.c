@@ -30,7 +30,6 @@ int	socket_init(const char *ascii_port, int n)
 	socket_fd = socket_create(port);
 	if (socket_fd == -1)
 		return (-1);
-	printf("%d\n", n);
 	if (listen(socket_fd, n) == -1)
 	{
 		close(socket_fd);

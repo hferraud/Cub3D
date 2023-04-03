@@ -31,7 +31,6 @@ int	main(int argc, char **argv)
 	if (parser(&map, socket_fd) == -1)
 		return (1);
 	print_map(map);
-	while (1);
 	close(socket_fd);
 	return (0);
 }
