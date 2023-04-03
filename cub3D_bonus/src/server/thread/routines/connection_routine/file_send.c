@@ -29,10 +29,7 @@ int	file_send(int client_socket, char *path)
 	if (ret == -1)
 		return (-1);
 	else if (ret == 0)
-	{
-		printf("The client already has texture file %s\n", path);
 		return (0);
-	}
 	ret = content_send(client_socket, path);
 	if (ret == -1 || ret == 1)
 		return (ret);
@@ -106,6 +103,7 @@ static int	content_send(int client_socket, char *path)
 
 static int	file_open(char *path, int *fd, struct stat *stat_buf)
 {
+	printf("%s\n", path);
 	*fd = open(path, O_RDONLY);
 	if (*fd == -1)
 		return (cub_error("Error while opening file\n"));

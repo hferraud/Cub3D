@@ -32,7 +32,7 @@ int	file_parse(t_map_client *map, int server_socket)
 			return (write(server_socket, SOCK_ERROR, 1), -1);
 		if (req_code == 0)
 		{
-			file_fd = open(map->path[id], O_WRONLY);
+			file_fd = open(map->path[id], O_WRONLY | O_CREAT, 0644);
 			if (file_fd == -1)
 			{
 				printf("here\n");
