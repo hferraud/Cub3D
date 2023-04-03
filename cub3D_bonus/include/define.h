@@ -12,8 +12,9 @@
 #ifndef DEFINE_H
 # define DEFINE_H
 
-# define SOCK_SUCCESS	"0"
-# define SOCK_ERROR		"1"
-# define FILE_EXIST		"2"
+# define SOCK_SUCCESS		"0"
+# define SOCK_ERROR			"1"
+# define FILE_EXIST			"2"
+# define SOC_BUFFER_SIZE	1028
 
 #endif

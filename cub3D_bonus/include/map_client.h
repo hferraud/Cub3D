@@ -26,6 +26,7 @@
 # define PISTOL			'G'
 # define ASSAULT_RIFLE	'R'
 # define ENEMY			'P'
+# define DIR_SPRITE		"asset/"
 
 typedef struct s_map_client	t_map_client;
 typedef struct s_spawn		t_spawn;
@@ -43,7 +44,7 @@ struct s_map_client
 	size_t	height;
 	size_t	width;
 	t_spawn	spawn;
-	char	*filename[7];
+	char	*path[7];
 };
 
 #endif
