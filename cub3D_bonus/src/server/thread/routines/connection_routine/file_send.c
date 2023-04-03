@@ -25,11 +25,21 @@ static int	filename_send(int client_socket, char *path)
 	char			buf;
 
 	len_filename = len_path - index;
+	if (write(client_socket, &len_filename, sizeof(size_t)) == -1
+		|| read(client_socket, &buf, sizeof(char)) <= 0)
+		return (cub_error(CLIENT_LOST));
+	if (buf == *SOCK_ERROR)
+		return (cub_error(CLIENT_ERR_MSG));
 	if (write(client_socket, path + index, len_filename) == -1
 		|| read(client_socket, &buf, sizeof(char)) <= 0)
 		return (cub_error(CLIENT_LOST));
 	if (buf == *SOCK_ERROR)
 		return (cub_error(CLIENT_ERR_MSG));
+	else if (buf == *FILE_EXIST)
+	{
+		printf()
+		return (1);
+	}
 	return (0);
 }
 

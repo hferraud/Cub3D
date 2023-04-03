@@ -38,11 +38,13 @@ static int	filename_parse(char *dest, int server_socket)
 	dest = malloc((size + 1) * sizeof(char));
 	if (dest == NULL)
 		return (cub_error(NULL));
-	if (write(server_socket, SOCK_SUCCESS, ))
+	if (write(server_socket, SOCK_SUCCESS, 1) == -1)
+		return (cub_error(SERVER_LOST));
 	if (read(server_socket, dest, size * sizeof(char)) <= 0)
 		return (cub_error(SERVER_LOST));
 	dest[size] = '\0';
-
+	if (write(server_socket, SOCK_SUCCESS, 1) == -1)
+		return (cub_error(SERVER_LOST));
 	return (0);
 }
 
