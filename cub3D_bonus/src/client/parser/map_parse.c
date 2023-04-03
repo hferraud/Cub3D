@@ -84,14 +84,14 @@ static int	map_init(t_map_client *map)
 {
 	size_t	index;
 
-	map->map = malloc(sizeof(char *) * map->height + 1);
+	map->map = malloc(sizeof(char *) * (map->height + 1));
 	if (map->map == NULL)
 		return (cub_error(NULL));
 	map->map[map->height] = NULL;
 	index = 0;
 	while (index < map->height)
 	{
-		map->map[index] = malloc(sizeof(char) * map->width + 1);
+		map->map[index] = malloc(sizeof(char) * (map->width + 1));
 		if (map->map[index] == NULL)
 			return (cub_error(NULL)); //CLEAR
 		index++;
