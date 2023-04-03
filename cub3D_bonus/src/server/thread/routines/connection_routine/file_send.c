@@ -28,7 +28,7 @@ int	file_send(int client_socket, char *path)
 	ret = filename_send(client_socket, path);
 	if (ret == -1)
 		return (-1);
-	else if (ret == 0)
+	else if (ret == 1)
 		return (0);
 	ret = content_send(client_socket, path);
 	if (ret == -1 || ret == 1)
