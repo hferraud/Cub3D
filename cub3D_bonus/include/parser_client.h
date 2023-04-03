@@ -13,6 +13,7 @@
 # define PARSER_CLIENT_H
 
 # include <fcntl.h>
+# include <sys/stat.h>
 # include "cub.h"
 # include "define.h"
 

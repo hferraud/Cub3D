@@ -56,7 +56,6 @@ static int	filename_parse(char **path, int server_socket)
 		return (cub_error(SERVER_LOST));
 	dir_len = ft_strlen(DIR_SPRITE);
 	size += dir_len;
-	printf("fn_size: %zu\n", size);
 	*path = malloc((size + 1) * sizeof(char));
 	if (*path == NULL)
 		return (cub_error(NULL));
