@@ -102,7 +102,7 @@ static int	content_send(int client_socket, char *path)
 		return (cub_error(CLIENT_LOST));
 	if (receive != *SOCK_SUCCESS)
 		return (cub_error(CLIENT_ERR_MSG));
-	printf("Texture file %s has been sent\n", path);
+	printf("Texture file %s send\n", path);
 	return (close(fd), 0);
 }
 
