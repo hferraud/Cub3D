@@ -13,6 +13,7 @@
 # define PARSER_CLIENT_H
 
 # include "cub.h"
+# include "define.h"
 
 int	parser(t_map_client *map, int server_fd);
 int	map_parse(t_map_client *map, int server_fd);

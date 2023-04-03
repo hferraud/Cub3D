@@ -35,9 +35,9 @@ static int	map_size_send(int client_socket, size_t height, size_t width)
 	if (write(client_socket, &height, sizeof(size_t)) == -1
 		|| write(client_socket, &width, sizeof(size_t)) == -1
 		|| read(client_socket, &buf, sizeof(char)) <= 0)
-		return (cub_error("Connection with client_socket lost\n"));
+		return (cub_error(CLIENT_LOST));
 	if (buf == '1')
-		return (cub_error("Error in client_socket\n"));
+		return (cub_error(CLIENT_ERR_MSG));
 	printf("Map size send\n");
 	return (0);
 }
@@ -56,7 +56,7 @@ static int	map_content_send(int client_socket, t_server_data *server_data)
 		if (write(client_socket, map[index], server_data->map->width) == -1)
 		{
 			pthread_mutex_unlock(server_data->map_lock);
-			return (cub_error("Connection with client_socket lost\n"));
+			return (cub_error(CLIENT_LOST));
 		}
 		index++;
 	}
@@ -64,12 +64,12 @@ static int	map_content_send(int client_socket, t_server_data *server_data)
 	if (read(client_socket, &buf, sizeof(char )) <= 0)
 	{
 		pthread_mutex_unlock(server_data->map_lock);
-		return (cub_error("Connection with client_socket lost\n"));
+		return (cub_error(CLIENT_LOST));
 	}
 	if (buf == '1')
 	{
 		pthread_mutex_unlock(server_data->map_lock);
-		return (cub_error("Error in client_socket\n"));
+		return (cub_error(CLIENT_ERR_MSG));
 	}
 	printf("Map content send\n");
 	return (0);
@@ -82,11 +82,11 @@ static int	spawn_send(int client_socket, t_spawn *spawn)
 	if (write(client_socket, &spawn->x, sizeof(size_t)) == -1
 		|| write(client_socket, &spawn->y, sizeof(size_t)) == -1
 		|| write(client_socket, &spawn->orientation, sizeof(char)) == -1)
-		return (cub_error("Connection with client_socket lost\n"));
+		return (cub_error(CLIENT_LOST));
 	if (read(client_socket, &buf, sizeof(char )) <= 0)
-		return (cub_error("Connection with client_socket lost\n"));
+		return (cub_error(CLIENT_LOST));
 	if (buf == '1')
-		return (cub_error("Error in client_socket\n"));
+		return (cub_error(CLIENT_ERR_MSG));
 	printf("Spawn send\n");
 	return (0);
 }

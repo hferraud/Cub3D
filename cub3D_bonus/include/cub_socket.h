@@ -9,8 +9,8 @@
 /*   Updated: 2023/03/26 23:17:00 by ethan            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef SOCKET_BONUS_H
-# define SOCKET_BONUS_H
+#ifndef CUB_SOCKET_H
+# define CUB_SOCKET_H
 
 # include <sys/types.h>
 # include <sys/socket.h>

@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <errno.h>
 # include "map_server.h"
+# include "define.h"
 
 typedef struct s_server_data		t_server_data;
 typedef struct s_players			t_players;

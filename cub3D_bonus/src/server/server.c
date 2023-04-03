@@ -49,13 +49,13 @@ int	main(int argc, char **argv)
 
 //static void	print_t_map(t_map map)
 //{
-//	printf("NO: %s\n", map.path[NORTH_ID]);
-//	printf("SO: %s\n", map.path[SOUTH_ID]);
-//	printf("WE: %s\n", map.path[WEST_ID]);
-//	printf("EA: %s\n\n", map.path[EAST_ID]);
-//	printf("F: %s\n", map.path[FLOOR_ID]);
-//	printf("C: %s\n\n", map.path[CEILING_ID]);
-//	printf("D: %s\n\n", map.path[DOOR_ID]);
+//	printf("NO: %s\n", map.filename[NORTH_ID]);
+//	printf("SO: %s\n", map.filename[SOUTH_ID]);
+//	printf("WE: %s\n", map.filename[WEST_ID]);
+//	printf("EA: %s\n\n", map.filename[EAST_ID]);
+//	printf("F: %s\n", map.filename[FLOOR_ID]);
+//	printf("C: %s\n\n", map.filename[CEILING_ID]);
+//	printf("D: %s\n\n", map.filename[DOOR_ID]);
 //	print_spawn(map.spawn);
 //	print_map(map);
 //}

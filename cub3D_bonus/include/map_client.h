@@ -43,7 +43,7 @@ struct s_map_client
 	size_t	height;
 	size_t	width;
 	t_spawn	spawn;
-	char	*path[7];
+	char	*filename[7];
 };
 
 #endif

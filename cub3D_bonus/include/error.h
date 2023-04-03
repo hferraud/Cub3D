@@ -16,6 +16,10 @@
 # include <stdio.h>
 # include "libft.h"
 
+# define CLIENT_LOST	"Connection with client lost\n"
+# define CLIENT_ERR_MSG	"Error in client\n"
+# define SERVER_LOST	"Connection with server lost\n"
+
 int	cub_error(char *error_msg);
 
 #endif

@@ -20,7 +20,7 @@ static int	map_init(t_map_client *map);
 int	map_parse(t_map_client *map, int server_socket)
 {
 	map->map = NULL;
-	ft_bzero(map->path, sizeof(char *) * 7);
+	ft_bzero(map->filename, sizeof(char *) * 7);
 	if (map_size_parse(map, server_socket) == -1)
 		return (-1);
 	if (map_init(map) == -1)
