@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "parser_client.h"
 
-static int	filename_parse(char *dest, int server_socket);
+static int	filename_parse(char **path, int server_socket);
 static int	file_request(char *path, int server_socket);
 static int	file_receive(int file_fd, int server_socket);
 
@@ -24,8 +24,9 @@ int	file_parse(t_map_client *map, int server_socket)
 	id = 0;
 	while (id != UNDEFINED_ID)
 	{
-		if (filename_parse(map->path[id], server_socket) == -1)
+		if (filename_parse(&map->path[id], server_socket) == -1)
 			return (write(server_socket, SOCK_ERROR, 1), -1);
+		printf("path: %s\n", map->path[id]);
 		req_code = file_request(map->path[id], server_socket);
 		if (req_code == -1)
 			return (write(server_socket, SOCK_ERROR, 1), -1);
@@ -33,16 +34,20 @@ int	file_parse(t_map_client *map, int server_socket)
 		{
 			file_fd = open(map->path[id], O_WRONLY);
 			if (file_fd == -1)
+			{
+				printf("here\n");
 				return (cub_error(NULL));
+			}
 			if (file_receive(file_fd, server_socket) == -1)
 				return (-1);
+			close(file_fd);
 		}
 		id++;
 	}
 	return (0);
 }
 
-static int	filename_parse(char *path, int server_socket)
+static int	filename_parse(char **path, int server_socket)
 {
 	size_t	size;
 	size_t	dir_len;
@@ -51,17 +56,19 @@ static int	filename_parse(char *path, int server_socket)
 		return (cub_error(SERVER_LOST));
 	dir_len = ft_strlen(DIR_SPRITE);
 	size += dir_len;
-	path = malloc((size + 1) * sizeof(char));
-	if (path == NULL)
+	printf("fn_size: %zu\n", size);
+	*path = malloc((size + 1) * sizeof(char));
+	if (*path == NULL)
 		return (cub_error(NULL));
-	ft_strcpy(path, DIR_SPRITE);
+	ft_strcpy(*path, DIR_SPRITE);
 	if (write(server_socket, SOCK_SUCCESS, 1) == -1)
 		return (cub_error(SERVER_LOST));
-	if (read(server_socket, path + dir_len, size * sizeof(char)) <= 0)
+	if (read(server_socket, *path + dir_len, size * sizeof(char)) <= 0)
 		return (cub_error(SERVER_LOST));
-	path[size] = '\0';
+	(*path)[size] = '\0';
 	if (write(server_socket, SOCK_SUCCESS, 1) == -1)
 		return (cub_error(SERVER_LOST));
+	printf("path: %s\n", *path);
 	return (0);
 }
 
