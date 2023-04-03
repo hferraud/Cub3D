@@ -18,6 +18,7 @@
 int	parser(char **argv, t_map *map)
 {
 	int		map_fd;
+	//TODO: open each file for check if they exist (No directory)
 
 	if (!is_valid_filename(argv[1]))
 		return (cub_error("Invalid filename\n"));

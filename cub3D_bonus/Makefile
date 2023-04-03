@@ -48,6 +48,8 @@ SRC_SERVER	=		error.c	\
 							\
 								server/thread/routines/connection_routine/connection_routine.c	\
 								server/thread/routines/connection_routine/map_send.c			\
+								server/thread/routines/connection_routine/asset_send.c			\
+								server/thread/routines/connection_routine/file_send.c			\
 								server/thread/routines/connection_routine/connection_error.c	\
 								server/thread/routines/connection_routine/client_delete.c		\
 								\
@@ -68,6 +70,7 @@ SRC_CLIENT	=		error.c	\
 					\
 						client/parser/parser.c		\
 						client/parser/map_parse.c	\
+						client/parser/file_parse.c	\
 					\
 						utils/socket/port_get.c	\
 					\

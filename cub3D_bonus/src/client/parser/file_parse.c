@@ -18,7 +18,7 @@ static int	file_receive(int file_fd, int server_socket);
 int	file_parse(t_map_client *map, int server_socket)
 {
 	t_texture_id	id;
-	int 			file_fd;
+	int				file_fd;
 	int				req_code;
 
 	id = 0;
@@ -90,20 +90,20 @@ static int	file_request(char *path, int server_socket)
 
 static int	file_receive(int file_fd, int server_socket)
 {
-	size_t	size;
-	char	*buffer[SOC_BUFFER_SIZE];
-	size_t	read_size;
-	size_t	count;
+	ssize_t	size;
+	char	*buffer[SOCK_BUFFER_SIZE];
+	ssize_t	read_size;
+	ssize_t	count;
 
 	if (read(server_socket, &size, sizeof(size_t)) == -1)
 		return (cub_error(SERVER_LOST));
 	count = 0;
 	while (count < size)
 	{
-		if (count + SOC_BUFFER_SIZE > size)
+		if (count + SOCK_BUFFER_SIZE > size)
 			read_size = size - count;
 		else
-			read_size = SOC_BUFFER_SIZE;
+			read_size = SOCK_BUFFER_SIZE;
 		if (read(server_socket, buffer, read_size) < read_size)
 			return (cub_error("file_receive()\n"));
 		if (write(file_fd, buffer, read_size) == -1)

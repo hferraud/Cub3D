@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 #include "server_data.h"
 
-int				map_send(int client_socket, t_server_data *server_data,
-					t_spawn *spawn);
 static int		client_get_socket(t_server_data *server_data);
 static t_spawn	*client_get_spawn(int client_socket,
 					t_server_data *server_data);
@@ -36,8 +34,11 @@ void	connection_routine(t_server_data *server_data)
 				printf("Quit connection Thread\n");
 				return ;
 			}
-			if (map_send(client_fd, server_data, spawn) != -1)
+			if (map_send(client_fd, server_data, spawn) != -1
+				&& path_send(client_fd, server_data) != -1)
 				client_to_player(client_fd, server_data);
+			else
+				lst_del_client(client_fd, server_data);
 		}
 		else
 			sleep(1);
