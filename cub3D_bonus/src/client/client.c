@@ -30,6 +30,7 @@ int	main(int argc, char **argv)
 		return (-1);
 	if (parser(&map, socket_fd) == -1)
 		return (1);
+	map_clear(&map);
 	close(socket_fd);
 	return (0);
 }

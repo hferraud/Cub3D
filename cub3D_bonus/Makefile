@@ -71,6 +71,7 @@ SRC_CLIENT	=		error.c	\
 						client/parser/parser.c		\
 						client/parser/map_parse.c	\
 						client/parser/file_parse.c	\
+						client/parser/map_clear.c	\
 					\
 						utils/socket/port_get.c	\
 					\
