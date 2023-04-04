@@ -75,6 +75,40 @@ SRC_CLIENT	=		error.c	\
 					\
 						utils/socket/port_get.c	\
 					\
+						client/player/player_pos_init.c	\
+						client/player/player_movement.c	\
+					\
+						client/mlx_handler/initialization/mlx_data_init.c		\
+						client/mlx_handler/initialization/mlx_sprite_init.c	\
+						\
+						client/mlx_handler/destroy/mlx_data_destroy.c		\
+						client/mlx_handler/destroy/mlx_sprite_destroy.c	\
+						\
+						client/mlx_handler/hook/init_hook.c	\
+						client/mlx_handler/hook/key_press.c	\
+						client/mlx_handler/hook/key_release.c	\
+						client/mlx_handler/hook/cub_exit.c		\
+						\
+					\
+						client/display/render_frame.c	\
+						\
+						client/display/vector/vector.c	\
+						client/display/vector/fvector.c	\
+						client/display/vector/matrix.c	\
+						\
+						client/display/draw_shape/mlx_put_pixel.c		\
+						client/display/draw_shape/draw_line.c			\
+						client/display/draw_shape/draw_rectangle.c		\
+						client/display/draw_shape/draw_background.c	\
+						client/display/draw_shape/draw_wall.c			\
+						client/display/draw_shape/draw_player_view.c	\
+						client/display/draw_shape/draw_shape_utils.c	\
+						\
+						client/display/minimap/minimap.c	\
+						\
+						client/display/raycasting/raycasting.c	\
+						\
+					\
 
 OBJ_SERVER	=		$(addprefix $(BUILD_DIR), $(SRC_SERVER:.c=.o))
 
@@ -87,7 +121,7 @@ DEPS		=		$(addprefix $(BUILD_DIR), $(SRC_SERVER:.c=.d))	\
 #	FLAGS
 #######################
 
-CFLAGS		=		-Wall -Werror -Wextra -fsanitize=address#-g3 #-fsanitize=address
+CFLAGS		=		-Wall -Werror -Wextra #-g3 -fsanitize=address#-g3 #-fsanitize=address
 
 IFLAGS		=		-I $(INC_DIR) -I $(LIBFT_DIR)include -I $(MLX_DIR)
 

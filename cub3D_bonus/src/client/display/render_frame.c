@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_client.h                                    :+:      :+:    :+:   */
+/*   render_frame.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelage <edelage@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/01 15:22:00 by edelage           #+#    #+#             */
-/*   Updated: 2023/04/01 15:22:00 by edelage          ###   ########lyon.fr   */
+/*   Created: 2023/03/14 11:22:00 by edelage           #+#    #+#             */
+/*   Updated: 2023/03/14 11:22:00 by edelage          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef PARSER_CLIENT_H
-# define PARSER_CLIENT_H
+#include "hook.h"
+#include "draw.h"
 
-# include <fcntl.h>
-# include <sys/stat.h>
-# include "cub.h"
-# include "define.h"
-
-int		parser(t_map_client *map, int server_fd);
-int		map_parse(t_map_client *map, int server_fd);
-int		file_parse(t_map_client *map, int server_socket);
-
-#endif
+/**
+ * @brief Update player params and calculate the next image to display
+ */
+int	render_frame(t_cub *cub)
+{
+	player_update(cub);
+	draw_background(cub);
+	draw_player_view(cub, PLAYER_FOV);
+	mlx_put_image_to_window(cub->mlx_data->mlx_ptr, cub->mlx_data->win_ptr,
+		cub->mlx_data->img_data.img, 0, 0);
+	return (0);
+}

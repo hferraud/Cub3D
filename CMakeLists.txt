@@ -3,57 +3,11 @@ project(Cub3D C)
 
 set(CMAKE_C_STANDARD 11)
 
-include_directories(cub3D/include)
 include_directories(cub3D_bonus/include)
 include_directories(libft/include)
 include_directories(minilibx)
 
 add_executable(Cub3D
-        cub3D/include/cub.h
-        cub3D/include/draw.h
-        cub3D/include/error.h
-        cub3D/include/hook.h
-        cub3D/include/map.h
-        cub3D/include/mlx_handler.h
-        cub3D/include/mlx_key.h
-        cub3D/include/parser.h
-        cub3D/include/player.h
-        cub3D/include/raycasting.h
-        cub3D/include/vector.h
-        cub3D/src/display/draw_shape/draw_background.c
-        cub3D/src/display/draw_shape/draw_line.c
-        cub3D/src/display/draw_shape/draw_player_view.c
-        cub3D/src/display/draw_shape/draw_rectangle.c
-        cub3D/src/display/draw_shape/draw_shape_utils.c
-        cub3D/src/display/draw_shape/draw_wall.c
-        cub3D/src/display/draw_shape/mlx_put_pixel.c
-        cub3D/src/display/minimap/minimap.c
-        cub3D/src/display/player/player_movement.c
-        cub3D/src/display/player/player_pos_init.c
-        cub3D/src/display/raycasting/raycasting.c
-        cub3D/src/display/vector/fvector.c
-        cub3D/src/display/vector/matrix.c
-        cub3D/src/display/vector/vector.c
-        cub3D/src/display/render_frame.c
-        cub3D/src/mlx_handler/destroy/mlx_data_destroy.c
-        cub3D/src/mlx_handler/destroy/wall_sprite_destroy.c
-        cub3D/src/mlx_handler/hook/cub_exit.c
-        cub3D/src/mlx_handler/hook/init_hook.c
-        cub3D/src/mlx_handler/hook/key_press.c
-        cub3D/src/mlx_handler/hook/key_release.c
-        cub3D/src/mlx_handler/initialization/mlx_data_init.c
-        cub3D/src/mlx_handler/initialization/wall_sprite_init.c
-        cub3D/src/parser/map_checker/get_spawn.c
-        cub3D/src/parser/map_checker/map_checker.c
-        cub3D/src/parser/parse_map/parse_map.c
-        cub3D/src/parser/parse_map/parse_map_utils.c
-        cub3D/src/parser/parse_map_data/parse_horizontal_plane.c
-        cub3D/src/parser/parse_map_data/parse_map_data.c
-        cub3D/src/parser/parse_map_data/parse_wall.c
-        cub3D/src/parser/parser.c
-        cub3D/src/parser/parser_utils.c
-        cub3D/src/error.c
-        cub3D/src/main.c
         cub3D_bonus/include/error.h
         cub3D_bonus/include/map_server.h
         cub3D_bonus/include/cub_socket.h
@@ -170,4 +124,4 @@ add_executable(Cub3D
         minilibx/mlx_screen_size.c
         minilibx/mlx_set_font.c
         minilibx/mlx_string_put.c
-        minilibx/mlx_xpm.c cub3D_bonus/src/client/socket/socket_init.c cub3D_bonus/src/client/socket/socket_init.c cub3D_bonus/src/server/socket/client_accept.c cub3D_bonus/include/cub.h cub3D_bonus/include/server_data.h cub3D_bonus/src/server/thread/initialization/thread_init.c cub3D_bonus/src/server/thread/initialization/server_data_init.c cub3D_bonus/src/server/thread/destroy/server_data_destroy.c cub3D_bonus/src/server/thread/routines/connection_routine/connection_routine.c cub3D_bonus/src/server/thread/routines/in_game_routine/in_game_routine.c cub3D_bonus/include/parser_client.h cub3D_bonus/src/client/parser/parser.c cub3D_bonus/src/client/parser/map_parse.c cub3D_bonus/src/server/thread/routines/connection_routine/map_send.c cub3D_bonus/include/map_client.h cub3D_bonus/include/texture.h cub3D_bonus/src/server/thread/routines/connection_routine/connection_error.c cub3D_bonus/include/connection_routine.h cub3D_bonus/src/server/thread/routines/connection_routine/client_delete.c cub3D_bonus/src/server/thread/routines/connection_routine/file_send.c cub3D_bonus/src/client/parser/file_parse.c cub3D_bonus/include/define.h cub3D_bonus/src/server/thread/routines/connection_routine/asset_send.c cub3D_bonus/src/client/parser/map_clear.c)
+        minilibx/mlx_xpm.c cub3D_bonus/src/client/socket/socket_init.c cub3D_bonus/src/client/socket/socket_init.c cub3D_bonus/src/server/socket/client_accept.c cub3D_bonus/include/cub.h cub3D_bonus/include/server_data.h cub3D_bonus/src/server/thread/initialization/thread_init.c cub3D_bonus/src/server/thread/initialization/server_data_init.c cub3D_bonus/src/server/thread/destroy/server_data_destroy.c cub3D_bonus/src/server/thread/routines/connection_routine/connection_routine.c cub3D_bonus/src/server/thread/routines/in_game_routine/in_game_routine.c cub3D_bonus/include/parser_client.h cub3D_bonus/src/client/parser/parser.c cub3D_bonus/src/client/parser/map_parse.c cub3D_bonus/src/server/thread/routines/connection_routine/map_send.c cub3D_bonus/include/map_client.h cub3D_bonus/include/texture.h cub3D_bonus/src/server/thread/routines/connection_routine/connection_error.c cub3D_bonus/include/connection_routine.h cub3D_bonus/src/server/thread/routines/connection_routine/client_delete.c cub3D_bonus/src/server/thread/routines/connection_routine/file_send.c cub3D_bonus/src/client/parser/file_parse.c cub3D_bonus/include/define.h cub3D_bonus/src/server/thread/routines/connection_routine/asset_send.c cub3D_bonus/src/client/parser/map_clear.c cub3D_bonus/include/mlx_handler.h cub3D_bonus/include/mlx_key.h cub3D_bonus/include/hook.h cub3D_bonus/include/vector.h cub3D_bonus/include/raycasting.h cub3D_bonus/src/client/mlx_handler/initialization/mlx_data_init.c cub3D_bonus/src/client/mlx_handler/initialization/mlx_sprite_init.c cub3D_bonus/src/client/mlx_handler/hook/cub_exit.c cub3D_bonus/src/client/mlx_handler/hook/init_hook.c cub3D_bonus/src/client/mlx_handler/hook/key_press.c cub3D_bonus/src/client/mlx_handler/hook/key_release.c cub3D_bonus/src/client/mlx_handler/destroy/mlx_data_destroy.c cub3D_bonus/src/client/mlx_handler/destroy/mlx_sprite_destroy.c cub3D_bonus/src/client/display/render_frame.c cub3D_bonus/src/client/display/vector/fvector.c cub3D_bonus/src/client/display/vector/matrix.c cub3D_bonus/src/client/display/vector/vector.c cub3D_bonus/src/client/display/raycasting/raycasting.c cub3D_bonus/src/client/player/player_movement.c cub3D_bonus/src/client/player/player_pos_init.c cub3D_bonus/src/client/display/minimap/minimap.c cub3D_bonus/src/client/display/draw_shape/draw_background.c cub3D_bonus/src/client/display/draw_shape/draw_line.c cub3D_bonus/src/client/display/draw_shape/draw_player_view.c cub3D_bonus/src/client/display/draw_shape/draw_rectangle.c cub3D_bonus/src/client/display/draw_shape/draw_shape_utils.c cub3D_bonus/src/client/display/draw_shape/draw_wall.c cub3D_bonus/src/client/display/draw_shape/mlx_put_pixel.c cub3D_bonus/include/draw.h)

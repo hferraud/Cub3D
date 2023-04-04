@@ -12,6 +12,8 @@
 #ifndef TEXTURE_H
 # define TEXTURE_H
 
+# define NB_TEXTURE	7
+
 typedef enum e_texture_id	t_texture_id;
 
 enum e_texture_id

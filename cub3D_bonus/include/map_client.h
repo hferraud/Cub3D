@@ -47,4 +47,6 @@ struct s_map_client
 	char	*path[7];
 };
 
+void	map_clear(t_map_client *map);
+
 #endif

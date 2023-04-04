@@ -16,6 +16,6 @@
 
 typedef struct hostent	t_hostent;
 
-int	socket_client_init(const char *ip, uint16_t port);
+int	socket_client_init(int argc, char **argv);
 
 #endif

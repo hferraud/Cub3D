@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_client.h                                    :+:      :+:    :+:   */
+/*   init_hook.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelage <edelage@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/01 15:22:00 by edelage           #+#    #+#             */
-/*   Updated: 2023/04/01 15:22:00 by edelage          ###   ########lyon.fr   */
+/*   Created: 2023/03/14 07:16:00 by edelage           #+#    #+#             */
+/*   Updated: 2023/03/14 07:16:00 by edelage          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef PARSER_CLIENT_H
-# define PARSER_CLIENT_H
+#include "hook.h"
 
-# include <fcntl.h>
-# include <sys/stat.h>
-# include "cub.h"
-# include "define.h"
-
-int		parser(t_map_client *map, int server_fd);
-int		map_parse(t_map_client *map, int server_fd);
-int		file_parse(t_map_client *map, int server_socket);
-
-#endif
+void	init_hook(t_cub *cub)
+{
+	mlx_do_key_autorepeatoff(cub->mlx_data->mlx_ptr);
+	mlx_hook(cub->mlx_data->win_ptr, ON_DESTROY, BUTTON_RELEASE_MASK,
+		cub_exit, cub);
+	mlx_hook(cub->mlx_data->win_ptr, ON_KEY_DOWN, KEY_PRESS_MASK,
+		key_press, cub);
+	mlx_hook(cub->mlx_data->win_ptr, ON_KEY_UP, KEY_RELEASE_MASK,
+		key_release, cub);
+}

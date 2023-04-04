@@ -11,27 +11,36 @@
 /* ************************************************************************** */
 #include "socket_client.h"
 #include "parser_client.h"
+#include "cub.h"
 
-//static void	print_map(t_map_client map);
+int		render_frame(t_cub *cub);
+void	player_pos_init(t_cub *cub);
+
+static int	cub_init(t_cub *cub, int server_socket);
 
 int	main(int argc, char **argv)
 {
-	uint16_t		port;
-	int				socket_fd;
-	t_map_client	map;
+	t_cub		cub;
+	t_mlx_data	mlx_data;
 
-	if (argc != 3)
-		return (cub_error("./cub3D IP port\n"));
-	port = port_get(argv[2]);
-	if (errno)
-		return (cub_error("Invalid port\n"));
-	socket_fd = socket_client_init(argv[1], port);
-	if (socket_fd == -1)
-		return (-1);
-	if (parser(&map, socket_fd) == -1)
+	cub.server_socket = socket_client_init(argc, argv);
+	if (cub.server_socket == -1)
 		return (1);
-	map_clear(&map);
-	close(socket_fd);
+	cub.mlx_data = &mlx_data;
+	player_pos_init(&cub);
+	if (cub_init(&cub, cub.server_socket) == -1)
+		return (close(cub.server_socket), 1);
+	mlx_loop_hook(cub.mlx_data->mlx_ptr, render_frame, &cub);
+	mlx_loop(cub.mlx_data->mlx_ptr);
+}
+
+static int	cub_init(t_cub *cub, int server_socket)
+{
+	if (parser(&cub->map, server_socket) == -1)
+		return (-1);
+	if (mlx_data_init(cub) == -1)
+		return (-1);
+	player_pos_init(cub);
 	return (0);
 }
 

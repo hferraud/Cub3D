@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_client.h                                    :+:      :+:    :+:   */
+/*   wall_sprite_destroy.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelage <edelage@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/01 15:22:00 by edelage           #+#    #+#             */
-/*   Updated: 2023/04/01 15:22:00 by edelage          ###   ########lyon.fr   */
+/*   Created: 2023/03/14 02:10:00 by edelage           #+#    #+#             */
+/*   Updated: 2023/03/14 02:10:00 by edelage          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef PARSER_CLIENT_H
-# define PARSER_CLIENT_H
+#include "mlx_handler.h"
 
-# include <fcntl.h>
-# include <sys/stat.h>
-# include "cub.h"
-# include "define.h"
+void	mlx_sprite_destroy(t_mlx_data *mlx_data)
+{
+	size_t	index;
 
-int		parser(t_map_client *map, int server_fd);
-int		map_parse(t_map_client *map, int server_fd);
-int		file_parse(t_map_client *map, int server_socket);
-
-#endif
+	index = 0;
+	while (index < NB_TEXTURE)
+	{
+		if (mlx_data->sprite[index].img_data.img)
+		{
+			mlx_destroy_image(mlx_data->mlx_ptr, mlx_data->sprite[index].img_data.img);
+			mlx_data->sprite[index].img_data.img = NULL;
+		}
+		index++;
+	}
+}

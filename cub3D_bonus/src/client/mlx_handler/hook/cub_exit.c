@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_client.h                                    :+:      :+:    :+:   */
+/*   cub_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelage <edelage@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/01 15:22:00 by edelage           #+#    #+#             */
-/*   Updated: 2023/04/01 15:22:00 by edelage          ###   ########lyon.fr   */
+/*   Created: 2023/03/14 07:37:00 by edelage           #+#    #+#             */
+/*   Updated: 2023/03/14 07:37:00 by edelage          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef PARSER_CLIENT_H
-# define PARSER_CLIENT_H
+#include "hook.h"
 
-# include <fcntl.h>
-# include <sys/stat.h>
-# include "cub.h"
-# include "define.h"
-
-int		parser(t_map_client *map, int server_fd);
-int		map_parse(t_map_client *map, int server_fd);
-int		file_parse(t_map_client *map, int server_socket);
-
-#endif
+/**
+ * @brief This function allows to free all the memories
+ * at the end of the execution of the program
+ */
+int	cub_exit(t_cub *cub)
+{
+	mlx_do_key_autorepeaton(cub->mlx_data->mlx_ptr);
+	close(cub->server_socket);
+	map_clear(&cub->map);
+	mlx_data_destroy(cub->mlx_data);
+	exit(0);
+}

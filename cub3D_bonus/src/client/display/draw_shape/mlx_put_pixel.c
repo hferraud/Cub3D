@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub.h                                              :+:      :+:    :+:   */
+/*   mlx_put_pixel.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ethan <ethan@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/29 23:00:00 by ethan             #+#    #+#             */
-/*   Updated: 2023/03/29 23:00:00 by ethan            ###   ########lyon.fr   */
+/*   Created: 2023/03/14 12:35:00 by ethan             #+#    #+#             */
+/*   Updated: 2023/03/14 12:35:00 by ethan            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef CUB_H
-# define CUB_H
+#include "draw.h"
 
-# include "error.h"
-# include "map_client.h"
-# include "mlx_handler.h"
-# include "player.h"
-# include "texture.h"
-
-typedef struct s_cub		t_cub;
-typedef struct s_map		t_map;
-typedef struct s_mlx_data	t_mlx_data;
-typedef struct s_player		t_player;
-
-struct s_cub
+void	mlx_put_pixel(t_img_data *img_data, int x, int y, int color)
 {
-	int				server_socket;
-	t_map_client	map;
-	t_mlx_data		*mlx_data;
-	t_player		player;
-};
+	char	*dst;
 
-#endif
+		dst = img_data->addr
+			+ (y * img_data->line_length + x * (img_data->bit_ratio));
+		*(unsigned int *)dst = color;
+}
+
+void	mlx_put_point(t_img_data *img_data, t_point point, int color)
+{
+	mlx_put_pixel(img_data, point.x, point.y, color);
+}
