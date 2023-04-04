@@ -27,15 +27,16 @@ int	mlx_data_init(t_cub *cub)
 	mlx_data_preset(mlx_data);
 	mlx_data->mlx_ptr = mlx_init();
 	if (mlx_data->mlx_ptr == NULL)
-		return (cub_error("mlx_init() failed\n"));
+		return (cub_error("mlx_init()\n"));
 	if (wall_sprite_init(cub) == -1)
 		return (mlx_data_destroy(mlx_data), -1);
 	mlx_data->win_ptr = mlx_new_window(mlx_data->mlx_ptr, WIN_WIDTH,
 			WIN_HEIGHT, WIN_NAME);
 	if (mlx_data->win_ptr == NULL)
 		return (mlx_data_destroy(mlx_data),
-			cub_error("mlx_new_window() failed\n"));
-	init_img_data(mlx_data);
+			cub_error("mlx_new_window()\n"));
+	if (init_img_data(mlx_data) == -1)
+		return (mlx_data_destroy(mlx_data), -1);
 	return (0);
 }
 
