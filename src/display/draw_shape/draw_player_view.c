@@ -22,7 +22,8 @@ void	draw_player_view(t_cub *cub, float fov)
 	int			screen_x;
 	float		camera_x;
 
-	camera_plane = fvector_rotate(cub->player->rotation, fov / 2);
+	(void) fov;
+	camera_plane = fvector_rotate(cub->player->rotation, M_PI_2);
 	screen_x = 0;
 	while (screen_x < WIN_WIDTH)
 	{
