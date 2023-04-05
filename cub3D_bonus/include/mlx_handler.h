@@ -17,6 +17,7 @@
 # include "error.h"
 # include "cub.h"
 # include "texture.h"
+# include "collectible.h"
 # include "hook.h"
 # include <stdio.h>
 
@@ -65,7 +66,8 @@ struct s_mlx_data
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_img_data	img_data;
-	t_sprite	sprite[NB_TEXTURE];
+	t_sprite	texture_sprite[NB_TEXTURE];
+	t_sprite	collectible_sprite[NB_COLLECTIBLE];
 	int			key_press[MAX_KEY];
 };
 

@@ -96,13 +96,15 @@ SRC_CLIENT	=		error.c	\
 						client/display/vector/fvector.c	\
 						client/display/vector/matrix.c	\
 						\
-						client/display/draw_shape/mlx_put_pixel.c		\
-						client/display/draw_shape/draw_line.c			\
-						client/display/draw_shape/draw_rectangle.c		\
-						client/display/draw_shape/draw_background.c	\
-						client/display/draw_shape/draw_wall.c			\
-						client/display/draw_shape/draw_player_view.c	\
-						client/display/draw_shape/draw_shape_utils.c	\
+						client/display/collectible/collectible.c	\
+						\
+						client/display/draw/mlx_put_pixel.c		\
+						client/display/draw/draw_line.c			\
+						client/display/draw/draw_rectangle.c		\
+						client/display/draw/draw_background.c	\
+						client/display/draw/draw_wall.c			\
+						client/display/draw/draw_player_view.c	\
+						client/display/draw/draw_shape_utils.c	\
 						\
 						client/display/minimap/minimap.c	\
 						\

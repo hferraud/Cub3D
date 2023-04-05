@@ -17,6 +17,7 @@
 # include "cub.h"
 # include "draw.h"
 # include "vector.h"
+# include "collectible.h"
 
 typedef struct s_ray	t_ray;
 typedef struct s_point	t_point;
@@ -32,14 +33,15 @@ enum e_wall
 
 struct s_ray
 {
-	t_fvector	ray;
-	t_fvector	pos;
-	t_fvector	unit_step;
-	t_vector 	step;
-    t_wall		wall_face;
-	float		length;
+	t_fvector		ray;
+	t_fvector		pos;
+	t_fvector		unit_step;
+	t_vector		step;
+	t_wall			wall_face;
+	float			length;
+	t_collectible	*collectible_hit;
 };
 
-t_ray   ray_cast(t_cub *cub, t_fvector ray_dir);
+t_ray	ray_cast(t_cub *cub, t_fvector ray_dir);
 
 #endif

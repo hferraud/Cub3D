@@ -19,7 +19,7 @@
 # include "texture.h"
 
 typedef struct s_cub		t_cub;
-typedef struct s_map		t_map;
+typedef struct s_map_client	t_map_client;
 typedef struct s_mlx_data	t_mlx_data;
 typedef struct s_player		t_player;
 

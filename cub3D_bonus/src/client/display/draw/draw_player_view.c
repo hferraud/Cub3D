@@ -28,7 +28,8 @@ void	draw_player_view(t_cub *cub, float fov)
 	while (screen_x < WIN_WIDTH)
 	{
 		camera_x = 2.f * screen_x / (float) WIN_WIDTH - 1;
-		ray_dir = fvector_add(cub->player.rotation, fvector_mul(camera_plane, camera_x));
+		ray_dir = fvector_add(cub->player.rotation,
+				fvector_mul(camera_plane, camera_x));
 		draw_wall(cub, screen_x, ray_cast(cub, ray_dir));
 		screen_x++;
 	}

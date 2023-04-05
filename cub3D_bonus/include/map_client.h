@@ -14,18 +14,18 @@
 
 # include <sys/types.h>
 # include <stdlib.h>
-# include "cub.h"
 # include "libft.h"
 
 # define FLOOR			'0'
 # define WALL			'1'
-# define DOOR_CLOSE		'2'
-# define DOOR_OPEN		'3'
-# define LIFE_PACK		'L'
+# define DOOR_CLOSE		'C'
+# define DOOR_OPEN		'O'
+# define MEDIC_KIT		'L'
 # define AMMO			'A'
 # define PISTOL			'G'
 # define ASSAULT_RIFLE	'R'
 # define ENEMY			'P'
+
 # define DIR_SPRITE		"asset/"
 
 typedef struct s_map_client	t_map_client;
