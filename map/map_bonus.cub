@@ -1,5 +1,5 @@
-NO ../map/texture/test.xpm
-SO ../map/texture/test.xpm
+NO asset/texture/BRICK_1A.xpm
+SO asset/texture/TILE_3B.xpm
 EA ../map/texture/test.xpm
 WE ../map/texture/test.xpm
 F ../map/texture/test.xpm

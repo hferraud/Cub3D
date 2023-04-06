@@ -15,7 +15,7 @@
 # include <stdlib.h>
 # include "vector.h"
 
-# define MEDIC_KIT_PATH			"asset/life_pack.xpm"
+# define MEDIC_KIT_PATH			"asset/medic_kit.xpm"
 # define AMMO_PATH				"asset/ammo.xpm"
 # define PISTOL_PATH			"asset/pistol.xpm"
 # define ASSAULT_RIFFLE_PATH	"asset/assault_riffle.xpm"
