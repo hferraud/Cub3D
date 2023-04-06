@@ -1,7 +1,7 @@
-NO map/texture/test.xpm
-SO map/texture/test.xpm
-EA map/texture/test.xpm
-WE map/texture/test.xpm
+SO cub3D_bonus/asset/texture/LAB_4B.xpm
+NO cub3D_bonus/asset/texture/DOOR_2B.xpm
+EA cub3D_bonus/asset/texture/FENCE_1A.xpm
+WE cub3D_bonus/asset/texture/LAB_1B.xpm
 F 220,100,20
 C 225,253,0
         1111111111111111111111111
