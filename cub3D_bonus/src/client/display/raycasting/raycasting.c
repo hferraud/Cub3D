@@ -55,7 +55,7 @@ t_ray	ray_cast(t_cub *cub, t_fvector ray_dir)
 	}
 	if (ray.wall_face == WEST || ray.wall_face == EAST)
 	{
-	ray.length = ray.ray.x - ray.unit_step.x;
+		ray.length = ray.ray.x - ray.unit_step.x;
 		ray.pos.y = cub->player.pos.y + ray.length * ray_dir.y;
 	}
 	else
@@ -96,4 +96,12 @@ static t_ray	ray_init(t_cub *cub, t_fvector ray_dir)
 		ray.ray.y = (ray.pos.y - (int) ray.pos.y) * ray.unit_step.y;
 	}
 	return (ray);
+}
+
+static int ray_add_collectible(char **map, t_ray ray, t_vector map_index)
+{
+	t_fvector	pos;
+	if (!is_collectible(map[map_index.y][map_index.x]))
+		return (0);
+	collectible_append(&ray.collectible_hit, map[map_index.y][map_index.x], )
 }
