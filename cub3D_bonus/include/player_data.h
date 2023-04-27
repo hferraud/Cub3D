@@ -1,0 +1,50 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player_data.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edelage <edelage@student.42lyon.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/27 15:15:00 by edelage           #+#    #+#             */
+/*   Updated: 2023/04/27 15:15:00 by edelage          ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+#ifndef PLAYER_DATA_H
+# define PLAYER_DATA_H
+
+# include "parser_server.h"
+# include "player.h"
+
+# define LISTEN_REQUEST	"1"
+# define LENGTH_LISTEN_REQUEST	1
+# define SEND_REQUEST	"2"
+# define LENGTH_SEND_REQUEST	1
+
+typedef struct s_players_data	t_players_data;
+typedef struct s_event			t_event;
+typedef enum e_event_id			t_event_id;
+
+struct s_players_data
+{
+	t_player	players[PLAYER_LIMIT];
+	t_list		*event;
+};
+
+enum	e_event_id
+{
+	EVENT_OPEN_DOOR,
+	EVENT_CLOSE_DOOR,
+	EVENT_SHOOT,
+	EVENT_TAKE_MEDIC_KIT,
+	EVENT_TAKE_AMMO,
+	EVENT_TAKE_PISTOL,
+	EVENT_TAKE_ASSAULT,
+};
+
+struct s_event
+{
+	t_event_id	id;
+	t_vector	position;
+};
+
+#endif

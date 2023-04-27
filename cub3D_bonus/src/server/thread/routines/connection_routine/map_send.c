@@ -17,7 +17,6 @@ static int	spawn_send(int client_socket, t_spawn *spawn);
 
 int	map_send(int client_socket, t_server_data *server_data, t_spawn *spawn)
 {
-	(void) spawn;
 	if (map_size_send(client_socket, server_data->map->height,
 			server_data->map->width) == -1)
 		return (-1);
@@ -32,6 +31,7 @@ static int	map_size_send(int client_socket, size_t height, size_t width)
 {
 	char	buf;
 
+	printf("Send map size\n");
 	if (write(client_socket, &height, sizeof(size_t)) == -1
 		|| write(client_socket, &width, sizeof(size_t)) == -1
 		|| read(client_socket, &buf, sizeof(char)) <= 0)
@@ -51,6 +51,7 @@ static int	map_content_send(int client_socket, t_server_data *server_data)
 	index = 0;
 	pthread_mutex_lock(server_data->map_lock);
 	map = server_data->map->map;
+	printf("Send map content\n");
 	while (index < server_data->map->height)
 	{
 		if (write(client_socket, map[index], server_data->map->width) == -1)
@@ -79,6 +80,7 @@ static int	spawn_send(int client_socket, t_spawn *spawn)
 {
 	char	buf;
 
+	printf("Send spawn\n");
 	if (write(client_socket, &spawn->x, sizeof(size_t)) == -1
 		|| write(client_socket, &spawn->y, sizeof(size_t)) == -1
 		|| write(client_socket, &spawn->orientation, sizeof(char)) == -1)

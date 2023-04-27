@@ -46,6 +46,7 @@ static int	map_size_parse(t_map_client *map, int server_socket)
 	buf = 0;
 	if (read(server_socket, &buf, sizeof(size_t)) <= 0)
 		return (cub_error("Connection with server lost\n"));
+	printf("Loading map size\n");
 	map->height = buf;
 	if (read(server_socket, &buf, sizeof(size_t)) <= 0)
 		return (cub_error("Connection with server lost\n"));
