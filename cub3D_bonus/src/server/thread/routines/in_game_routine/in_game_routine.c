@@ -23,9 +23,11 @@
 
 void	in_game_routine(t_server_data *server_data)
 {
+	int				ret;
 	size_t			count;
 	size_t			index;
 	t_players_data	players_data;
+	int				client_socket;
 
 	count = 0;
 	ft_bzero(players_data.players, sizeof(t_player) * PLAYER_LIMIT);
@@ -35,9 +37,23 @@ void	in_game_routine(t_server_data *server_data)
 	{
 		index = count % server_data->player->size;
 		pthread_mutex_lock(server_data->player->players_lock);
-		if (server_data->player->players_socket[index] != -1)
+		client_socket = server_data->player->players_socket[index];
+		if (client_socket != -1)
 		{
-
+			ret = listening_request(client_socket, &players_data, index);
+			if (ret == 1)
+			{
+				//TODO: Process the data and call to other player (send request)
+			}
+			else if (ret == -1)
+			{
+				//TODO: remove client
+			}
+			else if (ret == -2)
+			{
+				pthread_mutex_unlock(server_data->player->players_lock);
+				//TODO: clean exit
+			}
 		}
 		pthread_mutex_unlock(server_data->player->players_lock);
 		count++;
