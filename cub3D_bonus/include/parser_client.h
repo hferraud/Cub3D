@@ -20,5 +20,6 @@
 int		parser(t_map_client *map, int server_fd);
 int		map_parse(t_map_client *map, int server_fd);
 int		file_parse(t_map_client *map, int server_socket);
+int		collectible_parse(t_map_client *map);
 
 #endif

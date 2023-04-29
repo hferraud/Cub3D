@@ -52,10 +52,19 @@ void	collectible_clear(t_collectible *head)
 	}
 }
 
-int	is_collectible(char cell)
+t_collectible_id collectible_id_get(char cell)
 {
-	return (cell == MEDIC_KIT
-		|| cell == AMMO
-		|| cell == PISTOL
-		|| cell == ASSAULT_RIFLE);
+	const t_collectible_id	id[4]
+		= {LIFE_PACK_ID, AMMO_ID, PISTOL_ID, ASSAULT_RIFFLE_ID};
+	const char				cells[4] = {LIFE_PACK, AMMO, PISTOL, ASSAULT_RIFLE};
+	int						i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (cells[i] == cell)
+			return (id[i]);
+		i++;
+	}
+	return (UNDEFINED);
 }

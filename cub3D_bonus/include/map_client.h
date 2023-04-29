@@ -15,12 +15,13 @@
 # include <sys/types.h>
 # include <stdlib.h>
 # include "libft.h"
+# include "collectible.h"
 
 # define FLOOR			'0'
 # define WALL			'1'
 # define DOOR_CLOSE		'C'
 # define DOOR_OPEN		'O'
-# define MEDIC_KIT		'L'
+# define LIFE_PACK		'L'
 # define AMMO			'A'
 # define PISTOL			'G'
 # define ASSAULT_RIFLE	'R'
@@ -28,8 +29,9 @@
 
 # define DIR_SPRITE		"asset/"
 
-typedef struct s_map_client	t_map_client;
-typedef struct s_spawn		t_spawn;
+typedef struct s_map_client		t_map_client;
+typedef struct s_spawn			t_spawn;
+typedef struct s_collectible	t_collectible;
 
 struct s_spawn
 {
@@ -40,11 +42,12 @@ struct s_spawn
 
 struct s_map_client
 {
-	char	**map;
-	size_t	height;
-	size_t	width;
-	t_spawn	spawn;
-	char	*path[7];
+	char			**map;
+	size_t			height;
+	size_t			width;
+	t_spawn			spawn;
+	t_collectible	*collectibles;
+	char			*path[7];
 };
 
 void	map_clear(t_map_client *map);

@@ -37,4 +37,5 @@ void	draw_player_view(t_cub *cub, float fov)
 		draw_wall(cub, screen_x, ray);
 		screen_x++;
 	}
+	(void)z_buffer;
 }

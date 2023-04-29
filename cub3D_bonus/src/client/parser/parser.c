@@ -14,6 +14,7 @@
 int	parser(t_map_client *map, int server_socket)
 {
 	int	asset_dir;
+	//TODO clear on error
 
 	if (map_parse(map, server_socket) == -1)
 	{
@@ -30,5 +31,7 @@ int	parser(t_map_client *map, int server_socket)
 		write(server_socket, "1", 1);
 		return (-1);
 	}
+	if (collectible_parse(map) == -1)
+		return (-1);
 	return (0);
 }

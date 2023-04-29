@@ -72,6 +72,9 @@ SRC_CLIENT	=		error.c	\
 						client/parser/map_parse.c	\
 						client/parser/file_parse.c	\
 						client/parser/map_clear.c	\
+						\
+						client/parser/collectible/collectible.c		\
+						client/parser/collectible/collectible_parse.c	\
 					\
 						utils/socket/port_get.c	\
 					\
@@ -95,8 +98,6 @@ SRC_CLIENT	=		error.c	\
 						client/display/vector/vector.c	\
 						client/display/vector/fvector.c	\
 						client/display/vector/matrix.c	\
-						\
-						client/display/collectible/collectible.c	\
 						\
 						client/display/draw/mlx_put_pixel.c		\
 						client/display/draw/draw_line.c			\

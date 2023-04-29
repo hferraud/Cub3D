@@ -13,6 +13,7 @@
 # define COLLECTIBLE_H
 
 # include <stdlib.h>
+# include <stdio.h>
 # include "vector.h"
 
 # define MEDIC_KIT_PATH			"asset/medic_kit.xpm"
@@ -32,7 +33,8 @@ enum e_collectible_id
 	LIFE_PACK_ID,
 	AMMO_ID,
 	PISTOL_ID,
-	ASSAULT_RIFFLE_ID
+	ASSAULT_RIFFLE_ID,
+	UNDEFINED
 };
 
 struct s_collectible
@@ -42,9 +44,9 @@ struct s_collectible
 	t_collectible		*next;
 };
 
-int		collectible_append(t_collectible **head, t_collectible_id id,
-			t_fvector pos);
-void	collectible_clear(t_collectible *head);
-int		is_collectible(char cell);
+int					collectible_append(t_collectible **head,
+						t_collectible_id id, t_fvector pos);
+void				collectible_clear(t_collectible *head);
+t_collectible_id	collectible_id_get(char cell);
 
 #endif

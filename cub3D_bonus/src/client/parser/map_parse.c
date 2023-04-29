@@ -16,10 +16,10 @@ static int	map_content_parse(t_map_client *map, int server_socket);
 static int	map_spawn_parse(t_map_client *map, int server_socket);
 static int	map_init(t_map_client *map);
 
-//TODO clear on error
 int	map_parse(t_map_client *map, int server_socket)
 {
 	map->map = NULL;
+	map->collectibles = NULL;
 	ft_bzero(map->path, sizeof(char *) * 7);
 	if (map_size_parse(map, server_socket) == -1)
 		return (-1);
