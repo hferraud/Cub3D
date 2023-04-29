@@ -17,8 +17,10 @@
  */
 void	draw_player_view(t_cub *cub, float fov)
 {
+	t_ray		ray;
 	t_fvector	ray_dir;
 	t_fvector	camera_plane;
+	float		z_buffer[WIN_WIDTH];
 	int			screen_x;
 	float		camera_x;
 
@@ -30,7 +32,9 @@ void	draw_player_view(t_cub *cub, float fov)
 		camera_x = 2.f * screen_x / (float) WIN_WIDTH - 1;
 		ray_dir = fvector_add(cub->player.rotation,
 				fvector_mul(camera_plane, camera_x));
-		draw_wall(cub, screen_x, ray_cast(cub, ray_dir));
+		ray = ray_cast(cub, ray_dir);
+		z_buffer[screen_x] = ray.length;
+		draw_wall(cub, screen_x, ray);
 		screen_x++;
 	}
 }

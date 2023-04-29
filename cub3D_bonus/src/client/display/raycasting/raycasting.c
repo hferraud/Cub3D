@@ -24,16 +24,6 @@ t_ray	ray_cast(t_cub *cub, t_fvector ray_dir)
 	while (cub->map.map[map_index.y][map_index.x] != WALL
 		&& cub->map.map[map_index.y][map_index.x] != DOOR_CLOSE)
 	{
-		if (is_collectible(cub->map.map[map_index.y][map_index.x]))
-		{
-			if (collectible_append(&ray.collectible_hit,
-					cub->map.map[map_index.y][map_index.x],
-				fvector_init(map_index.x + 0.5, map_index.y + 0.5)) == -1)
-			{
-				collectible_clear(ray.collectible_hit);
-				cub_exit(cub);
-			}
-		}
 		if (ray.ray.x < ray.ray.y)
 		{
 			map_index.x += ray.step.x;
@@ -96,12 +86,4 @@ static t_ray	ray_init(t_cub *cub, t_fvector ray_dir)
 		ray.ray.y = (ray.pos.y - (int) ray.pos.y) * ray.unit_step.y;
 	}
 	return (ray);
-}
-
-static int ray_add_collectible(char **map, t_ray ray, t_vector map_index)
-{
-	t_fvector	pos;
-	if (!is_collectible(map[map_index.y][map_index.x]))
-		return (0);
-	collectible_append(&ray.collectible_hit, map[map_index.y][map_index.x], )
 }
