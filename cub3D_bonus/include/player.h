@@ -13,7 +13,6 @@
 # define PLAYER_H
 
 # include <math.h>
-# include "cub.h"
 # include "vector.h"
 
 # define PLAYER_OFFSET		0.2

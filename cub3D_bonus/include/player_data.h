@@ -51,6 +51,8 @@ struct s_event
 	t_vector	position;
 };
 
-int	listening_request(int client_socket, t_players_data *players_data, int client_index);
+void	disconnect_client(int client_socket, t_server_data *server_data);
+int		listening_request(int client_socket, t_players_data *players_data,
+			int client_index);
 
 #endif

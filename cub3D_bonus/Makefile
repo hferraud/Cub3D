@@ -54,6 +54,8 @@ SRC_SERVER	=		error.c	\
 								server/thread/routines/connection_routine/client_delete.c		\
 								\
 								server/thread/routines/in_game_routine/in_game_routine.c	\
+								server/thread/routines/in_game_routine/listening_request.c	\
+								server/thread/routines/in_game_routine/disconnect_client.c	\
 							\
 					\
 							server/socket/socket_init.c		\

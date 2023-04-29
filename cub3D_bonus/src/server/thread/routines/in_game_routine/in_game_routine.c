@@ -43,15 +43,15 @@ void	in_game_routine(t_server_data *server_data)
 			ret = listening_request(client_socket, &players_data, index);
 			if (ret == 1)
 			{
+				return ;
 				//TODO: Process the data and call to other player (send request)
 			}
 			else if (ret == -1)
-			{
-				//TODO: remove client
-			}
+				disconnect_client(client_socket,  server_data);
 			else if (ret == -2)
 			{
 				pthread_mutex_unlock(server_data->player->players_lock);
+				return ;
 				//TODO: clean exit
 			}
 		}

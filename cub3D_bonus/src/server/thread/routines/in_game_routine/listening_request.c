@@ -9,6 +9,7 @@
 /*   Updated: 2023/04/27 15:44:00 by edelage          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
+#include "server_data.h"
 #include "player_data.h"
 
 static int	listen_events(int client_socket, t_list **events_list);
@@ -52,6 +53,7 @@ int	listening_request(int client_socket, t_players_data *players_data, int clien
 static int	listen_events(int client_socket, t_list **events_list)
 {
 	char	buf;
+	t_list	*event_node;
 	t_event	*event;
 
 	if (read(client_socket, &buf, sizeof(char)) <= 0)
@@ -69,7 +71,14 @@ static int	listen_events(int client_socket, t_list **events_list)
 			free(event);
 			return (ft_lstclear(events_list, free), -1);
 		}
-		ft_lstadd_front(events_list, event);
+		event_node = ft_lstnew(event);
+		if (event_node == NULL)
+		{
+			free(event);
+			perror("listen_events()");
+			return (ft_lstclear(events_list,  free), -2);
+		}
+		ft_lstadd_front(events_list, event_node);
 		if (read(client_socket, &buf, sizeof(char)) <= 0)
 			return (ft_lstclear(events_list, free), cub_error(CLIENT_LOST));
 	}
