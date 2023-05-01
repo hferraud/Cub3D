@@ -131,9 +131,9 @@ CFLAGS		=		-Wall -Werror -Wextra -fsanitize=address#-g3 #-fsanitize=address
 
 IFLAGS		=		-I $(INC_DIR) -I $(LIBFT_DIR)include -I $(MLX_DIR)
 
-LFLAGS		=		-L $(LIBFT_DIR) -lft -L $(MLX_DIR) -lmlx -lm -lpthread
+LFLAGS		=		-L $(LIBFT_DIR) -lft -lm -lpthread
 
-MLX_FLAGS	=		-lXext -lX11
+MLX_FLAGS	=		-L $(MLX_DIR) -lmlx -lXext -lX11
 
 DFLAGS		=		-MMD -MP
 
@@ -176,8 +176,8 @@ re:					fclean
 
 -include			$(DEPS)
 
-$(SERVER):			$(LIBFT) $(MLX) $(OBJ_SERVER)
-					$(CC) $(CFLAGS) $(OBJ_SERVER) $(LFLAGS) $(MLX_FLAGS) -o $@
+$(SERVER):			$(LIBFT) $(OBJ_SERVER)
+					$(CC) $(CFLAGS) $(OBJ_SERVER) $(LFLAGS) -o $@
 
 $(CLIENT):			$(LIBFT) $(MLX) $(OBJ_CLIENT)
 					$(CC) $(CFLAGS) $(OBJ_CLIENT) $(LFLAGS) $(MLX_FLAGS) -o $@
