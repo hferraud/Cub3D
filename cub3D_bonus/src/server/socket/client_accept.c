@@ -99,7 +99,7 @@ static void	check_server_error(int server_socket, t_server_data *server_data)
 
 static void	close_client(t_server_data *server_data)
 {
-	size_t	count;
+	int		count;
 	t_list	*to_close;
 	int		client_socket;
 
