@@ -32,7 +32,7 @@ enum
 
 struct s_server_status
 {
-	int				status;
+	char			status;
 	pthread_mutex_t	*status_lock;
 };
 
@@ -51,7 +51,6 @@ enum
 
 struct s_server_data
 {
-	int				server_socket;
 	t_server_status	*server_status;
 	t_list			*client_socket;
 	pthread_mutex_t	*client_lock;

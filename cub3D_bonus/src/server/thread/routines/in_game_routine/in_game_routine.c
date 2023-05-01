@@ -12,6 +12,8 @@
 #include "server_data.h"
 #include "player_data.h"
 
+static void clear_data(t_server_data *server_data, t_players_data *players_data);
+
 /* Server send request to client
  * client send if info was update
  * if (update)
@@ -49,15 +51,20 @@ void	in_game_routine(t_server_data *server_data)
 			else if (ret == -1)
 				disconnect_client(client_socket,  server_data);
 			else if (ret == -2)
-			{
-				pthread_mutex_unlock(server_data->player->players_lock);
-				return ;
-				//TODO: clean exit
-			}
+				return (clear_data(server_data, &players_data));
 			else
 				usleep(10000);
 		}
 		pthread_mutex_unlock(server_data->player->players_lock);
 		count++;
 	}
+}
+
+static void clear_data(t_server_data *server_data, t_players_data *players_data)
+{
+	pthread_mutex_unlock(server_data->player->players_lock);
+	pthread_mutex_lock(server_data->server_status->status_lock);
+	server_data->server_status->status = ERROR;
+	pthread_mutex_unlock(server_data->server_status->status_lock);
+	ft_lstclear(&players_data->event, free);
 }

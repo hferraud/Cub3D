@@ -56,7 +56,6 @@ static int	server_status_init(t_server_data *server_data)
 
 static void	server_data_set_to_default(t_server_data *server_data, t_map *map)
 {
-	server_data->server_socket = -1;
 	server_data->server_status = NULL;
 	server_data->client_socket = NULL;
 	server_data->player = NULL;
