@@ -21,7 +21,20 @@
 # include "define.h"
 
 typedef struct s_server_data		t_server_data;
+typedef struct s_server_status		t_server_status;
 typedef struct s_players			t_players;
+
+enum
+{
+	RUNNING,
+	ERROR,
+};
+
+struct s_server_status
+{
+	int				status;
+	pthread_mutex_t	*status_lock;
+};
 
 struct s_players
 {
@@ -39,6 +52,7 @@ enum
 struct s_server_data
 {
 	int				server_socket;
+	t_server_status	*server_status;
 	t_list			*client_socket;
 	pthread_mutex_t	*client_lock;
 	t_players		*player;

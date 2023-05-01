@@ -43,6 +43,8 @@ SRC_SERVER	=		error.c	\
 					\
 							server/thread/initialization/thread_init.c		\
 							server/thread/initialization/server_data_init.c	\
+							server/thread/initialization/players_init.c		\
+							server/thread/initialization/mutexes_init.c		\
 							\
 							server/thread/destroy/server_data_destroy.c	\
 							\
@@ -125,7 +127,7 @@ DEPS		=		$(addprefix $(BUILD_DIR), $(SRC_SERVER:.c=.d))	\
 #	FLAGS
 #######################
 
-CFLAGS		=		-Wall -Werror -Wextra #-g3 -fsanitize=address#-g3 #-fsanitize=address
+CFLAGS		=		-Wall -Werror -Wextra -fsanitize=address#-g3 #-fsanitize=address
 
 IFLAGS		=		-I $(INC_DIR) -I $(LIBFT_DIR)include -I $(MLX_DIR)
 

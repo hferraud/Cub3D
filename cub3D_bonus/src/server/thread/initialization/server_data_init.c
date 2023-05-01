@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 #include "server_data.h"
 
-static int				players_init(t_players *players, int nb_spawn);
-static int				mutexes_init(t_server_data *server_data);
+int						players_init(t_players *players, int nb_spawn);
+int						mutexes_init(t_server_data *server_data);
+static int				server_status_init(t_server_data *server_data);
 static void				server_data_set_to_default(t_server_data *server_data,
 							t_map *map);
 static t_server_data	*server_data_init_error(t_server_data *server_data,
@@ -29,6 +30,8 @@ t_server_data	*server_data_init(t_map *map)
 	server_data->player = (t_players *) malloc(sizeof(t_players));
 	if (server_data->player == NULL)
 		return (server_data_init_error(server_data, "malloc()"));
+	if (server_status_init(server_data) == -1)
+		return (server_data_init_error(server_data, "server_status_init()"));
 	if (players_init(server_data->player, map->nb_spawn) == -1)
 		return (server_data_init_error(server_data, "players_init()"));
 	if (mutexes_init(server_data) == -1)
@@ -36,60 +39,25 @@ t_server_data	*server_data_init(t_map *map)
 	return (server_data);
 }
 
-static int	players_init(t_players *players, int nb_spawn)
+static int	server_status_init(t_server_data *server_data)
 {
-	ft_bzero(players, sizeof(t_players));
-	players->players_socket = (int *) malloc(sizeof(int) * nb_spawn);
-	if (players->players_socket == NULL)
+	server_data->server_status = (t_server_status *) malloc(sizeof(t_server_status));
+	if (server_data->server_status == NULL)
 		return (-1);
-	players->players_lock = malloc(sizeof(pthread_mutex_t));
-	if (players->players_lock == NULL)
-		return (-1);
-	if (pthread_mutex_init(players->players_lock, NULL) != 0)
+	if (pthread_mutex_init(server_data->server_status->status_lock, NULL) != 0)
 	{
-		free(players->players_lock);
-		players->players_lock = NULL;
+		free(server_data->server_status);
+		server_data->server_status = NULL;
 		return (-1);
 	}
-	players->size = nb_spawn;
-	return (0);
-}
-
-static int	mutexes_init(t_server_data *server_data)
-{
-	server_data->client_lock = malloc(sizeof(pthread_mutex_t));
-	if (server_data->client_lock == NULL)
-		return (-1);
-	if (pthread_mutex_init(server_data->client_lock, NULL) != 0)
-	{
-		free(server_data->client_lock);
-		server_data->client_lock = NULL;
-		return (-1);
-	}
-	server_data->map_lock = malloc(sizeof(pthread_mutex_t));
-	if (server_data->map_lock == NULL)
-		return (-1);
-	if (pthread_mutex_init(server_data->map_lock, NULL) != 0)
-	{
-		free(server_data->map_lock);
-		server_data->map_lock = NULL;
-		return (-1);
-	}
-	server_data->spawn_lock = malloc(sizeof(pthread_mutex_t));
-	if (server_data->spawn_lock == NULL)
-		return (-1);
-	if (pthread_mutex_init(server_data->spawn_lock, NULL) != 0)
-	{
-		free(server_data->spawn_lock);
-		server_data->spawn_lock = NULL;
-		return (-1);
-	}
+	server_data->server_status->status = RUNNING;
 	return (0);
 }
 
 static void	server_data_set_to_default(t_server_data *server_data, t_map *map)
 {
 	server_data->server_socket = -1;
+	server_data->server_status = NULL;
 	server_data->client_socket = NULL;
 	server_data->player = NULL;
 	server_data->map = map;

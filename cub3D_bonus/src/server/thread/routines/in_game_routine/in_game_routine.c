@@ -24,8 +24,8 @@
 void	in_game_routine(t_server_data *server_data)
 {
 	int				ret;
+	int				index;
 	size_t			count;
-	size_t			index;
 	t_players_data	players_data;
 	int				client_socket;
 
@@ -54,6 +54,8 @@ void	in_game_routine(t_server_data *server_data)
 				return ;
 				//TODO: clean exit
 			}
+			else
+				usleep(10000);
 		}
 		pthread_mutex_unlock(server_data->player->players_lock);
 		count++;
