@@ -13,9 +13,9 @@
 #include "cub.h"
 
 static int		draw_collectible(t_cub *cub, t_sprite sprite, float dist);
-static float	dist_calculate(t_player player, t_fvector pos);
+static float	get_abs_distance(t_player player, t_fvector pos);
 
-int	draw_collectible_list(t_cub *cub, t_collectible *head)
+int	draw_collectible_list(t_cub *cub, t_collectible_list *head)
 {
 	t_sprite	sprite;
 	float		dist;
@@ -34,7 +34,12 @@ static int	draw_collectible(t_cub *cub, t_sprite sprite, float dist)
 	
 }
 
-static float	dist_calculate(t_player player, t_fvector pos)
+static t_fvector	get_vect_distance(t_player player, t_fvector pos)
+{
+	return (fvector_sub(pos, player.pos));
+}
+
+static float	get_abs_distance(t_player player, t_fvector pos)
 {
 	t_fvector	vect;
 

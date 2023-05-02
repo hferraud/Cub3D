@@ -31,7 +31,7 @@
 
 typedef struct s_map_client		t_map_client;
 typedef struct s_spawn			t_spawn;
-typedef struct s_collectible	t_collectible;
+typedef struct s_collectible_list	t_collectible_list;
 
 struct s_spawn
 {
@@ -46,7 +46,7 @@ struct s_map_client
 	size_t			height;
 	size_t			width;
 	t_spawn			spawn;
-	t_collectible	*collectibles;
+	t_collectible_list	*collectibles;
 	char			*path[7];
 };
 

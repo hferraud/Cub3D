@@ -39,7 +39,7 @@ struct s_ray
 	t_vector		step;
 	t_wall			wall_face;
 	float			length;
-	t_collectible	*collectible_hit;
+	t_collectible_list	*collectible_hit;
 };
 
 t_ray	ray_cast(t_cub *cub, t_fvector ray_dir);

@@ -25,8 +25,9 @@
 # define MEDIC_KIT_OFFSET	0.1
 # define AMMO_OFFSET		0.1
 
-typedef enum e_collectible_id	t_collectible_id;
-typedef struct s_collectible	t_collectible;
+typedef enum e_collectible_id		t_collectible_id;
+typedef struct s_collectible		t_collectible;
+typedef struct s_collectible_list	t_collectible_list;
 
 enum e_collectible_id
 {
@@ -41,12 +42,20 @@ struct s_collectible
 {
 	t_collectible_id	id;
 	t_fvector			pos;
-	t_collectible		*next;
+	float				dist;
 };
 
-int					collectible_append(t_collectible **head,
+struct s_collectible_list
+{
+	t_collectible_id	id;
+	t_fvector			pos;
+	t_collectible_list	*next;
+};
+
+int					collectible_append(t_collectible_list **head,
 						t_collectible_id id, t_fvector pos);
-void				collectible_clear(t_collectible *head);
+void				collectible_list_clear(t_collectible_list *head);
+size_t				collectible_list_length(t_collectible_list *list);
 t_collectible_id	collectible_id_get(char cell);
 
 #endif
