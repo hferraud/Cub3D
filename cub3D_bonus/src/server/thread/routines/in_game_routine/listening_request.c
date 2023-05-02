@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "server_data.h"
-#include "player_data.h"
+#include "players_data.h"
 
 static int	listen_events(int client_socket, t_list **events_list);
 static int	listen_event(int client_socket, t_event *event);
@@ -35,10 +35,10 @@ int	listening_request(int client_socket, t_players_data *players_data, int clien
 		return (cub_error(CLIENT_LOST));
 	if (buf == UP_TO_DATE)
 		return (1);
-	ret = listen_events(client_socket, &players_data->event);
+	ret = listen_events(client_socket, &players_data->events);
 	if (ret == -1)
 	{
-		players_data->event = NULL;
+		players_data->events = NULL;
 		return (-1);
 	}
 	else if (ret == -2)

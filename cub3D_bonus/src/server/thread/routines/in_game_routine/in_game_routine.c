@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "server_data.h"
-#include "player_data.h"
+#include "players_data.h"
 
 static void clear_data(t_server_data *server_data, t_players_data *players_data);
 
@@ -33,7 +33,7 @@ void	in_game_routine(t_server_data *server_data)
 
 	count = 0;
 	ft_bzero(players_data.players, sizeof(t_player) * PLAYER_LIMIT);
-	players_data.event = NULL;
+	players_data.events = NULL;
 	printf("In Game Thread created\n");
 	while (1)
 	{
@@ -52,9 +52,9 @@ void	in_game_routine(t_server_data *server_data)
 				disconnect_client(client_socket,  server_data);
 			else if (ret == -2)
 				return (clear_data(server_data, &players_data));
-			else
-				usleep(10000);
 		}
+		else
+			usleep(10000);
 		pthread_mutex_unlock(server_data->player->players_lock);
 		count++;
 	}
@@ -66,5 +66,5 @@ static void clear_data(t_server_data *server_data, t_players_data *players_data)
 	pthread_mutex_lock(server_data->server_status->status_lock);
 	server_data->server_status->status = ERROR;
 	pthread_mutex_unlock(server_data->server_status->status_lock);
-	ft_lstclear(&players_data->event, free);
+	ft_lstclear(&players_data->events, free);
 }

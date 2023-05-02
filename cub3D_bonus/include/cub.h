@@ -15,7 +15,7 @@
 # include "error.h"
 # include "map_client.h"
 # include "mlx_handler.h"
-# include "player.h"
+# include "player_data.h"
 # include "texture.h"
 
 typedef struct s_cub		t_cub;
