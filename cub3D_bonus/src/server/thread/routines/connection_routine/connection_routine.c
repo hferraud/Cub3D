@@ -19,7 +19,7 @@ static int 		check_end_routine(t_server_status *server_status);
 
 void	connection_routine(t_server_data *server_data)
 {
-	int		client_fd;
+	int		client_socket;
 	t_spawn	*spawn;
 
 	printf("Connection Thread created\n");
@@ -27,10 +27,10 @@ void	connection_routine(t_server_data *server_data)
 	{
 		if (check_end_routine(server_data->server_status) == -1)
 			return ;
-		client_fd = client_get_socket(server_data);
-		if (client_fd != -1)
+		client_socket = client_get_socket(server_data);
+		if (client_socket != -1)
 		{
-			spawn = client_get_spawn(client_fd, server_data);
+			spawn = client_get_spawn(client_socket, server_data);
 			if (spawn == NULL)
 			{
 				dprintf(STDERR_FILENO, "Spawn not found\n");
@@ -40,11 +40,11 @@ void	connection_routine(t_server_data *server_data)
 				pthread_mutex_unlock(server_data->server_status->status_lock);
 				return ;
 			}
-			if (map_send(client_fd, server_data, spawn) != -1
-				&& path_send(client_fd, server_data) != -1)
-				client_to_player(client_fd, server_data);
+			if (map_send(client_socket, server_data, spawn) != -1
+				&& path_send(client_socket, server_data) != -1)
+				client_to_player(client_socket, server_data);
 			else
-				lst_del_client(client_fd, server_data);
+				lst_del_client(client_socket, server_data);
 		}
 		else
 			sleep(1);

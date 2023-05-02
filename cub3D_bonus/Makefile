@@ -114,6 +114,13 @@ SRC_CLIENT	=		error.c	\
 						\
 						client/display/raycasting/raycasting.c	\
 						\
+						client/thread/initialization/player_data_init.c	\
+						client/thread/initialization/thread_init.c		\
+						\
+						client/thread/destroy/player_data_destroy.c	\
+						\
+						client/thread/routine/request_routine.c	\
+						\
 					\
 
 OBJ_SERVER	=		$(addprefix $(BUILD_DIR), $(SRC_SERVER:.c=.o))

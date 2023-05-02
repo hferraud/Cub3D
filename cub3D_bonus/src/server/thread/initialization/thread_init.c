@@ -32,6 +32,10 @@ t_server_data	*thread_init(t_map *map)
 	if (pthread_create(&server_data->thread[IN_GAME], NULL,
 			(void *)in_game_routine, server_data) != 0)
 	{
+		pthread_mutex_lock(server_data->server_status->status_lock);
+		server_data->server_status->status = ERROR;
+		pthread_mutex_unlock(server_data->server_status->status_lock);
+		pthread_join(server_data->thread[LAUNCH], NULL);
 		server_data->thread[IN_GAME] = 0;
 		server_data_destroy(server_data);
 		return (perror("pthread_create()"), NULL);

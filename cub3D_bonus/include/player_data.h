@@ -14,9 +14,11 @@
 
 # include "event.h"
 # include "player.h"
+# include "libft.h"
 # include <stdlib.h>
 # include <pthread.h>
 # include <stdbool.h>
+# include <stdio.h>
 
 typedef struct s_player_data	t_player_data;
 
@@ -29,5 +31,9 @@ struct s_player_data
 	t_list			*events;
 	pthread_mutex_t	*events_lock;
 };
+
+int		thread_init(t_cub *cub);
+int		player_data_init(t_player_data *player_data);
+void	player_data_destroy(t_player_data *player_data);
 
 #endif

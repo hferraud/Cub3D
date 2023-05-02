@@ -25,6 +25,7 @@ int	listening_request(int client_socket, t_players_data *players_data, int clien
 	int		ret;
 	char	buf;
 
+	printf("Send listening request to client %d\n", client_socket);
 	if (write(client_socket, LISTEN_REQUEST, LENGTH_LISTEN_REQUEST) == -1
 		|| read(client_socket, &buf, sizeof(char)) <= 0)
 		return (cub_error(CLIENT_LOST));

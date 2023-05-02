@@ -53,7 +53,7 @@ static int	client_accept(int server_socket_fd)
 			&client_addr_len);
 	if (client_socket_fd == -1)
 		return (perror("accept()"), errno);
-	printf("Connection with a client_socket established\n");
+	printf("Connection with a client established\n");
 	return (client_socket_fd);
 }
 

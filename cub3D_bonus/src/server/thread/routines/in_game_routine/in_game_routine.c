@@ -53,7 +53,10 @@ void	in_game_routine(t_server_data *server_data)
 			else if (ret == -1)
 				disconnect_client(client_socket,  server_data);
 			else if (ret == -2)
+			{
+				printf("Quit in_game_thread\n");
 				return (clear_data(server_data, &players_data));
+			}
 		}
 		else
 			usleep(10000);

@@ -11,7 +11,8 @@
 /* ************************************************************************** */
 #include "players_data.h"
 
-void	request_routine(void)
+void	request_routine(t_cub *cub)
 {
-
+	(void) cub;
+	printf("Request thread created\n");
 }
