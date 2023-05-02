@@ -28,7 +28,7 @@ struct s_cub
 	int				server_socket;
 	t_map_client	map;
 	t_mlx_data		*mlx_data;
-	t_player		player;
+	t_player_data	player_data;
 };
 
 #endif

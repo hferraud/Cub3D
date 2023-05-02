@@ -20,7 +20,7 @@ t_ray	ray_cast(t_cub *cub, t_fvector ray_dir)
 	t_vector	map_index;
 
 	ray = ray_init(cub, ray_dir);
-	map_index = vector_init((int) cub->player.pos.x, (int) cub->player.pos.y);
+	map_index = vector_init((int) cub->player_data.player.pos.x, (int) cub->player_data.player.pos.y);
 	while (cub->map.map[map_index.y][map_index.x] != WALL
 		&& cub->map.map[map_index.y][map_index.x] != DOOR_CLOSE)
 	{
@@ -56,12 +56,12 @@ t_ray	ray_cast(t_cub *cub, t_fvector ray_dir)
 	if (ray.wall_face == WEST || ray.wall_face == EAST)
 	{
 	ray.length = ray.ray.x - ray.unit_step.x;
-		ray.pos.y = cub->player.pos.y + ray.length * ray_dir.y;
+		ray.pos.y = cub->player_data.player.pos.y + ray.length * ray_dir.y;
 	}
 	else
 	{
 		ray.length = ray.ray.y - ray.unit_step.y;
-		ray.pos.x = cub->player.pos.x + ray.length * ray_dir.x;
+		ray.pos.x = cub->player_data.player.pos.x + ray.length * ray_dir.x;
 	}
 	return (ray);
 }
@@ -70,7 +70,7 @@ static t_ray	ray_init(t_cub *cub, t_fvector ray_dir)
 {
 	t_ray	ray;
 
-	ray.pos = cub->player.pos;
+	ray.pos = cub->player_data.player.pos;
 	ray.unit_step.x = fabsf(1 / ray_dir.x);
 	ray.unit_step.y = fabsf(1 / ray_dir.y);
 	ray.ray = fvector_init(0, 0);
