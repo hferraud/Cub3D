@@ -12,7 +12,8 @@
 #ifndef PLAYER_DATA_H
 # define PLAYER_DATA_H
 
-# include "players_data.h"
+# include "event.h"
+# include "player.h"
 # include <stdbool.h>
 
 typedef struct s_player_data	t_player_data;
