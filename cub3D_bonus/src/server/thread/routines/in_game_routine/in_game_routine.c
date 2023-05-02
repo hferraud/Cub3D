@@ -40,8 +40,10 @@ void	in_game_routine(t_server_data *server_data)
 		index = count % server_data->player->size;
 		pthread_mutex_lock(server_data->player->players_lock);
 		client_socket = server_data->player->players_socket[index];
+		pthread_mutex_unlock(server_data->player->players_lock);
 		if (client_socket != -1)
 		{
+			printf("%d\n", client_socket);
 			ret = listening_request(client_socket, &players_data, index);
 			if (ret == 1)
 			{
@@ -55,7 +57,6 @@ void	in_game_routine(t_server_data *server_data)
 		}
 		else
 			usleep(10000);
-		pthread_mutex_unlock(server_data->player->players_lock);
 		count++;
 	}
 }

@@ -42,8 +42,13 @@ t_server_data	*server_data_init(t_map *map)
 static int	server_status_init(t_server_data *server_data)
 {
 	server_data->server_status = (t_server_status *) malloc(sizeof(t_server_status));
-	if (server_data->server_status == NULL)
+	server_data->server_status->status_lock = (pthread_mutex_t *) malloc(sizeof(pthread_mutex_t));
+	if (server_data->server_status == NULL || server_data->server_status->status_lock == NULL)
+	{
+		free(server_data->server_status->status_lock);
+		free(server_data->server_status);
 		return (-1);
+	}
 	if (pthread_mutex_init(server_data->server_status->status_lock, NULL) != 0)
 	{
 		free(server_data->server_status);

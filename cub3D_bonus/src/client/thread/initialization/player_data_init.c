@@ -38,3 +38,5 @@ static int	mutexes_init(t_player_data *player_data)
 	}
 	return (0);
 }
+
+static int	mutex_init()

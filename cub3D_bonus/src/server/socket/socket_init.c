@@ -38,7 +38,7 @@ int	socket_init(const char *ascii_port, int n)
 	ft_putstr("Socket created\n");
 	if (server_display_ip() == -1)
 		return (close(socket_fd), -1);
-	printf("Port\t  : %d\n", port);
+	printf("Port\t  : %d\n\n", port);
 	return (socket_fd);
 }
 

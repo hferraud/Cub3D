@@ -96,7 +96,7 @@ static void	client_to_player(int client_socket, t_server_data *server_data)
 	index = 0;
 	lst_del_client(client_socket, server_data);
 	pthread_mutex_lock(players->players_lock);
-	while (index < players->size && players->players_socket[index] == -1)
+	while (index < players->size && players->players_socket[index] != -1)
 		index++;
 	players->players_socket[index] = client_socket;
 	pthread_mutex_unlock(players->players_lock);
