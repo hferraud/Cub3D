@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 #include "parser_client.h"
 
+static t_collectible_list	*collectible_to_list(t_map_client *map);
+static int	collectible_list_to_array(t_collectible_list *list, t_map_client *map);
 static int	cell_parse(size_t row, size_t col, t_map_client *map, t_collectible_list *list);
 
 /**
@@ -19,6 +21,14 @@ static int	cell_parse(size_t row, size_t col, t_map_client *map, t_collectible_l
  */
 int	collectible_parse(t_map_client *map)
 {
+	t_collectible_list	*list;
+
+	list = collectible_to_list(map);
+	if (errno)
+		return (-1);
+	if (collectible_list_to_array(list, map) == -1)
+		return (-1);
+	collectible_list_clear(list);
 	return (0);
 }
 
@@ -32,6 +42,7 @@ static t_collectible_list	*collectible_to_list(t_map_client *map)
 	size_t			row;
 	size_t			col;
 
+	list = NULL;
 	row = 0;
 	while (map->map[row])
 	{
@@ -44,17 +55,30 @@ static t_collectible_list	*collectible_to_list(t_map_client *map)
 		}
 		row++;
 	}
+	return (list);
 }
 
-static t_collectible	*collectible_list_to_array(t_collectible_list *list)
+/**
+ * @brief Convert a collectible list to an array stored in map
+ * @return 0 on success, -1 otherwise
+ */
+static int	collectible_list_to_array(t_collectible_list *list, t_map_client *map)
 {
-	t_collectible	*collectible_array;
 	size_t			size;
+	size_t			i;
 
-	size = collectible_list_length(list) + 1;
-	collectible_array = malloc(size * sizeof(t_collectible));
-	if (collectible_array == NULL)
-		return (NULL);
+	size = collectible_list_length(list);
+	map->collectible_data->size = size;
+	map->collectible_data->collectible = malloc(size * sizeof(t_collectible));
+	if (map->collectible_data->collectible == NULL)
+		return (perror("collectible_list_to_array()"), -1);
+	while (list)
+	{
+		map->collectible_data->collectible[i] = collectible_init(list->id, list->pos);
+		i++;
+		list = list->next;
+	}
+	return (0);
 }
 
 /**
@@ -72,8 +96,8 @@ static int	cell_parse(size_t row, size_t col, t_map_client *map, t_collectible_l
 	pos = fvector_init(col + 0.5f, row + 0.5f);
 	if (collectible_append(&list, id, pos) == -1)
 	{
-		collectible_clear(list);
-		return (-1);
+		collectible_list_clear(list);
+		return (perror("collectible cell_parse()"), -1);
 	}
 	map->map[row][col] = FLOOR;
 	return (0);

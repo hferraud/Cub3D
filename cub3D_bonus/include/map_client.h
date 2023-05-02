@@ -29,9 +29,10 @@
 
 # define DIR_SPRITE		"asset/"
 
-typedef struct s_map_client		t_map_client;
-typedef struct s_spawn			t_spawn;
+typedef struct s_map_client			t_map_client;
+typedef struct s_spawn				t_spawn;
 typedef struct s_collectible_list	t_collectible_list;
+typedef struct s_collectible_data	t_collectible_data;
 
 struct s_spawn
 {
@@ -40,14 +41,20 @@ struct s_spawn
 	char	orientation;
 };
 
+struct s_collectible_data
+{
+	t_collectible	*collectible;
+	size_t			size;
+};
+
 struct s_map_client
 {
-	char			**map;
-	size_t			height;
-	size_t			width;
-	t_spawn			spawn;
-	t_collectible_list	*collectibles;
-	char			*path[7];
+	char				**map;
+	size_t				height;
+	size_t				width;
+	t_spawn				spawn;
+	t_collectible_data	*collectible_data;
+	char				*path[7];
 };
 
 void	map_clear(t_map_client *map);

@@ -9,37 +9,69 @@
 /*   Updated: 2023/04/05 17:46:00 by ethan            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
+#include <stdbool.h>
 #include "collectible.h"
 #include "cub.h"
 
-static int		draw_collectible(t_cub *cub, t_sprite sprite, float dist);
-static float	get_abs_distance(t_player player, t_fvector pos);
+static void		collectible_set_dist(t_cub *cub);
+static void		sort_collectible(t_cub *cub);
+static float	get_distance_from_player(t_player player, t_fvector pos);
 
-int	draw_collectible_list(t_cub *cub, t_collectible_list *head)
+int	draw_collectible(t_cub *cub)
 {
-	t_sprite	sprite;
-	float		dist;
+	collectible_set_dist(cub);
+	sort_collectible(cub);
+	printf("dist: %f\n", cub->map.collectible_data->collectible->dist);
+}
 
-	while (head)
+/**
+ * @brief Set the distance from the player of all collectibles
+ */
+static void collectible_set_dist(t_cub *cub)
+{
+	size_t			i;
+	t_collectible	*collectibles;
+
+	collectibles = cub->map.collectible_data->collectible;
+	i = 0;
+	while (i < cub->map.collectible_data->size)
 	{
-		sprite = cub->mlx_data->collectible_sprite[head->id];
-		dist = dist_calculate(cub->player, head->pos);
-		draw_collectible(cub, sprite, dist);
-		head = head->next;
+		collectibles[i].dist = get_distance_from_player(cub->player, collectibles[i].pos);
+		i++;
 	}
 }
 
-static int	draw_collectible(t_cub *cub, t_sprite sprite, float dist)
+/**
+ * @brief Sort all collectibles from the nearest to the further away of the player
+ */
+static void sort_collectible(t_cub *cub)
 {
-	
+	t_collectible	*collectible;
+	t_collectible	tmp;
+	bool			flag;
+	size_t			i;
+
+	collectible = cub->map.collectible_data->collectible;
+	flag = true;
+	while (flag)
+	{
+		flag = false;
+		i = 1;
+		while (i < cub->map.collectible_data->size)
+		{
+			if (collectible[i].dist > collectible[i - 1].dist)
+			{
+				flag = true;
+				tmp = collectible[i];
+				collectible[i] = collectible[i - 1];
+				collectible[i - 1] = tmp;
+			}
+			i++;
+		}
+	}
 }
 
-static t_fvector	get_vect_distance(t_player player, t_fvector pos)
-{
-	return (fvector_sub(pos, player.pos));
-}
-
-static float	get_abs_distance(t_player player, t_fvector pos)
+static float	get_distance_from_player(t_player player, t_fvector pos)
 {
 	t_fvector	vect;
 

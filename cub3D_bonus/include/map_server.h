@@ -24,9 +24,8 @@
 # define DOOR_OPEN		'O'
 # define LIFE_PACK		'L'
 # define AMMO			'A'
-# define PISTOL			'G'
+# define PISTOL			'P'
 # define ASSAULT_RIFLE	'R'
-# define ENEMY			'P'
 
 typedef struct s_map		t_map;
 typedef struct s_spawn		t_spawn;

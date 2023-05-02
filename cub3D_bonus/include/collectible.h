@@ -52,6 +52,7 @@ struct s_collectible_list
 	t_collectible_list	*next;
 };
 
+t_collectible		collectible_init(t_collectible_id id, t_fvector pos);
 int					collectible_append(t_collectible_list **head,
 						t_collectible_id id, t_fvector pos);
 void				collectible_list_clear(t_collectible_list *head);

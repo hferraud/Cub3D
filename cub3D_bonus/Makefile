@@ -73,7 +73,8 @@ SRC_CLIENT	=		error.c	\
 						client/parser/file_parse.c	\
 						client/parser/map_clear.c	\
 						\
-						client/parser/collectible/collectible.c		\
+						client/parser/collectible/collectible.c			\
+						client/parser/collectible/collectible_list.c	\
 						client/parser/collectible/collectible_parse.c	\
 					\
 						utils/socket/port_get.c	\

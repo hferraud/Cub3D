@@ -9,3 +9,5 @@ cmake-build-debug
 *.a
 *.d
 minilibx/test/mlx-test
+cub3D_bonus/asset/BRICK_1A.xpm
+cub3D_bonus/asset/TILE_3B.xpm
