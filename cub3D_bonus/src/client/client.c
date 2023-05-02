@@ -23,7 +23,9 @@ int	main(int argc, char **argv)
 	t_cub		cub;
 	t_mlx_data	mlx_data;
 
+	//TODO: thread_init
 	cub.server_socket = socket_client_init(argc, argv);
+	//TODO: do cub_exit on failure
 	if (cub.server_socket == -1)
 		return (1);
 	cub.mlx_data = &mlx_data;

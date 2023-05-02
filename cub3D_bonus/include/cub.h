@@ -29,6 +29,7 @@ struct s_cub
 	t_map_client	map;
 	t_mlx_data		*mlx_data;
 	t_player_data	player_data;
+	pthread_t		thread;
 };
 
 #endif
