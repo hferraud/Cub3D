@@ -28,6 +28,7 @@ struct s_player
 {
 	t_fvector	pos;
 	t_fvector	rotation;
+	t_fvector	camera;
 };
 
 typedef struct s_cub	t_cub;
