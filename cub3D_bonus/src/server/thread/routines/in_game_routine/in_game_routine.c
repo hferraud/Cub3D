@@ -43,10 +43,10 @@ void	in_game_routine(t_server_data *server_data)
 		pthread_mutex_unlock(server_data->player->players_lock);
 		if (client_socket != -1)
 		{
-			printf("%d\n", client_socket);
 			ret = listening_request(client_socket, &players_data, index);
 			if (ret == 1)
 			{
+				printf("Need to send data\n");
 				return ;
 				//TODO: Process the data and call to other player (send request)
 			}

@@ -18,13 +18,11 @@ void	request_routine(t_cub *cub)
 	printf("Request thread created\n");
 	while (1)
 	{
-		printf("%zu\n", read(cub->server_socket, &buf, 1));
 		if (read(cub->server_socket, &buf, sizeof(char)) <= 0)
 		{
 			pthread_mutex_lock(cub->client_status.status_lock);
 			cub->client_status.status = ERROR;
 			pthread_mutex_unlock(cub->client_status.status_lock);
-			perror(NULL);
 			printf("Exit thread\n");
 			return ;
 		}

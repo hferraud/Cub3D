@@ -18,7 +18,6 @@ void	lst_del_client(int client_socket, t_server_data *server_data, bool close)
 	t_list	*previous;
 	t_list	*current;
 
-	printf("test\n");
 	pthread_mutex_lock(server_data->client_lock);
 	current = server_data->client_socket;
 	if (*(int *) current->content == client_socket)
