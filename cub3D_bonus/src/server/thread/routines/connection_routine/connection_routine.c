@@ -44,7 +44,7 @@ void	connection_routine(t_server_data *server_data)
 				&& path_send(client_socket, server_data) != -1)
 				client_to_player(client_socket, server_data);
 			else
-				lst_del_client(client_socket, server_data);
+				lst_del_client(client_socket, server_data, true);
 		}
 		else
 			sleep(1);
@@ -94,7 +94,7 @@ static void	client_to_player(int client_socket, t_server_data *server_data)
 
 	players = server_data->player;
 	index = 0;
-	lst_del_client(client_socket, server_data);
+	lst_del_client(client_socket, server_data, false);
 	pthread_mutex_lock(players->players_lock);
 	while (index < players->size && players->players_socket[index] != -1)
 		index++;

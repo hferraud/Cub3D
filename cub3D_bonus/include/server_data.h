@@ -17,6 +17,7 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <sys/stat.h>
+# include <stdbool.h>
 # include "map_server.h"
 # include "define.h"
 
@@ -76,7 +77,8 @@ int				map_send(int client_socket, t_server_data *server_data,
 					t_spawn *spawn);
 int				path_send(int client_socket, t_server_data *server_data);
 int				file_send(int client_socket, char *path);
-void			lst_del_client(int client_socket, t_server_data *server_data);
+void			lst_del_client(int client_socket, t_server_data *server_data,
+					bool close);
 int				connection_error(int client_socket, char *error_msg,
 					t_server_data *server_data);
 
