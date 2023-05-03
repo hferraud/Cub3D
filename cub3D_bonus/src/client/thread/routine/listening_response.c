@@ -34,6 +34,9 @@ int	listening_response(int server_socket, t_player_data *player_data)
 		return (cub_error(SERVER_LOST));
 	}
 	pthread_mutex_unlock(player_data->player_lock);
+	pthread_mutex_lock(player_data->update_lock);
+	player_data->update = false;
+	pthread_mutex_unlock(player_data->update_lock);
 	if (write(server_socket, UP_TO_DATE, LENGTH_REQUEST) == -1)
 		return (cub_error(SERVER_LOST));
 	return (0);

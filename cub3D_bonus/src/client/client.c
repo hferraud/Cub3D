@@ -31,7 +31,6 @@ int	main(int argc, char **argv)
 	if (cub.server_socket == -1)
 		return (1);
 	cub.mlx_data = &mlx_data;
-	player_pos_init(&cub);
 	if (cub_init(&cub) == -1)
 		return (close(cub.server_socket), 1);
 	if (thread_init(&cub) == -1)

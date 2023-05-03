@@ -25,19 +25,20 @@ int	listening_request(int client_socket, t_players_data *players_data, int clien
 	int		ret;
 	char	buf;
 
-	printf("Send listening request to client %d\n", client_socket);
+//	printf("Send listening request to client %d\n", client_socket);
 	if (write(client_socket, LISTEN_REQUEST, LENGTH_REQUEST) == -1
 		|| read(client_socket, &buf, sizeof(char)) <= 0)
 		return (cub_error(CLIENT_LOST));
 	if (buf == *UP_TO_DATE)
 	{
-		printf("Player %d data are up to date\n", client_socket);
+//		printf("Player %d data are up to date\n", client_socket);
 		return (0);
 	}
 	printf("Player %d data needs to be update\n", client_socket);
 	if (read(client_socket, &players_data->players[client_index], sizeof(t_player)) <= 0
 		|| read(client_socket, &buf, sizeof(char)) <= 0)
 		return (cub_error(CLIENT_LOST));
+	printf("Player %d position: x: %f y: %f\n", client_socket, players_data->players[client_index].pos.x, players_data->players[client_index].pos.y);
 	if (buf == *UP_TO_DATE)
 	{
 		printf("Player %d has no events\n", client_socket);

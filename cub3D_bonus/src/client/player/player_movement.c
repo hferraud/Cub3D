@@ -16,22 +16,41 @@ static void			player_rotation_update(t_cub *cub);
 static void			player_position_update(t_cub *cub);
 static t_fvector	new_position_calculate(t_cub *cub);
 static int			is_valid_position(t_cub *cub, float x, float y);
+static int	player_moved(t_player before, t_player current);
 
 /**
  * @brief Update the position and rotation of the player
  */
 void	player_update(t_cub *cub)
 {
+	t_player	save;
+
+	pthread_mutex_lock(cub->player_data.player_lock);
+	save = cub->player_data.player;
+	pthread_mutex_unlock(cub->player_data.player_lock);
 	player_rotation_update(cub);
 	player_position_update(cub);
+	pthread_mutex_lock(cub->player_data.player_lock);
+	if (player_moved(save, cub->player_data.player))
+	{
+		pthread_mutex_lock(cub->player_data.update_lock);
+		cub->player_data.update = true;
+		pthread_mutex_unlock(cub->player_data.update_lock);
+	}
+	pthread_mutex_unlock(cub->player_data.player_lock);
 }
 
 static void	player_rotation_update(t_cub *cub)
 {
-	if (is_key_pressed(KEY_LEFT, cub))
-		cub->player_data.player.rotation = fvector_rotate(cub->player_data.player.rotation, -0.03f);
-	if (is_key_pressed(KEY_RIGHT, cub))
-		cub->player_data.player.rotation = fvector_rotate(cub->player_data.player.rotation, 0.03f);
+	if (is_key_pressed(KEY_LEFT, cub) || is_key_pressed(KEY_RIGHT, cub))
+	{
+		pthread_mutex_lock(cub->player_data.player_lock);
+		if (is_key_pressed(KEY_LEFT, cub))
+			cub->player_data.player.rotation = fvector_rotate(cub->player_data.player.rotation, -0.03f);
+		else
+			cub->player_data.player.rotation = fvector_rotate(cub->player_data.player.rotation, 0.03f);
+		pthread_mutex_unlock(cub->player_data.player_lock);
+	}
 }
 
 /**
@@ -46,6 +65,7 @@ static void	player_position_update(t_cub *cub)
 	player = &cub->player_data.player;
 	map = cub->map.map;
 	new_pos = new_position_calculate(cub);
+	pthread_mutex_lock(cub->player_data.player_lock);
 	if (is_valid_position(cub, new_pos.x, new_pos.y))
 		player->pos = new_pos;
 	else
@@ -56,7 +76,7 @@ static void	player_position_update(t_cub *cub)
 		{
 			player->pos.y = new_pos.y;
 			if (new_pos.x > player->pos.x)
-				player->pos.x =	1. - UNCERTAINTY - PLAYER_OFFSET + ((int) player->pos.x);
+				player->pos.x =	1.f - UNCERTAINTY - PLAYER_OFFSET + ((int) player->pos.x);
 			else
 				player->pos.x =	PLAYER_OFFSET + UNCERTAINTY + ((int) player->pos.x);
 		}
@@ -66,11 +86,12 @@ static void	player_position_update(t_cub *cub)
 		{
 			player->pos.x = new_pos.x;
 			if (new_pos.y > player->pos.y)
-				player->pos.y =	1. - UNCERTAINTY - PLAYER_OFFSET + ((int) player->pos.y);
+				player->pos.y =	1.f - UNCERTAINTY - PLAYER_OFFSET + ((int) player->pos.y);
 			else
 				player->pos.y =	PLAYER_OFFSET + UNCERTAINTY + ((int) player->pos.y);
 		}
 	}
+	pthread_mutex_unlock(cub->player_data.player_lock);
 }
 
 static t_fvector	new_position_calculate(t_cub *cub)
@@ -109,4 +130,12 @@ static int	is_valid_position(t_cub *cub, float x, float y)
 		&& map[(int)(y - PLAYER_OFFSET)][(int)(x + PLAYER_OFFSET)] == FLOOR
 		&& map[(int)(y + PLAYER_OFFSET)][(int)(x + PLAYER_OFFSET)] == FLOOR
 		&& map[(int)(y + PLAYER_OFFSET)][(int)(x - PLAYER_OFFSET)] == FLOOR);
+}
+
+static int	player_moved(t_player before, t_player current)
+{
+	return (before.pos.x != current.pos.x
+		|| before.pos.y != current.pos.y
+		|| before.rotation.x != current.rotation.x
+		|| before.rotation.y != current.rotation.y);
 }
