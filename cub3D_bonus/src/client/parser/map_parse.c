@@ -19,7 +19,7 @@ static int	map_init(t_map_client *map);
 int	map_parse(t_map_client *map, int server_socket)
 {
 	map->map = NULL;
-	map->collectible_data->collectible = NULL;
+	map->collectible_data.collectible = NULL;
 	ft_bzero(map->path, sizeof(char *) * 7);
 	if (map_size_parse(map, server_socket) == -1)
 		return (-1);

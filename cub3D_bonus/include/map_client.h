@@ -23,9 +23,8 @@
 # define DOOR_OPEN		'O'
 # define LIFE_PACK		'L'
 # define AMMO			'A'
-# define PISTOL			'G'
+# define PISTOL			'P'
 # define ASSAULT_RIFLE	'R'
-# define ENEMY			'P'
 
 # define DIR_SPRITE		"asset/"
 
@@ -53,7 +52,7 @@ struct s_map_client
 	size_t				height;
 	size_t				width;
 	t_spawn				spawn;
-	t_collectible_data	*collectible_data;
+	t_collectible_data	collectible_data;
 	char				*path[7];
 };
 

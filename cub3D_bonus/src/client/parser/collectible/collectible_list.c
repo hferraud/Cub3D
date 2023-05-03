@@ -17,11 +17,13 @@ int	collectible_append(t_collectible_list **head, t_collectible_id id, t_fvector
 {
 	t_collectible_list	*elem;
 
+	printf("HERE\n");
 	elem = collectible_new(id, pos);
 	if (elem == NULL)
 		return (perror("collectible_new()"), -1);
 	elem->next = *head;
 	*head = elem;
+	printf("HERE\n");
 	return (0);
 }
 

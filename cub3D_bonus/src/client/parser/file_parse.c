@@ -20,15 +20,17 @@ int	file_parse(t_map_client *map, int server_socket)
 	t_texture_id	id;
 	int				file_fd;
 	int				req_code;
+    int var;
 
+    //TODO O3
 	id = 0;
 	while (id != UNDEFINED_ID)
 	{
 		if (filename_parse(&map->path[id], server_socket) == -1)
-			return (write(server_socket, SOCK_ERROR, 1), -1);
+			return (var = write(server_socket, SOCK_ERROR, 1), (void)var, -1);
 		req_code = file_request(map->path[id], server_socket);
 		if (req_code == -1)
-			return (write(server_socket, SOCK_ERROR, 1), -1);
+			return (var = write(server_socket, SOCK_ERROR, 1), -1);
 		if (req_code == 0)
 		{
 			file_fd = open(map->path[id], O_WRONLY | O_CREAT, 0644);

@@ -17,11 +17,11 @@ static void		collectible_set_dist(t_cub *cub);
 static void		sort_collectible(t_cub *cub);
 static float	get_distance_from_player(t_player player, t_fvector pos);
 
-int	draw_collectible(t_cub *cub)
+void	draw_collectible(t_cub *cub)
 {
 	collectible_set_dist(cub);
 	sort_collectible(cub);
-	printf("dist: %f\n", cub->map.collectible_data->collectible->dist);
+	printf("dist: %f\n", cub->map.collectible_data.collectible->dist);
 }
 
 /**
@@ -32,9 +32,9 @@ static void collectible_set_dist(t_cub *cub)
 	size_t			i;
 	t_collectible	*collectibles;
 
-	collectibles = cub->map.collectible_data->collectible;
+	collectibles = cub->map.collectible_data.collectible;
 	i = 0;
-	while (i < cub->map.collectible_data->size)
+	while (i < cub->map.collectible_data.size)
 	{
 		collectibles[i].dist = get_distance_from_player(cub->player, collectibles[i].pos);
 		i++;
@@ -51,13 +51,13 @@ static void sort_collectible(t_cub *cub)
 	bool			flag;
 	size_t			i;
 
-	collectible = cub->map.collectible_data->collectible;
+	collectible = cub->map.collectible_data.collectible;
 	flag = true;
 	while (flag)
 	{
 		flag = false;
 		i = 1;
-		while (i < cub->map.collectible_data->size)
+		while (i < cub->map.collectible_data.size)
 		{
 			if (collectible[i].dist > collectible[i - 1].dist)
 			{
@@ -76,6 +76,6 @@ static float	get_distance_from_player(t_player player, t_fvector pos)
 	t_fvector	vect;
 
 	vect.x = fabsf(player.pos.x - pos.x);
-	vect.y = fabsf(player.pos.x - pos.x);
+	vect.y = fabsf(player.pos.y - pos.y);
 	return (sqrtf(vect.x * vect.x + vect.y * vect.y));
 }

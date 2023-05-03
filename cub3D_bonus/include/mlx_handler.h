@@ -21,8 +21,8 @@
 # include "hook.h"
 # include <stdio.h>
 
-# define WIN_WIDTH	1800
-# define WIN_HEIGHT	900
+# define WIN_WIDTH	1920
+# define WIN_HEIGHT	1080
 # define WIN_NAME	"Cub3D"
 
 /* Key hook: w, a, s, d, right, left */
