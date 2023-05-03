@@ -42,6 +42,7 @@ struct s_collectible
 {
 	t_collectible_id	id;
 	t_fvector			pos;
+	t_fvector			relative_pos;
 	float				dist;
 };
 

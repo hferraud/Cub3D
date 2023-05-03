@@ -126,7 +126,7 @@ DEPS		=		$(addprefix $(BUILD_DIR), $(SRC_SERVER:.c=.d))	\
 #	FLAGS
 #######################
 
-CFLAGS		=		-Wall -Werror -Wextra #-fsanitize=address#-g3 #-fsanitize=address
+CFLAGS		=		-Wall -Werror -Wextra -O3 #-fsanitize=address#-g3 #-fsanitize=address
 
 IFLAGS		=		-I $(INC_DIR) -I $(LIBFT_DIR)include -I $(MLX_DIR)
 
