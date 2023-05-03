@@ -119,7 +119,8 @@ SRC_CLIENT	=		error.c	\
 						\
 						client/thread/destroy/player_data_destroy.c	\
 						\
-						client/thread/routine/request_routine.c	\
+						client/thread/routine/request_routine.c		\
+						client/thread/routine/listening_response.c	\
 						\
 					\
 

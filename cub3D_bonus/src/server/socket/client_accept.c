@@ -116,6 +116,7 @@ static void	close_client(t_server_data *server_data)
 		client_socket = server_data->player->players_socket[count];
 		if (client_socket != -1)
 			close(client_socket);
+		server_data->player->players_socket[count] = -1;
 		count++;
 	}
 }

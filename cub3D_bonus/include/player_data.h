@@ -35,5 +35,6 @@ struct s_player_data
 int		thread_init(t_cub *cub);
 int		player_data_init(t_player_data *player_data);
 void	player_data_destroy(t_player_data *player_data);
+int		listening_response(int server_socket, t_player_data *player_data);
 
 #endif

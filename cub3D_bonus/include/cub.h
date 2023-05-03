@@ -13,6 +13,7 @@
 # define CUB_H
 
 # include "error.h"
+# include "define.h"
 # include "map_client.h"
 # include "mlx_handler.h"
 # include "player_data.h"

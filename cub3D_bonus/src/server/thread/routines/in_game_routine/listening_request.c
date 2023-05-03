@@ -26,15 +26,15 @@ int	listening_request(int client_socket, t_players_data *players_data, int clien
 	char	buf;
 
 	printf("Send listening request to client %d\n", client_socket);
-	if (write(client_socket, LISTEN_REQUEST, LENGTH_LISTEN_REQUEST) == -1
+	if (write(client_socket, LISTEN_REQUEST, LENGTH_REQUEST) == -1
 		|| read(client_socket, &buf, sizeof(char)) <= 0)
 		return (cub_error(CLIENT_LOST));
-	if (buf == UP_TO_DATE)
+	if (buf == *UP_TO_DATE)
 		return (0);
 	if (read(client_socket, &players_data->players[client_index], sizeof(t_player)) <= 0
 		|| read(client_socket, &buf, sizeof(char)) <= 0)
 		return (cub_error(CLIENT_LOST));
-	if (buf == UP_TO_DATE)
+	if (buf == *UP_TO_DATE)
 		return (1);
 	ret = listen_events(client_socket, &players_data->events);
 	if (ret == -1)
@@ -59,7 +59,7 @@ static int	listen_events(int client_socket, t_list **events_list)
 
 	if (read(client_socket, &buf, sizeof(char)) <= 0)
 		return (cub_error(CLIENT_LOST));
-	while (buf == NEW_EVENT)
+	while (buf == *NEW_EVENT)
 	{
 		event = (t_event *) malloc(sizeof(t_event));
 		if (event == NULL)

@@ -15,17 +15,8 @@
 # include "server_data.h"
 # include "player.h"
 # include "event.h"
+# include "define.h"
 
-# define PLAYER_LIMIT	10
-
-# define LISTEN_REQUEST			"1"
-# define LENGTH_LISTEN_REQUEST	1
-# define SEND_REQUEST			"2"
-# define LENGTH_SEND_REQUEST	1
-# define UPDATE					'1'
-# define UP_TO_DATE				'0'
-# define NEW_EVENT				'1'
-# define NO_EVENT				'0'
 
 typedef struct s_players_data	t_players_data;
 
