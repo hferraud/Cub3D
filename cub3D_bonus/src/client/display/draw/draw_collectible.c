@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   draw_collectible.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ethan <ethan@student.42lyon.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/05 17:46:00 by ethan             #+#    #+#             */
-/*   Updated: 2023/04/05 17:46:00 by ethan            ###   ########lyon.fr   */
-/*  sd                                                                         */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   draw_collectible.c								 :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: ethan <ethan@student.42lyon.fr>			+#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2023/04/05 17:46:00 by ethan			 #+#	#+#			 */
+/*   Updated: 2023/04/05 17:46:00 by ethan			###   ########lyon.fr   */
+/*  sd																		 */
 /* ************************************************************************** */
 #include <stdbool.h>
 #include "collectible.h"
@@ -38,13 +38,14 @@ static void	draw_collectible_sprite(t_cub *cub, t_collectible collectible)
 	t_fvector	sprite;
 	t_fvector	draw_start;
 	t_fvector	draw_end;
-	float		sprite_screen_x;
-	float		sprite_screen_y;
-    float		sprite_texture_y;
-    float		sprite_texture_x;
+	int		sprite_screen_x;
+	int		sprite_screen_y;
+	int		sprite_texture_y;
+	int		sprite_texture_x;
 	float		height;
+	float		width;
 	float		inverse_det;
-    int         color;
+	int		 color;
 
 	inverse_det = 1.f / (cub->player.camera.x * cub->player.rotation.y
 			- cub->player.rotation.x * cub->player.camera.y);
@@ -53,7 +54,8 @@ static void	draw_collectible_sprite(t_cub *cub, t_collectible collectible)
 	sprite.y = inverse_det * (-cub->player.camera.y * collectible.relative_pos.x
 			+ cub->player.camera.x * collectible.relative_pos.y);
 	sprite_screen_x = (int)(WIN_WIDTH / 2 * (1 + sprite.x / sprite.y));
-	height = abs(((int) (WIN_HEIGHT / sprite.y)));
+	height = abs(((int)(WIN_HEIGHT / (sprite.y * 2))));
+	width = abs(((int)(WIN_WIDTH / (sprite.y * 2))));
 //	printf("screen_x: %f height: %f dist: %f\n", sprite_screen_x, height, sprite.y);
 	draw_start.y = WIN_HEIGHT / 2 - height / 2;
 	if (draw_start.y > WIN_HEIGHT)
@@ -61,28 +63,33 @@ static void	draw_collectible_sprite(t_cub *cub, t_collectible collectible)
 	draw_end.y = WIN_HEIGHT / 2 + height / 2;
 	if (draw_end.y < 0)
 		draw_end.y = 0;
-    texture = cub->mlx_data->texture_sprite[2];
-    draw_start.x = sprite_screen_x - texture.width / 2;
-    draw_end.x = sprite_screen_x + texture.width / 2;
-//    printf("screen_pos: x %.1f y %.1f end %f start %f\n", sprite_screen_x, sprite_screen_y, draw_end.y, draw_start.y);
-    sprite_screen_x = draw_start.x;
-    while (sprite_screen_x < draw_end.x)
-    {
-        sprite_texture_x = (sprite_screen_x - draw_start.x) * texture.width / (draw_end.x - draw_start.x);
-        sprite_screen_y = draw_start.y;
-        while (sprite_screen_y < draw_end.y && sprite_screen_y < WIN_HEIGHT)
-        {
-            sprite_texture_y = (sprite_screen_y - draw_start.y) * texture.height / height;
-//        printf("texture: x %.0f y %.0f\n", sprite_texture_x, sprite_texture_y);
-//        printf("screen: x %.0f y %.0f\n", sprite_screen_x, sprite_screen_y);
-//        printf("texture bound: h %d w %d\n\n", texture.height, texture.width);
-            color = *(int *) texture.img_data.addr + sprite_texture_x * texture.img_data.bit_ratio + sprite_texture_y * texture.img_data.line_length;
-            mlx_put_pixel(&cub->mlx_data->img_data, (int)sprite_screen_x, (int)sprite_screen_y, color);
-            sprite_screen_y++;
-        }
-        sprite_screen_x++;
-    }
+	texture = cub->mlx_data->collectible_sprite[MEDIC_KIT_ID];
+	draw_start.x = sprite_screen_x - width / 2;
+	draw_end.x = sprite_screen_x + width / 2;
+//	printf("screen_pos: x %.1f y %.1f end %f start %f\n", sprite_screen_x, sprite_screen_y, draw_end.y, draw_start.y);
+	sprite_screen_x = draw_start.x;
+	while (sprite_screen_x < draw_end.x)
+	{
+		sprite_texture_x = (sprite_screen_x - draw_start.x) * texture.width / width;
+		sprite_screen_y = draw_start.y;
+		while (sprite_screen_y < draw_end.y && sprite_screen_y < WIN_HEIGHT)
+		{
+			sprite_texture_y = (sprite_screen_y - draw_start.y) * texture.height / height;
+//		printf("texture: x %d y %d\n", sprite_texture_x, sprite_texture_y);
+//		printf("screen: x %d y %.d\n", sprite_screen_x, sprite_screen_y);
+//		printf("texture bound: h %d w %d\n\n", texture.height, texture.width);
+			color = *(int *) (texture.img_data.addr + sprite_texture_x * texture.img_data.bit_ratio + sprite_texture_y * texture.img_data.line_length);
+			mlx_put_pixel(&cub->mlx_data->img_data, sprite_screen_x, sprite_screen_y, color);
+			sprite_screen_y++;
+		}
+		sprite_screen_x++;
+	}
 	//printf("sprite %f %f\n", sprite.x, sprite.y);
+}
+
+static void	draw_collectible_stripe(t_cub *cub, t_sprite sprite)
+{
+
 }
 
 /**

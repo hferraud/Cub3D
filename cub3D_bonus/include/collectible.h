@@ -31,7 +31,7 @@ typedef struct s_collectible_list	t_collectible_list;
 
 enum e_collectible_id
 {
-	LIFE_PACK_ID,
+	MEDIC_KIT_ID,
 	AMMO_ID,
 	PISTOL_ID,
 	ASSAULT_RIFFLE_ID,

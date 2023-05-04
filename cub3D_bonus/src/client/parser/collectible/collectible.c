@@ -24,7 +24,7 @@ t_collectible	collectible_init(t_collectible_id id, t_fvector pos)
 t_collectible_id	collectible_id_get(char cell)
 {
 	const t_collectible_id	id[4]
-		= {LIFE_PACK_ID, AMMO_ID, PISTOL_ID, ASSAULT_RIFFLE_ID};
+		= {MEDIC_KIT_ID, AMMO_ID, PISTOL_ID, ASSAULT_RIFFLE_ID};
 	const char				cells[4] = {LIFE_PACK, AMMO, PISTOL, ASSAULT_RIFLE};
 	int						i;
 
