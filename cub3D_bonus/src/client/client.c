@@ -18,6 +18,7 @@ void	player_pos_init(t_cub *cub);
 
 static int	cub_init(t_cub *cub);
 static int	client_status_init(t_client_status *client_status);
+void		client_status_destroy(pthread_mutex_t *client_status_lock);
 
 int	main(int argc, char **argv)
 {
@@ -27,15 +28,14 @@ int	main(int argc, char **argv)
 	cub.thread = 0;
 	client_status_init(&cub.client_status);
 	cub.server_socket = socket_client_init(argc, argv);
-	//TODO: do cub_exit on failure
+	client_status_destroy(cub.client_status.status_lock);
 	if (cub.server_socket == -1)
 		return (1);
 	cub.mlx_data = &mlx_data;
 	if (cub_init(&cub) == -1)
 		return (close(cub.server_socket), 1);
 	if (thread_init(&cub) == -1)
-		//TODO: do cub_exit on failure
-		return (1);
+		cub_exit(&cub);
 	mlx_loop_hook(cub.mlx_data->mlx_ptr, render_frame, &cub);
 	mlx_loop(cub.mlx_data->mlx_ptr);
 }
@@ -62,6 +62,12 @@ static int	client_status_init(t_client_status *client_status)
 	}
 	client_status->status = RUNNING;
 	return (0);
+}
+
+void	client_status_destroy(pthread_mutex_t *client_status_lock)
+{
+	pthread_mutex_destroy(client_status_lock);
+	free(client_status_lock);
 }
 
 //static void	print_map(t_map_client map)
