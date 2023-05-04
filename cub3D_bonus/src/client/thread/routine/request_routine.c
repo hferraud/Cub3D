@@ -27,6 +27,7 @@ void	request_routine(t_cub *cub)
 			return ;
 		}
 		if (buf == *LISTEN_REQUEST)
+		{
 			if (listening_response(cub->server_socket, &cub->player_data) == -1)
 			{
 				pthread_mutex_lock(cub->client_status.status_lock);
@@ -35,6 +36,17 @@ void	request_routine(t_cub *cub)
 				printf("Exit thread\n");
 				return ;
 			}
-
+		}
+		else if (buf == *SEND_REQUEST)
+		{
+			if (send_response(cub->server_socket, cub) == -1)
+			{
+				pthread_mutex_lock(cub->client_status.status_lock);
+				cub->client_status.status = ERROR;
+				pthread_mutex_unlock(cub->client_status.status_lock);
+				printf("Exit thread\n");
+				return ;
+			}
+		}
 	}
 }

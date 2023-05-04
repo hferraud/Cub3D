@@ -29,5 +29,7 @@ struct s_players_data
 void	disconnect_client(int client_socket, t_server_data *server_data);
 int		listening_request(int client_socket, t_players_data *players_data,
 			int client_index);
+int send_request(int client_socket, t_players_data *players_data,
+			int client_index);
 
 #endif

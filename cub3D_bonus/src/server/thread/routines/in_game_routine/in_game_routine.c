@@ -13,6 +13,7 @@
 #include "players_data.h"
 
 static void clear_data(t_server_data *server_data, t_players_data *players_data);
+static int	send_data(int client_index, t_server_data *server_data, t_players_data *players_data);
 
 /* Server send request to client
  * client send if info was update
@@ -47,7 +48,7 @@ void	in_game_routine(t_server_data *server_data)
 			if (ret == 1)
 			{
 				printf("Need to send data\n");
-				continue ;
+				send_data(index, server_data, &players_data);
 				//TODO: Process the data and call to other player (send request)
 			}
 			else if (ret == -1)
@@ -71,4 +72,25 @@ static void clear_data(t_server_data *server_data, t_players_data *players_data)
 	server_data->server_status->status = ERROR;
 	pthread_mutex_unlock(server_data->server_status->status_lock);
 	ft_lstclear(&players_data->events, free);
+}
+
+static int	send_data(int client_index, t_server_data *server_data, t_players_data *players_data)
+{
+	int		count;
+	int		client_socket;
+
+	count = 0;
+	pthread_mutex_lock(server_data->player->players_lock);
+	while (count < server_data->player->size)
+	{
+		client_socket = server_data->player->players_socket[count];
+		if (client_socket != -1 && count != client_index && send_request(client_socket, players_data, client_index))
+		{
+			//disconnect client
+			return (-1);
+		}
+		count++;
+	}
+	pthread_mutex_unlock(server_data->player->players_lock);
+	return (0);
 }
