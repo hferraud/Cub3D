@@ -28,9 +28,11 @@ int	main(int argc, char **argv)
 	cub.thread = 0;
 	client_status_init(&cub.client_status);
 	cub.server_socket = socket_client_init(argc, argv);
-	client_status_destroy(cub.client_status.status_lock);
 	if (cub.server_socket == -1)
+	{
+		client_status_destroy(cub.client_status.status_lock);
 		return (1);
+	}
 	cub.mlx_data = &mlx_data;
 	if (cub_init(&cub) == -1)
 		return (close(cub.server_socket), 1);
