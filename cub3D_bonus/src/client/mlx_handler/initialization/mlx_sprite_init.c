@@ -51,7 +51,7 @@ static int	mlx_texture_sprite_init(t_cub *cub)
 static int	mlx_collectible_sprite_init(t_mlx_data *mlx_data)
 {
 	const char	*paths[] = {MEDIC_KIT_PATH, AMMO_PATH, PISTOL_PATH,
-		ASSAULT_RIFFLE_PATH, NULL};
+		ASSAULT_RIFFLE_PATH};
 	t_sprite	*sprite;
 	size_t		index;
 

@@ -33,8 +33,8 @@ void	draw_player_view(t_cub *cub, float fov)
 		ray = ray_cast(cub, ray_dir);
 		z_buffer[screen_x] = ray.length;
 		draw_wall(cub, screen_x, ray);
-		draw_collectible(cub);
 		screen_x++;
 	}
+    draw_collectible(cub);
 	(void)z_buffer;
 }

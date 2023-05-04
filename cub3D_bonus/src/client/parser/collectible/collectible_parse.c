@@ -66,7 +66,6 @@ static int	collectible_list_to_array(t_collectible_list *list, t_map_client *map
 	size_t			i;
 
 	size = collectible_list_length(list);
-    printf("size: %zu\n", size);
 	map->collectible_data.size = size;
 	map->collectible_data.collectible = malloc(size * sizeof(t_collectible));
 	if (map->collectible_data.collectible == NULL)
@@ -74,11 +73,9 @@ static int	collectible_list_to_array(t_collectible_list *list, t_map_client *map
 	i = 0;
 	while (list)
 	{
-		printf("pos: %f %f\n", list->pos.x, list->pos.y);
 		map->collectible_data.collectible[i] = collectible_init(list->id, list->pos);
 		i++;
 		list = list->next;
-		printf("here");
 	}
 	return (0);
 }
