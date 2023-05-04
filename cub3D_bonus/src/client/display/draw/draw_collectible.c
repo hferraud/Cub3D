@@ -61,20 +61,27 @@ static void	draw_collectible_sprite(t_cub *cub, t_collectible collectible)
 	draw_end.y = WIN_HEIGHT / 2 + height / 2;
 	if (draw_end.y < 0)
 		draw_end.y = 0;
-	sprite_screen_y = draw_start.y;
-	texture = cub->mlx_data->texture_sprite[2];
+    texture = cub->mlx_data->texture_sprite[2];
+    draw_start.x = sprite_screen_x - texture.width / 2;
+    draw_end.x = sprite_screen_x + texture.width / 2;
 //    printf("screen_pos: x %.1f y %.1f end %f start %f\n", sprite_screen_x, sprite_screen_y, draw_end.y, draw_start.y);
-	while (sprite_screen_y < draw_end.y && sprite_screen_y < WIN_HEIGHT)
-	{
-        sprite_texture_y = (sprite_screen_y - draw_start.y) * texture.height / height;
-        sprite_texture_x = (texture.width / 2);
+    sprite_screen_x = draw_start.x;
+    while (sprite_screen_x < draw_end.x)
+    {
+        sprite_texture_x = (sprite_screen_x - draw_start.x) * texture.width / (draw_end.x - draw_start.x);
+        sprite_screen_y = draw_start.y;
+        while (sprite_screen_y < draw_end.y && sprite_screen_y < WIN_HEIGHT)
+        {
+            sprite_texture_y = (sprite_screen_y - draw_start.y) * texture.height / height;
 //        printf("texture: x %.0f y %.0f\n", sprite_texture_x, sprite_texture_y);
 //        printf("screen: x %.0f y %.0f\n", sprite_screen_x, sprite_screen_y);
 //        printf("texture bound: h %d w %d\n\n", texture.height, texture.width);
-        color = *(int *) texture.img_data.addr + sprite_texture_x * texture.img_data.bit_ratio + sprite_texture_y * texture.img_data.line_length;
-        mlx_put_pixel(&cub->mlx_data->img_data, (int)sprite_screen_x, (int)sprite_screen_y, color);
-        sprite_screen_y++;
-	}
+            color = *(int *) texture.img_data.addr + sprite_texture_x * texture.img_data.bit_ratio + sprite_texture_y * texture.img_data.line_length;
+            mlx_put_pixel(&cub->mlx_data->img_data, (int)sprite_screen_x, (int)sprite_screen_y, color);
+            sprite_screen_y++;
+        }
+        sprite_screen_x++;
+    }
 	//printf("sprite %f %f\n", sprite.x, sprite.y);
 }
 
