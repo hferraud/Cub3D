@@ -22,33 +22,27 @@ void	draw_collectible_sprite(t_cub *cub, t_collectible collectible,
 	t_fvector		camera;
 	int				scale;
 
-	dp.sprite = cub->mlx_data->collectible_sprite[MEDIC_KIT_ID];
+	dp.sprite = cub->mlx_data->collectible_sprite[PISTOL_ID];
 	camera = camera_projetion(cub, collectible);
+	if (camera.y < 0)
+		return ;
 	dp.width = WIN_WIDTH / (camera.y * 4);
 	dp.height = WIN_HEIGHT / (camera.y * 4);
 	dp.screen.x = (WIN_WIDTH / 2.f) * (1 + camera.x / camera.y);
 	dp.draw_start.x = dp.screen.x - dp.width / 2;
-	if (dp.draw_start.x < 0)
-		dp.draw_start.x = 0;
 	dp.draw_end.x = dp.screen.x + dp.width / 2;
-	if (dp.draw_end.x >= WIN_WIDTH)
-		dp.draw_end.x = WIN_WIDTH - 1;
-	if (dp.draw_start.x > WIN_WIDTH || dp.draw_end.x <= 0)
-		return ;
 	scale = abs((int)(WIN_HEIGHT / camera.y / 2));
 	dp.draw_start.y = WIN_HEIGHT / 2 + scale - dp.height;
-	if (dp.draw_start.y > WIN_HEIGHT)
-		dp.draw_start.y = WIN_HEIGHT - 1;
 	dp.draw_end.y = WIN_HEIGHT / 2 + scale;
-	if (dp.draw_end.y < 0)
-		dp.draw_end.y = 0;
 	dp.screen.x = dp.draw_start.x;
-	while (dp.screen.x < dp.draw_end.x)
+	if (dp.screen.x < 0)
+		dp.screen.x = 0;
+	while (dp.screen.x < dp.draw_end.x && dp.screen.x < WIN_WIDTH)
 	{
 		if (dp.screen.x < WIN_WIDTH && dp.screen.x >= 0 && z_buffer[dp.screen.x] > camera.y)
 		{
 			dp.texture.x = (dp.screen.x - dp.draw_start.x)
-						   * dp.sprite.width / dp.width;
+				* dp.sprite.width / dp.width;
 			draw_collectible_stripe(cub, dp);
 		}
 		dp.screen.x++;
@@ -58,6 +52,8 @@ void	draw_collectible_sprite(t_cub *cub, t_collectible collectible,
 static void	draw_collectible_stripe(t_cub *cub, t_draw_param dp)
 {
 	dp.screen.y = dp.draw_start.y;
+	if (dp.screen.y < 0)
+		dp.screen.y = 0;
 	while (dp.screen.y < dp.draw_end.y && dp.screen.y < WIN_HEIGHT)
 	{
 		dp.texture.y = (dp.screen.y - dp.draw_start.y)
