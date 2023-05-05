@@ -54,8 +54,9 @@ void		draw_line(t_img_data *data, t_point a, t_point b, int color);
 void		draw_rectangle(t_img_data *img_data, t_rectangle rectangle);
 void		draw_background(t_cub *cub);
 void		draw_minimap(t_cub *cub);
-void		draw_collectible_sprite(t_cub *cub, t_collectible collectible);
-void		draw_collectible(t_cub *cub);
+void		draw_collectible_sprite(t_cub *cub, t_collectible collectible,
+				const float *z_buffer);
+void		draw_collectible(t_cub *cub, const float *z_buffer);
 void		draw_wall(t_cub *cub, int x, t_ray ray);
 void		draw_player_view(t_cub *cub, float fov);
 

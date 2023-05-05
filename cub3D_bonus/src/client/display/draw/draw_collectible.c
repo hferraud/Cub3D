@@ -17,7 +17,7 @@
 static void		collectible_set_dist(t_cub *cub);
 static void		sort_collectible(t_cub *cub);
 
-void	draw_collectible(t_cub *cub)
+void	draw_collectible(t_cub *cub, const float *z_buffer)
 {
 	size_t	i;
 
@@ -26,7 +26,7 @@ void	draw_collectible(t_cub *cub)
 	i = 0;
 	while (i < cub->map.collectible_data.size)
 	{
-		draw_collectible_sprite(cub, cub->map.collectible_data.collectible[i]);
+		draw_collectible_sprite(cub, cub->map.collectible_data.collectible[i], z_buffer);
 		i++;
 	}
 }

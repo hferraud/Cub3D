@@ -15,17 +15,19 @@
 static void			draw_collectible_stripe(t_cub *cub, t_draw_param dp);
 static t_fvector	camera_projetion(t_cub *cub, t_collectible collectible);
 
-void	draw_collectible_sprite(t_cub *cub, t_collectible collectible)
+void	draw_collectible_sprite(t_cub *cub, t_collectible collectible,
+			const float *z_buffer)
 {
 	t_draw_param	dp;
 	t_fvector		camera;
 	int				scale;
 
-	dp.sprite = cub->mlx_data->collectible_sprite[PISTOL_ID];
+	dp.sprite = cub->mlx_data->collectible_sprite[MEDIC_KIT_ID];
 	camera = camera_projetion(cub, collectible);
-	dp.width = abs(((int)(WIN_WIDTH / (camera.y * 4))));
-	dp.height = abs(((int)(WIN_HEIGHT / (camera.y * 4))));
-	dp.screen.x = (int)(WIN_WIDTH / 2 * (1 + camera.x / camera.y));
+	dp.width = WIN_WIDTH / (camera.y * 4);
+	dp.height = WIN_HEIGHT / (camera.y * 4);
+	dp.screen.x = (WIN_WIDTH / 2.f) * (1 + camera.x / camera.y);
+//	printf("screen_x: %d cam x: %f cam y: %f\n", dp.screen.x, camera.x, camera.y);
 	dp.draw_start.x = dp.screen.x - dp.width / 2;
 	dp.draw_end.x = dp.screen.x + dp.width / 2;
 	scale = abs((int)(WIN_HEIGHT / camera.y / 2));
@@ -38,9 +40,12 @@ void	draw_collectible_sprite(t_cub *cub, t_collectible collectible)
 	dp.screen.x = dp.draw_start.x;
 	while (dp.screen.x < dp.draw_end.x)
 	{
-		dp.texture.x = (dp.screen.x - dp.draw_start.x)
-			* dp.sprite.width / dp.width;
-		draw_collectible_stripe(cub, dp);
+		if (dp.screen.x < WIN_WIDTH && dp.screen.x >= 0 && z_buffer[dp.screen.x] > camera.y)
+		{
+			dp.texture.x = (dp.screen.x - dp.draw_start.x)
+						   * dp.sprite.width / dp.width;
+			draw_collectible_stripe(cub, dp);
+		}
 		dp.screen.x++;
 	}
 }
@@ -67,7 +72,7 @@ static t_fvector	camera_projetion(t_cub *cub, t_collectible collectible)
 	float		inverse_det;
 	t_fvector	camera;
 
-	inverse_det = 1.f / (cub->player.camera.x * cub->player.rotation.y
+	inverse_det = -1.f / (cub->player.camera.x * cub->player.rotation.y
 			- cub->player.rotation.x * cub->player.camera.y);
 	camera.x = inverse_det * (
 			cub->player.rotation.y * collectible.relative_pos.x
