@@ -88,11 +88,13 @@ static t_fvector	new_position_calculate(t_cub *cub)
 		rotation = fvector_rotate(rotation, M_PI);
 		new_pos = fvector_add(new_pos, fvector_mul(rotation, PLAYER_MOVE));
 	}
+    rotation = cub->player.rotation;
 	if (is_key_pressed(KEY_D, cub))
 	{
 		rotation = fvector_rotate(rotation, M_PI_2);
 		new_pos = fvector_add(new_pos, fvector_mul(rotation, PLAYER_MOVE));
 	}
+    rotation = cub->player.rotation;
 	if (is_key_pressed(KEY_A, cub))
 	{
 		rotation = fvector_rotate(rotation, -M_PI_2);

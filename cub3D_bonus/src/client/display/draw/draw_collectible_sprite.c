@@ -27,7 +27,6 @@ void	draw_collectible_sprite(t_cub *cub, t_collectible collectible,
 	dp.width = WIN_WIDTH / (camera.y * 4);
 	dp.height = WIN_HEIGHT / (camera.y * 4);
 	dp.screen.x = (WIN_WIDTH / 2.f) * (1 + camera.x / camera.y);
-//	printf("screen_x: %d cam x: %f cam y: %f\n", dp.screen.x, camera.x, camera.y);
 	dp.draw_start.x = dp.screen.x - dp.width / 2;
 	dp.draw_end.x = dp.screen.x + dp.width / 2;
 	scale = abs((int)(WIN_HEIGHT / camera.y / 2));
