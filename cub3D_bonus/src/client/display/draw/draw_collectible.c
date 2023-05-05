@@ -15,14 +15,14 @@
 #include "draw.h"
 
 static void		collectible_set_dist(t_cub *cub);
-static void		sort_collectible(t_cub *cub);
+static void		collectible_sort(t_cub *cub);
 
 void	draw_collectible(t_cub *cub, const float *z_buffer)
 {
 	size_t	i;
 
 	collectible_set_dist(cub);
-	sort_collectible(cub);
+	collectible_sort(cub);
 	i = 0;
 	while (i < cub->map.collectible_data.size)
 	{
@@ -47,7 +47,7 @@ static void collectible_set_dist(t_cub *cub)
 		collectible[i].relative_pos = fvector_sub(cub->player_data.player.pos, collectible[i].pos);
 		pthread_mutex_unlock(cub->player_data.player_lock);
 		collectible[i].dist = collectible[i].relative_pos.x * collectible[i].relative_pos.x
-								   + collectible[i].relative_pos.y * collectible[i].relative_pos.y;
+			+ collectible[i].relative_pos.y * collectible[i].relative_pos.y;
 		i++;
 	}
 }
@@ -55,7 +55,7 @@ static void collectible_set_dist(t_cub *cub)
 /**
  * @brief Sort all collectibles from the nearest to the further away of the player
  */
-static void	sort_collectible(t_cub *cub)
+static void	collectible_sort(t_cub *cub)
 {
 	t_collectible	*collectible;
 	t_collectible	tmp;

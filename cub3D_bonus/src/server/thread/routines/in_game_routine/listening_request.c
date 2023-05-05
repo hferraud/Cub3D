@@ -17,7 +17,7 @@ static int	listen_event(int client_socket, t_event *event);
 
 /**
  * @brief Sends a listening request and updates the information
- * @return 1 if players data has been update, 0 if players data are the same,
+ * @return 1 if enemies data has been update, 0 if enemies data are the same,
  *  -1 in client error case and -2 in server error cas
  */
 int	listening_request(int client_socket, t_players_data *players_data, int client_index)

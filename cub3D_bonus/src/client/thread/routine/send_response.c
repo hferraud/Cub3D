@@ -11,19 +11,19 @@
 /* ************************************************************************** */
 #include "cub.h"
 
-static t_players	*search_player_by_id(int id, t_players *players);
+static t_enemy	*search_player_by_id(int id, t_enemy *players);
 
 int send_response(int server_socket, t_cub *cub)
 {
 	int			id;
 	t_player	new_position;
-	t_players	*player;
+	t_enemy	*player;
 
 	if (read(server_socket, &id, sizeof(int)) <= 0
 		|| read(server_socket, &new_position, sizeof(t_player)) <= 0)
 		return (cub_error(CLIENT_LOST));
 	pthread_mutex_lock(cub->players_lock);
-	player = search_player_by_id(id, cub->players);
+	player = search_player_by_id(id, cub->enemies);
 	if (player->id == -1)
 		player->id = id;
 	player->player = new_position;
@@ -33,10 +33,10 @@ int send_response(int server_socket, t_cub *cub)
 	return (0);
 }
 
-static t_players	*search_player_by_id(int id, t_players *players)
+static t_enemy	*search_player_by_id(int id, t_enemy *players)
 {
 	size_t		count;
-	t_players	*player;
+	t_enemy	*player;
 
 	count = 0;
 	player = NULL;

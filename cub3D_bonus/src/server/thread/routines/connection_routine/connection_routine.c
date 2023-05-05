@@ -95,7 +95,7 @@ static t_spawn	*client_get_spawn(int client_socket, t_server_data *server_data)
 static void	client_to_player(int client_socket, t_server_data *server_data)
 {
 	int			index;
-	t_players	*players;
+	t_enemy	*players;
 
 	players = server_data->player;
 	index = 0;

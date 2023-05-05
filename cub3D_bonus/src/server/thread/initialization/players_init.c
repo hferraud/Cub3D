@@ -11,11 +11,11 @@
 /* ************************************************************************** */
 #include "server_data.h"
 
-int	players_init(t_players *players, int nb_spawn)
+int	players_init(t_enemy *players, int nb_spawn)
 {
 	int	count;
 
-	ft_bzero(players, sizeof(t_players));
+	ft_bzero(players, sizeof(t_enemy));
 	players->players_socket = (int *) malloc(sizeof(int) * nb_spawn);
 	if (players->players_socket == NULL)
 		return (-1);

@@ -24,7 +24,7 @@
 typedef struct s_server_data		t_server_data;
 typedef struct s_server_status		t_server_status;
 typedef struct s_client_connected	t_client_connected;
-typedef struct s_players			t_players;
+typedef struct s_enemy			t_enemy;
 
 enum
 {
@@ -44,7 +44,7 @@ struct s_client_connected
 	pthread_mutex_t	*client_connected_lock;
 };
 
-struct s_players
+struct s_enemy
 {
 	int				*players_socket;
 	int				size;
@@ -63,7 +63,7 @@ struct s_server_data
 	t_client_connected	*client_connected;
 	t_list				*client_socket;
 	pthread_mutex_t		*client_lock;
-	t_players			*player;
+	t_enemy			*player;
 	t_map				*map;
 	pthread_mutex_t		*map_lock;
 	pthread_mutex_t		*spawn_lock;
