@@ -51,7 +51,7 @@ static int players_init(t_cub *cub)
 	count = 0;
 	while (count < PLAYER_LIMIT - 1)
 	{
-		cub->players[count].id = -1;
+		cub->enemies[count].id = -1;
 		count++;
 	}
 	return (0);
