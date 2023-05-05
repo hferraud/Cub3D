@@ -37,17 +37,17 @@ void	draw_collectible(t_cub *cub, const float *z_buffer)
 static void collectible_set_dist(t_cub *cub)
 {
 	size_t			i;
-	t_collectible	*collectibles;
+	t_collectible	*collectible;
 
-	collectibles = cub->map.collectible_data.collectible;
+	collectible = cub->map.collectible_data.collectible;
 	i = 0;
 	while (i < cub->map.collectible_data.size)
 	{
 		pthread_mutex_lock(cub->player_data.player_lock);
-		collectibles[i].relative_pos = fvector_sub(cub->player_data.player.pos, collectibles->pos);
+		collectible[i].relative_pos = fvector_sub(cub->player_data.player.pos, collectible[i].pos);
 		pthread_mutex_unlock(cub->player_data.player_lock);
-		collectibles[i].dist = collectibles->relative_pos.x * collectibles->relative_pos.x
-			+ collectibles->relative_pos.y * collectibles->relative_pos.y;
+		collectible[i].dist = collectible[i].relative_pos.x * collectible[i].relative_pos.x
+								   + collectible[i].relative_pos.y * collectible[i].relative_pos.y;
 		i++;
 	}
 }

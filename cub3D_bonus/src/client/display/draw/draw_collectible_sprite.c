@@ -28,7 +28,13 @@ void	draw_collectible_sprite(t_cub *cub, t_collectible collectible,
 	dp.height = WIN_HEIGHT / (camera.y * 4);
 	dp.screen.x = (WIN_WIDTH / 2.f) * (1 + camera.x / camera.y);
 	dp.draw_start.x = dp.screen.x - dp.width / 2;
+	if (dp.draw_start.x < 0)
+		dp.draw_start.x = 0;
 	dp.draw_end.x = dp.screen.x + dp.width / 2;
+	if (dp.draw_end.x >= WIN_WIDTH)
+		dp.draw_end.x = WIN_WIDTH - 1;
+	if (dp.draw_start.x > WIN_WIDTH || dp.draw_end.x <= 0)
+		return ;
 	scale = abs((int)(WIN_HEIGHT / camera.y / 2));
 	dp.draw_start.y = WIN_HEIGHT / 2 + scale - dp.height;
 	if (dp.draw_start.y > WIN_HEIGHT)
