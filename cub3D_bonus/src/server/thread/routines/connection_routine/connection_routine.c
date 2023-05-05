@@ -44,7 +44,12 @@ void	connection_routine(t_server_data *server_data)
 				&& path_send(client_socket, server_data) != -1)
 				client_to_player(client_socket, server_data);
 			else
+			{
 				lst_del_client(client_socket, server_data, true);
+				pthread_mutex_lock(server_data->client_connected->client_connected_lock);
+				server_data->client_connected->nb_client_connected++;
+				pthread_mutex_unlock(server_data->client_connected->client_connected_lock);
+			}
 		}
 		else
 			sleep(1);

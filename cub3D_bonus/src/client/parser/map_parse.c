@@ -42,10 +42,12 @@ static int	map_size_parse(t_map_client *map, int server_socket)
 {
 	size_t	buf;
 
-	printf("Loading map size\n");
 	buf = 0;
 	if (read(server_socket, &buf, sizeof(size_t)) <= 0)
-		return (cub_error(SERVER_LOST));
+	{
+		printf("No more spawns available\n");
+		return (-1);
+	}
 	printf("Loading map size\n");
 	map->height = buf;
 	if (read(server_socket, &buf, sizeof(size_t)) <= 0)
