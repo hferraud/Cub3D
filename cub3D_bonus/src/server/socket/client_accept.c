@@ -29,6 +29,17 @@ void	listen_connections(int server_socket, t_server_data *server_data)
 			server_data_destroy(server_data);
 			exit(1);
 		}
+		pthread_mutex_lock(server_data->client_connected->client_connected_lock);
+		if (server_data->client_connected->nb_client_connected == 0)
+		{
+			printf("No more spawns available\n");
+			close(client_socket_fd);
+			pthread_mutex_unlock(server_data->client_connected->client_connected_lock);
+			continue ;
+		}
+		else
+			server_data->client_connected->nb_client_connected--;
+		pthread_mutex_unlock(server_data->client_connected->client_connected_lock);
 		if (new_player_add(client_socket_fd, server_data) == -1)
 		{
 			server_data_destroy(server_data);

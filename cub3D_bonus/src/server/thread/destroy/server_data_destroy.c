@@ -21,6 +21,9 @@ void	server_data_destroy(t_server_data *server_data)
 	if (server_data->server_status)
 		pthread_mutex_destroy(server_data->server_status->status_lock);
 	free(server_data->server_status);
+	if (server_data->client_connected)
+		pthread_mutex_destroy(server_data->client_connected->client_connected_lock);
+	free(server_data->client_connected);
 	if (server_data->client_lock)
 		pthread_mutex_destroy(server_data->client_lock);
 	free(server_data->client_lock);
