@@ -15,30 +15,36 @@ static int		client_get_socket(t_server_data *server_data);
 static t_spawn	*client_get_spawn(int client_socket,
 					t_server_data *server_data);
 static void		client_to_player(int client_socket, t_server_data *server_data);
+static int 		check_end_routine(t_server_status *server_status);
 
 void	connection_routine(t_server_data *server_data)
 {
-	int		client_fd;
+	int		client_socket;
 	t_spawn	*spawn;
 
 	printf("Connection Thread created\n");
 	while (1)
 	{
-		client_fd = client_get_socket(server_data);
-		if (client_fd != -1)
+		if (check_end_routine(server_data->server_status) == -1)
+			return ;
+		client_socket = client_get_socket(server_data);
+		if (client_socket != -1)
 		{
-			spawn = client_get_spawn(client_fd, server_data);
+			spawn = client_get_spawn(client_socket, server_data);
 			if (spawn == NULL)
 			{
 				dprintf(STDERR_FILENO, "Spawn not found\n");
 				printf("Quit connection Thread\n");
+				pthread_mutex_lock(server_data->server_status->status_lock);
+				server_data->server_status->status = ERROR;
+				pthread_mutex_unlock(server_data->server_status->status_lock);
 				return ;
 			}
-			if (map_send(client_fd, server_data, spawn) != -1
-				&& path_send(client_fd, server_data) != -1)
-				client_to_player(client_fd, server_data);
+			if (map_send(client_socket, server_data, spawn) != -1
+				&& path_send(client_socket, server_data) != -1)
+				client_to_player(client_socket, server_data);
 			else
-				lst_del_client(client_fd, server_data);
+				lst_del_client(client_socket, server_data, true);
 		}
 		else
 			sleep(1);
@@ -88,11 +94,23 @@ static void	client_to_player(int client_socket, t_server_data *server_data)
 
 	players = server_data->player;
 	index = 0;
-	lst_del_client(client_socket, server_data);
+	lst_del_client(client_socket, server_data, false);
 	pthread_mutex_lock(players->players_lock);
-	while (index < players->size && players->players_socket[index] == -1)
+	while (index < players->size && players->players_socket[index] != -1)
 		index++;
 	players->players_socket[index] = client_socket;
 	pthread_mutex_unlock(players->players_lock);
 	printf("Data has been sent to the client\n\n");
+}
+
+static int check_end_routine(t_server_status *server_status)
+{
+	pthread_mutex_lock (server_status->status_lock);
+	if (server_status->status == ERROR)
+	{
+		pthread_mutex_unlock (server_status->status_lock);
+		return (-1);
+	}
+	pthread_mutex_unlock (server_status->status_lock);
+	return (0);
 }

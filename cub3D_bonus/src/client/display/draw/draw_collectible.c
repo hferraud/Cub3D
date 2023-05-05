@@ -43,7 +43,9 @@ static void collectible_set_dist(t_cub *cub)
 	i = 0;
 	while (i < cub->map.collectible_data.size)
 	{
-		collectibles[i].relative_pos = fvector_sub(cub->player.pos, collectibles->pos);
+		pthread_mutex_lock(cub->player_data.player_lock);
+		collectibles[i].relative_pos = fvector_sub(cub->player_data.player.pos, collectibles->pos);
+		pthread_mutex_unlock(cub->player_data.player_lock);
 		collectibles[i].dist = collectibles->relative_pos.x * collectibles->relative_pos.x
 			+ collectibles->relative_pos.y * collectibles->relative_pos.y;
 		i++;

@@ -16,15 +16,15 @@
  */
 void	player_pos_init(t_cub *cub)
 {
-	cub->player.pos.x = (float)(cub->map.spawn.x + 0.5);
-	cub->player.pos.y = (float)(cub->map.spawn.y + 0.5);
+	cub->player_data.player.pos.x = (float)(cub->map.spawn.x + 0.5);
+	cub->player_data.player.pos.y = (float)(cub->map.spawn.y + 0.5);
 	if (cub->map.spawn.orientation == 'N')
-		cub->player.rotation = fvector_init(0, 1);
+		cub->player_data.player.rotation = fvector_init(0, 1);
 	else if (cub->map.spawn.orientation == 'S')
-		cub->player.rotation = fvector_init(0, -1);
+		cub->player_data.player.rotation = fvector_init(0, -1);
 	else if (cub->map.spawn.orientation == 'E')
-		cub->player.rotation = fvector_init(1, 0);
+		cub->player_data.player.rotation = fvector_init(1, 0);
 	else
-		cub->player.rotation = fvector_init(-1, 0);
-	cub->player.camera = fvector_rotate(cub->player.rotation, M_PI_2);
+		cub->player_data.player.rotation = fvector_init(-1, 0);
+	cub->player_data.camera = fvector_rotate(cub->player_data.player.rotation, M_PI_2);
 }

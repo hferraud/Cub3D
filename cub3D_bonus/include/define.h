@@ -17,4 +17,14 @@
 # define FILE_EXIST			"2"
 # define SOCK_BUFFER_SIZE	1028
 
+# define PLAYER_LIMIT	10
+
+# define LISTEN_REQUEST			"1"
+# define SEND_REQUEST			"2"
+# define UPDATE					"1"
+# define UP_TO_DATE				"0"
+# define NEW_EVENT				"1"
+# define NO_EVENT				"0"
+# define LENGTH_REQUEST			1
+
 #endif

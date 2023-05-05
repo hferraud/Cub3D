@@ -18,6 +18,9 @@ static void	disconnect_client(t_list *new_players, t_players *players);
 void	server_data_destroy(t_server_data *server_data)
 {
 	map_data_clear(server_data->map);
+	if (server_data->server_status)
+		pthread_mutex_destroy(server_data->server_status->status_lock);
+	free(server_data->server_status);
 	if (server_data->client_lock)
 		pthread_mutex_destroy(server_data->client_lock);
 	free(server_data->client_lock);
@@ -41,8 +44,6 @@ void	server_data_destroy(t_server_data *server_data)
 		free(server_data->player->players_lock);
 		free(server_data->player);
 	}
-	if (server_data->server_socket != -1)
-		close(server_data->server_socket);
 	free(server_data);
 }
 

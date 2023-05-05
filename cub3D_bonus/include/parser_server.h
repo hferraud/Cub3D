@@ -23,8 +23,7 @@
 # include "get_next_line.h"
 # include "map_server.h"
 # include "error.h"
-
-# define PLAYER_LIMIT	10
+# include "define.h"
 
 /* --- PARSER FUNCTION --- */
 

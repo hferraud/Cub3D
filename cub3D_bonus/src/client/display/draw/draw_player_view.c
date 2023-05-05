@@ -28,13 +28,14 @@ void	draw_player_view(t_cub *cub, float fov)
 	while (screen_x < WIN_WIDTH)
 	{
 		camera_x = 2.f * screen_x / (float) WIN_WIDTH - 1;
-		ray_dir = fvector_add(cub->player.rotation,
-				fvector_mul(cub->player.camera, camera_x));
+		pthread_mutex_lock(cub->player_data.player_lock);
+		ray_dir = fvector_add(cub->player_data.player.rotation,
+				fvector_mul(cub->player_data.camera, camera_x));
+		pthread_mutex_unlock(cub->player_data.player_lock);
 		ray = ray_cast(cub, ray_dir);
 		z_buffer[screen_x] = ray.length;
 		draw_wall(cub, screen_x, ray);
 		screen_x++;
 	}
     draw_collectible(cub, z_buffer);
-	(void)z_buffer;
 }

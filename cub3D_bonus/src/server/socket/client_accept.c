@@ -13,15 +13,17 @@
 
 static int	client_accept(int server_socket_fd);
 static int	new_player_add(int player_socket_fd, t_server_data *server_data);
+static void	check_server_error(int server_socket, t_server_data *server_data);
+static void	close_client(t_server_data *server_data);
 
-void	listen_connections(int server_socket_fd, t_server_data *server_data)
+void	listen_connections(int server_socket, t_server_data *server_data)
 {
 	int	client_socket_fd;
 
-//	int i = 0;
 	while (1)
 	{
-		client_socket_fd = client_accept(server_socket_fd);
+		check_server_error(server_socket, server_data);
+		client_socket_fd = client_accept(server_socket);
 		if (client_socket_fd == -1)
 		{
 			server_data_destroy(server_data);
@@ -33,7 +35,6 @@ void	listen_connections(int server_socket_fd, t_server_data *server_data)
 			exit(1);
 		}
 	}
-	server_data_destroy(server_data);
 }
 
 /**
@@ -52,7 +53,7 @@ static int	client_accept(int server_socket_fd)
 			&client_addr_len);
 	if (client_socket_fd == -1)
 		return (perror("accept()"), errno);
-	printf("Connection with a client_socket established\n");
+	printf("Connection with a client established\n");
 	return (client_socket_fd);
 }
 
@@ -79,4 +80,43 @@ static int	new_player_add(int player_socket_fd, t_server_data *server_data)
 	ft_lstadd_back(&server_data->client_socket, new);
 	pthread_mutex_unlock(server_data->client_lock);
 	return (0);
+}
+
+static void	check_server_error(int server_socket, t_server_data *server_data)
+{
+	pthread_mutex_lock(server_data->server_status->status_lock);
+	if (server_data->server_status->status == ERROR)
+	{
+		pthread_join(server_data->thread[LAUNCH], NULL);
+		pthread_join(server_data->thread[IN_GAME], NULL);
+		pthread_mutex_unlock(server_data->server_status->status_lock);
+		close_client(server_data);
+		server_data_destroy(server_data);
+		close(server_socket);
+	}
+	pthread_mutex_unlock(server_data->server_status->status_lock);
+}
+
+static void	close_client(t_server_data *server_data)
+{
+	int		count;
+	t_list	*to_close;
+	int		client_socket;
+
+	while (server_data->client_socket)
+	{
+		to_close = server_data->client_socket;
+		server_data->client_socket = server_data->client_socket->next;
+		close(*(int *) to_close->content);
+		ft_lstdelone(to_close, free);
+	}
+	count = 0;
+	while (count < server_data->player->size)
+	{
+		client_socket = server_data->player->players_socket[count];
+		if (client_socket != -1)
+			close(client_socket);
+		server_data->player->players_socket[count] = -1;
+		count++;
+	}
 }

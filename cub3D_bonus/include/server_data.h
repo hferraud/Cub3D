@@ -17,11 +17,25 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <sys/stat.h>
+# include <stdbool.h>
 # include "map_server.h"
 # include "define.h"
 
 typedef struct s_server_data		t_server_data;
+typedef struct s_server_status		t_server_status;
 typedef struct s_players			t_players;
+
+enum
+{
+	RUNNING,
+	ERROR,
+};
+
+struct s_server_status
+{
+	char			status;
+	pthread_mutex_t	*status_lock;
+};
 
 struct s_players
 {
@@ -38,7 +52,7 @@ enum
 
 struct s_server_data
 {
-	int				server_socket;
+	t_server_status	*server_status;
 	t_list			*client_socket;
 	pthread_mutex_t	*client_lock;
 	t_players		*player;
@@ -63,7 +77,8 @@ int				map_send(int client_socket, t_server_data *server_data,
 					t_spawn *spawn);
 int				path_send(int client_socket, t_server_data *server_data);
 int				file_send(int client_socket, char *path);
-void			lst_del_client(int client_socket, t_server_data *server_data);
+void			lst_del_client(int client_socket, t_server_data *server_data,
+					bool close);
 int				connection_error(int client_socket, char *error_msg,
 					t_server_data *server_data);
 

@@ -59,8 +59,8 @@ static void	draw_player(t_cub *cub, int wall_width)
 {
 	t_rectangle	square;
 
-	square = set_square(set_point((cub->player.pos.x - PLAYER_OFFSET) * wall_width,
-								  (cub->player.pos.y - PLAYER_OFFSET) * wall_width), wall_width * 2 * PLAYER_OFFSET, 0x779bf7);
+	square = set_square(set_point((cub->player_data.player.pos.x - PLAYER_OFFSET) * wall_width,
+								  (cub->player_data.player.pos.y - PLAYER_OFFSET) * wall_width), wall_width * 2 * PLAYER_OFFSET, 0x779bf7);
 	//draw_player_view(cub, 90, wall_width);
 	draw_rectangle(&cub->mlx_data->img_data, square);
 //	draw_player_rotation(cub, wall_width);

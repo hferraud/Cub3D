@@ -43,6 +43,8 @@ SRC_SERVER	=		error.c	\
 					\
 							server/thread/initialization/thread_init.c		\
 							server/thread/initialization/server_data_init.c	\
+							server/thread/initialization/players_init.c		\
+							server/thread/initialization/mutexes_init.c		\
 							\
 							server/thread/destroy/server_data_destroy.c	\
 							\
@@ -54,6 +56,9 @@ SRC_SERVER	=		error.c	\
 								server/thread/routines/connection_routine/client_delete.c		\
 								\
 								server/thread/routines/in_game_routine/in_game_routine.c	\
+								server/thread/routines/in_game_routine/listening_request.c	\
+								server/thread/routines/in_game_routine/send_request.c	\
+								server/thread/routines/in_game_routine/disconnect_client.c	\
 							\
 					\
 							server/socket/socket_init.c		\
@@ -114,6 +119,15 @@ SRC_CLIENT	=		error.c	\
 						\
 						client/display/raycasting/raycasting.c	\
 						\
+						client/thread/initialization/player_data_init.c	\
+						client/thread/initialization/thread_init.c		\
+						\
+						client/thread/destroy/player_data_destroy.c	\
+						\
+						client/thread/routine/request_routine.c		\
+						client/thread/routine/listening_response.c	\
+						client/thread/routine/send_response.c	\
+						\
 					\
 
 OBJ_SERVER	=		$(addprefix $(BUILD_DIR), $(SRC_SERVER:.c=.o))
@@ -127,13 +141,13 @@ DEPS		=		$(addprefix $(BUILD_DIR), $(SRC_SERVER:.c=.d))	\
 #	FLAGS
 #######################
 
-CFLAGS		=		-Wall -Werror -Wextra -O3 #-fsanitize=address#-g3 #-fsanitize=address
+CFLAGS		=		-Wall -Werror -Wextra
 
 IFLAGS		=		-I $(INC_DIR) -I $(LIBFT_DIR)include -I $(MLX_DIR)
 
-LFLAGS		=		-L $(LIBFT_DIR) -lft -L $(MLX_DIR) -lmlx -lm -lpthread
+LFLAGS		=		-L $(LIBFT_DIR) -lft -lm -lpthread
 
-MLX_FLAGS	=		-lXext -lX11
+MLX_FLAGS	=		-L $(MLX_DIR) -lmlx -lXext -lX11
 
 DFLAGS		=		-MMD -MP
 
@@ -176,8 +190,8 @@ re:					fclean
 
 -include			$(DEPS)
 
-$(SERVER):			$(LIBFT) $(MLX) $(OBJ_SERVER)
-					$(CC) $(CFLAGS) $(OBJ_SERVER) $(LFLAGS) $(MLX_FLAGS) -o $@
+$(SERVER):			$(LIBFT) $(OBJ_SERVER)
+					$(CC) $(CFLAGS) $(OBJ_SERVER) $(LFLAGS) -o $@
 
 $(CLIENT):			$(LIBFT) $(MLX) $(OBJ_CLIENT)
 					$(CC) $(CFLAGS) $(OBJ_CLIENT) $(LFLAGS) $(MLX_FLAGS) -o $@

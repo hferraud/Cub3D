@@ -71,13 +71,15 @@ static t_fvector	camera_projetion(t_cub *cub, t_collectible collectible)
 	float		inverse_det;
 	t_fvector	camera;
 
-	inverse_det = -1.f / (cub->player.camera.x * cub->player.rotation.y
-			- cub->player.rotation.x * cub->player.camera.y);
+	pthread_mutex_lock(cub->player_data.player_lock);
+	inverse_det = -1.f / (cub->player_data.camera.x * cub->player_data.player.rotation.y
+			- cub->player_data.player.rotation.x * cub->player_data.camera.y);
 	camera.x = inverse_det * (
-			cub->player.rotation.y * collectible.relative_pos.x
-			- cub->player.rotation.x * collectible.relative_pos.y);
+			cub->player_data.player.rotation.y * collectible.relative_pos.x
+			- cub->player_data.player.rotation.x * collectible.relative_pos.y);
+	pthread_mutex_unlock(cub->player_data.player_lock);
 	camera.y = inverse_det * (
-			-cub->player.camera.y * collectible.relative_pos.x
-			+ cub->player.camera.x * collectible.relative_pos.y);
+			-cub->player_data.camera.y * collectible.relative_pos.x
+			+ cub->player_data.camera.x * collectible.relative_pos.y);
 	return (camera);
 }

@@ -14,6 +14,6 @@
 int	connection_error(int client_socket, char *error_msg,
 		t_server_data *server_data)
 {
-	lst_del_client(client_socket, server_data);
+	lst_del_client(client_socket, server_data, true);
 	return (cub_error(error_msg));
 }

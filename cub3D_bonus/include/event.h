@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.h                                           :+:      :+:    :+:   */
+/*   event.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ethan <ethan@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 13:07:00 by ethan             #+#    #+#             */
-/*   Updated: 2023/03/14 13:07:00 by ethan            ###   ########lyon.fr   */
+/*   Created: 2023/05/02 17:13:00 by ethan             #+#    #+#             */
+/*   Updated: 2023/05/02 17:13:00 by ethan            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef PLAYER_H
-# define PLAYER_H
+#ifndef EVENT_H
+# define EVENT_H
 
-# include <math.h>
 # include "vector.h"
 
-# define PLAYER_OFFSET		0.2
-# define PLAYER_FOV			M_PI_2
-# define PLAYER_MOVE		0.025
-# define PLAYER_ROTATION	0.025
-# define UNCERTAINTY		0.001
+typedef struct s_event			t_event;
+typedef enum e_event_id			t_event_id;
 
-typedef struct s_player	t_player;
-
-struct s_player
+enum	e_event_id
 {
-	t_fvector	pos;
-	t_fvector	rotation;
+	EVENT_DOOR_INTERACTION,
+	EVENT_SHOOT,
+	EVENT_TAKE_MEDIC_KIT,
+	EVENT_TAKE_AMMO,
+	EVENT_TAKE_PISTOL,
+	EVENT_TAKE_ASSAULT,
 };
 
-typedef struct s_cub	t_cub;
-
-void	player_update(t_cub *cub);
+struct s_event
+{
+	t_event_id	id;
+	t_vector	position;
+};
 
 #endif
