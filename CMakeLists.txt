@@ -34,7 +34,7 @@ add_executable(Cub3D
         cub3D_bonus/include/vector.h
         cub3D_bonus/src/client/display/draw/draw_background.c
         cub3D_bonus/src/client/display/draw/draw_collectible.c
-        cub3D_bonus/src/client/display/draw/draw_collectible_sprite.c
+        cub3D_bonus/src/client/display/draw/draw_sprite.c
         cub3D_bonus/src/client/display/draw/draw_line.c
         cub3D_bonus/src/client/display/draw/draw_player_view.c
         cub3D_bonus/src/client/display/draw/draw_rectangle.c

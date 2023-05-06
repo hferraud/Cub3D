@@ -41,9 +41,9 @@ struct s_client_status
 struct s_enemy
 {
 	t_player	player;
-	int			id;
 	t_fvector	relative_pos;
 	float		dist;
+	int			id;
 };
 
 struct s_cub
