@@ -106,7 +106,7 @@ static int	listen_event(int client_socket, t_event *event)
 		free(event);
 		return (cub_error(CLIENT_LOST));
 	}
-	if (event->id == EVENT_SHOOT)
+	if (event->id == EVENT_DEATH)
 		return (0);
 	if (read(client_socket, &event->position, sizeof(t_vector)) <= 0)
 	{

@@ -17,7 +17,6 @@
 # include "event.h"
 # include "define.h"
 
-
 typedef struct s_players_data	t_players_data;
 
 struct s_players_data

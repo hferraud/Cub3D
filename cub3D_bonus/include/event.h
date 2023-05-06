@@ -20,7 +20,7 @@ typedef enum e_event_id			t_event_id;
 enum	e_event_id
 {
 	EVENT_DOOR_INTERACTION,
-	EVENT_SHOOT,
+	EVENT_DEATH,
 	EVENT_TAKE_MEDIC_KIT,
 	EVENT_TAKE_AMMO,
 	EVENT_TAKE_PISTOL,

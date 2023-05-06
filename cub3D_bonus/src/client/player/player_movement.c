@@ -9,14 +9,18 @@
 /*   Updated: 2023/03/14 14:26:00 by ethan            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
+#include "cub.h"
 #include "hook.h"
 #include "player.h"
+
+void collectible_set_dist(t_cub *cub);
+void	sort_collectible(t_cub *cub);
 
 static void			player_rotation_update(t_cub *cub);
 static void			player_position_update(t_cub *cub);
 static t_fvector	new_position_calculate(t_cub *cub);
 static int			is_valid_position(t_cub *cub, float x, float y);
-static int	player_moved(t_player before, t_player current);
+static int			player_moved(t_player before, t_player current);
 
 /**
  * @brief Update the position and rotation of the player
@@ -30,6 +34,8 @@ void	player_update(t_cub *cub)
 	pthread_mutex_unlock(cub->player_data.player_lock);
 	player_rotation_update(cub);
 	player_position_update(cub);
+	collectible_set_dist(cub);
+	sort_collectible(cub);
 	pthread_mutex_lock(cub->player_data.player_lock);
 	if (player_moved(save, cub->player_data.player))
 	{
