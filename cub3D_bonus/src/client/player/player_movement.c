@@ -16,7 +16,8 @@ static void			player_rotation_update(t_cub *cub);
 static void			player_position_update(t_cub *cub);
 static t_fvector	new_position_calculate(t_cub *cub);
 static int			is_valid_position(t_cub *cub, float x, float y);
-static int	player_moved(t_player before, t_player current);
+static int			player_moved(t_player before, t_player current);
+static int			is_valid_cell(char cell);
 
 /**
  * @brief Update the position and rotation of the player
@@ -56,7 +57,7 @@ static void	player_rotation_update(t_cub *cub)
 			cub->player_data.player.rotation = fvector_rotate(cub->player_data.player.rotation, PLAYER_ROTATION / 100.0f * (x - (WIN_WIDTH / 2)));
 		if (is_key_pressed(KEY_LEFT, cub))
 			cub->player_data.player.rotation = fvector_rotate(cub->player_data.player.rotation, -PLAYER_ROTATION);
-		else if (is_key_pressed(KEY_RIGHT, cub))
+		if (is_key_pressed(KEY_RIGHT, cub))
 			cub->player_data.player.rotation = fvector_rotate(cub->player_data.player.rotation, PLAYER_ROTATION);
 		pthread_mutex_unlock(cub->player_data.player_lock);
 		cub->player_data.camera = fvector_rotate(cub->player_data.player.rotation, M_PI_2);
@@ -84,8 +85,8 @@ static void	player_position_update(t_cub *cub)
 		player->pos = new_pos;
 	else
 	{
-		if (map[(int)(new_pos.y - PLAYER_OFFSET)][(int) new_pos.x] == FLOOR
-			&& map[(int)(new_pos.y + PLAYER_OFFSET)][(int) new_pos.x] == FLOOR
+		if (is_valid_cell(map[(int)(new_pos.y - PLAYER_OFFSET)][(int) new_pos.x])
+			&& is_valid_cell(map[(int)(new_pos.y + PLAYER_OFFSET)][(int) new_pos.x])
 			&& is_valid_position(cub, player->pos.x, new_pos.y))
 		{
 			player->pos.y = new_pos.y;
@@ -94,8 +95,8 @@ static void	player_position_update(t_cub *cub)
 			else
 				player->pos.x =	PLAYER_OFFSET + UNCERTAINTY + ((int) player->pos.x);
 		}
-		else if (map[(int) new_pos.y][(int)(new_pos.x + PLAYER_OFFSET)] == FLOOR
-			&& map[(int)new_pos.y][(int)(new_pos.x - PLAYER_OFFSET)] == FLOOR
+		else if (is_valid_cell(map[(int) new_pos.y][(int)(new_pos.x + PLAYER_OFFSET)])
+			&& is_valid_cell(map[(int)new_pos.y][(int)(new_pos.x - PLAYER_OFFSET)])
 			&& is_valid_position(cub, new_pos.x, player->pos.y))
 		{
 			player->pos.x = new_pos.x;
@@ -142,10 +143,10 @@ static int	is_valid_position(t_cub *cub, float x, float y)
 	char	**map;
 
 	map = cub->map.map;
-	return (map[(int)(y - PLAYER_OFFSET)][(int)(x - PLAYER_OFFSET)] == FLOOR
-		&& map[(int)(y - PLAYER_OFFSET)][(int)(x + PLAYER_OFFSET)] == FLOOR
-		&& map[(int)(y + PLAYER_OFFSET)][(int)(x + PLAYER_OFFSET)] == FLOOR
-		&& map[(int)(y + PLAYER_OFFSET)][(int)(x - PLAYER_OFFSET)] == FLOOR);
+	return (is_valid_cell(map[(int)(y - PLAYER_OFFSET)][(int)(x - PLAYER_OFFSET)])
+		&& is_valid_cell(map[(int)(y - PLAYER_OFFSET)][(int)(x + PLAYER_OFFSET)])
+		&& is_valid_cell(map[(int)(y + PLAYER_OFFSET)][(int)(x + PLAYER_OFFSET)])
+		&& is_valid_cell(map[(int)(y + PLAYER_OFFSET)][(int)(x - PLAYER_OFFSET)]));
 }
 
 static int	player_moved(t_player before, t_player current)
@@ -154,4 +155,9 @@ static int	player_moved(t_player before, t_player current)
 		|| before.pos.y != current.pos.y
 		|| before.rotation.x != current.rotation.x
 		|| before.rotation.y != current.rotation.y);
+}
+
+static int is_valid_cell(char cell)
+{
+	return (cell == FLOOR || cell == DOOR_OPEN);
 }

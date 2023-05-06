@@ -27,8 +27,6 @@ int send_response(int server_socket, t_cub *cub)
 	if (player->id == -1)
 		player->id = id;
 	player->player = new_position;
-	printf("Player %d position: x: %f y: %f\n", id, new_position.pos.x, new_position.pos.y);
-	printf("Player %d rotation: x: %f y: %f\n", id, new_position.rotation.x, new_position.rotation.y);
 	pthread_mutex_unlock(cub->enemies_lock);
 	return (0);
 }
