@@ -43,7 +43,7 @@ SRC_SERVER	=		error.c	\
 					\
 							server/thread/initialization/thread_init.c		\
 							server/thread/initialization/server_data_init.c	\
-							server/thread/initialization/players_init.c		\
+							server/thread/initialization/enemies_init.c		\
 							server/thread/initialization/mutexes_init.c		\
 							\
 							server/thread/destroy/server_data_destroy.c	\
@@ -112,7 +112,8 @@ SRC_CLIENT	=		error.c	\
 						client/display/draw/draw_wall.c	\
 						client/display/draw/draw_player_view.c	\
 						client/display/draw/draw_collectible.c	\
-						client/display/draw/draw_collectible_sprite.c	\
+						client/display/draw/draw_enemy.c	\
+						client/display/draw/draw_sprite.c	\
 						client/display/draw/draw_shape_utils.c	\
 						\
 						client/display/minimap/minimap.c	\
@@ -141,7 +142,7 @@ DEPS		=		$(addprefix $(BUILD_DIR), $(SRC_SERVER:.c=.d))	\
 #	FLAGS
 #######################
 
-CFLAGS		=		-Wall -Werror -Wextra
+CFLAGS		=		-Wall -Werror -Wextra -g3
 
 IFLAGS		=		-I $(INC_DIR) -I $(LIBFT_DIR)include -I $(MLX_DIR)
 

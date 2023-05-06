@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "server_data.h"
 
-int						players_init(t_enemies *players, int nb_spawn);
+int						enemies_init(t_enemy *players, int nb_spawn);
 int						mutexes_init(t_server_data *server_data);
 static int				server_status_init(t_server_data *server_data);
 static void				server_data_set_to_default(t_server_data *server_data,
@@ -29,14 +29,14 @@ t_server_data	*server_data_init(t_map *map)
 	if (server_data == NULL)
 		return (server_data_init_error(NULL, "malloc()"));
 	server_data_set_to_default(server_data, map);
-	server_data->player = (t_enemies *) malloc(sizeof(t_enemies));
+	server_data->player = (t_enemy *) malloc(sizeof(t_enemy));
 	if (server_data->player == NULL)
 		return (server_data_init_error(server_data, "malloc()"));
 	if (server_status_init(server_data) == -1)
 		return (server_data_init_error(server_data, "server_status_init()"));
 	if (client_connected_init(server_data, map) == -1)
 		return (server_data_init_error(server_data, "client_connected_init_init()"));
-	if (players_init(server_data->player, map->nb_spawn) == -1)
+	if (enemies_init(server_data->player, map->nb_spawn) == -1)
 		return (server_data_init_error(server_data, "players_init()"));
 	if (mutexes_init(server_data) == -1)
 		return (server_data_init_error(server_data, "mutexes_init()"));

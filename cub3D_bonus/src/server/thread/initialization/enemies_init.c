@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   players_init.c                                     :+:      :+:    :+:   */
+/*   enemies_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelage <edelage@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,11 +11,11 @@
 /* ************************************************************************** */
 #include "server_data.h"
 
-int	players_init(t_enemies *players, int nb_spawn)
+int	enemies_init(t_enemy *players, int nb_spawn)
 {
 	int	count;
 
-	ft_bzero(players, sizeof(t_enemies));
+	ft_bzero(players, sizeof(t_enemy));
 	players->players_socket = (int *) malloc(sizeof(int) * nb_spawn);
 	if (players->players_socket == NULL)
 		return (-1);

@@ -24,7 +24,7 @@ typedef struct s_client_status	t_client_status;
 typedef struct s_map_client		t_map_client;
 typedef struct s_mlx_data		t_mlx_data;
 typedef struct s_player			t_player;
-typedef struct s_enemies		t_enemies;
+typedef struct s_enemy			t_enemy;
 
 enum e_status
 {
@@ -38,10 +38,12 @@ struct s_client_status
 	pthread_mutex_t	*status_lock;
 };
 
-struct s_enemies
+struct s_enemy
 {
-	int			id;
 	t_player	player;
+	t_fvector	relative_pos;
+	float		dist;
+	int			id;
 };
 
 struct s_cub
@@ -51,7 +53,7 @@ struct s_cub
 	t_map_client	map;
 	t_mlx_data		*mlx_data;
 	t_player_data	player_data;
-	t_enemies		enemies[PLAYER_LIMIT - 1];
+	t_enemy			enemies[PLAYER_LIMIT - 1];
 	pthread_mutex_t	*players_lock;
 	pthread_t		thread;
 };

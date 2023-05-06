@@ -54,11 +54,19 @@ void		draw_line(t_img_data *data, t_point a, t_point b, int color);
 void		draw_rectangle(t_img_data *img_data, t_rectangle rectangle);
 void		draw_background(t_cub *cub);
 void		draw_minimap(t_cub *cub);
-void		draw_collectible_sprite(t_cub *cub, t_collectible collectible,
-				const float *z_buffer);
-void		draw_collectible(t_cub *cub, const float *z_buffer);
+void		draw_sprite(t_cub *cub, t_draw_param dp, const float *z_buffer, float dist);
+void		draw_collectible(t_cub *cub, t_collectible collectible, const float *z_buffer);
+void		draw_enemy(t_cub *cub, t_enemy enemy, const float *z_buffer);
+void		draw_sprites(t_cub *cub, const float *z_buffer);
 void		draw_wall(t_cub *cub, int x, t_ray ray);
 void		draw_player_view(t_cub *cub, float fov);
+
+/* --- DRAW UTILS FUNCTIONS --- */
+
+void		collectible_set_dist(t_cub *cub, t_player player);
+void		collectible_sort(t_cub *cub);
+void		enemies_set_dist(t_cub *cub, t_enemy *enemies, t_player player);
+void		enemies_sort(t_enemy *enemies);
 
 /* --- POINT_UTILS FUNCTIONS --- */
 

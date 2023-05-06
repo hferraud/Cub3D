@@ -17,7 +17,7 @@ static int	listen_event(int client_socket, t_event *event);
 
 /**
  * @brief Sends a listening request and updates the information
- * @return 1 if players data has been update, 0 if players data are the same,
+ * @return 1 if enemies data has been update, 0 if enemies data are the same,
  *  -1 in client error case and -2 in server error cas
  */
 int	listening_request(int client_socket, t_players_data *players_data, int client_index)
@@ -34,18 +34,18 @@ int	listening_request(int client_socket, t_players_data *players_data, int clien
 //		printf("Player %d data are up to date\n", client_socket);
 		return (0);
 	}
-	printf("Player %d data needs to be update\n", client_socket);
+//	printf("Player %d data needs to be update\n", client_socket);
 	if (read(client_socket, &players_data->players[client_index], sizeof(t_player)) <= 0
 		|| read(client_socket, &buf, sizeof(char)) <= 0)
 		return (cub_error(CLIENT_LOST));
-	printf("Player %d position: x: %f y: %f\n", client_socket, players_data->players[client_index].pos.x, players_data->players[client_index].pos.y);
-	printf("Player %d rotation: x: %f y: %f\n", client_socket, players_data->players[client_index].rotation.x, players_data->players[client_index].rotation.y);
+//	printf("Player %d position: x: %f y: %f\n", client_socket, players_data->players[client_index].pos.x, players_data->players[client_index].pos.y);
+//	printf("Player %d rotation: x: %f y: %f\n", client_socket, players_data->players[client_index].rotation.x, players_data->players[client_index].rotation.y);
 	if (buf == *UP_TO_DATE)
 	{
-		printf("Player %d has no events\n", client_socket);
+//		printf("Player %d has no events\n", client_socket);
 		return (1);
 	}
-	printf("Player %d has events\n", client_socket);
+//	printf("Player %d has events\n", client_socket);
 	ret = listen_events(client_socket, &players_data->events);
 	if (ret == -1)
 	{

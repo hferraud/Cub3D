@@ -21,7 +21,7 @@ static int	send_enemy_position(int client_socket, t_player player, int client_in
  */
 int send_request(int client_socket, t_players_data *players_data, int client_index)
 {
-	printf("Send request to client %d\n", client_socket);
+//	printf("Send request to client %d\n", client_socket);
 	if (write(client_socket, SEND_REQUEST, LENGTH_REQUEST) == -1)
 		return (cub_error(CLIENT_LOST));
 	send_enemy_position(client_socket, players_data->players[client_index], client_index);

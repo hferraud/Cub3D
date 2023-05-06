@@ -34,7 +34,7 @@ add_executable(Cub3D
         cub3D_bonus/include/vector.h
         cub3D_bonus/src/client/display/draw/draw_background.c
         cub3D_bonus/src/client/display/draw/draw_collectible.c
-        cub3D_bonus/src/client/display/draw/draw_collectible_sprite.c
+        cub3D_bonus/src/client/display/draw/draw_sprite.c
         cub3D_bonus/src/client/display/draw/draw_line.c
         cub3D_bonus/src/client/display/draw/draw_player_view.c
         cub3D_bonus/src/client/display/draw/draw_rectangle.c
@@ -85,7 +85,7 @@ add_executable(Cub3D
         cub3D_bonus/src/server/socket/socket_init.c
         cub3D_bonus/src/server/thread/destroy/server_data_destroy.c
         cub3D_bonus/src/server/thread/initialization/mutexes_init.c
-        cub3D_bonus/src/server/thread/initialization/players_init.c
+        cub3D_bonus/src/server/thread/initialization/enemies_init.c
         cub3D_bonus/src/server/thread/initialization/server_data_init.c
         cub3D_bonus/src/server/thread/initialization/thread_init.c
         cub3D_bonus/src/server/thread/routines/connection_routine/asset_send.c
@@ -197,4 +197,4 @@ add_executable(Cub3D
         minilibx/mlx_screen_size.c
         minilibx/mlx_set_font.c
         minilibx/mlx_string_put.c
-        minilibx/mlx_xpm.c)
+        minilibx/mlx_xpm.c cub3D_bonus/src/client/display/draw/draw_enemy.c)

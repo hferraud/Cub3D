@@ -11,13 +11,13 @@
 /* ************************************************************************** */
 #include "cub.h"
 
-static t_enemies	*search_player_by_id(int id, t_enemies *players);
+static t_enemy	*search_player_by_id(int id, t_enemy *players);
 
 int send_response(int server_socket, t_cub *cub)
 {
 	int			id;
 	t_player	new_position;
-	t_enemies	*player;
+	t_enemy	*player;
 
 	if (read(server_socket, &id, sizeof(int)) <= 0
 		|| read(server_socket, &new_position, sizeof(t_player)) <= 0)
@@ -33,10 +33,10 @@ int send_response(int server_socket, t_cub *cub)
 	return (0);
 }
 
-static t_enemies	*search_player_by_id(int id, t_enemies *players)
+static t_enemy	*search_player_by_id(int id, t_enemy *players)
 {
 	size_t		count;
-	t_enemies	*player;
+	t_enemy	*player;
 
 	count = 0;
 	player = NULL;
