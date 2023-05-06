@@ -26,7 +26,7 @@ int	key_press(int key_code, t_cub *cub)
 static void	add_key_press(int key_code, t_cub *cub)
 {
 	const int	valid_key[MAX_KEY] = {KEY_W, KEY_A, KEY_S, KEY_D,
-		KEY_LEFT, KEY_RIGHT};
+		KEY_F, KEY_LEFT, KEY_RIGHT};
 	size_t		index;
 
 	index = 0;

@@ -26,7 +26,7 @@
 # define WIN_NAME	"Cub3D"
 
 /* Key hook: w, a, s, d, right, left */
-# define MAX_KEY	6
+# define MAX_KEY	7
 
 /* --- TYPEDEF --- */
 
