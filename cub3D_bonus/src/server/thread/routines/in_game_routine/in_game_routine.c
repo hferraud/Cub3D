@@ -47,7 +47,7 @@ void	in_game_routine(t_server_data *server_data)
 			ret = listening_request(client_socket, &players_data, index);
 			if (ret == 1)
 			{
-				printf("Need to send data\n");
+//				printf("Need to send data\n");
 				send_data(index, server_data, &players_data);
 				//TODO: Process the data and call to other player (send request)
 			}

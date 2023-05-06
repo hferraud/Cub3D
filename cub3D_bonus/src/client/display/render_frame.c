@@ -17,6 +17,13 @@
  */
 int	render_frame(t_cub *cub)
 {
+	pthread_mutex_lock(cub->client_status.status_lock);
+	if (cub->client_status.status == ERROR)
+	{
+		pthread_mutex_unlock(cub->client_status.status_lock);
+		cub_exit(cub);
+	}
+	pthread_mutex_unlock(cub->client_status.status_lock);
 	player_update(cub);
 	draw_background(cub);
 	draw_player_view(cub, PLAYER_FOV);

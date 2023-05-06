@@ -111,7 +111,7 @@ static void	enemies_sort(t_enemy *enemies)
 		i = 1;
 		while (i < PLAYER_LIMIT - 1)
 		{
-			if (enemies[i].dist < enemies[i - 1].dist)
+			if (enemies[i].dist > enemies[i - 1].dist)
 			{
 				flag = true;
 				tmp = enemies[i];
