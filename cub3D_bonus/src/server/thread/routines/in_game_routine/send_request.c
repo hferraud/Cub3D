@@ -14,6 +14,11 @@
 
 static int	send_enemy_position(int client_socket, t_player player, int client_index);
 
+/**
+ * @brief Sends new data to other players
+ * @return 1 if players data has been update, 0 if players data are the same,
+ *  -1 in client error case and -2 in server error cas
+ */
 int send_request(int client_socket, t_players_data *players_data, int client_index)
 {
 	printf("Send request to client %d\n", client_socket);

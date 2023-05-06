@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "cub.h"
 
-void		request_routine(t_cub *cub);
+void		routine(t_cub *cub);
 static int	players_init(t_cub *cub);
 
 /**
@@ -27,7 +27,7 @@ int	thread_init(t_cub *cub)
 		player_data_destroy(&cub->player_data);
 		return (-1);
 	}
-	if (pthread_create(&cub->thread, NULL, (void *) request_routine, cub) != 0)
+	if (pthread_create(&cub->thread, NULL, (void *) routine, cub) != 0)
 	{
 		player_data_destroy(&cub->player_data);
 		return (-1);

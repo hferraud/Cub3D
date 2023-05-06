@@ -15,15 +15,9 @@
 static void clear_data(t_server_data *server_data, t_players_data *players_data);
 static int	send_data(int client_index, t_server_data *server_data, t_players_data *players_data);
 
-/* Server send request to client
- * client send if info was update
- * if (update)
- * 	send new player data
- * else
- * 	do nothing
- * Server send new data to other player
- * */
-
+/**
+ * @brief Routine to retrieve and send data from all players
+ */
 void	in_game_routine(t_server_data *server_data)
 {
 	int				ret;

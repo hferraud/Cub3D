@@ -69,7 +69,7 @@ add_executable(Cub3D
         cub3D_bonus/src/client/thread/initialization/player_data_init.c
         cub3D_bonus/src/client/thread/initialization/thread_init.c
         cub3D_bonus/src/client/thread/routine/listening_response.c
-        cub3D_bonus/src/client/thread/routine/request_routine.c
+        cub3D_bonus/src/client/thread/routine/routine.c
         cub3D_bonus/src/client/thread/routine/send_response.c
         cub3D_bonus/src/client/client.c
         cub3D_bonus/src/server/parser/map_checker/get_spawn.c
