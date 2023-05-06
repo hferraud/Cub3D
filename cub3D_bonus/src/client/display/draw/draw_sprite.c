@@ -12,16 +12,56 @@
 #include "collectible.h"
 #include "draw.h"
 
+static	void sprites_init(t_cub *cub, t_player *player, t_enemy *enemies);
+
 static void			draw_stripe(t_cub *cub, t_draw_param dp);
 
-void	draw_sprite(t_cub *cub, t_draw_param dp, t_fvector camera, const float *z_buffer)
+void draw_sprites(t_cub *cub, const float *z_buffer)
+{
+	t_player 			player;
+    t_enemy				enemies[PLAYER_LIMIT - 1];
+	t_collectible_data	collectible_data;
+    size_t				i;
+    size_t				j;
+
+	sprites_init(cub, &player, enemies);
+	collectible_data = cub->map.collectible_data;
+    i = 0;
+    j = 0;
+	while (i < PLAYER_LIMIT - 1 || j < collectible_data.size)
+	{
+		if (j > collectible_data.size || (i < PLAYER_LIMIT - 1 && enemies[i].dist > collectible_data.collectible[j].dist))
+		{
+			draw_enemy(cub, enemies[i], z_buffer);
+			i++;
+		}
+		else
+		{
+			draw_collectible(cub, collectible_data.collectible[j], z_buffer);
+			j++;
+		}
+	}
+}
+
+static	void sprites_init(t_cub *cub, t_player *player, t_enemy *enemies)
+{
+	pthread_mutex_lock(cub->player_data.player_lock);
+	*player = cub->player_data.player;
+	pthread_mutex_unlock(cub->player_data.player_lock);
+	collectible_set_dist(cub, *player);
+	collectible_sort(cub);
+	enemies_set_dist(cub, enemies, *player);
+	enemies_sort(enemies);
+}
+
+void	draw_sprite(t_cub *cub, t_draw_param dp, const float *z_buffer, const float dist)
 {
 	dp.screen.x = dp.draw_start.x;
 	if (dp.screen.x < 0)
 		dp.screen.x = 0;
 	while (dp.screen.x < dp.draw_end.x && dp.screen.x < WIN_WIDTH)
 	{
-		if (dp.screen.x < WIN_WIDTH && dp.screen.x >= 0 && z_buffer[dp.screen.x] > camera.y)
+		if (dp.screen.x < WIN_WIDTH && dp.screen.x >= 0 && z_buffer[dp.screen.x] > dist)
 		{
 			dp.texture.x = (dp.screen.x - dp.draw_start.x)
 				* dp.sprite.width / dp.width;

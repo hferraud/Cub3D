@@ -37,6 +37,6 @@ void	draw_player_view(t_cub *cub, float fov)
 		draw_wall(cub, screen_x, ray);
 		screen_x++;
 	}
-	draw_collectible(cub, z_buffer);
-	draw_enemies(cub, z_buffer);
+	//TODO: CHECK RETURN
+	draw_sprites(cub, z_buffer);
 }

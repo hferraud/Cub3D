@@ -14,31 +14,19 @@
 
 static t_draw_param	get_draw_param(t_cub *cub, t_fvector camera);
 static t_fvector	camera_projection(t_cub *cub, t_enemy enemy);
-static void			enemies_set_dist(t_cub *cub, t_enemy *enemies);
-static void			enemies_sort(t_enemy *enemies);
 
-void	draw_enemies(t_cub *cub, const float *z_buffer)
+void	draw_enemy(t_cub *cub, t_enemy enemy, const float *z_buffer)
 {
-	t_enemy			enemies[PLAYER_LIMIT - 1];
 	t_draw_param	draw_param;
 	t_fvector		camera;
-	size_t			i;
 
-	enemies_set_dist(cub, enemies);
-	enemies_sort(enemies);
-	i = 0;
-	while (i < PLAYER_LIMIT - 1)
+	if (enemy.id == -1)
+		return ;
+	camera = camera_projection(cub, enemy);
+	if (camera.y > 0)
 	{
-		if (enemies[i].id != -1)
-		{
-			camera = camera_projection(cub, enemies[i]);
-			if (camera.y > 0)
-			{
-				draw_param = get_draw_param(cub, camera);
-				draw_sprite(cub, draw_param, camera, z_buffer);
-			}
-		}
-		i++;
+		draw_param = get_draw_param(cub, camera);
+		draw_sprite(cub, draw_param, z_buffer, camera.y);
 	}
 }
 
@@ -78,7 +66,7 @@ static t_fvector	camera_projection(t_cub *cub, t_enemy enemy)
 	return (camera);
 }
 
-static void	enemies_set_dist(t_cub *cub, t_enemy *enemies)
+void	enemies_set_dist(t_cub *cub, t_enemy *enemies, t_player player)
 {
 	size_t	i;
 
@@ -87,18 +75,19 @@ static void	enemies_set_dist(t_cub *cub, t_enemy *enemies)
 	{
 		pthread_mutex_lock(cub->players_lock);
 		enemies[i].player = cub->enemies[i].player;
-		pthread_mutex_lock(cub->player_data.player_lock);
-		enemies[i].relative_pos = fvector_sub(cub->player_data.player.pos,
+		enemies[i].relative_pos = fvector_sub(player.pos,
 				enemies[i].player.pos);
-		pthread_mutex_unlock(cub->player_data.player_lock);
 		pthread_mutex_unlock(cub->players_lock);
-		enemies[i].dist = enemies[i].relative_pos.x * enemies[i].relative_pos.x
-			+ enemies[i].relative_pos.y * enemies[i].relative_pos.y;
+		if (enemies[i].id != -1)
+		{
+			enemies[i].dist = enemies[i].relative_pos.x * enemies[i].relative_pos.x
+				+ enemies[i].relative_pos.y * enemies[i].relative_pos.y;
+		}
 		i++;
 	}
 }
 
-static void	enemies_sort(t_enemy *enemies)
+void	enemies_sort(t_enemy *enemies)
 {
 	t_enemy	tmp;
 	bool	flag;
@@ -111,7 +100,7 @@ static void	enemies_sort(t_enemy *enemies)
 		i = 1;
 		while (i < PLAYER_LIMIT - 1)
 		{
-			if (enemies[i].dist > enemies[i - 1].dist)
+			if (enemies[i - 1].id == -1 ||  enemies[i].dist > enemies[i - 1].dist)
 			{
 				flag = true;
 				tmp = enemies[i];

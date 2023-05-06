@@ -16,29 +16,17 @@
 
 static t_draw_param	get_draw_param(t_cub *cub, t_fvector camera);
 static t_fvector	camera_projection(t_cub *cub, t_collectible collectible);
-static void			collectible_set_dist(t_cub *cub);
-static void			collectible_sort(t_cub *cub);
 
-void	draw_collectible(t_cub *cub, const float *z_buffer)
+void	draw_collectible(t_cub *cub, t_collectible collectible, const float *z_buffer)
 {
-	t_collectible	collectible;
-	t_draw_param	draw_param;
-	t_fvector		camera;
-	size_t			i;
+	t_draw_param		draw_param;
+	t_fvector			camera;
 
-	collectible_set_dist(cub);
-	collectible_sort(cub);
-	i = 0;
-	while (i < cub->map.collectible_data.size)
+	camera = camera_projection(cub, collectible);
+	if (camera.y > 0)
 	{
-		collectible = cub->map.collectible_data.collectible[i];
-		camera = camera_projection(cub, collectible);
-		if (camera.y > 0)
-		{
-			draw_param = get_draw_param(cub, camera);
-			draw_sprite(cub, draw_param, camera, z_buffer);
-		}
-		i++;
+		draw_param = get_draw_param(cub, camera);
+		draw_sprite(cub, draw_param, z_buffer, camera.y);
 	}
 }
 
@@ -81,18 +69,16 @@ static t_fvector	camera_projection(t_cub *cub, t_collectible collectible)
 /**
  * @brief Set the distance from the player of all collectibles
  */
-static void collectible_set_dist(t_cub *cub)
+void collectible_set_dist(t_cub *cub, t_player player)
 {
-	size_t			i;
 	t_collectible	*collectible;
+	size_t			i;
 
 	collectible = cub->map.collectible_data.collectible;
 	i = 0;
 	while (i < cub->map.collectible_data.size)
 	{
-		pthread_mutex_lock(cub->player_data.player_lock);
-		collectible[i].relative_pos = fvector_sub(cub->player_data.player.pos, collectible[i].pos);
-		pthread_mutex_unlock(cub->player_data.player_lock);
+		collectible[i].relative_pos = fvector_sub(player.pos, collectible[i].pos);
 		collectible[i].dist = collectible[i].relative_pos.x * collectible[i].relative_pos.x
 			+ collectible[i].relative_pos.y * collectible[i].relative_pos.y;
 		i++;
@@ -102,7 +88,7 @@ static void collectible_set_dist(t_cub *cub)
 /**
  * @brief Sort all collectibles from the nearest to the further away of the player
  */
-static void	collectible_sort(t_cub *cub)
+void	collectible_sort(t_cub *cub)
 {
 	t_collectible	*collectible;
 	t_collectible	tmp;
