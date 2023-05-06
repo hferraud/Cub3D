@@ -47,9 +47,8 @@ void	in_game_routine(t_server_data *server_data)
 			ret = listening_request(client_socket, &players_data, index);
 			if (ret == 1)
 			{
-				printf("Need to send data\n");
-				send_data(index, server_data, &players_data);
-				//TODO: Process the data and call to other player (send request)
+				if (send_data(index, server_data, &players_data) == -1)
+					disconnect_client(client_socket, server_data);
 			}
 			else if (ret == -1)
 				disconnect_client(client_socket,  server_data);
@@ -59,8 +58,6 @@ void	in_game_routine(t_server_data *server_data)
 				return (clear_data(server_data, &players_data));
 			}
 		}
-		else
-			usleep(10000);
 		count++;
 	}
 }
@@ -84,11 +81,9 @@ static int	send_data(int client_index, t_server_data *server_data, t_players_dat
 	while (count < server_data->player->size)
 	{
 		client_socket = server_data->player->players_socket[count];
-		if (client_socket != -1 && count != client_index && send_request(client_socket, players_data, client_index))
-		{
-			//disconnect client
+		if (client_socket != -1 && count != client_index
+			&& send_request(client_socket, players_data, client_index))
 			return (-1);
-		}
 		count++;
 	}
 	pthread_mutex_unlock(server_data->player->players_lock);
