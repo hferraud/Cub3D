@@ -56,6 +56,7 @@ void		draw_background(t_cub *cub);
 void		draw_minimap(t_cub *cub);
 void		draw_sprite(t_cub *cub, t_draw_param dp, t_fvector camera, const float *z_buffer);
 void		draw_collectible(t_cub *cub, const float *z_buffer);
+void		draw_enemies(t_cub *cub, const float *z_buffer);
 void		draw_wall(t_cub *cub, int x, t_ray ray);
 void		draw_player_view(t_cub *cub, float fov);
 

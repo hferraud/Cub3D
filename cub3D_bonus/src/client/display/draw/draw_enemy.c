@@ -15,7 +15,7 @@
 static t_draw_param	get_draw_param(t_cub *cub, t_fvector camera);
 static t_fvector	camera_projection(t_cub *cub, t_enemy enemy);
 static void			enemies_set_dist(t_cub *cub, t_enemy *enemies);
-static void			enemies_sort(t_cub *cub, t_enemy *enemies);
+static void			enemies_sort(t_enemy *enemies);
 
 void	draw_enemies(t_cub *cub, const float *z_buffer)
 {
@@ -25,15 +25,18 @@ void	draw_enemies(t_cub *cub, const float *z_buffer)
 	size_t			i;
 
 	enemies_set_dist(cub, enemies);
-	enemies_sort(cub, enemies);
+	enemies_sort(enemies);
 	i = 0;
 	while (i < PLAYER_LIMIT - 1)
 	{
-		camera = camera_projection(cub, enemies[i]);
-		if (camera.y > 0)
+		if (enemies[i].id != -1)
 		{
-			draw_param = get_draw_param(cub, camera);
-			draw_sprite(cub, draw_param, camera, z_buffer);
+			camera = camera_projection(cub, enemies[i]);
+			if (camera.y > 0)
+			{
+				draw_param = get_draw_param(cub, camera);
+				draw_sprite(cub, draw_param, camera, z_buffer);
+			}
 		}
 		i++;
 	}
@@ -44,7 +47,7 @@ static t_draw_param	get_draw_param(t_cub *cub, t_fvector camera)
 	t_draw_param	dp;
 	int				scale;
 
-	dp.sprite = cub->mlx_data->collectible_sprite[AMMO_ID];
+	dp.sprite = cub->mlx_data->collectible_sprite[MEDIC_KIT_ID];
 	dp.width = WIN_WIDTH / (camera.y * 4);
 	dp.height = WIN_HEIGHT / (camera.y * 4);
 	dp.screen.x = (WIN_WIDTH / 2.f) * (1 + camera.x / camera.y);
@@ -72,6 +75,7 @@ static t_fvector	camera_projection(t_cub *cub, t_enemy enemy)
 	camera.y = inverse_det * (
 			-cub->player_data.camera.y * enemy.relative_pos.x
 			+ cub->player_data.camera.x * enemy.relative_pos.y);
+	return (camera);
 }
 
 static void	enemies_set_dist(t_cub *cub, t_enemy *enemies)
@@ -94,7 +98,7 @@ static void	enemies_set_dist(t_cub *cub, t_enemy *enemies)
 	}
 }
 
-static void	enemies_sort(t_cub *cub, t_enemy *enemies)
+static void	enemies_sort(t_enemy *enemies)
 {
 	t_enemy	tmp;
 	bool	flag;
