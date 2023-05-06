@@ -37,7 +37,10 @@ static void	draw_wall_band(t_cub *cub, t_ray ray, int screen_x, int start_y, int
 	t_vector	screen_pos;
 	int			stripe[WIN_HEIGHT];
 
-	wall_sprite = cub->mlx_data->texture_sprite[ray.wall_face];
+	if (ray.is_door)
+		wall_sprite = cub->mlx_data->texture_sprite[DOOR_ID];
+	else
+		wall_sprite = cub->mlx_data->texture_sprite[ray.wall_face];
 	if (ray.wall_face == NORTH || ray.wall_face == SOUTH)
 		texture_pos.x = (ray.pos.x - (int) ray.pos.x) * wall_sprite.width;
 	else

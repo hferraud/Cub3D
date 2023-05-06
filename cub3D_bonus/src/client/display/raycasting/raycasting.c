@@ -24,6 +24,9 @@ t_ray	ray_cast(t_cub *cub, t_fvector ray_dir)
 	while (cub->map.map[map_index.y][map_index.x] != WALL
 		&& cub->map.map[map_index.y][map_index.x] != DOOR_CLOSE)
 	{
+		ray.is_door = false;
+		if (cub->map.map[map_index.y][map_index.x] == DOOR_OPEN)
+			ray.is_door = true;
 		if (ray.ray.x < ray.ray.y)
 		{
 			map_index.x += ray.step.x;
@@ -53,6 +56,8 @@ t_ray	ray_cast(t_cub *cub, t_fvector ray_dir)
 		ray.length = ray.ray.y - ray.unit_step.y;
 		ray.pos.x = cub->player_data.player.pos.x + ray.length * ray_dir.x;
 	}
+	if (cub->map.map[map_index.y][map_index.x] == DOOR_CLOSE)
+		ray.is_door = true;
 	return (ray);
 }
 
@@ -65,6 +70,7 @@ static t_ray	ray_init(t_cub *cub, t_fvector ray_dir)
 	ray.unit_step.y = fabsf(1 / ray_dir.y);
 	ray.ray = fvector_init(0, 0);
 	ray.collectible_hit = NULL;
+	ray.is_door = false;
 	if (ray_dir.x > 0)
 	{
 		ray.step.x = 1;
