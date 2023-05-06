@@ -36,7 +36,7 @@ static t_draw_param	get_draw_param(t_cub *cub, t_fvector camera)
 	int				scale;
 
 	dp.sprite = cub->mlx_data->collectible_sprite[PISTOL_ID];
-	dp.width = WIN_WIDTH / (camera.y * 4);
+	dp.width = WIN_HEIGHT / (camera.y * 4);
 	dp.height = WIN_HEIGHT / (camera.y * 4);
 	dp.screen.x = (WIN_WIDTH / 2.f) * (1 + camera.x / camera.y);
 	dp.draw_start.x = dp.screen.x - dp.width / 2;
