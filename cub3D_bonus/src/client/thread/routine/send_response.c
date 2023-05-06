@@ -22,14 +22,14 @@ int send_response(int server_socket, t_cub *cub)
 	if (read(server_socket, &id, sizeof(int)) <= 0
 		|| read(server_socket, &new_position, sizeof(t_player)) <= 0)
 		return (cub_error(CLIENT_LOST));
-	pthread_mutex_lock(cub->players_lock);
+	pthread_mutex_lock(cub->enemies_lock);
 	player = search_player_by_id(id, cub->enemies);
 	if (player->id == -1)
 		player->id = id;
 	player->player = new_position;
 	printf("Player %d position: x: %f y: %f\n", id, new_position.pos.x, new_position.pos.y);
 	printf("Player %d rotation: x: %f y: %f\n", id, new_position.rotation.x, new_position.rotation.y);
-	pthread_mutex_unlock(cub->players_lock);
+	pthread_mutex_unlock(cub->enemies_lock);
 	return (0);
 }
 

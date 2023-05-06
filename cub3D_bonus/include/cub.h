@@ -54,7 +54,7 @@ struct s_cub
 	t_mlx_data		*mlx_data;
 	t_player_data	player_data;
 	t_enemy			enemies[PLAYER_LIMIT - 1];
-	pthread_mutex_t	*players_lock;
+	pthread_mutex_t	*enemies_lock;
 	pthread_t		thread;
 };
 

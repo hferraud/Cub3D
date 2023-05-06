@@ -39,13 +39,13 @@ static int players_init(t_cub *cub)
 {
 	size_t	count;
 
-	cub->players_lock = malloc(sizeof(pthread_mutex_t));
-	if (cub->players_lock == NULL)
+	cub->enemies_lock = malloc(sizeof(pthread_mutex_t));
+	if (cub->enemies_lock == NULL)
 		return (-1);
-	if (pthread_mutex_init(cub->players_lock, NULL) != 0)
+	if (pthread_mutex_init(cub->enemies_lock, NULL) != 0)
 	{
-		free(cub->players_lock);
-		cub->players_lock = NULL;
+		free(cub->enemies_lock);
+		cub->enemies_lock = NULL;
 		return (-1);
 	}
 	count = 0;
