@@ -11,16 +11,42 @@
 /* ************************************************************************** */
 #include "hook.h"
 #include "draw.h"
+#include <sys/time.h>
+
+static void	limit_fps(struct timeval start, struct timeval current, int fps_max);
+static size_t	diff_time(struct timeval start_time, struct timeval current_time);
 
 /**
  * @brief Update player params and calculate the next image to display
  */
 int	render_frame(t_cub *cub)
 {
+	struct timeval	start;
+	struct timeval	current;
+
+	gettimeofday(&start, NULL);
 	player_update(cub);
 	draw_background(cub);
 	draw_player_view(cub, PLAYER_FOV);
 	mlx_put_image_to_window(cub->mlx_data->mlx_ptr, cub->mlx_data->win_ptr,
 		cub->mlx_data->img_data.img, 0, 0);
+	gettimeofday(&current, NULL);
+	limit_fps(start, current, 60);
 	return (0);
+}
+
+static void	limit_fps(struct timeval start, struct timeval current, int fps_max)
+{
+	size_t			delta;
+	const size_t	usec_per_frame = 1000000 / fps_max;
+
+	delta = diff_time(start, current);
+	if (usec_per_frame > delta)
+		usleep(usec_per_frame - delta);
+}
+
+static size_t	diff_time(struct timeval start_time, struct timeval current_time)
+{
+	return ((size_t)(current_time.tv_sec - start_time.tv_sec) * 1000000
+			+ (current_time.tv_usec - start_time.tv_usec));
 }

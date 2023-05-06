@@ -20,6 +20,7 @@ void	client_status_destroy(pthread_mutex_t *client_status_lock);
  */
 int	cub_exit(t_cub *cub)
 {
+	mlx_mouse_show(cub->mlx_data->mlx_ptr, cub->mlx_data->win_ptr);
 	mlx_do_key_autorepeaton(cub->mlx_data->mlx_ptr);
 	close(cub->server_socket);
 	pthread_mutex_lock(cub->client_status.status_lock);

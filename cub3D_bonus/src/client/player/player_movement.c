@@ -42,16 +42,29 @@ void	player_update(t_cub *cub)
 
 static void	player_rotation_update(t_cub *cub)
 {
-	if (is_key_pressed(KEY_LEFT, cub) || is_key_pressed(KEY_RIGHT, cub))
+	static size_t	count = 0;
+	int 			x;
+	int 			y;
+
+	mlx_mouse_get_pos(cub->mlx_data->mlx_ptr, cub->mlx_data->win_ptr, &x, &y);
+	if (x != WIN_WIDTH / 2
+		|| is_key_pressed(KEY_LEFT, cub)
+		|| is_key_pressed(KEY_RIGHT, cub))
 	{
 		pthread_mutex_lock(cub->player_data.player_lock);
-		if (is_key_pressed(KEY_LEFT, cub))
-			cub->player_data.player.rotation = fvector_rotate(cub->player_data.player.rotation, -0.03f);
+		if (x != WIN_WIDTH / 2)
+			cub->player_data.player.rotation = fvector_rotate(cub->player_data.player.rotation, PLAYER_ROTATION / 100.0f * (x - (WIN_WIDTH / 2)));
+		else if (is_key_pressed(KEY_LEFT, cub))
+			cub->player_data.player.rotation = fvector_rotate(cub->player_data.player.rotation, -PLAYER_ROTATION);
 		else
-			cub->player_data.player.rotation = fvector_rotate(cub->player_data.player.rotation, 0.03f);
-		cub->player_data.camera = fvector_rotate(cub->player_data.player.rotation, M_PI_2);
+			cub->player_data.player.rotation = fvector_rotate(cub->player_data.player.rotation, PLAYER_ROTATION);
 		pthread_mutex_unlock(cub->player_data.player_lock);
+		cub->player_data.camera = fvector_rotate(cub->player_data.player.rotation, M_PI_2);
 	}
+	if (count % 2 == 0)
+		mlx_mouse_move(cub->mlx_data->mlx_ptr, cub->mlx_data->win_ptr,
+			WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	count++;
 }
 
 /**
