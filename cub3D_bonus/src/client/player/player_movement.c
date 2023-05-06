@@ -54,9 +54,9 @@ static void	player_rotation_update(t_cub *cub)
 		pthread_mutex_lock(cub->player_data.player_lock);
 		if (x != WIN_WIDTH / 2)
 			cub->player_data.player.rotation = fvector_rotate(cub->player_data.player.rotation, PLAYER_ROTATION / 100.0f * (x - (WIN_WIDTH / 2)));
-		else if (is_key_pressed(KEY_LEFT, cub))
+		if (is_key_pressed(KEY_LEFT, cub))
 			cub->player_data.player.rotation = fvector_rotate(cub->player_data.player.rotation, -PLAYER_ROTATION);
-		else
+		else if (is_key_pressed(KEY_RIGHT, cub))
 			cub->player_data.player.rotation = fvector_rotate(cub->player_data.player.rotation, PLAYER_ROTATION);
 		pthread_mutex_unlock(cub->player_data.player_lock);
 		cub->player_data.camera = fvector_rotate(cub->player_data.player.rotation, M_PI_2);
