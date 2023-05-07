@@ -22,12 +22,12 @@ int	cub_exit(t_cub *cub)
 {
 	mlx_mouse_show(cub->mlx_data->mlx_ptr, cub->mlx_data->win_ptr);
 	mlx_do_key_autorepeaton(cub->mlx_data->mlx_ptr);
-	close(cub->server_socket);
 	pthread_mutex_lock(cub->client_status.status_lock);
 	cub->client_status.status = ERROR;
 	pthread_mutex_unlock(cub->client_status.status_lock);
 	if (cub->thread != 0)
 		pthread_join(cub->thread, NULL);
+	close(cub->server_socket);
 	client_status_destroy(cub->client_status.status_lock);
 	map_clear(&cub->map);
 	mlx_data_destroy(cub->mlx_data);

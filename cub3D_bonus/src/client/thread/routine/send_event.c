@@ -41,8 +41,6 @@ void	take_collectible(char cell, t_player_data *player_data)
 	pthread_mutex_lock(player_data->player_lock);
 	while (id != collectible_id[index])
 		index++;
-	printf("%d\n", player_data->player_status.ammo);
 	take_function[index](&player_data->player_status);
-	printf("%d\n", player_data->player_status.ammo);
 	pthread_mutex_unlock(player_data->player_lock);
 }
