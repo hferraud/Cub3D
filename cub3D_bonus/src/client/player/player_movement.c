@@ -15,7 +15,6 @@
 static void			player_rotation_update(t_cub *cub);
 static void			player_position_update(t_cub *cub);
 static t_fvector	new_position_calculate(t_cub *cub);
-static int			is_valid_position(t_cub *cub, float x, float y);
 static int			player_moved(t_player before, t_player current);
 static int			is_valid_cell(char cell);
 
@@ -138,7 +137,7 @@ static t_fvector	new_position_calculate(t_cub *cub)
 	return (new_pos);
 }
 
-static int	is_valid_position(t_cub *cub, float x, float y)
+int	is_valid_position(t_cub *cub, float x, float y)
 {
 	char	**map;
 

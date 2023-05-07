@@ -14,7 +14,7 @@
 #include "cub.h"
 #include "draw.h"
 
-static t_draw_param	get_draw_param(t_cub *cub, t_fvector camera);
+static t_draw_param	get_draw_param(t_cub *cub, t_fvector camera, t_collectible collectible);
 static t_fvector	camera_projection(t_cub *cub, t_collectible collectible);
 
 void	draw_collectible(t_cub *cub, t_collectible collectible, const float *z_buffer)
@@ -25,19 +25,19 @@ void	draw_collectible(t_cub *cub, t_collectible collectible, const float *z_buff
 	camera = camera_projection(cub, collectible);
 	if (camera.y > 0)
 	{
-		draw_param = get_draw_param(cub, camera);
+		draw_param = get_draw_param(cub, camera, collectible);
 		draw_sprite(cub, draw_param, z_buffer, camera.y);
 	}
 }
 
-static t_draw_param	get_draw_param(t_cub *cub, t_fvector camera)
+static t_draw_param	get_draw_param(t_cub *cub, t_fvector camera, t_collectible collectible)
 {
 	t_draw_param	dp;
 	int				scale;
 
-	dp.sprite = cub->mlx_data->collectible_sprite[PISTOL_ID];
-	dp.width = WIN_HEIGHT / (camera.y * 4);
-	dp.height = WIN_HEIGHT / (camera.y * 4);
+	dp.sprite = cub->mlx_data->collectible_sprite[collectible.id];
+	dp.width = dp.sprite.width * 8.f / camera.y;
+	dp.height = dp.sprite.height * 8.f / camera.y;
 	dp.screen.x = (WIN_WIDTH / 2.f) * (1 + camera.x / camera.y);
 	dp.draw_start.x = dp.screen.x - dp.width / 2;
 	dp.draw_end.x = dp.screen.x + dp.width / 2;

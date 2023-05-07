@@ -63,7 +63,6 @@ static int	mlx_collectible_sprite_init(t_mlx_data *mlx_data)
 		if (sprite->img_data.img == NULL)
 			return (-1);
 		index++;
-		index++;
 	}
 	return (0);
 }

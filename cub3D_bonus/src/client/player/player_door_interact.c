@@ -43,7 +43,13 @@ void	player_door_interact(t_cub *cub)
 static void	door_interact(t_cub *cub, t_vector map_pos)
 {
 	if (cub->map.map[map_pos.x][map_pos.y] == DOOR_OPEN)
+	{
 		cub->map.map[map_pos.x][map_pos.y] = DOOR_CLOSE;
+		pthread_mutex_lock(cub->player_data.player_lock);
+		if (!is_valid_position(cub, cub->player_data.player.pos.x, cub->player_data.player.pos.y))
+			cub->map.map[map_pos.x][map_pos.y] = DOOR_OPEN;
+		pthread_mutex_unlock(cub->player_data.player_lock);
+	}
 	else
 		cub->map.map[map_pos.x][map_pos.y] = DOOR_OPEN;
 }

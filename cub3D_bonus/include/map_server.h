@@ -17,15 +17,7 @@
 # include "texture.h"
 # include "error.h"
 # include "libft.h"
-
-# define FLOOR			'0'
-# define WALL			'1'
-# define DOOR_CLOSE		'C'
-# define DOOR_OPEN		'O'
-# define LIFE_PACK		'L'
-# define AMMO			'A'
-# define PISTOL			'P'
-# define ASSAULT_RIFLE	'R'
+#include "define.h"
 
 typedef struct s_map		t_map;
 typedef struct s_spawn		t_spawn;

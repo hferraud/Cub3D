@@ -26,7 +26,7 @@ int	is_valid_map_list(t_list *head)
 		row = (char *) head->content;
 		while (*row)
 		{
-			if (!is_in_charset(*row, " 01CONSEWLAGRP\n"))
+			if (!is_in_charset(*row, " 01CONSEWMARP\n"))
 				return (0);
 			row++;
 		}

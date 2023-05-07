@@ -28,9 +28,9 @@ void draw_sprites(t_cub *cub, const float *z_buffer)
 	collectible_data = cub->map.collectible_data;
     i = 0;
     j = 0;
-	while (i < PLAYER_LIMIT - 1 || j < collectible_data.size)
+	while (i < PLAYER_LIMIT - 1 &&  j < collectible_data.size)
 	{
-		if (j > collectible_data.size || (i < PLAYER_LIMIT - 1 && enemies[i].dist > collectible_data.collectible[j].dist))
+		if (enemies[i].dist > collectible_data.collectible[j].dist)
 		{
 			draw_enemy(cub, enemies[i], z_buffer);
 			i++;
@@ -40,6 +40,16 @@ void draw_sprites(t_cub *cub, const float *z_buffer)
 			draw_collectible(cub, collectible_data.collectible[j], z_buffer);
 			j++;
 		}
+	}
+	while (i < PLAYER_LIMIT - 1)
+	{
+		draw_enemy(cub, enemies[i], z_buffer);
+		i++;
+	}
+	while (j < collectible_data.size)
+	{
+		draw_collectible(cub, collectible_data.collectible[j], z_buffer);
+		j++;
 	}
 }
 

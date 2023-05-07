@@ -12,6 +12,15 @@
 #ifndef DEFINE_H
 # define DEFINE_H
 
+# define FLOOR			'0'
+# define WALL			'1'
+# define DOOR_CLOSE		'C'
+# define DOOR_OPEN		'O'
+# define MEDIC_KIT		'M'
+# define AMMO			'A'
+# define PISTOL			'P'
+# define ASSAULT_RIFLE	'R'
+
 # define SOCK_SUCCESS		"0"
 # define SOCK_ERROR			"1"
 # define FILE_EXIST			"2"
