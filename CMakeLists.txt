@@ -197,4 +197,4 @@ add_executable(Cub3D
         minilibx/mlx_screen_size.c
         minilibx/mlx_set_font.c
         minilibx/mlx_string_put.c
-        minilibx/mlx_xpm.c cub3D_bonus/include/weapons_data.h cub3D_bonus/src/client/player/collectible_dist.c cub3D_bonus/src/client/player/position_utils.c)
+        minilibx/mlx_xpm.c cub3D_bonus/include/weapons_data.h cub3D_bonus/src/client/player/collectible_dist.c cub3D_bonus/src/client/player/position_utils.c cub3D_bonus/src/client/player/player_hit_collectible.c cub3D_bonus/src/client/thread/routine/send_event.c cub3D_bonus/src/client/thread/routine/take_collectible.c cub3D_bonus/src/server/thread/routines/in_game_routine/manage_event.c cub3D_bonus/src/utils/collectible.c)

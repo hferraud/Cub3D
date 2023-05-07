@@ -19,12 +19,10 @@ typedef enum e_event_id			t_event_id;
 
 enum	e_event_id
 {
-	EVENT_DOOR_INTERACTION,
+	EVENT_OPEN_DOOR,
+	EVENT_CLOSE_DOOR,
 	EVENT_DEATH,
-	EVENT_TAKE_MEDIC_KIT,
-	EVENT_TAKE_AMMO,
-	EVENT_TAKE_PISTOL,
-	EVENT_TAKE_ASSAULT,
+	EVENT_TAKE_COLLECTIBLE,
 };
 
 struct s_event

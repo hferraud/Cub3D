@@ -22,8 +22,8 @@
 # include <stdio.h>
 
 # define LIFE_MAX		100
-# define BULLET_DEFAULT	30
-# define BULLET_MAX		120
+# define AMMO_DEFAULT	30
+# define AMMO_MAX		120
 # define MEDIC_LIFE		50
 # define AMMO_PACK		60
 
@@ -42,7 +42,7 @@ struct s_player_status
 	int		life;
 	int		weapon_equipped;
 	bool	weapons[NB_WEAPONS];
-	int		bullet;
+	int		ammo;
 };
 
 struct s_player_data
@@ -61,6 +61,13 @@ int		thread_init(t_cub *cub);
 int		player_data_init(t_player_data *player_data);
 void	player_data_destroy(t_player_data *player_data);
 int		listening_response(int server_socket, t_player_data *player_data);
+int 	send_take_collectible_event(int server_socket, t_event event,
+			t_player_data *player_data);
 int 	send_response(int server_socket, t_cub *cub);
+
+void	take_medic_kit(t_player_status *player_status);
+void	take_ammo(t_player_status *player_status);
+void	take_pistol(t_player_status *player_status);
+void	take_assault_riffle(t_player_status *player_status);
 
 #endif

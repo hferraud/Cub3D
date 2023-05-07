@@ -17,15 +17,6 @@
 # include "libft.h"
 # include "collectible.h"
 
-# define FLOOR			'0'
-# define WALL			'1'
-# define DOOR_CLOSE		'C'
-# define DOOR_OPEN		'O'
-# define LIFE_PACK		'L'
-# define AMMO			'A'
-# define PISTOL			'P'
-# define ASSAULT_RIFLE	'R'
-
 # define DIR_SPRITE		"asset/"
 
 typedef struct s_map_client			t_map_client;

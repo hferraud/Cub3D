@@ -22,8 +22,7 @@
 # define ASSAULT_RIFFLE_PATH	"asset/assault_riffle.xpm"
 
 # define NB_COLLECTIBLE		4
-# define MEDIC_KIT_OFFSET	0.1
-# define AMMO_OFFSET		0.1
+# define COLLECTIBLE_OFFSET	0.15
 
 typedef enum e_collectible_id		t_collectible_id;
 typedef struct s_collectible		t_collectible;

@@ -13,14 +13,11 @@
 #include "hook.h"
 #include "player.h"
 
-void collectible_set_dist(t_cub *cub);
+void 	collectible_set_dist(t_cub *cub);
 void	sort_collectible(t_cub *cub);
 
 static void			player_rotation_update(t_cub *cub);
 static void			player_position_update(t_cub *cub);
-static t_fvector	new_position_calculate(t_cub *cub);
-static int			is_valid_position(t_cub *cub, float x, float y);
-static int			player_moved(t_player before, t_player current);
 
 /**
  * @brief Update the position and rotation of the player
@@ -42,6 +39,10 @@ void	player_update(t_cub *cub)
 		pthread_mutex_lock(cub->player_data.update_lock);
 		cub->player_data.update = true;
 		pthread_mutex_unlock(cub->player_data.update_lock);
+		if ((save.pos.x != cub->player_data.player.pos.x
+			|| save.pos.y != cub->player_data.player.pos.y)
+			&& player_hit_collectible(cub))
+			add_event_take_collectible(cub);
 	}
 	pthread_mutex_unlock(cub->player_data.player_lock);
 }
@@ -112,52 +113,4 @@ static void	player_position_update(t_cub *cub)
 		}
 	}
 	pthread_mutex_unlock(cub->player_data.player_lock);
-}
-
-static t_fvector	new_position_calculate(t_cub *cub)
-{
-	t_fvector	new_pos;
-	t_fvector	rotation;
-
-	new_pos = cub->player_data.player.pos;
-	rotation = cub->player_data.player.rotation;
-	if (is_key_pressed(KEY_W, cub))
-		new_pos = fvector_add(new_pos, fvector_mul(rotation, PLAYER_MOVE));
-	if (is_key_pressed(KEY_S, cub))
-	{
-		rotation = fvector_rotate(rotation, M_PI);
-		new_pos = fvector_add(new_pos, fvector_mul(rotation, PLAYER_MOVE));
-	}
-    rotation = cub->player_data.player.rotation;
-	if (is_key_pressed(KEY_D, cub))
-	{
-		rotation = fvector_rotate(rotation, M_PI_2);
-		new_pos = fvector_add(new_pos, fvector_mul(rotation, PLAYER_MOVE));
-	}
-    rotation = cub->player_data.player.rotation;
-	if (is_key_pressed(KEY_A, cub))
-	{
-		rotation = fvector_rotate(rotation, -M_PI_2);
-		new_pos = fvector_add(new_pos, fvector_mul(rotation, PLAYER_MOVE));
-	}
-	return (new_pos);
-}
-
-static int	is_valid_position(t_cub *cub, float x, float y)
-{
-	char	**map;
-
-	map = cub->map.map;
-	return (map[(int)(y - PLAYER_OFFSET)][(int)(x - PLAYER_OFFSET)] == FLOOR
-		&& map[(int)(y - PLAYER_OFFSET)][(int)(x + PLAYER_OFFSET)] == FLOOR
-		&& map[(int)(y + PLAYER_OFFSET)][(int)(x + PLAYER_OFFSET)] == FLOOR
-		&& map[(int)(y + PLAYER_OFFSET)][(int)(x - PLAYER_OFFSET)] == FLOOR);
-}
-
-static int	player_moved(t_player before, t_player current)
-{
-	return (before.pos.x != current.pos.x
-		|| before.pos.y != current.pos.y
-		|| before.rotation.x != current.rotation.x
-		|| before.rotation.y != current.rotation.y);
 }

@@ -65,7 +65,8 @@ static t_player_status	player_status_init(void)
 	player_status.life = LIFE_MAX;
 	player_status.weapons[KNIFE_INDEX] = true;
 	player_status.weapons[PISTOL_INDEX] = false;
-	player_status.bullet = BULLET_DEFAULT;
+	player_status.weapons[ASSAULT_RIFLE_INDEX] = false;
+	player_status.ammo = AMMO_DEFAULT;
 	return (player_status);
 }
 
