@@ -16,6 +16,9 @@ static	void sprites_init(t_cub *cub, t_player *player, t_enemy *enemies);
 
 static void			draw_stripe(t_cub *cub, t_draw_param dp);
 
+/**
+ * @brief Draw all the sprites from nearest to the further away
+ */
 void draw_sprites(t_cub *cub, const float *z_buffer)
 {
 	t_player 			player;
@@ -53,6 +56,9 @@ void draw_sprites(t_cub *cub, const float *z_buffer)
 	}
 }
 
+/**
+ * @brief Initialize and sort the collectible and enemy array
+ */
 static	void sprites_init(t_cub *cub, t_player *player, t_enemy *enemies)
 {
 	pthread_mutex_lock(cub->player_data.player_lock);
@@ -81,6 +87,9 @@ void	draw_sprite(t_cub *cub, t_draw_param dp, const float *z_buffer, const float
 	}
 }
 
+/**
+ * @brief Draw the vertical stripe of a sprite
+ */
 static void	draw_stripe(t_cub *cub, t_draw_param dp)
 {
 	dp.screen.y = dp.draw_start.y;

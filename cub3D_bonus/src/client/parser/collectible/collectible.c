@@ -21,6 +21,9 @@ t_collectible	collectible_init(t_collectible_id id, t_fvector pos)
 	return (collectible);
 }
 
+/**
+ * @brief Get the collectible id from the map cell
+ */
 t_collectible_id	collectible_id_get(char cell)
 {
 	const t_collectible_id	id[4]

@@ -13,7 +13,7 @@
 #include "raycasting.h"
 
 /**
- * @brief Draws the player's vision on an image of the mlx
+ * @brief Draws the player's vision on a mlx image
  */
 void	draw_player_view(t_cub *cub, float fov)
 {
@@ -37,6 +37,5 @@ void	draw_player_view(t_cub *cub, float fov)
 		draw_wall(cub, screen_x, ray);
 		screen_x++;
 	}
-	//TODO: CHECK RETURN
 	draw_sprites(cub, z_buffer);
 }

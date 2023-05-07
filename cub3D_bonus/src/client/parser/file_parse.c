@@ -15,13 +15,16 @@ static int	filename_parse(char **path, int server_socket);
 static int	file_request(char *path, int server_socket);
 static int	file_receive(int file_fd, int server_socket);
 
+/**
+ * Receive and parse a file send by the server
+ * @return
+ */
 int	file_parse(t_map_client *map, int server_socket)
 {
 	t_texture_id	id;
 	int				file_fd;
 	int				req_code;
 
-    //TODO O3
 	id = 0;
 	while (id != UNDEFINED_ID)
 	{
@@ -47,6 +50,10 @@ int	file_parse(t_map_client *map, int server_socket)
 	return (0);
 }
 
+/**
+ * @brief Receive the filename from the server
+ * @return 0 on success, -1 otherwise
+ */
 static int	filename_parse(char **path, int server_socket)
 {
 	size_t	size;
@@ -94,6 +101,10 @@ static int	file_request(char *path, int server_socket)
 	return (1);
 }
 
+/**
+ * @brief Receive the file requested from the server
+ * @return 0 on success, -1 otherwise
+ */
 static int	file_receive(int file_fd, int server_socket)
 {
 	ssize_t	size;

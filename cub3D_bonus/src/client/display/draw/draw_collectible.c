@@ -30,6 +30,9 @@ void	draw_collectible(t_cub *cub, t_collectible collectible, const float *z_buff
 	}
 }
 
+/**
+ * @brief Get the parameters needed to draw the sprite
+ */
 static t_draw_param	get_draw_param(t_cub *cub, t_fvector camera, t_collectible collectible)
 {
 	t_draw_param	dp;
@@ -47,6 +50,9 @@ static t_draw_param	get_draw_param(t_cub *cub, t_fvector camera, t_collectible c
 	return (dp);
 }
 
+/**
+ * @brief Project the sprite in camera space
+ */
 static t_fvector	camera_projection(t_cub *cub, t_collectible collectible)
 {
 	t_fvector	camera;
@@ -86,7 +92,7 @@ void collectible_set_dist(t_cub *cub, t_player player)
 }
 
 /**
- * @brief Sort all collectibles from the nearest to the further away of the player
+ * @brief Sort all collectibles from the most far away to the nearest of the player
  */
 void	collectible_sort(t_cub *cub)
 {
