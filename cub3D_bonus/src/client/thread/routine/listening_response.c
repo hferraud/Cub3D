@@ -39,25 +39,17 @@ int	listening_response(int server_socket, t_player_data *player_data)
 	pthread_mutex_lock(player_data->update_lock);
 	player_data->update = false;
 	pthread_mutex_unlock(player_data->update_lock);
-	pthread_mutex_lock(player_data->events_lock);
 	if (player_data->events == NULL)
 	{
 		if (write(server_socket, UP_TO_DATE, LENGTH_REQUEST) == -1)
-		{
-			pthread_mutex_unlock(player_data->events_lock);
 			return (cub_error(SERVER_LOST));
-		}
 	}
 	else
 	{
 		if (write(server_socket, UPDATE, LENGTH_REQUEST) == -1
 			|| send_events(server_socket, player_data) == -1)
-		{
-			pthread_mutex_unlock(player_data->events_lock);
 			return (cub_error(SERVER_LOST));
-		}
 	}
-	pthread_mutex_unlock(player_data->events_lock);
 	return (0);
 }
 
