@@ -55,10 +55,12 @@ void		draw_player_view(t_cub *cub);
 
 /* --- DRAW UTILS FUNCTIONS --- */
 
-void		collectible_set_dist(t_cub *cub, t_player player);
-void		collectible_sort(t_cub *cub);
-void		enemies_set_dist(t_cub *cub, t_enemy *enemies, t_player player);
-void		enemies_sort(t_enemy *enemies);
+void			collectible_set_dist(t_cub *cub, t_player player);
+void			collectible_sort(t_cub *cub);
+void			enemies_set_dist(t_cub *cub, t_enemy *enemies, t_player player);
+void			enemies_sort(t_enemy *enemies);
+t_draw_param	enemy_get_draw_param(t_cub *cub, t_fvector camera);
+t_fvector		enemy_camera_projection(t_cub *cub, t_enemy enemy);
 
 /* --- POINT_UTILS FUNCTIONS --- */
 

@@ -38,6 +38,8 @@ static void	add_key_press(int key_code, t_cub *cub)
 	}
 	if (key_code == KEY_F)
 		player_door_interact(cub);
+	if (key_code == KEY_SPC)
+		player_shoot(cub);
 }
 
 int	is_key_pressed(int key_code, t_cub *cub)
