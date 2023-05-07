@@ -17,7 +17,7 @@
 
 # define PLAYER_OFFSET		0.2
 # define PLAYER_FOV			M_PI_2
-# define PLAYER_MOVE		0.025f
+# define PLAYER_MOVE		0.1f
 # define PLAYER_ROTATION	0.03f
 # define UNCERTAINTY		0.001f
 
@@ -32,5 +32,6 @@ struct s_player
 typedef struct s_cub	t_cub;
 
 void	player_update(t_cub *cub);
+void	player_door_interact(t_cub *cub);
 
 #endif

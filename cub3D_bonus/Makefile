@@ -86,6 +86,7 @@ SRC_CLIENT	=		error.c	\
 					\
 						client/player/player_pos_init.c	\
 						client/player/player_movement.c	\
+						client/player/player_door_interact.c	\
 					\
 						client/mlx_handler/initialization/mlx_data_init.c		\
 						client/mlx_handler/initialization/mlx_sprite_init.c	\
