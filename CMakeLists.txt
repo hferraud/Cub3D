@@ -197,4 +197,4 @@ add_executable(Cub3D
         minilibx/mlx_screen_size.c
         minilibx/mlx_set_font.c
         minilibx/mlx_string_put.c
-        minilibx/mlx_xpm.c cub3D_bonus/src/client/display/draw/draw_enemy.c cub3D/include/map.h cub3D_bonus/src/client/player/player_door_interact.c)
+        minilibx/mlx_xpm.c cub3D_bonus/src/client/display/draw/draw_enemy.c cub3D/include/map.h cub3D_bonus/src/client/player/player_door_interact.c cub3D_bonus/src/client/player/player_shoot.c)

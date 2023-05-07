@@ -87,6 +87,7 @@ SRC_CLIENT	=		error.c	\
 						client/player/player_pos_init.c	\
 						client/player/player_movement.c	\
 						client/player/player_door_interact.c	\
+						client/player/player_shoot.c	\
 					\
 						client/mlx_handler/initialization/mlx_data_init.c		\
 						client/mlx_handler/initialization/mlx_sprite_init.c	\
@@ -143,7 +144,7 @@ DEPS		=		$(addprefix $(BUILD_DIR), $(SRC_SERVER:.c=.d))	\
 #	FLAGS
 #######################
 
-CFLAGS		=		-Wall -Werror -Wextra -O3
+CFLAGS		=		-Wall -Werror -Wextra -g3
 IFLAGS		=		-I $(INC_DIR) -I $(LIBFT_DIR)include -I $(MLX_DIR)
 
 LFLAGS		=		-L $(LIBFT_DIR) -lft -lm -lpthread

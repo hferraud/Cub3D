@@ -12,9 +12,6 @@
 #include "cub.h"
 #include "draw.h"
 
-static t_draw_param	get_draw_param(t_cub *cub, t_fvector camera);
-static t_fvector	camera_projection(t_cub *cub, t_enemy enemy);
-
 void	draw_enemy(t_cub *cub, t_enemy enemy, const float *z_buffer)
 {
 	t_draw_param	draw_param;
@@ -22,10 +19,10 @@ void	draw_enemy(t_cub *cub, t_enemy enemy, const float *z_buffer)
 
 	if (enemy.id == -1)
 		return ;
-	camera = camera_projection(cub, enemy);
+	camera = enemy_camera_projection(cub, enemy);
 	if (camera.y > 0)
 	{
-		draw_param = get_draw_param(cub, camera);
+		draw_param = enemy_get_draw_param(cub, camera);
 		draw_sprite(cub, draw_param, z_buffer, camera.y);
 	}
 }
@@ -33,7 +30,7 @@ void	draw_enemy(t_cub *cub, t_enemy enemy, const float *z_buffer)
 /**
  * @brief Get the parameters needed to draw the sprite
  */
-static t_draw_param	get_draw_param(t_cub *cub, t_fvector camera)
+t_draw_param	enemy_get_draw_param(t_cub *cub, t_fvector camera)
 {
 	t_draw_param	dp;
 	int				scale;
@@ -53,7 +50,7 @@ static t_draw_param	get_draw_param(t_cub *cub, t_fvector camera)
 /**
  * @brief Project the sprite in camera space
  */
-static t_fvector	camera_projection(t_cub *cub, t_enemy enemy)
+t_fvector	enemy_camera_projection(t_cub *cub, t_enemy enemy)
 {
 	t_fvector	camera;
 	float		inverse_det;
@@ -83,6 +80,7 @@ void	enemies_set_dist(t_cub *cub, t_enemy *enemies, t_player player)
 	while (i < PLAYER_LIMIT - 1)
 	{
 		pthread_mutex_lock(cub->enemies_lock);
+		enemies[i].id = cub->enemies[i].id;
 		enemies[i].player = cub->enemies[i].player;
 		enemies[i].relative_pos = fvector_sub(player.pos,
 				enemies[i].player.pos);
@@ -112,7 +110,8 @@ void	enemies_sort(t_enemy *enemies)
 		i = 1;
 		while (i < PLAYER_LIMIT - 1)
 		{
-			if (enemies[i - 1].id == -1 ||  enemies[i].dist > enemies[i - 1].dist)
+			if (!(enemies[i - 1].id == -1 && enemies[i].id == -1)
+				&& (enemies[i - 1].id == -1 ||  enemies[i].dist > enemies[i - 1].dist))
 			{
 				flag = true;
 				tmp = enemies[i];
