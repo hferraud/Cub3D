@@ -26,15 +26,6 @@
 # define FILE_EXIST			"2"
 # define SOCK_BUFFER_SIZE	1028
 
-# define FLOOR			'0'
-# define WALL			'1'
-# define DOOR_CLOSE		'C'
-# define DOOR_OPEN		'O'
-# define LIFE_PACK		'L'
-# define AMMO			'A'
-# define PISTOL			'P'
-# define ASSAULT_RIFLE	'R'
-
 # define PLAYER_LIMIT	10
 
 # define LISTEN_REQUEST			"1"
