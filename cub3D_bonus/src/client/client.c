@@ -38,9 +38,9 @@ int	main(int argc, char **argv)
 		return (close(cub.server_socket), 1);
 	if (thread_init(&cub) == -1)
 		cub_exit(&cub);
-	mlx_mouse_hide(cub.mlx_data->mlx_ptr, cub.mlx_data->win_ptr);
-	mlx_mouse_move(cub.mlx_data->mlx_ptr, cub.mlx_data->win_ptr,
-		WIN_WIDTH / 2, WIN_HEIGHT / 2);
+//	mlx_mouse_hide(cub.mlx_data->mlx_ptr, cub.mlx_data->win_ptr);
+//	mlx_mouse_move(cub.mlx_data->mlx_ptr, cub.mlx_data->win_ptr,
+//		WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	mlx_loop_hook(cub.mlx_data->mlx_ptr, render_frame, &cub);
 	mlx_loop(cub.mlx_data->mlx_ptr);
 }
