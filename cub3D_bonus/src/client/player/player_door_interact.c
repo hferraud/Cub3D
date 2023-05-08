@@ -21,8 +21,8 @@ void	player_door_interact(t_cub *cub)
 	t_vector	map_scan;
 
 	pthread_mutex_lock(cub->player_data.player_lock);
-	map_scan.y = (int)cub->player_data.player.pos.x;
-	map_scan.x = (int)cub->player_data.player.pos.y;
+	map_scan.y = (int)cub->player_data.player.pos.y;
+	map_scan.x = (int)cub->player_data.player.pos.x;
 	pthread_mutex_unlock(cub->player_data.player_lock);
 	map_scan.x -= 1;
 	if (is_door(cub, map_scan))
@@ -38,20 +38,32 @@ void	player_door_interact(t_cub *cub)
 	map_scan.x += 1;
 	if (is_door(cub, map_scan))
 		door_interact(cub, map_scan);
-	player_update(cub);
 }
 
 static void	door_interact(t_cub *cub, t_vector map_pos)
 {
-	if (cub->map.map[map_pos.x][map_pos.y] == DOOR_OPEN)
+	char	door_state;
+	bool	change_state;
+
+	change_state = true;
+	if (cub->map.map[map_pos.y][map_pos.x] == DOOR_OPEN)
 	{
-		cub->map.map[map_pos.x][map_pos.y] = DOOR_CLOSE;
+		cub->map.map[map_pos.y][map_pos.x] = DOOR_CLOSE;
 		if (!is_door_closable(cub))
-			cub->map.map[map_pos.x][map_pos.y] = DOOR_OPEN;
+		{
+			door_state = DOOR_OPEN;
+			change_state = false;
+		}
+		else
+			door_state = DOOR_CLOSE;
 	}
 	else
-		cub->map.map[map_pos.x][map_pos.y] = DOOR_OPEN;
+		door_state = DOOR_OPEN;
+	cub->map.map[map_pos.y][map_pos.x] = door_state;
+	if (change_state)
+		add_door_event(cub, map_pos, door_state);
 }
+
 
 static bool is_door_closable(t_cub *cub)
 {
@@ -86,6 +98,6 @@ static bool	is_door(t_cub *cub, t_vector map_scan)
 {
 	char	cell;
 
-	cell = cub->map.map[map_scan.x][map_scan.y];
+	cell = cub->map.map[map_scan.y][map_scan.x];
 	return (cell == DOOR_OPEN || cell == DOOR_CLOSE);
 }

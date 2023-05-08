@@ -42,7 +42,7 @@ void	player_update(t_cub *cub)
 		if ((save.pos.x != cub->player_data.player.pos.x
 			|| save.pos.y != cub->player_data.player.pos.y)
 			&& player_hit_collectible(cub))
-			add_event_take_collectible(cub);
+			add_collectible_event(cub);
 	}
 	pthread_mutex_unlock(cub->player_data.player_lock);
 }

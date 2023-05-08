@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   manage_event.c                                     :+:      :+:    :+:   */
+/*   event_router.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelage <edelage@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,13 +13,35 @@
 #include "players_data.h"
 #include "collectible.h"
 
-static int event_take_collectible(int client_socket, t_event event, t_server_data *server_data);
+static int 	event_take_collectible(int client_socket, t_event event, t_server_data *server_data);
+static int 	event_door(int client_socket, t_event event, t_server_data *server_data);
 static int	send_event_to_other_player(int event_client_socket, t_event event, t_server_data *server_data);
 
-int	manage_event(int client_socket, t_event event, t_server_data *server_data)
+int	event_router(int client_socket, t_event event, t_server_data *server_data)
 {
 	if (event.id == EVENT_TAKE_COLLECTIBLE)
 		return (event_take_collectible(client_socket, event, server_data));
+	if (event.id == EVENT_OPEN_DOOR || event.id == EVENT_CLOSE_DOOR)
+		return (event_door(client_socket, event, server_data));
+	return (0);
+}
+
+static int event_door(int client_socket, t_event event, t_server_data *server_data)
+{
+	char	*cell;
+
+	(void) client_socket;
+	pthread_mutex_lock(server_data->map_lock);
+	cell = &server_data->map->map[event.position.y][event.position.x];
+	if ((event.id == EVENT_CLOSE_DOOR && *cell == DOOR_OPEN)
+		|| (event.id == EVENT_OPEN_DOOR && *cell == DOOR_CLOSE))
+	{
+		if (event.id == EVENT_CLOSE_DOOR)
+			*cell = DOOR_CLOSE;
+		else
+			*cell = DOOR_OPEN;
+	}
+	pthread_mutex_unlock(server_data->map_lock);
 	return (0);
 }
 

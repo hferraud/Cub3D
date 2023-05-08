@@ -106,7 +106,7 @@ add_executable(42_Cub3D
         cub3D_bonus/src/server/thread/routines/in_game_routine/event_request.c
         cub3D_bonus/src/server/thread/routines/in_game_routine/in_game_routine.c
         cub3D_bonus/src/server/thread/routines/in_game_routine/listening_request.c
-        cub3D_bonus/src/server/thread/routines/in_game_routine/manage_event.c
+        cub3D_bonus/src/server/thread/routines/in_game_routine/event_router.c
         cub3D_bonus/src/server/thread/routines/in_game_routine/send_request.c
         cub3D_bonus/src/server/server.c
         cub3D_bonus/src/utils/socket/port_get.c
@@ -210,4 +210,5 @@ add_executable(42_Cub3D
         minilibx/mlx_string_put.c
         minilibx/mlx_xpm.c
         cub3D_bonus/src/client/display/draw/hud/draw_minimap.c
-        cub3D_bonus/include/hud.h)
+        cub3D_bonus/include/hud.h
+        minilibx/mlx_xpm.c cub3D_bonus/src/client/event/event_new.c cub3D_bonus/src/client/event/add_event.c)

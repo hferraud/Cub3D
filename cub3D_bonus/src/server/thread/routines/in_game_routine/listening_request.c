@@ -57,7 +57,7 @@ static int	listen_events(int client_socket, t_server_data *server_data)
 	{
 		if (listen_event(client_socket, &event) == -1)
 			return (-1);
-		if (manage_event(client_socket, event, server_data) == -1)
+		if (event_router(client_socket, event, server_data) == -1)
 			return (-1);
 		if (read(client_socket, &buf, sizeof(char)) <= 0)
 			return (cub_error(CLIENT_LOST));

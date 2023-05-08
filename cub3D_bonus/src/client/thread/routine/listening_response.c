@@ -69,7 +69,13 @@ int	send_events(int server_socket, t_player_data *player_data)
 			return (-1);
 		if (current_event->id == EVENT_TAKE_COLLECTIBLE)
 		{
-			if (send_take_collectible_event(server_socket, *current_event, player_data) == -1)
+			if (send_collectible_event(server_socket, *current_event,
+									   player_data) == -1)
+				return (-1);
+		}
+		else if (current_event->id == EVENT_OPEN_DOOR || current_event->id == EVENT_CLOSE_DOOR)
+		{
+			if (send_door_event(server_socket, *current_event) == -1)
 				return (-1);
 		}
 		current = current->next;
