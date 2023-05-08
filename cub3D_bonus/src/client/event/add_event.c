@@ -50,7 +50,6 @@ void add_door_event(t_cub *cub, t_vector map_pos, char door_state)
 		event.id = EVENT_OPEN_DOOR;
 	else
 		event.id = EVENT_CLOSE_DOOR;
-	printf("%d: %d, %d\n", event.id, map_pos.x, map_pos.y);
 	event.position.x = map_pos.x;
 	event.position.y = map_pos.y;
 	add_event(cub, event);
