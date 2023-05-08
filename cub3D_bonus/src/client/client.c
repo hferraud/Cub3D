@@ -74,16 +74,3 @@ void	client_status_destroy(pthread_mutex_t *client_status_lock)
 	pthread_mutex_destroy(client_status_lock);
 	free(client_status_lock);
 }
-
-//static void	print_map(t_map_client map)
-//{
-//	size_t	i;
-//
-//	i = 0;
-//	while (map.map[i])
-//	{
-//		printf("%s\n", map.map[i]);
-//		i++;
-//	}
-//	printf("spawn:\nx: %zu\ny: %zu\nor: %c\n", map.spawn.x, map.spawn.y, map.spawn.orientation);
-//}

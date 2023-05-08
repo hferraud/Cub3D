@@ -13,6 +13,7 @@
 
 static int				mutexes_init(t_player_data *player_data);
 static pthread_mutex_t	*mutex_init(void);
+static t_player_status	player_status_init(void);
 static void				player_data_set_to_default(t_player_data *player_data);
 
 int	player_data_init(t_player_data *player_data)
@@ -24,6 +25,7 @@ int	player_data_init(t_player_data *player_data)
 		player_data_set_to_default(player_data);
 		return (perror("player_data_init()"), -1);
 	}
+	player_data->player_status = player_status_init();
 	return (0);
 }
 
@@ -54,6 +56,18 @@ static pthread_mutex_t	*mutex_init(void)
 		return (NULL);
 	}
 	return (mutex);
+}
+
+static t_player_status	player_status_init(void)
+{
+	t_player_status	player_status;
+
+	player_status.life = LIFE_MAX;
+	player_status.weapons[KNIFE_INDEX] = true;
+	player_status.weapons[PISTOL_INDEX] = false;
+	player_status.weapons[ASSAULT_RIFLE_INDEX] = false;
+	player_status.ammo = AMMO_DEFAULT;
+	return (player_status);
 }
 
 static void	player_data_set_to_default(t_player_data *player_data)

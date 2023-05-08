@@ -9,7 +9,6 @@
 /*   Updated: 2023/03/13 23:23:00 by edelage          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdbool.h>
 #include "collectible.h"
 #include "cub.h"
 #include "draw.h"
@@ -70,53 +69,4 @@ static t_fvector	camera_projection(t_cub *cub, t_collectible collectible)
 			-cub->player_data.camera.y * collectible.relative_pos.x
 			+ cub->player_data.camera.x * collectible.relative_pos.y);
 	return (camera);
-}
-
-/**
- * @brief Set the distance from the player of all collectibles
- */
-void collectible_set_dist(t_cub *cub, t_player player)
-{
-	t_collectible	*collectible;
-	size_t			i;
-
-	collectible = cub->map.collectible_data.collectible;
-	i = 0;
-	while (i < cub->map.collectible_data.size)
-	{
-		collectible[i].relative_pos = fvector_sub(player.pos, collectible[i].pos);
-		collectible[i].dist = collectible[i].relative_pos.x * collectible[i].relative_pos.x
-			+ collectible[i].relative_pos.y * collectible[i].relative_pos.y;
-		i++;
-	}
-}
-
-/**
- * @brief Sort all collectibles from the most far away to the nearest of the player
- */
-void	collectible_sort(t_cub *cub)
-{
-	t_collectible	*collectible;
-	t_collectible	tmp;
-	bool			flag;
-	size_t			i;
-
-	collectible = cub->map.collectible_data.collectible;
-	flag = true;
-	while (flag)
-	{
-		flag = false;
-		i = 1;
-		while (i < cub->map.collectible_data.size)
-		{
-			if (collectible[i].dist > collectible[i - 1].dist)
-			{
-				flag = true;
-				tmp = collectible[i];
-				collectible[i] = collectible[i - 1];
-				collectible[i - 1] = tmp;
-			}
-			i++;
-		}
-	}
 }

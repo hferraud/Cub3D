@@ -12,7 +12,7 @@
 #include "server_data.h"
 #include "players_data.h"
 
-static int	listen_events(int client_socket, t_list **events_list);
+static int	listen_events(int client_socket, t_server_data *server_data);
 static int	listen_event(int client_socket, t_event *event);
 
 /**
@@ -20,7 +20,7 @@ static int	listen_event(int client_socket, t_event *event);
  * @return 1 if enemies data has been update, 0 if enemies data are the same,
  *  -1 in client error case and -2 in server error cas
  */
-int	listening_request(int client_socket, t_players_data *players_data, int client_index)
+int	listening_request(int client_socket, t_players_data *players_data, t_server_data *server_data, int client_index)
 {
 	int		ret;
 	char	buf;
@@ -35,12 +35,9 @@ int	listening_request(int client_socket, t_players_data *players_data, int clien
 		return (cub_error(CLIENT_LOST));
 	if (buf == *UP_TO_DATE)
 		return (1);
-	ret = listen_events(client_socket, &players_data->events);
+	ret = listen_events(client_socket, server_data);
 	if (ret == -1)
-	{
-		players_data->events = NULL;
 		return (-1);
-	}
 	else if (ret == -2)
 		return (-2);
 	return (1);
@@ -50,37 +47,20 @@ int	listening_request(int client_socket, t_players_data *players_data, int clien
  * @brief Listen events from a client
  * @return 0 on success, -1 on client error, -2 on server error
  */
-static int	listen_events(int client_socket, t_list **events_list)
+static int	listen_events(int client_socket, t_server_data *server_data)
 {
 	char	buf;
-	t_list	*event_node;
-	t_event	*event;
+	t_event	event;
 
-	if (read(client_socket, &buf, sizeof(char)) <= 0)
-		return (cub_error(CLIENT_LOST));
+	buf = *NEW_EVENT;
 	while (buf == *NEW_EVENT)
 	{
-		event = (t_event *) malloc(sizeof(t_event));
-		if (event == NULL)
-		{
-			ft_lstclear(events_list, free);
-			return (perror("listen_events()"), -2);
-		}
-		if (listen_event(client_socket, event) == -1)
-		{
-			free(event);
-			return (ft_lstclear(events_list, free), -1);
-		}
-		event_node = ft_lstnew(event);
-		if (event_node == NULL)
-		{
-			free(event);
-			perror("listen_events()");
-			return (ft_lstclear(events_list,  free), -2);
-		}
-		ft_lstadd_front(events_list, event_node);
+		if (listen_event(client_socket, &event) == -1)
+			return (-1);
+		if (manage_event(client_socket, event, server_data) == -1)
+			return (-1);
 		if (read(client_socket, &buf, sizeof(char)) <= 0)
-			return (ft_lstclear(events_list, free), cub_error(CLIENT_LOST));
+			return (cub_error(CLIENT_LOST));
 	}
 	return (0);
 }
@@ -95,7 +75,7 @@ static int	listen_event(int client_socket, t_event *event)
 		free(event);
 		return (cub_error(CLIENT_LOST));
 	}
-	if (event->id == EVENT_SHOOT)
+	if (event->id == EVENT_DEATH)
 		return (0);
 	if (read(client_socket, &event->position, sizeof(t_vector)) <= 0)
 	{

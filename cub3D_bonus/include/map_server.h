@@ -17,7 +17,7 @@
 # include "texture.h"
 # include "error.h"
 # include "libft.h"
-#include "define.h"
+# include "define.h"
 
 typedef struct s_map		t_map;
 typedef struct s_spawn		t_spawn;

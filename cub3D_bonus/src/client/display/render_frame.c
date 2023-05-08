@@ -50,8 +50,6 @@ static void	limit_fps(struct timeval start, struct timeval current, int fps_max)
 	delta = diff_time(start, current);
 	if (usec_per_frame > delta)
 		usleep(usec_per_frame - delta);
-	else
-		printf("-60fps\n");
 }
 
 static size_t	diff_time(struct timeval start_time, struct timeval current_time)

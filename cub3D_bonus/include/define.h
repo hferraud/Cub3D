@@ -26,14 +26,25 @@
 # define FILE_EXIST			"2"
 # define SOCK_BUFFER_SIZE	1028
 
+# define FLOOR			'0'
+# define WALL			'1'
+# define DOOR_CLOSE		'C'
+# define DOOR_OPEN		'O'
+# define LIFE_PACK		'L'
+# define AMMO			'A'
+# define PISTOL			'P'
+# define ASSAULT_RIFLE	'R'
+
 # define PLAYER_LIMIT	10
 
 # define LISTEN_REQUEST			"1"
 # define SEND_REQUEST			"2"
+# define EVENT_REQUEST			"3"
 # define UPDATE					"1"
 # define UP_TO_DATE				"0"
 # define NEW_EVENT				"1"
 # define NO_EVENT				"0"
+# define CANT_TAKE				"0"
 # define LENGTH_REQUEST			1
 
 #endif
