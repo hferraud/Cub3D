@@ -30,11 +30,11 @@
 
 # define LISTEN_REQUEST			"1"
 # define SEND_REQUEST			"2"
+# define EVENT_REQUEST			"3"
 # define UPDATE					"1"
 # define UP_TO_DATE				"0"
 # define NEW_EVENT				"1"
 # define NO_EVENT				"0"
-# define CAN_TAKE				"1"
 # define CANT_TAKE				"0"
 # define LENGTH_REQUEST			1
 

@@ -55,5 +55,16 @@ void	routine(t_cub *cub)
 				return ;
 			}
 		}
+		else if (buf == *EVENT_REQUEST)
+		{
+			if (event_response(cub->server_socket, cub) == -1)
+			{
+				pthread_mutex_lock(cub->client_status.status_lock);
+				cub->client_status.status = ERROR;
+				pthread_mutex_unlock(cub->client_status.status_lock);
+				printf("Exit thread\n");
+				return ;
+			}
+		}
 	}
 }

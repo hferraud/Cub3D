@@ -64,6 +64,7 @@ int		listening_response(int server_socket, t_player_data *player_data);
 int 	send_take_collectible_event(int server_socket, t_event event,
 			t_player_data *player_data);
 int 	send_response(int server_socket, t_cub *cub);
+int 	event_response(int server_socket, t_cub *cub);
 
 void	take_medic_kit(t_player_status *player_status);
 void	take_ammo(t_player_status *player_status);

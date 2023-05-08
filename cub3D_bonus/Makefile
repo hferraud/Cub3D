@@ -131,9 +131,10 @@ SRC_CLIENT	=		error.c	\
 						\
 						client/thread/routine/routine.c						\
 						client/thread/routine/listening_response.c			\
-						client/thread/routine/send_event.c		\
-						client/thread/routine/take_collectible.c		\
+						client/thread/routine/send_event.c					\
+						client/thread/routine/take_collectible.c			\
 						client/thread/routine/send_response.c				\
+						client/thread/routine/event_response.c				\
 						\
 					\
 					utils/collectible.c	\
@@ -150,7 +151,7 @@ DEPS		=		$(addprefix $(BUILD_DIR), $(SRC_SERVER:.c=.d))	\
 #	FLAGS
 #######################
 
-CFLAGS		=		-Wall -Werror -Wextra -fsanitize=thread
+CFLAGS		=		-Wall -Werror -Wextra #-fsanitize=thread
 
 IFLAGS		=		-I $(INC_DIR) -I $(LIBFT_DIR)include -I $(MLX_DIR)
 
