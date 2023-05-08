@@ -59,6 +59,7 @@ SRC_SERVER	=		error.c	\
 								server/thread/routines/in_game_routine/listening_request.c	\
 								server/thread/routines/in_game_routine/manage_event.c		\
 								server/thread/routines/in_game_routine/send_request.c		\
+								server/thread/routines/in_game_routine/event_request.c		\
 								server/thread/routines/in_game_routine/disconnect_client.c	\
 							\
 					\

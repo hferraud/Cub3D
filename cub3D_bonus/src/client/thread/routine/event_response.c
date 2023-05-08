@@ -37,20 +37,20 @@ static void	process_event(t_event event, t_cub *cub)
 static void	process_event_collectible(t_vector position, t_cub *cub)
 {
 	size_t				index;
-	t_collectible_data	collectible_data;
+	t_collectible_data	*collectible_data;
 
 	index = 0;
-	collectible_data = cub->map.collectible_data;
-	while (index < collectible_data.size
-		&& ((int) collectible_data.collectible[index].pos.x != position.x
-		|| (int) collectible_data.collectible[index].pos.y != position.y))
+	collectible_data = &cub->map.collectible_data;
+	while (index < collectible_data->size
+		&& ((int) collectible_data->collectible[index].pos.x != position.x
+		|| (int) collectible_data->collectible[index].pos.y != position.y))
 		index++;
-	if (index == collectible_data.size)
+	if (index == collectible_data->size)
 		return ;
-	if (index < collectible_data.size - 1)
-		collectible_data.collectible[index]
-		= collectible_data.collectible[collectible_data.size - 1];
-	collectible_data.size--;
+	if (index < collectible_data->size - 1)
+		collectible_data->collectible[index]
+		= collectible_data->collectible[collectible_data->size - 1];
+	collectible_data->size--;
 }
 
 //TODO: do process_event for door and death
