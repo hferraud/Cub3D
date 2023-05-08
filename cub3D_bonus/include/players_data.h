@@ -30,6 +30,6 @@ int		listening_request(int client_socket, t_players_data *players_data,
 int 	send_request(int client_socket, t_players_data *players_data,
 			int client_index);
 int 	event_request(int client_socket, t_event event);
-int		manage_event(int client_socket, t_event event, t_server_data *server_data);
+int		event_router(int client_socket, t_event event, t_server_data *server_data);
 
 #endif

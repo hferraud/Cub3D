@@ -40,6 +40,6 @@ void		player_door_interact(t_cub *cub);
 
 
 int			player_hit_collectible(t_cub *cub);
-void		add_event_take_collectible(t_cub *cub);
+void		add_collectible_event(t_cub *cub);
 
 #endif

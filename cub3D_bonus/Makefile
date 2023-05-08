@@ -57,7 +57,7 @@ SRC_SERVER	=		error.c	\
 								\
 								server/thread/routines/in_game_routine/in_game_routine.c	\
 								server/thread/routines/in_game_routine/listening_request.c	\
-								server/thread/routines/in_game_routine/manage_event.c		\
+								server/thread/routines/in_game_routine/event_router.c		\
 								server/thread/routines/in_game_routine/send_request.c		\
 								server/thread/routines/in_game_routine/event_request.c		\
 								server/thread/routines/in_game_routine/disconnect_client.c	\
@@ -94,17 +94,20 @@ SRC_CLIENT	=		error.c	\
 						client/player/collectible_dist.c		\
 						client/player/player_hit_collectible.c	\
 					\
-						client/mlx_handler/initialization/mlx_data_init.c		\
+						client/mlx_handler/initialization/mlx_data_init.c	\
 						client/mlx_handler/initialization/mlx_sprite_init.c	\
 						\
 						client/mlx_handler/destroy/mlx_data_destroy.c		\
 						client/mlx_handler/destroy/mlx_sprite_destroy.c	\
 						\
-						client/mlx_handler/hook/init_hook.c	\
-						client/mlx_handler/hook/key_press.c	\
+						client/mlx_handler/hook/init_hook.c		\
+						client/mlx_handler/hook/key_press.c		\
 						client/mlx_handler/hook/key_release.c	\
 						client/mlx_handler/hook/cub_exit.c		\
 						\
+					\
+						client/event/add_event.c	\
+						client/event/event_new.c	\
 					\
 						client/display/render_frame.c	\
 						\
@@ -112,15 +115,15 @@ SRC_CLIENT	=		error.c	\
 						client/display/vector/fvector.c	\
 						client/display/vector/matrix.c	\
 						\
-						client/display/draw/mlx_put_pixel.c	\
-						client/display/draw/draw_line.c	\
+						client/display/draw/mlx_put_pixel.c		\
+						client/display/draw/draw_line.c			\
 						client/display/draw/draw_rectangle.c	\
 						client/display/draw/draw_background.c	\
-						client/display/draw/draw_wall.c	\
+						client/display/draw/draw_wall.c			\
 						client/display/draw/draw_player_view.c	\
 						client/display/draw/draw_collectible.c	\
-						client/display/draw/draw_enemy.c	\
-						client/display/draw/draw_sprite.c	\
+						client/display/draw/draw_enemy.c		\
+						client/display/draw/draw_sprite.c		\
 						client/display/draw/draw_shape_utils.c	\
 						\
 						client/display/minimap/minimap.c	\
@@ -154,7 +157,7 @@ DEPS		=		$(addprefix $(BUILD_DIR), $(SRC_SERVER:.c=.d))	\
 #	FLAGS
 #######################
 
-CFLAGS		=		-Wall -Werror -Wextra
+CFLAGS		=		-Wall -Werror -Wextra -g3
 
 IFLAGS		=		-I $(INC_DIR) -I $(LIBFT_DIR)include -I $(MLX_DIR)
 

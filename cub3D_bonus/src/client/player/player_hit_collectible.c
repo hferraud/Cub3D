@@ -12,35 +12,6 @@
 #include "cub.h"
 #include "player.h"
 
-void	add_event_take_collectible(t_cub *cub)
-{
-	t_list				*event_node;
-	t_event				*event;
-	t_collectible_data	*collectible_data;
-
-	collectible_data = &cub->map.collectible_data;
-	collectible_data->size--;
-	event = malloc(sizeof(t_event));
-	if (event == NULL)
-	{
-		perror("add_event_take_collectible()");
-		cub_exit(cub);
-	}
-	event->id = EVENT_TAKE_COLLECTIBLE;
-	event->position.x = (int) collectible_data->collectible[collectible_data->size].pos.x;
-	event->position.y = (int) collectible_data->collectible[collectible_data->size].pos.y;
-	event_node = ft_lstnew(event);
-	if (event_node == NULL)
-	{
-		perror("add_event_take_collectible()");
-		free(event);
-		cub_exit(cub);
-	}
-	pthread_mutex_lock(cub->player_data.events_lock);
-	ft_lstadd_front(&cub->player_data.events, event_node);
-	pthread_mutex_unlock(cub->player_data.events_lock);
-}
-
 /**
  * @return 1 if the player touches a collectible, 0 otherwise
  */
