@@ -25,8 +25,8 @@ void collectible_set_dist(t_cub *cub, t_player player)
 	while (i < cub->map.collectible_data.size)
 	{
 		collectible[i].relative_pos = fvector_sub(player.pos, collectible[i].pos);
-		collectible[i].dist = collectible[i].relative_pos.x * collectible[i].relative_pos.x
-							  + collectible[i].relative_pos.y * collectible[i].relative_pos.y;
+		collectible[i].dist = sqrtf(collectible[i].relative_pos.x * collectible[i].relative_pos.x
+							  + collectible[i].relative_pos.y * collectible[i].relative_pos.y);
 		i++;
 	}
 }

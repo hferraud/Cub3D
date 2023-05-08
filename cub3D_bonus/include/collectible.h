@@ -22,7 +22,7 @@
 # define ASSAULT_RIFFLE_PATH	"asset/assault_riffle.xpm"
 
 # define NB_COLLECTIBLE		4
-# define COLLECTIBLE_OFFSET	0.15
+# define COLLECTIBLE_OFFSET	0.5
 
 typedef enum e_collectible_id		t_collectible_id;
 typedef struct s_collectible		t_collectible;

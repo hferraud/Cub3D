@@ -13,7 +13,7 @@
 #include "hook.h"
 #include "player.h"
 
-void 	collectible_set_dist(t_cub *cub);
+void 	collectible_set_dist(t_cub *cub, t_player player);
 void	collectible_sort(t_cub *cub);
 
 static void			player_rotation_update(t_cub *cub);
@@ -28,12 +28,10 @@ void	player_update(t_cub *cub)
 
 	pthread_mutex_lock(cub->player_data.player_lock);
 	save = cub->player_data.player;
-	pthread_mutex_unlock(cub->player_data.player_lock);
 	player_rotation_update(cub);
 	player_position_update(cub);
-	collectible_set_dist(cub);
+	collectible_set_dist(cub, cub->player_data.player);
 	collectible_sort(cub);
-	pthread_mutex_lock(cub->player_data.player_lock);
 	if (player_moved(save, cub->player_data.player))
 	{
 		pthread_mutex_lock(cub->player_data.update_lock);
@@ -57,17 +55,15 @@ static void	player_rotation_update(t_cub *cub)
 	(void) y;
 //	mlx_mouse_get_pos(cub->mlx_data->mlx_ptr, cub->mlx_data->win_ptr, &x, &y);
 	if (/*x != WIN_WIDTH / 2
-		||*/ is_key_pressed(KEY_LEFT, cub)
+		|| */is_key_pressed(KEY_LEFT, cub)
 		|| is_key_pressed(KEY_RIGHT, cub))
 	{
-		pthread_mutex_lock(cub->player_data.player_lock);
 //		if (x != WIN_WIDTH / 2)
 //			cub->player_data.player.rotation = fvector_rotate(cub->player_data.player.rotation, PLAYER_ROTATION / 100.0f * (x - (WIN_WIDTH / 2)));
 		if (is_key_pressed(KEY_LEFT, cub))
 			cub->player_data.player.rotation = fvector_rotate(cub->player_data.player.rotation, -PLAYER_ROTATION);
 		if (is_key_pressed(KEY_RIGHT, cub))
 			cub->player_data.player.rotation = fvector_rotate(cub->player_data.player.rotation, PLAYER_ROTATION);
-		pthread_mutex_unlock(cub->player_data.player_lock);
 		cub->player_data.camera = fvector_rotate(cub->player_data.player.rotation, M_PI_2);
 	}
 //	if (count % 2 == 0)
@@ -88,7 +84,6 @@ static void	player_position_update(t_cub *cub)
 	player = &cub->player_data.player;
 	map = cub->map.map;
 	new_pos = new_position_calculate(cub);
-	pthread_mutex_lock(cub->player_data.player_lock);
 	if (is_valid_position(cub, new_pos.x, new_pos.y))
 		player->pos = new_pos;
 	else
@@ -114,5 +109,4 @@ static void	player_position_update(t_cub *cub)
 				player->pos.y =	PLAYER_OFFSET + UNCERTAINTY + ((int) player->pos.y);
 		}
 	}
-	pthread_mutex_unlock(cub->player_data.player_lock);
 }
