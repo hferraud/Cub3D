@@ -81,10 +81,8 @@ void	enemies_set_dist(t_cub *cub, t_enemy *enemies, t_player player)
 	{
 		pthread_mutex_lock(cub->enemies_lock);
 		enemies[i].id = cub->enemies[i].id;
-		pthread_mutex_unlock(cub->enemies_lock);
 		if (enemies[i].id != -1)
 		{
-			pthread_mutex_lock(cub->enemies_lock);
 			enemies[i].player = cub->enemies[i].player;
 			pthread_mutex_unlock(cub->enemies_lock);
 			enemies[i].relative_pos = fvector_sub(player.pos,

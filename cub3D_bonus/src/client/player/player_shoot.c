@@ -29,7 +29,6 @@ void	player_shoot(t_cub *cub)
 	{
 		if (enemies[i].id != -1)
 		{
-			printf("id: %d", enemies[i].id);
 			camera = enemy_camera_projection(cub, enemies[i]);
 			dp = enemy_get_draw_param(cub, camera);
 			if (dp.screen.x < WIN_WIDTH / 2 + dp.width / 2 && dp.screen.x > WIN_WIDTH / 2 - dp.width / 2)
