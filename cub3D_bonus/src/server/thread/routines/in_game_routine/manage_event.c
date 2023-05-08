@@ -31,7 +31,7 @@ static int event_take_collectible(int client_socket, t_event event, t_server_dat
 	cell = &server_data->map->map[event.position.y][event.position.x];
 	if (collectible_id_get(*cell) != UNDEFINED)
 	{
-		printf("take at: %d %d\n", event.position.x, event.position.y);
+		printf("%d take at: %d %d\n", client_socket, event.position.x, event.position.y);
 		if (write(client_socket, cell, sizeof(char)) == -1)
 		{
 			pthread_mutex_unlock(server_data->map_lock);
@@ -43,7 +43,7 @@ static int event_take_collectible(int client_socket, t_event event, t_server_dat
 	}
 	else
 	{
-		printf("cant take at: %d %d\n", event.position.x, event.position.y);
+		printf("%d cant take at: %d %d\n", client_socket, event.position.x, event.position.y);
 		if (write(client_socket, CANT_TAKE, sizeof(char)) == -1)
 		{
 			pthread_mutex_unlock(server_data->map_lock);
