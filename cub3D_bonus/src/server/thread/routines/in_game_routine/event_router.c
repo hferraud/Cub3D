@@ -15,7 +15,7 @@
 
 static int 	event_take_collectible(int client_socket, t_event event, t_server_data *server_data);
 static int 	event_door(int client_socket, t_event event, t_server_data *server_data);
-static int	send_event_to_other_player(int event_client_socket, t_event event, t_server_data *server_data);
+static int	send_event_update(int event_client_socket, t_event event, t_server_data *server_data);
 
 int	event_router(int client_socket, t_event event, t_server_data *server_data)
 {
@@ -30,16 +30,23 @@ static int event_door(int client_socket, t_event event, t_server_data *server_da
 {
 	char	*cell;
 
-	(void) client_socket;
 	pthread_mutex_lock(server_data->map_lock);
 	cell = &server_data->map->map[event.position.y][event.position.x];
 	if ((event.id == EVENT_CLOSE_DOOR && *cell == DOOR_OPEN)
 		|| (event.id == EVENT_OPEN_DOOR && *cell == DOOR_CLOSE))
 	{
 		if (event.id == EVENT_CLOSE_DOOR)
+		{
+			printf("%d close door at: %d %d\n", client_socket, event.position.x, event.position.y);
 			*cell = DOOR_CLOSE;
+		}
 		else
+		{
+			printf("%d open door at: %d %d\n", client_socket, event.position.x, event.position.y);
 			*cell = DOOR_OPEN;
+		}
+		if (send_event_update(client_socket, event, server_data) == -1)
+			return (-1);
 	}
 	pthread_mutex_unlock(server_data->map_lock);
 	return (0);
@@ -53,14 +60,14 @@ static int event_take_collectible(int client_socket, t_event event, t_server_dat
 	cell = &server_data->map->map[event.position.y][event.position.x];
 	if (collectible_id_get(*cell) != UNDEFINED)
 	{
-		printf("%d take at: %d %d\n", client_socket, event.position.x, event.position.y);
+		printf("%d take collectible at: %d %d\n", client_socket, event.position.x, event.position.y);
 		if (write(client_socket, cell, sizeof(char)) == -1)
 		{
 			pthread_mutex_unlock(server_data->map_lock);
 			return (-1);
 		}
 		*cell = FLOOR;
-		if (send_event_to_other_player(client_socket, event, server_data) == -1)
+		if (send_event_update(client_socket, event, server_data) == -1)
 			return (-1);
 	}
 	else
@@ -76,7 +83,7 @@ static int event_take_collectible(int client_socket, t_event event, t_server_dat
 	return (0);
 }
 
-static int	send_event_to_other_player(int event_client_socket, t_event event, t_server_data *server_data)
+static int	send_event_update(int event_client_socket, t_event event, t_server_data *server_data)
 {
 	int		client_socket;
 	int		index;

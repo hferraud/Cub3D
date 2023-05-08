@@ -13,7 +13,8 @@
 #include "player_data.h"
 
 static void	process_event(t_event event, t_cub *cub);
-static void	process_event_collectible(t_vector position, t_cub *cub);
+static void	process_door_event(t_event event, t_map_client *map);
+static void	process_collectible_event(t_vector position, t_cub *cub);
 
 int event_response(int server_socket, t_cub *cub)
 {
@@ -31,10 +32,23 @@ int event_response(int server_socket, t_cub *cub)
 static void	process_event(t_event event, t_cub *cub)
 {
 	if (event.id == EVENT_TAKE_COLLECTIBLE)
-		process_event_collectible(event.position, cub);
+		process_collectible_event(event.position, cub);
+	else if (event.id == EVENT_OPEN_DOOR || event.id == EVENT_CLOSE_DOOR)
+		process_door_event(event, &cub->map);
 }
 
-static void	process_event_collectible(t_vector position, t_cub *cub)
+static void	process_door_event(t_event event, t_map_client *map)
+{
+	char	*cell;
+
+	cell = &map->map[event.position.y][event.position.x];
+	if (event.id == EVENT_CLOSE_DOOR)
+		*cell = DOOR_CLOSE;
+	else
+		*cell = DOOR_OPEN;
+}
+
+static void	process_collectible_event(t_vector position, t_cub *cub)
 {
 	size_t				index;
 	t_collectible_data	*collectible_data;
