@@ -35,10 +35,12 @@ void	add_collectible_event(t_cub *cub)
 	t_collectible_data	*collectible_data;
 
 	collectible_data = &cub->map.collectible_data;
+	pthread_mutex_lock(collectible_data->collectible_lock);
 	collectible_data->size--;
-	event.id = EVENT_TAKE_COLLECTIBLE;
 	event.position.x = (int) collectible_data->collectible[collectible_data->size].pos.x;
 	event.position.y = (int) collectible_data->collectible[collectible_data->size].pos.y;
+	pthread_mutex_unlock(collectible_data->collectible_lock);
+	event.id = EVENT_TAKE_COLLECTIBLE;
 	add_event(cub, event);
 }
 

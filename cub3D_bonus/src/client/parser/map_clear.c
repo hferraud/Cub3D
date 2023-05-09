@@ -22,4 +22,9 @@ void	map_clear(t_map_client *map)
 		index++;
 	}
 	free_string_array(map->map);
+	if (map->collectible_data.collectible_lock)
+	{
+		pthread_mutex_destroy(map->collectible_data.collectible_lock);
+		free(map->collectible_data.collectible_lock);
+	}
 }

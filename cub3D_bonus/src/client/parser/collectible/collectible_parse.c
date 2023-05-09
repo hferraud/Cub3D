@@ -29,6 +29,11 @@ int	collectible_parse(t_map_client *map)
 	if (collectible_list_to_array(list, map) == -1)
 		return (-1);
 	collectible_list_clear(list);
+	map->collectible_data.collectible_lock = malloc(sizeof(pthread_mutex_t));
+	if (map->collectible_data.collectible_lock == NULL)
+		return (-1);
+	if (pthread_mutex_init(map->collectible_data.collectible_lock, NULL) != 0)
+		return (free(map->collectible_data.collectible_lock), -1);
 	return (0);
 }
 

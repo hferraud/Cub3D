@@ -55,16 +55,21 @@ static void	process_collectible_event(t_vector position, t_cub *cub)
 
 	index = 0;
 	collectible_data = &cub->map.collectible_data;
+	pthread_mutex_lock(collectible_data->collectible_lock);
 	while (index < collectible_data->size
 		&& ((int) collectible_data->collectible[index].pos.x != position.x
 		|| (int) collectible_data->collectible[index].pos.y != position.y))
 		index++;
 	if (index == collectible_data->size)
+	{
+		pthread_mutex_unlock(collectible_data->collectible_lock);
 		return ;
+	}
 	if (index < collectible_data->size - 1)
 		collectible_data->collectible[index]
 		= collectible_data->collectible[collectible_data->size - 1];
 	collectible_data->size--;
+	pthread_mutex_unlock(collectible_data->collectible_lock);
 }
 
-//TODO: do process_event for door and death
+//TODO: do process_event for death and damage
