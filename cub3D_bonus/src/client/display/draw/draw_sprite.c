@@ -36,23 +36,31 @@ void draw_sprites(t_cub *cub, const float *z_buffer)
 	{
 		if (enemies[i].dist > collectible_data.collectible[j].dist)
 		{
+			pthread_mutex_unlock(collectible_data.collectible_lock);
 			draw_enemy(cub, enemies[i], z_buffer);
+			pthread_mutex_lock(collectible_data.collectible_lock);
 			i++;
 		}
 		else
 		{
+			pthread_mutex_unlock(collectible_data.collectible_lock);
 			draw_collectible(cub, collectible_data.collectible[j], z_buffer);
+			pthread_mutex_lock(collectible_data.collectible_lock);
 			j++;
 		}
 	}
 	while (i < PLAYER_LIMIT - 1)
 	{
+		pthread_mutex_unlock(collectible_data.collectible_lock);
 		draw_enemy(cub, enemies[i], z_buffer);
+		pthread_mutex_lock(collectible_data.collectible_lock);
 		i++;
 	}
 	while (j < collectible_data.size)
 	{
+		pthread_mutex_unlock(collectible_data.collectible_lock);
 		draw_collectible(cub, collectible_data.collectible[j], z_buffer);
+		pthread_mutex_lock(collectible_data.collectible_lock);
 		j++;
 	}
 	pthread_mutex_unlock(collectible_data.collectible_lock);
