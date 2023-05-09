@@ -16,7 +16,7 @@
 /**
  * @brief Draws the player's vision on a mlx image
  */
-void	draw_player_view(t_cub *cub, float fov)
+void	draw_player_view(t_cub *cub)
 {
 	t_ray		ray;
 	t_fvector	ray_dir;
@@ -24,7 +24,6 @@ void	draw_player_view(t_cub *cub, float fov)
 	int			screen_x;
 	float		camera_x;
 
-	(void) fov;
 	screen_x = 0;
 	while (screen_x < WIN_WIDTH)
 	{
