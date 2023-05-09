@@ -1,13 +1,12 @@
 cmake_minimum_required(VERSION 3.25)
-project(42_Cub3D C)
+project(cub3D C)
 
 set(CMAKE_C_STANDARD 11)
 
 include_directories(cub3D_bonus/include)
 include_directories(libft/include)
-include_directories(minilibx)
 
-add_executable(42_Cub3D
+add_executable(cub3D
         cub3D_bonus/include/collectible.h
         cub3D_bonus/include/connection_routine.h
         cub3D_bonus/include/cub.h
@@ -17,6 +16,7 @@ add_executable(42_Cub3D
         cub3D_bonus/include/error.h
         cub3D_bonus/include/event.h
         cub3D_bonus/include/hook.h
+        cub3D_bonus/include/hud.h
         cub3D_bonus/include/map_client.h
         cub3D_bonus/include/map_server.h
         cub3D_bonus/include/mlx_handler.h
@@ -33,6 +33,7 @@ add_executable(42_Cub3D
         cub3D_bonus/include/texture.h
         cub3D_bonus/include/vector.h
         cub3D_bonus/include/weapons_data.h
+        cub3D_bonus/src/client/display/draw/hud/draw_minimap.c
         cub3D_bonus/src/client/display/draw/draw_background.c
         cub3D_bonus/src/client/display/draw/draw_collectible.c
         cub3D_bonus/src/client/display/draw/draw_enemy.c
@@ -48,6 +49,8 @@ add_executable(42_Cub3D
         cub3D_bonus/src/client/display/vector/matrix.c
         cub3D_bonus/src/client/display/vector/vector.c
         cub3D_bonus/src/client/display/render_frame.c
+        cub3D_bonus/src/client/event/add_event.c
+        cub3D_bonus/src/client/event/event_new.c
         cub3D_bonus/src/client/mlx_handler/destroy/mlx_data_destroy.c
         cub3D_bonus/src/client/mlx_handler/destroy/mlx_sprite_destroy.c
         cub3D_bonus/src/client/mlx_handler/hook/cub_exit.c
@@ -68,6 +71,7 @@ add_executable(42_Cub3D
         cub3D_bonus/src/client/player/player_hit_collectible.c
         cub3D_bonus/src/client/player/player_movement.c
         cub3D_bonus/src/client/player/player_pos_init.c
+        cub3D_bonus/src/client/player/player_shoot.c
         cub3D_bonus/src/client/player/position_utils.c
         cub3D_bonus/src/client/socket/socket_init.c
         cub3D_bonus/src/client/thread/destroy/player_data_destroy.c
@@ -104,13 +108,14 @@ add_executable(42_Cub3D
         cub3D_bonus/src/server/thread/routines/connection_routine/map_send.c
         cub3D_bonus/src/server/thread/routines/in_game_routine/disconnect_client.c
         cub3D_bonus/src/server/thread/routines/in_game_routine/event_request.c
+        cub3D_bonus/src/server/thread/routines/in_game_routine/event_router.c
         cub3D_bonus/src/server/thread/routines/in_game_routine/in_game_routine.c
         cub3D_bonus/src/server/thread/routines/in_game_routine/listening_request.c
-        cub3D_bonus/src/server/thread/routines/in_game_routine/event_router.c
         cub3D_bonus/src/server/thread/routines/in_game_routine/send_request.c
         cub3D_bonus/src/server/server.c
         cub3D_bonus/src/utils/socket/port_get.c
         cub3D_bonus/src/utils/collectible.c
+        cub3D_bonus/src/utils/time.c
         cub3D_bonus/src/error.c
         libft/include/get_next_line.h
         libft/include/libft.h
