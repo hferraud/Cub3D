@@ -101,5 +101,13 @@ static int	map_init(t_map_client *map)
 			return (free_string_array(map->map), cub_error(NULL));
 		index++;
 	}
+	map->map_lock = malloc(sizeof(pthread_mutex_t));
+	if (map->map_lock == NULL)
+		return (free_string_array(map->map), cub_error(NULL));
+	if (pthread_mutex_init(map->map_lock, NULL) != 0)
+	{
+		free(map->map_lock);
+		return (free_string_array(map->map), cub_error(NULL));
+	}
 	return (0);
 }

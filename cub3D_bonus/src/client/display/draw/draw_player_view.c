@@ -32,7 +32,9 @@ void	draw_player_view(t_cub *cub)
 		ray_dir = fvector_add(cub->player_data.player.rotation,
 				fvector_mul(cub->player_data.camera, camera_x));
 		pthread_mutex_unlock(cub->player_data.player_lock);
+		pthread_mutex_lock(cub->map.map_lock);
 		ray = ray_cast(cub, ray_dir);
+		pthread_mutex_unlock(cub->map.map_lock);
 		z_buffer[screen_x] = ray.length;
 		draw_wall(cub, screen_x, ray);
 		screen_x++;

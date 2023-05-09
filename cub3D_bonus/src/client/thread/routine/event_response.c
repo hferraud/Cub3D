@@ -42,10 +42,12 @@ static void	process_door_event(t_event event, t_map_client *map)
 	char	*cell;
 
 	cell = &map->map[event.position.y][event.position.x];
+	pthread_mutex_lock(map->map_lock);
 	if (event.id == EVENT_CLOSE_DOOR)
 		*cell = DOOR_CLOSE;
 	else
 		*cell = DOOR_OPEN;
+	pthread_mutex_unlock(map->map_lock);
 }
 
 static void	process_collectible_event(t_vector position, t_cub *cub)

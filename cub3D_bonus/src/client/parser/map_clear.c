@@ -16,6 +16,11 @@ void	map_clear(t_map_client *map)
 	int	index;
 
 	index = 0;
+	if (map->map_lock)
+	{
+		pthread_mutex_destroy(map->map_lock);
+		free(map->map_lock);
+	}
 	while (index < 7)
 	{
 		free(map->path[index]);
