@@ -13,7 +13,7 @@
 #include "draw.h"
 #include <sys/time.h>
 
-static void	limit_fps(struct timeval start, struct timeval current, int fps_max);
+static void		limit_fps(struct timeval start, struct timeval current, int fps_max);
 static size_t	diff_time(struct timeval start_time, struct timeval current_time);
 
 /**
@@ -34,7 +34,7 @@ int	render_frame(t_cub *cub)
 	pthread_mutex_unlock(cub->client_status.status_lock);
 	player_update(cub);
 	draw_background(cub);
-	draw_player_view(cub, PLAYER_FOV);
+	draw_player_view(cub);
 	mlx_put_image_to_window(cub->mlx_data->mlx_ptr, cub->mlx_data->win_ptr,
 		cub->mlx_data->img_data.img, 0, 0);
 	gettimeofday(&current, NULL);
