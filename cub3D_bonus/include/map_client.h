@@ -35,6 +35,7 @@ struct s_spawn
 
 struct s_collectible_data
 {
+	pthread_mutex_t	*collectible_lock;
 	t_collectible	*collectible;
 	size_t			size;
 };

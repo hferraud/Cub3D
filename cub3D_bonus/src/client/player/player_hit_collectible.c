@@ -27,9 +27,11 @@ int	player_hit_collectible(t_cub *cub)
 		return (0);
 	nearest_collectible = collectible_data.collectible[collectible_data.size - 1];
 	player = cub->player_data.player;
+	pthread_mutex_lock(collectible_data.collectible_lock);
 	dist = sqrtf(
 			powf(nearest_collectible.pos.x - player.pos.x, 2)
 			+ powf(nearest_collectible.pos.y - player.pos.y, 2)
 			);
+	pthread_mutex_unlock(collectible_data.collectible_lock);
 	return (dist < (PLAYER_OFFSET + COLLECTIBLE_OFFSET));
 }

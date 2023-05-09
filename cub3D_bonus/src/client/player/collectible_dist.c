@@ -22,6 +22,7 @@ void collectible_set_dist(t_cub *cub, t_player player)
 
 	collectible = cub->map.collectible_data.collectible;
 	i = 0;
+	pthread_mutex_lock(cub->map.collectible_data.collectible_lock);
 	while (i < cub->map.collectible_data.size)
 	{
 		collectible[i].relative_pos = fvector_sub(player.pos, collectible[i].pos);
@@ -29,6 +30,7 @@ void collectible_set_dist(t_cub *cub, t_player player)
 							  + collectible[i].relative_pos.y * collectible[i].relative_pos.y;
 		i++;
 	}
+	pthread_mutex_unlock(cub->map.collectible_data.collectible_lock);
 }
 
 /**
@@ -43,6 +45,7 @@ void	collectible_sort(t_cub *cub)
 
 	collectible = cub->map.collectible_data.collectible;
 	flag = true;
+	pthread_mutex_lock(cub->map.collectible_data.collectible_lock);
 	while (flag)
 	{
 		flag = false;
@@ -59,4 +62,5 @@ void	collectible_sort(t_cub *cub)
 			i++;
 		}
 	}
+	pthread_mutex_unlock(cub->map.collectible_data.collectible_lock);
 }
