@@ -11,22 +11,14 @@
 /* ************************************************************************** */
 #include "hook.h"
 
-static void	add_key_press(int key_code, t_cub *cub);
-
 /**
  * @brief Adds the key_code of the pressed key in the array
  * if the key should be hooked
  */
 int	key_press(int key_code, t_cub *cub)
 {
-	add_key_press(key_code, cub);
-	return (0);
-}
-
-static void	add_key_press(int key_code, t_cub *cub)
-{
 	const int	valid_key[MAX_KEY] = {KEY_W, KEY_A, KEY_S, KEY_D,
-		KEY_LEFT, KEY_RIGHT};
+									   KEY_LEFT, KEY_RIGHT};
 	size_t		index;
 
 	index = 0;
@@ -40,6 +32,7 @@ static void	add_key_press(int key_code, t_cub *cub)
 		player_door_interact(cub);
 	if (key_code == KEY_SPC)
 		player_shoot(cub);
+	return (0);
 }
 
 int	is_key_pressed(int key_code, t_cub *cub)

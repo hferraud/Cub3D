@@ -29,6 +29,7 @@
 
 typedef struct s_player_data	t_player_data;
 typedef struct s_player_status	t_player_status;
+typedef enum e_weapon			t_weapon;
 
 enum e_weapon
 {
@@ -39,10 +40,10 @@ enum e_weapon
 
 struct s_player_status
 {
-	int		life;
-	int		weapon_equipped;
-	bool	weapons[NB_WEAPONS];
-	int		ammo;
+	int			life;
+	t_weapon	weapon_equipped;
+	bool		weapons[NB_WEAPONS];
+	int			ammo;
 };
 
 struct s_player_data

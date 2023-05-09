@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub.h"
+#include "weapons_data.h"
 
 static void	add_event(t_cub *cub, t_event event_data)
 {
@@ -54,5 +55,15 @@ void add_door_event(t_cub *cub, t_vector map_pos, char door_state)
 		event.id = EVENT_CLOSE_DOOR;
 	event.position.x = map_pos.x;
 	event.position.y = map_pos.y;
+	add_event(cub, event);
+}
+
+void	add_damage_event(t_cub *cub, int enemy_id, t_damage damage)
+{
+	t_event	event;
+
+	event.id = EVENT_DAMAGE;
+	event.enemy_id = enemy_id;
+	event.damage = damage;
 	add_event(cub, event);
 }

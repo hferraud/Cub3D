@@ -66,6 +66,7 @@ static t_player_status	player_status_init(void)
 	player_status.weapons[KNIFE_INDEX] = true;
 	player_status.weapons[PISTOL_INDEX] = false;
 	player_status.weapons[ASSAULT_RIFLE_INDEX] = false;
+	player_status.weapon_equipped = KNIFE_INDEX;
 	player_status.ammo = AMMO_DEFAULT;
 	return (player_status);
 }
