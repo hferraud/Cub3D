@@ -43,6 +43,7 @@ struct s_collectible_data
 struct s_map_client
 {
 	char				**map;
+	pthread_mutex_t		*map_lock;
 	size_t				height;
 	size_t				width;
 	t_spawn				spawn;
