@@ -28,7 +28,7 @@ void	disconnect_client(int client_socket, t_server_data *server_data);
 int		listening_request(int client_socket, t_players_data *players_data,
 			t_server_data *server_data, int client_index);
 int 	send_request(int client_socket, t_players_data *players_data,
-			int client_index);
+			int client_index, int enemy_socket);
 int 	event_request(int client_socket, t_event event);
 int		event_router(int client_socket, t_event event, t_server_data *server_data);
 

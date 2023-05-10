@@ -25,6 +25,8 @@ t_list	*new_event(t_event event_data)
 	}
 	event->id = event_data.id;
 	event->position = event_data.position;
+	event->enemy_id = event_data.enemy_id;
+	event->damage = event_data.damage;
 	event_node = ft_lstnew(event);
 	if (event_node == NULL)
 	{
