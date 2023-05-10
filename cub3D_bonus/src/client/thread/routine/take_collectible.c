@@ -47,7 +47,11 @@ void	take_ammo(t_player_status *player_status)
 void	take_pistol(t_player_status *player_status)
 {
 	if (!player_status->weapons[PISTOL_INDEX])
+	{
 		player_status->weapons[PISTOL_INDEX] = true;
+		if (player_status->weapons[ASSAULT_RIFLE_INDEX] == false)
+			player_status->weapon_equipped = PISTOL_INDEX;
+	}
 	else
 		take_ammo(player_status);
 }
@@ -55,7 +59,10 @@ void	take_pistol(t_player_status *player_status)
 void	take_assault_riffle(t_player_status *player_status)
 {
 	if (!player_status->weapons[ASSAULT_RIFLE_INDEX])
+	{
 		player_status->weapons[ASSAULT_RIFLE_INDEX] = true;
+		player_status->weapon_equipped = ASSAULT_RIFLE_INDEX;
+	}
 	else
 		take_ammo(player_status);
 }
