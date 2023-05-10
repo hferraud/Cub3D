@@ -53,8 +53,8 @@ int	listening_response(int server_socket, t_player_data *player_data)
 	return (0);
 }
 
+
 /**
- * @brief
  * @return 0 on success, -1 otherwise
  */
 int	send_events(int server_socket, t_player_data *player_data)
@@ -71,6 +71,11 @@ int	send_events(int server_socket, t_player_data *player_data)
 		{
 			if (send_collectible_event(server_socket, *current_event,
 									   player_data) == -1)
+				return (-1);
+		}
+		else if (current_event->id == EVENT_DAMAGE)
+		{
+			if (send_damage_event(server_socket, *current_event) == -1)
 				return (-1);
 		}
 		else if (current_event->id == EVENT_OPEN_DOOR || current_event->id == EVENT_CLOSE_DOOR)

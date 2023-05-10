@@ -47,7 +47,7 @@ void	player_update(t_cub *cub)
 
 static void	player_rotation_update(t_cub *cub)
 {
-	static size_t	count = 0;
+//	static size_t	count = 0;
 	int 			x;
 	int 			y;
 
@@ -69,7 +69,7 @@ static void	player_rotation_update(t_cub *cub)
 //	if (count % 2 == 0)
 //		mlx_mouse_move(cub->mlx_data->mlx_ptr, cub->mlx_data->win_ptr,
 //			WIN_WIDTH / 2, WIN_HEIGHT / 2);
-	count++;
+//	count++;
 }
 
 /**
