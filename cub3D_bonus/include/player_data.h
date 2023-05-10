@@ -65,6 +65,7 @@ int		listening_response(int server_socket, t_player_data *player_data);
 int 	send_collectible_event(int server_socket, t_event event,
 							  t_player_data *player_data);
 int 	send_door_event(int server_socket, t_event event);
+int		send_damage_event(int server_socket, t_event event);
 int 	send_response(int server_socket, t_cub *cub);
 int 	event_response(int server_socket, t_cub *cub);
 

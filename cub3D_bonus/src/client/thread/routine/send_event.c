@@ -31,3 +31,11 @@ int send_collectible_event(int server_socket, t_event event,
 		take_collectible(buf, player_data);
 	return (0);
 }
+
+int	send_damage_event(int server_socket, t_event event)
+{
+	if (write(server_socket, &event.enemy_id, sizeof(int)) == -1
+		|| write(server_socket, &event.damage, sizeof(t_damage)) == -1)
+		return (-1);
+	return (0);
+}
