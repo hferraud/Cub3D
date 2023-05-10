@@ -43,7 +43,6 @@ add_executable(42_Cub3D
         cub3D_bonus/src/client/display/draw/draw_sprite.c
         cub3D_bonus/src/client/display/draw/draw_wall.c
         cub3D_bonus/src/client/display/draw/mlx_put_pixel.c
-        cub3D_bonus/src/client/display/minimap/minimap.c
         cub3D_bonus/src/client/display/raycasting/raycasting.c
         cub3D_bonus/src/client/display/vector/fvector.c
         cub3D_bonus/src/client/display/vector/matrix.c
@@ -209,4 +208,6 @@ add_executable(42_Cub3D
         minilibx/mlx_screen_size.c
         minilibx/mlx_set_font.c
         minilibx/mlx_string_put.c
-        minilibx/mlx_xpm.c cub3D_bonus/src/client/display/draw/hud/draw_minimap.c cub3D_bonus/include/hud.h)
+        minilibx/mlx_xpm.c
+        cub3D_bonus/src/client/display/draw/hud/draw_minimap.c
+        cub3D_bonus/include/hud.h)

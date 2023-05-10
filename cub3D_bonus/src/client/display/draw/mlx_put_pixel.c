@@ -20,7 +20,7 @@ void	mlx_put_pixel(t_img_data *img_data, int x, int y, int color)
 		*(int *)dst = color;
 }
 
-void	mlx_put_point(t_img_data *img_data, t_point point, int color)
+void	mlx_put_point(t_img_data *img_data, t_vector point, int color)
 {
 	mlx_put_pixel(img_data, point.x, point.y, color);
 }

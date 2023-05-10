@@ -38,4 +38,5 @@ void	draw_player_view(t_cub *cub, float fov)
 		screen_x++;
 	}
 	draw_sprites(cub, z_buffer);
+	draw_minimap(cub);
 }

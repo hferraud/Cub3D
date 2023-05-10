@@ -123,7 +123,7 @@ SRC_CLIENT	=		error.c	\
 						client/display/draw/draw_sprite.c	\
 						client/display/draw/draw_shape_utils.c	\
 						\
-						client/display/minimap/minimap.c	\
+						client/display/draw/hud/draw_minimap.c	\
 						\
 						client/display/raycasting/raycasting.c	\
 						\
@@ -154,7 +154,7 @@ DEPS		=		$(addprefix $(BUILD_DIR), $(SRC_SERVER:.c=.d))	\
 #	FLAGS
 #######################
 
-CFLAGS		=		-Wall -Werror -Wextra
+CFLAGS		=		-Wall -Werror -Wextra -fsanitize=address
 
 IFLAGS		=		-I $(INC_DIR) -I $(LIBFT_DIR)include -I $(MLX_DIR)
 

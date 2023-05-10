@@ -11,12 +11,12 @@
 /* ************************************************************************** */
 #include "draw.h"
 
-static void	draw_line_x(t_img_data *img_data, t_point a, t_point b, int color);
-static void	draw_line_y(t_img_data *img_data, t_point a, t_point b, int color);
-static void	swap_point(t_point *a, t_point *b);
+static void	draw_line_x(t_img_data *img_data, t_vector a, t_vector b, int color);
+static void	draw_line_y(t_img_data *img_data, t_vector a, t_vector b, int color);
+static void	swap_point(t_vector *a, t_vector *b);
 static int	approximation(double a);
 
-void	draw_line(t_img_data *data, t_point a, t_point b, int color)
+void	draw_line(t_img_data *data, t_vector a, t_vector b, int color)
 {
 	if (abs(a.x - b.x) >= abs(a.y - b.y))
 		draw_line_x(data, a, b, color);
@@ -25,7 +25,7 @@ void	draw_line(t_img_data *data, t_point a, t_point b, int color)
 	mlx_put_point(data, b, color);
 }
 
-static void	draw_line_x(t_img_data *img_data, t_point a, t_point b, int color)
+static void	draw_line_x(t_img_data *img_data, t_vector a, t_vector b, int color)
 {
 	double	coef;
 	double	f_zero;
@@ -42,7 +42,7 @@ static void	draw_line_x(t_img_data *img_data, t_point a, t_point b, int color)
 	}
 }
 
-static void	draw_line_y(t_img_data *img_data, t_point a, t_point b, int color)
+static void	draw_line_y(t_img_data *img_data, t_vector a, t_vector b, int color)
 {
 	double	coef;
 	double	f_zero;
@@ -70,9 +70,9 @@ static int	approximation(double a)
 	return (under_int);
 }
 
-static void	swap_point(t_point *a, t_point *b)
+static void	swap_point(t_vector *a, t_vector *b)
 {
-	t_point	tmp;
+	t_vector	tmp;
 
 	tmp = *a;
 	*a = *b;
