@@ -14,7 +14,6 @@
 #include "cub.h"
 
 int		render_frame(t_cub *cub);
-void	player_pos_init(t_cub *cub);
 
 static int	cub_init(t_cub *cub);
 static int	client_status_init(t_client_status *client_status);

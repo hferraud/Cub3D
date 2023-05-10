@@ -15,7 +15,7 @@
 static void	process_event(t_event event, t_cub *cub);
 static void	process_door_event(t_event event, t_map_client *map);
 static void	process_collectible_event(t_vector position, t_collectible_data *collectible_data);
-static void	process_damage_event(t_damage damage, t_player_data *player_data);
+static void	process_damage_event(t_damage damage, t_cub *cub);
 
 int event_response(int server_socket, t_cub *cub)
 {
@@ -28,8 +28,7 @@ int event_response(int server_socket, t_cub *cub)
 		if (read(server_socket, &event.damage, sizeof(t_damage)) <= 0)
 			return (-1);
 	}
-	else if (event.id != EVENT_DEATH
-		&& read(server_socket, &event.position, sizeof(t_vector)) <= 0)
+	else if (read(server_socket, &event.position, sizeof(t_vector)) <= 0)
 		return (-1);
 	process_event(event, cub);
 	return (0);
@@ -40,7 +39,7 @@ static void	process_event(t_event event, t_cub *cub)
 	if (event.id == EVENT_TAKE_COLLECTIBLE)
 		process_collectible_event(event.position, &cub->map.collectible_data);
 	else if (event.id == EVENT_DAMAGE)
-		process_damage_event(event.damage, &cub->player_data);
+		process_damage_event(event.damage, cub);
 	else if (event.id == EVENT_OPEN_DOOR || event.id == EVENT_CLOSE_DOOR)
 		process_door_event(event, &cub->map);
 }
@@ -80,21 +79,23 @@ static void	process_collectible_event(t_vector position, t_collectible_data *col
 	pthread_mutex_unlock(collectible_data->collectible_lock);
 }
 
-static void	process_damage_event(t_damage damage, t_player_data *player_data)
+static void	process_damage_event(t_damage damage, t_cub *cub)
 {
 	int	*life;
 
-	life = &player_data->player_status.life;
-	pthread_mutex_lock(player_data->player_lock);
+	life = &cub->player_data.player_status.life;
+	pthread_mutex_lock(cub->player_data.player_lock);
 	*life = *life - damage;
 	if (*life <= 0)
 	{
 		printf("You're dead\n");
+		player_pos_init(cub);
+		pthread_mutex_lock(cub->player_data.update_lock);
+		cub->player_data.update = true;
+		pthread_mutex_unlock(cub->player_data.update_lock);
 		*life = LIFE_MAX;
 	}
 	else
 		printf("life: %d\n", *life);
-	pthread_mutex_unlock(player_data->player_lock);
+	pthread_mutex_unlock(cub->player_data.player_lock);
 }
-
-//TODO: do process_event for death and damage

@@ -31,6 +31,7 @@ struct s_player
 
 typedef struct s_cub	t_cub;
 
+void		player_pos_init(t_cub *cub);
 void		player_update(t_cub *cub);
 t_fvector	new_position_calculate(t_cub *cub);
 int			is_valid_position(t_cub *cub, float x, float y);
