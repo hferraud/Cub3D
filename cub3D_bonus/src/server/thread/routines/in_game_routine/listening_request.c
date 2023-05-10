@@ -44,7 +44,7 @@ int	listening_request(int client_socket, t_players_data *players_data, t_server_
 }
 
 /**
- * @brief Listen events from a client
+ * @brief Listen all events from a client
  * @return 0 on success, -1 on client error, -2 on server error
  */
 static int	listen_events(int client_socket, t_server_data *server_data)
@@ -66,21 +66,22 @@ static int	listen_events(int client_socket, t_server_data *server_data)
 }
 
 /**
+ * @brief Listen an event from a client and stock it in event
  * @return 0 on success, -1 otherwise
  */
 static int	listen_event(int client_socket, t_event *event)
 {
 	if (read(client_socket, &event->id, sizeof(t_event_id)) <= 0)
-	{
-		free(event);
-		return (cub_error(CLIENT_LOST));
-	}
+		return (free(event), cub_error(CLIENT_LOST));
 	if (event->id == EVENT_DEATH)
 		return (0);
-	if (read(client_socket, &event->position, sizeof(t_vector)) <= 0)
+	if (event->id == EVENT_DAMAGE)
 	{
-		free(event);
-		return (cub_error(CLIENT_LOST));
+		if (read(client_socket, &event->enemy_id, sizeof(int)) <= 0
+			|| read(client_socket, &event->damage, sizeof(t_damage)) <= 0)
+			return (free(event), cub_error(CLIENT_LOST));
 	}
+	else if (read(client_socket, &event->position, sizeof(t_vector)) <= 0)
+		return (free(event), cub_error(CLIENT_LOST));
 	return (0);
 }

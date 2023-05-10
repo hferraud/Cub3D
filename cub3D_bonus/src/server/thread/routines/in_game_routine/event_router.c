@@ -21,8 +21,10 @@ int	event_router(int client_socket, t_event event, t_server_data *server_data)
 {
 	if (event.id == EVENT_TAKE_COLLECTIBLE)
 		return (event_take_collectible(client_socket, event, server_data));
-	if (event.id == EVENT_OPEN_DOOR || event.id == EVENT_CLOSE_DOOR)
+	else if (event.id == EVENT_OPEN_DOOR || event.id == EVENT_CLOSE_DOOR)
 		return (event_door(client_socket, event, server_data));
+	else if (event.id == EVENT_DAMAGE)
+		return (event_request(event.enemy_id, event));
 	return (0);
 }
 

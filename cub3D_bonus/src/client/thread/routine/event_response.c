@@ -14,7 +14,8 @@
 
 static void	process_event(t_event event, t_cub *cub);
 static void	process_door_event(t_event event, t_map_client *map);
-static void	process_collectible_event(t_vector position, t_cub *cub);
+static void	process_collectible_event(t_vector position, t_collectible_data *collectible_data);
+static void	process_damage_event(t_damage damage, t_player_data *player_data);
 
 int event_response(int server_socket, t_cub *cub)
 {
@@ -22,7 +23,12 @@ int event_response(int server_socket, t_cub *cub)
 
 	if (read(server_socket, &event.id, sizeof(t_event_id)) <= 0)
 		return (-1);
-	if (event.id != EVENT_DEATH
+	if (event.id == EVENT_DAMAGE)
+	{
+		if (read(server_socket, &event.damage, sizeof(t_damage)) <= 0)
+			return (-1);
+	}
+	else if (event.id != EVENT_DEATH
 		&& read(server_socket, &event.position, sizeof(t_vector)) <= 0)
 		return (-1);
 	process_event(event, cub);
@@ -32,7 +38,9 @@ int event_response(int server_socket, t_cub *cub)
 static void	process_event(t_event event, t_cub *cub)
 {
 	if (event.id == EVENT_TAKE_COLLECTIBLE)
-		process_collectible_event(event.position, cub);
+		process_collectible_event(event.position, &cub->map.collectible_data);
+	else if (event.id == EVENT_DAMAGE)
+		process_damage_event(event.damage, &cub->player_data);
 	else if (event.id == EVENT_OPEN_DOOR || event.id == EVENT_CLOSE_DOOR)
 		process_door_event(event, &cub->map);
 }
@@ -50,13 +58,11 @@ static void	process_door_event(t_event event, t_map_client *map)
 	pthread_mutex_unlock(map->map_lock);
 }
 
-static void	process_collectible_event(t_vector position, t_cub *cub)
+static void	process_collectible_event(t_vector position, t_collectible_data *collectible_data)
 {
 	size_t				index;
-	t_collectible_data	*collectible_data;
 
 	index = 0;
-	collectible_data = &cub->map.collectible_data;
 	pthread_mutex_lock(collectible_data->collectible_lock);
 	while (index < collectible_data->size
 		&& ((int) collectible_data->collectible[index].pos.x != position.x
@@ -72,6 +78,21 @@ static void	process_collectible_event(t_vector position, t_cub *cub)
 		= collectible_data->collectible[collectible_data->size - 1];
 	collectible_data->size--;
 	pthread_mutex_unlock(collectible_data->collectible_lock);
+}
+
+static void	process_damage_event(t_damage damage, t_player_data *player_data)
+{
+	int	*life;
+
+	life = &player_data->player_status.life;
+	pthread_mutex_lock(player_data->player_lock);
+	*life = *life - damage;
+	if (*life <= 0)
+		printf("You're dead\n");
+	else
+		printf("life: %d\n", *life);
+	*life = LIFE_MAX;
+	pthread_mutex_unlock(player_data->player_lock);
 }
 
 //TODO: do process_event for death and damage
