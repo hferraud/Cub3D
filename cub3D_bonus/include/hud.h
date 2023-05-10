@@ -16,11 +16,11 @@
 
 # define MAP_SIZE 10
 # define MAP_HALF_SIZE 5
-# define MAP_PIXEL_SIZE 150
-# define MAP_PIXEL_HALF_SIZE 75
-# define CELL_PIXEL_SIZE 15
+# define MAP_DIAMETER 150
+# define MAP_RADIUS 75
 # define MAP_PIXEL_OFFSET 10
 
 void	draw_minimap(t_cub *cub);
+void	draw_minimap_pixel(t_cub *cub, t_vector screen, t_fvector map_pos);
 
 #endif
