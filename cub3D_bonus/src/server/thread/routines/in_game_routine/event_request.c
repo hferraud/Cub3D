@@ -22,8 +22,7 @@ int event_request(int client_socket, t_event event)
 		if (write(client_socket, &event.damage, sizeof(t_damage)) == -1)
 			return (-1);
 	}
-	else if (event.id != EVENT_DEATH
-		&& write(client_socket, &event.position, sizeof(t_vector)) == -1)
+	else if (write(client_socket, &event.position, sizeof(t_vector)) == -1)
 		return (-1);
 	return (0);
 }

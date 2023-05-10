@@ -73,8 +73,6 @@ static int	listen_event(int client_socket, t_event *event)
 {
 	if (read(client_socket, &event->id, sizeof(t_event_id)) <= 0)
 		return (free(event), cub_error(CLIENT_LOST));
-	if (event->id == EVENT_DEATH)
-		return (0);
 	if (event->id == EVENT_DAMAGE)
 	{
 		if (read(client_socket, &event->enemy_id, sizeof(int)) <= 0

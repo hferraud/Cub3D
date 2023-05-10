@@ -25,7 +25,6 @@ enum	e_event_id
 	EVENT_CLOSE_DOOR,
 	EVENT_TAKE_COLLECTIBLE,
 	EVENT_DAMAGE,
-	EVENT_DEATH,
 };
 
 struct s_event
