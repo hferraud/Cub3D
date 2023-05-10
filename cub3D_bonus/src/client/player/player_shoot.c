@@ -40,8 +40,8 @@ void	player_shoot(t_cub *cub)
 			if (dp.screen.x < WIN_WIDTH / 2 + dp.width / 2
 				&& dp.screen.x > WIN_WIDTH / 2 - dp.width / 2)
 			{
-//				add_damage_event(cub, enemies[i].id,
-//					get_damage_by_weapon(player_status.weapon_equipped));
+				add_damage_event(cub, enemies[i].id,
+					get_damage_by_weapon(player_status.weapon_equipped));
 				printf("Hit: %d damage\n", get_damage_by_weapon(player_status.weapon_equipped));
 			}
 			else

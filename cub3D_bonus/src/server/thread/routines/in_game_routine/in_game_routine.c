@@ -74,7 +74,7 @@ static int	send_data(int client_index, t_server_data *server_data, t_players_dat
 	{
 		client_socket = server_data->player->players_socket[count];
 		if (client_socket != -1 && count != client_index
-			&& send_request(client_socket, players_data, client_index))
+			&& send_request(client_socket, players_data, client_index, server_data->player->players_socket[client_index]))
 			return (-1);
 		count++;
 	}

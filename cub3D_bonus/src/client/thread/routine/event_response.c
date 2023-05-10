@@ -88,10 +88,12 @@ static void	process_damage_event(t_damage damage, t_player_data *player_data)
 	pthread_mutex_lock(player_data->player_lock);
 	*life = *life - damage;
 	if (*life <= 0)
+	{
 		printf("You're dead\n");
+		*life = LIFE_MAX;
+	}
 	else
 		printf("life: %d\n", *life);
-	*life = LIFE_MAX;
 	pthread_mutex_unlock(player_data->player_lock);
 }
 

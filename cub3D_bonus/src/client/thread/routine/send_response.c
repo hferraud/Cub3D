@@ -17,7 +17,7 @@ int send_response(int server_socket, t_cub *cub)
 {
 	int			id;
 	t_player	new_position;
-	t_enemy	*player;
+	t_enemy		*player;
 
 	if (read(server_socket, &id, sizeof(int)) <= 0
 		|| read(server_socket, &new_position, sizeof(t_player)) <= 0)
