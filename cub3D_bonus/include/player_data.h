@@ -30,6 +30,7 @@
 typedef struct s_player_data	t_player_data;
 typedef struct s_player_status	t_player_status;
 typedef enum e_weapon			t_weapon;
+typedef struct timeval			t_timeval;
 
 enum e_weapon
 {
@@ -44,6 +45,7 @@ struct s_player_status
 	t_weapon	weapon_equipped;
 	bool		weapons[NB_WEAPONS];
 	int			ammo;
+	t_timeval	time_last_shoot;
 };
 
 struct s_player_data
