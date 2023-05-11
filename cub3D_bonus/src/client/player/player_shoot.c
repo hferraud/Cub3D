@@ -32,15 +32,15 @@ void	player_shoot(t_cub *cub)
 
 	gettimeofday(&current_time, NULL);
 	pthread_mutex_lock(cub->player_data.player_lock);
+	if (!can_shoot(cub->player_data.player_status.weapon_equipped, cub->player_data.player_status.time_last_shoot, current_time))
+	{
+		pthread_mutex_unlock(cub->player_data.player_lock);
+		return ;
+	}
 	if (cub->player_data.player_status.ammo == 0 && cub->player_data.player_status.weapon_equipped != KNIFE_INDEX)
 	{
 		pthread_mutex_unlock(cub->player_data.player_lock);
 		printf("No ammo\n");
-		return ;
-	}
-	if (!can_shoot(cub->player_data.player_status.weapon_equipped, cub->player_data.player_status.time_last_shoot, current_time))
-	{
-		pthread_mutex_unlock(cub->player_data.player_lock);
 		return ;
 	}
 	cub->player_data.player_status.time_last_shoot = current_time;
