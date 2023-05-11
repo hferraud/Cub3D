@@ -13,7 +13,6 @@
 # define MLX_HANDLER_H
 
 # include "libft.h"
-# include "mlx.h"
 # include "error.h"
 # include "cub.h"
 # include "texture.h"
@@ -33,6 +32,7 @@
 typedef struct s_cub		t_cub;
 typedef struct s_mlx_data	t_mlx_data;
 typedef struct s_sprite		t_sprite;
+typedef struct s_hud_sprite	t_hud_sprite;
 typedef struct s_img_data	t_img_data;
 
 /* --- FUNCTIONS --- */
@@ -61,14 +61,20 @@ struct s_sprite
 	int			height;
 };
 
+struct s_hud_sprite
+{
+	t_sprite	ammo;
+};
+
 struct s_mlx_data
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
-	t_img_data	img_data;
-	t_sprite	texture_sprite[NB_TEXTURE];
-	t_sprite	collectible_sprite[NB_COLLECTIBLE];
-	int			key_press[MAX_KEY];
+	void			*mlx_ptr;
+	void			*win_ptr;
+	t_img_data		img_data;
+	t_sprite		texture_sprite[NB_TEXTURE];
+	t_sprite		collectible_sprite[NB_COLLECTIBLE];
+	t_hud_sprite	hud_sprite;
+	int				key_press[MAX_KEY];
 };
 
 #endif
