@@ -20,11 +20,11 @@
 # define MAP_RADIUS 80
 # define MAP_PIXEL_OFFSET 10
 
-# define HEALTH_BAR_WIDTH 200
-# define HEALTH_BAR_HEIGHT 20
+# define HEALTH_BAR_WIDTH 300
+# define HEALTH_BAR_HEIGHT 40
 # define HEALTH_BAR_OFFSET 20
-# define BORDER_SIZE 2
-# define BORDER_RADIUS 10
+# define BORDER_SIZE 3
+# define BORDER_RADIUS 20
 
 void	draw_minimap(t_cub *cub);
 void	draw_minimap_pixel(t_cub *cub, t_vector screen, t_fvector map_pos);

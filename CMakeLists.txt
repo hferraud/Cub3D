@@ -216,4 +216,4 @@ add_executable(cub3D
         minilibx/mlx_xpm.c
         cub3D_bonus/src/client/display/draw/hud/draw_minimap.c
         cub3D_bonus/include/hud.h
-        minilibx/mlx_xpm.c cub3D_bonus/src/client/event/event_new.c cub3D_bonus/src/client/event/add_event.c)
+        minilibx/mlx_xpm.c cub3D_bonus/src/client/event/event_new.c cub3D_bonus/src/client/event/add_event.c cub3D_bonus/src/client/display/draw/hud/draw_health_bar.c)
