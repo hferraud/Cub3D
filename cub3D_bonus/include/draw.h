@@ -46,7 +46,6 @@ void		mlx_put_point(t_img_data *img_data, t_vector point, int color);
 void		draw_line(t_img_data *data, t_vector a, t_vector b, int color);
 void		draw_rectangle(t_img_data *img_data, t_rectangle rectangle);
 void		draw_background(t_cub *cub);
-void		draw_minimap(t_cub *cub);
 void		draw_sprite(t_cub *cub, t_draw_param dp, const float *z_buffer, float dist);
 void		draw_collectible(t_cub *cub, t_collectible collectible, const float *z_buffer);
 void		draw_enemy(t_cub *cub, t_enemy enemy, const float *z_buffer);

@@ -125,6 +125,7 @@ SRC_CLIENT	=		error.c	\
 						\
 						client/display/draw/hud/draw_minimap.c	\
 						client/display/draw/hud/draw_minimap_pixel.c	\
+						client/display/draw/hud/draw_health_bar.c	\
 						\
 						client/display/raycasting/raycasting.c	\
 						\
