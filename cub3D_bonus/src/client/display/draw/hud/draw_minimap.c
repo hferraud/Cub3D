@@ -32,7 +32,13 @@ static void	draw_half_minimap(t_cub *cub, int step)
 
 	screen.x = MAP_PIXEL_OFFSET + MAP_RADIUS;
 	screen.y = WIN_HEIGHT - (MAP_PIXEL_OFFSET + MAP_RADIUS);
-	x_offset = 0;
+	if (step == -1)
+	{
+		screen.x += step;
+		x_offset = 1;
+	}
+	else
+		x_offset = 0;
 	while (x_offset < MAP_RADIUS)
 	{
 		map_pos.x = cub->player_data.player.pos.x
@@ -48,7 +54,13 @@ static void	draw_half_minimap_stripe(t_cub *cub, t_vector screen, t_fvector map_
 {
 	int		y_offset;
 
-	y_offset = 0;
+	if (step == -1)
+	{
+		screen.y += step;
+		y_offset = 1;
+	}
+	else
+		y_offset = 0;
 	while (y_offset < MAP_RADIUS)
 	{
 		map_pos.y = cub->player_data.player.pos.y

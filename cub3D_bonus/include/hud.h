@@ -16,8 +16,8 @@
 
 # define MAP_SIZE 10
 # define MAP_HALF_SIZE 5
-# define MAP_DIAMETER 150
-# define MAP_RADIUS 75
+# define MAP_DIAMETER 160
+# define MAP_RADIUS 80
 # define MAP_PIXEL_OFFSET 10
 
 void	draw_minimap(t_cub *cub);
