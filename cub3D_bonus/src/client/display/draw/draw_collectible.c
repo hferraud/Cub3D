@@ -38,8 +38,8 @@ static t_draw_param	get_draw_param(t_cub *cub, t_fvector camera, t_collectible c
 	int				scale;
 
 	dp.sprite = cub->mlx_data->collectible_sprite[collectible.id];
-	dp.width = dp.sprite.width / camera.y;
-	dp.height = dp.sprite.height / camera.y;
+	dp.width = 200.f / camera.y;
+	dp.height = ((float)dp.sprite.height / dp.sprite.width) * 200.f / camera.y;
 	dp.screen.x = (WIN_WIDTH / 2.f) * (1 + camera.x / camera.y);
 	dp.draw_start.x = dp.screen.x - dp.width / 2;
 	dp.draw_end.x = dp.screen.x + dp.width / 2;
