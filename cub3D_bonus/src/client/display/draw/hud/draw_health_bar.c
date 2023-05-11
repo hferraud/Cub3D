@@ -27,7 +27,6 @@ void	draw_health_bar(t_cub *cub)
 		offset.y = 0;
 		while (offset.y < HEALTH_BAR_HEIGHT)
 		{
-//			printf("here");
 			draw_health_bar_pixel(cub, offset, screen);
 			screen.y++;
 			offset.y++;
