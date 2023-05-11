@@ -14,9 +14,9 @@
 
 # include "cub.h"
 
-# define MAP_SIZE 10
+# define BULLET_PATH	"asset/bullet.xpm"
+
 # define MAP_HALF_SIZE 5
-# define MAP_DIAMETER 160
 # define MAP_RADIUS 80
 # define MAP_PIXEL_OFFSET 10
 

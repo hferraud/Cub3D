@@ -10,9 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "mlx_handler.h"
+#include "hud.h"
 
 static int		mlx_texture_sprite_init(t_cub *cub);
 static int		mlx_collectible_sprite_init(t_mlx_data *mlx_data);
+static int		mlx_hud_sprite_init(t_mlx_data *mlx_data);
 static t_sprite	mlx_sprite_open(t_mlx_data *mlx_data, char *path);
 static int		error_sprite_init(t_cub *cub);
 
@@ -24,7 +26,8 @@ static int		error_sprite_init(t_cub *cub);
 int	mlx_sprite_init(t_cub *cub)
 {
 	if (mlx_texture_sprite_init(cub) == -1
-		|| mlx_collectible_sprite_init(cub->mlx_data) == -1)
+		|| mlx_collectible_sprite_init(cub->mlx_data) == -1
+		|| mlx_hud_sprite_init(cub->mlx_data) == -1)
 		return (error_sprite_init(cub));
 	return (0);
 }
@@ -64,6 +67,17 @@ static int	mlx_collectible_sprite_init(t_mlx_data *mlx_data)
 			return (-1);
 		index++;
 	}
+	return (0);
+}
+
+static int	mlx_hud_sprite_init(t_mlx_data *mlx_data)
+{
+	t_sprite	*sprite;
+
+	sprite = &mlx_data->hud_sprite.ammo;
+	*sprite = mlx_sprite_open(mlx_data, AMMO_PATH);
+	if (sprite->img_data.img == NULL)
+		return (-1);
 	return (0);
 }
 

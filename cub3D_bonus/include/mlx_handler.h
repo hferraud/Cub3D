@@ -12,6 +12,7 @@
 #ifndef MLX_HANDLER_H
 # define MLX_HANDLER_H
 
+# include "mlx.h"
 # include "libft.h"
 # include "error.h"
 # include "cub.h"

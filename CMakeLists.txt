@@ -5,6 +5,7 @@ set(CMAKE_C_STANDARD 11)
 
 include_directories(cub3D_bonus/include)
 include_directories(libft/include)
+include_directories(minilibx)
 
 add_executable(cub3D
         cub3D_bonus/include/collectible.h
@@ -33,7 +34,9 @@ add_executable(cub3D
         cub3D_bonus/include/texture.h
         cub3D_bonus/include/vector.h
         cub3D_bonus/include/weapons_data.h
+        cub3D_bonus/src/client/display/draw/hud/draw_health_bar.c
         cub3D_bonus/src/client/display/draw/hud/draw_minimap.c
+        cub3D_bonus/src/client/display/draw/hud/draw_minimap_pixel.c
         cub3D_bonus/src/client/display/draw/draw_background.c
         cub3D_bonus/src/client/display/draw/draw_collectible.c
         cub3D_bonus/src/client/display/draw/draw_enemy.c
@@ -213,7 +216,4 @@ add_executable(cub3D
         minilibx/mlx_screen_size.c
         minilibx/mlx_set_font.c
         minilibx/mlx_string_put.c
-        minilibx/mlx_xpm.c
-        cub3D_bonus/src/client/display/draw/hud/draw_minimap.c
-        cub3D_bonus/include/hud.h
-        minilibx/mlx_xpm.c cub3D_bonus/src/client/event/event_new.c cub3D_bonus/src/client/event/add_event.c cub3D_bonus/src/client/display/draw/hud/draw_health_bar.c)
+        minilibx/mlx_xpm.c)
