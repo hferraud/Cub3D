@@ -75,7 +75,7 @@ static int	mlx_hud_sprite_init(t_mlx_data *mlx_data)
 	t_sprite	*sprite;
 
 	sprite = &mlx_data->hud_sprite.ammo;
-	*sprite = mlx_sprite_open(mlx_data, AMMO_PATH);
+	*sprite = mlx_sprite_open(mlx_data, BULLET_PATH);
 	if (sprite->img_data.img == NULL)
 		return (-1);
 	return (0);
