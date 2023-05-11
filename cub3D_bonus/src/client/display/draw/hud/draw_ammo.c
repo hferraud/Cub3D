@@ -17,26 +17,28 @@ static void	draw_bullet(t_cub *cub, t_sprite sprite, t_vector screen);
 void	draw_ammo(t_cub *cub)
 {
 	t_vector	screen;
-	t_sprite	bullet_sprite;
+	t_sprite	sprite;
 	int			bullet_drawn;
 	int			ammo;
 
 	pthread_mutex_lock(cub->player_data.player_lock);
 	ammo = cub->player_data.player_status.ammo;
 	pthread_mutex_unlock(cub->player_data.player_lock);
-	bullet_sprite = cub->mlx_data->hud_sprite.ammo;
-	screen.x = WIN_WIDTH - 100;
-	screen.y = WIN_HEIGHT - AMMO_OFFSET - BULLET_Y_OFFSET * ((ammo - 1) / 10);
+	sprite = cub->mlx_data->hud_sprite.ammo;
+	screen.x = WIN_WIDTH - (AMMO_X_OFFSET + sprite.width * BULLET_PER_ROW);
+	screen.y = WIN_HEIGHT - AMMO_Y_OFFSET
+		- BULLET_Y_OFFSET * (1 + (ammo - 1) / 10);
 	bullet_drawn = 0;
 	while (bullet_drawn < ammo)
 	{
-		draw_bullet(cub, bullet_sprite, screen);
-		screen.x += bullet_sprite.width;
+		draw_bullet(cub, sprite, screen);
+		screen.x += sprite.width;
 		bullet_drawn++;
-		if (bullet_drawn % BULLET_PER_ROW == 0)
+		if ((ammo - bullet_drawn) % BULLET_PER_ROW == 0)
 		{
 			screen.y += BULLET_Y_OFFSET;
-			screen.x = WIN_WIDTH - 100;
+			screen.x = WIN_WIDTH
+				- (AMMO_X_OFFSET + sprite.width * BULLET_PER_ROW);
 		}
 	}
 }

@@ -21,13 +21,14 @@
 # define MAP_PIXEL_OFFSET 20
 
 # define HEALTH_BAR_WIDTH 300
-# define HEALTH_BAR_HEIGHT 40
+# define HEALTH_BAR_HEIGHT 39
 # define HEALTH_BAR_OFFSET 20
 # define BORDER_SIZE 3
 # define BORDER_RADIUS 20
 
 # define BULLET_PER_ROW 10
-# define AMMO_OFFSET 20
+# define AMMO_Y_OFFSET 20
+# define AMMO_X_OFFSET 150
 # define BULLET_Y_OFFSET 10
 
 void	draw_minimap(t_cub *cub);
