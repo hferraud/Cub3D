@@ -20,7 +20,7 @@ static void	change_weapon(int key_code, t_player_data *player_data);
 int	key_press(int key_code, t_cub *cub)
 {
 	const int	valid_key[MAX_KEY] = {KEY_W, KEY_A, KEY_S, KEY_D,
-									   KEY_LEFT, KEY_RIGHT};
+									   KEY_LEFT, KEY_RIGHT, KEY_SPC};
 	size_t		index;
 
 	index = 0;

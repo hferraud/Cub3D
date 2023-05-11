@@ -68,6 +68,7 @@ static t_player_status	player_status_init(void)
 	player_status.weapons[ASSAULT_RIFLE_INDEX] = false;
 	player_status.weapon_equipped = KNIFE_INDEX;
 	player_status.ammo = AMMO_DEFAULT;
+	ft_bzero(&player_status.time_last_shoot, sizeof(t_timeval));
 	return (player_status);
 }
 

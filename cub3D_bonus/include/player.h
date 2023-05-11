@@ -43,5 +43,6 @@ void		player_door_interact(t_cub *cub);
 int			player_hit_collectible(t_cub *cub);
 
 void		player_shoot(t_cub *cub);
+void		check_assault_riffle_shoot(t_cub *cub);
 
 #endif

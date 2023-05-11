@@ -145,6 +145,7 @@ SRC_CLIENT	=		error.c	\
 						\
 					\
 					utils/collectible.c	\
+					utils/time.c		\
 					\
 
 OBJ_SERVER	=		$(addprefix $(BUILD_DIR), $(SRC_SERVER:.c=.o))
