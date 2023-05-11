@@ -26,6 +26,13 @@ void	player_shoot(t_cub *cub)
 	size_t			i;
 
 	pthread_mutex_lock(cub->player_data.player_lock);
+	if (cub->player_data.player_status.ammo == 0)
+	{
+		pthread_mutex_unlock(cub->player_data.player_lock);
+		printf("No ammo\n");
+		return ;
+	}
+	cub->player_data.player_status.ammo--;
 	player = cub->player_data.player;
 	player_status = cub->player_data.player_status;
 	pthread_mutex_unlock(cub->player_data.player_lock);
