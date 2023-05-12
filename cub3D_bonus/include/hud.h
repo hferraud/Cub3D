@@ -39,6 +39,7 @@
 # define WEAPON_HEIGHT 150
 
 
+void	draw_hud(t_cub *cub);
 void	draw_minimap(t_cub *cub);
 void	draw_minimap_pixel(t_cub *cub, t_vector screen, t_fvector map_pos);
 void	draw_health_bar(t_cub *cub);
