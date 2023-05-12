@@ -210,4 +210,4 @@ add_executable(42_Cub3D
         minilibx/mlx_set_font.c
         minilibx/mlx_string_put.c
         minilibx/mlx_xpm.c cub3D_bonus/src/client/event/event_new.c cub3D_bonus/src/client/event/add_event.c
-        cub3D_bonus/src/client/display/draw/draw_enemy.c cub3D/include/map.h cub3D_bonus/src/client/player/player_door_interact.c cub3D_bonus/src/client/player/player_shoot.c cub3D_bonus/src/utils/time.c)
+        cub3D_bonus/src/client/display/draw/draw_enemy.c cub3D/include/map.h cub3D_bonus/src/client/player/player_door_interact.c cub3D_bonus/src/client/player/player_shoot.c cub3D_bonus/src/utils/time.c cub3D_bonus/src/client/display/draw/draw_floor.c)

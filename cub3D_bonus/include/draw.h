@@ -59,6 +59,8 @@ void		draw_collectible(t_cub *cub, t_collectible collectible, const float *z_buf
 void		draw_enemy(t_cub *cub, t_enemy enemy, const float *z_buffer);
 void		draw_sprites(t_cub *cub, const float *z_buffer);
 void		draw_wall(t_cub *cub, int x, t_ray ray);
+void		draw_floor(t_cub *cub);
+void		draw_ceil(t_cub *cub);
 void		draw_player_view(t_cub *cub);
 
 /* --- DRAW UTILS FUNCTIONS --- */

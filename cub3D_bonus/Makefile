@@ -126,6 +126,7 @@ SRC_CLIENT	=		error.c	\
 						client/display/draw/draw_enemy.c		\
 						client/display/draw/draw_sprite.c		\
 						client/display/draw/draw_shape_utils.c	\
+						client/display/draw/draw_floor.c	\
 						\
 						client/display/minimap/minimap.c	\
 						\
@@ -159,7 +160,7 @@ DEPS		=		$(addprefix $(BUILD_DIR), $(SRC_SERVER:.c=.d))	\
 #	FLAGS
 #######################
 
-CFLAGS		=		-Wall -Werror -Wextra
+CFLAGS		=		-Wall -Werror -Wextra -g3
 
 IFLAGS		=		-I $(INC_DIR) -I $(LIBFT_DIR)include -I $(MLX_DIR)
 
