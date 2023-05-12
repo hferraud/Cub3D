@@ -74,7 +74,7 @@ static t_sprite	get_sprite_from_weapon(t_hud_sprite hud_sprite, t_weapon weapon,
 	}
 	else
 	{
-		index = (frame_since_last_shoot / 2);
+		index = (frame_since_last_shoot);
 		if (index >= NB_AR_SPRITES)
 			index = 0;
 		return (hud_sprite.assault_rifle[index]);
