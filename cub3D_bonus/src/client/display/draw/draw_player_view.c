@@ -43,4 +43,5 @@ void	draw_player_view(t_cub *cub)
 	draw_minimap(cub);
 	draw_health_bar(cub);
 	draw_ammo(cub);
+	draw_weapon(cub);
 }

@@ -19,6 +19,7 @@
 # include "texture.h"
 # include "collectible.h"
 # include "hook.h"
+# include "weapons_data.h"
 # include <stdio.h>
 
 # define WIN_WIDTH	1280
@@ -65,6 +66,7 @@ struct s_sprite
 struct s_hud_sprite
 {
 	t_sprite	ammo;
+	t_sprite	weapon[NB_WEAPONS];
 };
 
 struct s_mlx_data

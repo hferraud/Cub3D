@@ -19,7 +19,7 @@
 # define MEDIC_KIT_PATH			"asset/medic_kit.xpm"
 # define AMMO_PATH				"asset/ammo.xpm"
 # define PISTOL_PATH			"asset/pistol.xpm"
-# define ASSAULT_RIFFLE_PATH	"asset/assault_riffle.xpm"
+# define ASSAULT_RIFFLE_PATH	"asset/assault_rifle.xpm"
 
 # define NB_COLLECTIBLE		4
 # define COLLECTIBLE_OFFSET	0.5

@@ -72,12 +72,23 @@ static int	mlx_collectible_sprite_init(t_mlx_data *mlx_data)
 
 static int	mlx_hud_sprite_init(t_mlx_data *mlx_data)
 {
+	const char	*paths[] = {KNIFE_HUD_PATH, PISTOL_HUD_PATH, AR_HUD_PATH};
 	t_sprite	*sprite;
+	int			index;
 
 	sprite = &mlx_data->hud_sprite.ammo;
 	*sprite = mlx_sprite_open(mlx_data, BULLET_PATH);
 	if (sprite->img_data.img == NULL)
 		return (-1);
+	index = 0;
+	while (index < NB_WEAPONS)
+	{
+		sprite = &mlx_data->hud_sprite.weapon[index];
+		*sprite = mlx_sprite_open(mlx_data, (char *)paths[index]);
+		if (sprite->img_data.img == NULL)
+			return (-1);
+		index++;
+	}
 	return (0);
 }
 
