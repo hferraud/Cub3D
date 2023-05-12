@@ -53,7 +53,7 @@ struct s_player_data
 	bool			update;
 	pthread_mutex_t	*update_lock;
 	t_player		player;
-	t_player_status player_status;
+	t_player_status	player_status;
 	t_fvector		camera;
 	pthread_mutex_t	*player_lock;
 	t_list			*events;
@@ -64,12 +64,12 @@ int		thread_init(t_cub *cub);
 int		player_data_init(t_player_data *player_data);
 void	player_data_destroy(t_player_data *player_data);
 int		listening_response(int server_socket, t_player_data *player_data);
-int 	send_collectible_event(int server_socket, t_event event,
-							  t_player_data *player_data);
-int 	send_door_event(int server_socket, t_event event);
+int		send_collectible_event(int server_socket, t_event event,
+			t_player_data *player_data);
+int		send_door_event(int server_socket, t_event event);
 int		send_damage_event(int server_socket, t_event event);
-int 	send_response(int server_socket, t_cub *cub);
-int 	event_response(int server_socket, t_cub *cub);
+int		send_response(int server_socket, t_cub *cub);
+int		event_response(int server_socket, t_cub *cub);
 
 void	take_collectible(char cell, t_player_data *player_data);
 void	take_medic_kit(t_player_status *player_status);
