@@ -67,7 +67,7 @@ static t_sprite	get_sprite_from_weapon(t_hud_sprite hud_sprite, t_weapon weapon,
 	}
 	else if (weapon == PISTOL_INDEX)
 	{
-		index = (frame_since_last_shoot / 4);
+		index = (frame_since_last_shoot / 3);
 		if (index >= NB_PISTOL_SPRITES)
 			index = 0;
 		return (hud_sprite.pistol[index]);
