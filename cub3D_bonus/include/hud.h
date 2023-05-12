@@ -34,9 +34,11 @@
 # define BULLET_PER_ROW 10
 # define BULLET_Y_OFFSET 10
 
-# define WEAPON_OFFSET 20
 # define WEAPON_WIDTH 220
 # define WEAPON_HEIGHT 150
+# define KNIFE_OFFSET 20
+# define PISTOL_OFFSET 20
+# define AR_OFFSET 20
 
 
 void	draw_hud(t_cub *cub);
