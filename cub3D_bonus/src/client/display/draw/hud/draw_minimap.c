@@ -14,7 +14,8 @@
 #include "hud.h"
 
 static void	draw_half_minimap(t_cub *cub, int step);
-static void	draw_half_minimap_stripe(t_cub *cub, t_vector screen, t_fvector map_pos, int step);
+static void	draw_half_minimap_stripe(t_cub *cub,
+				t_vector screen, t_fvector map_pos, int step);
 
 void	draw_minimap(t_cub *cub)
 {
@@ -50,7 +51,8 @@ static void	draw_half_minimap(t_cub *cub, int step)
 	}
 }
 
-static void	draw_half_minimap_stripe(t_cub *cub, t_vector screen, t_fvector map_pos, int step)
+static void	draw_half_minimap_stripe(t_cub *cub,
+				t_vector screen, t_fvector map_pos, int step)
 {
 	int		y_offset;
 

@@ -56,7 +56,7 @@ static void	draw_weapon_view_sprite(t_cub *cub, t_sprite sprite, t_vector screen
 
 static t_sprite	get_sprite_from_weapon(t_hud_sprite hud_sprite, t_weapon weapon, size_t frame_since_last_shoot)
 {
-	int index;
+	int	index;
 
 	if (weapon == KNIFE_INDEX)
 	{

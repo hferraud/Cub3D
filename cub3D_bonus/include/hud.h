@@ -42,23 +42,33 @@
 # define AR_3			"asset/hud/assault_rifle_animation/assault_rifle_3.xpm"
 # define AR_4			"asset/hud/assault_rifle_animation/assault_rifle_4.xpm"
 
+# define BORDER_SIZE 2
+
 # define MAP_HALF_SIZE 5
 # define MAP_RADIUS 80
 # define MAP_PIXEL_OFFSET 20
+# define MAP_TRANSPARENCY 0x80000000
+# define MAP_EMPTY_COLOR 0x161616
+# define MAP_PLAYER_COLOR 0xFF0000
+# define MAP_WALL_COLOR 0x000000
+# define MAP_FLOOR_COLOR 0xFFFFFF
+# define MAP_DOOR_CLOSE_COLOR 0x00FF00
+# define MAP_DOOR_OPEN_COLOR 0x0000FF
+# define MAP_BORDER_COLOR 0x101010
 
 # define HEALTH_BAR_WIDTH 300
 # define HEALTH_BAR_HEIGHT 25
 # define HEALTH_BAR_OFFSET 20
-# define BORDER_SIZE 2
 # define BORDER_RADIUS 12
+# define HB_BORDER_COLOR 0xBB000000
+# define HB_EMPTY_COLOR 0x44888888
+# define HB_HEALTH_COLOR 0x44d12d
 
 # define AMMO_Y_OFFSET 25
 # define AMMO_X_OFFSET 240
 # define BULLET_PER_ROW 10
 # define BULLET_Y_OFFSET 10
 
-# define WEAPON_WIDTH 220
-# define WEAPON_HEIGHT 150
 # define KNIFE_OFFSET_X	45
 # define KNIFE_OFFSET_Y 20
 # define PISTOL_OFFSET_X 110

@@ -13,36 +13,34 @@
 #include "draw.h"
 
 static int	get_pixel_color(t_cub *cub, t_fvector map_pos);
-//static void	pixel_rotate(t_fvector orientation, t_vector *screen);
+static int	get_color_from_cell(char cell);
 static bool	is_in_circle(t_vector screen, float radius);
 
 void	draw_minimap_pixel(t_cub *cub, t_vector screen, t_fvector map_pos)
 {
 	int		color;
 
-	if (is_in_circle(screen, MAP_RADIUS - 2))
+	if (is_in_circle(screen, MAP_RADIUS - BORDER_SIZE))
 	{
 		color = get_pixel_color(cub, map_pos);
-//		pixel_rotate(cub->player_data.player.rotation, &screen);
 		color = pixel_transparency(cub, screen, color);
 		mlx_put_point(&cub->mlx_data->img_data, screen, color);
 	}
 	else if (is_in_circle(screen, MAP_RADIUS))
 	{
-		color = 0xDD000000;
-		color = pixel_transparency(cub, screen, color);
+		color = MAP_BORDER_COLOR;
 		mlx_put_point(&cub->mlx_data->img_data, screen, color);
 	}
 }
 
 static int	get_pixel_color(t_cub *cub, t_fvector map_pos)
 {
-	char	cell;
-	int		color;
+	char			cell;
+	unsigned int	color;
 
 	if ((map_pos.x < 0 || map_pos.y < 0)
 		|| (map_pos.x >= cub->map.width || map_pos.y >= cub->map.height))
-		color = 0x80161616;
+		color = MAP_EMPTY_COLOR;
 	else
 	{
 		cell = cub->map.map[(int)map_pos.y][(int)map_pos.x];
@@ -50,33 +48,26 @@ static int	get_pixel_color(t_cub *cub, t_fvector map_pos)
 				&& map_pos.x > cub->player_data.player.pos.x - PLAYER_OFFSET)
 			&& (map_pos.y < cub->player_data.player.pos.y + PLAYER_OFFSET
 				&& map_pos.y > cub->player_data.player.pos.y - PLAYER_OFFSET))
-			color = 0x80FF0000;
-		else if (cell == ' ')
-			color = 0x80161616;
-		else if (cell == WALL)
-			color = 0x80000000;
-		else if (cell == DOOR_CLOSE)
-			color = 0x8000FF00;
+			color = MAP_PLAYER_COLOR;
 		else
-			color = 0x80FFFFFF;
+			color = get_color_from_cell(cell);
 	}
-	return (color);
+	return (color | MAP_TRANSPARENCY);
 }
 
-//static void	pixel_rotate(t_fvector rotation, t_vector *screen)
-//{
-//	t_vector	center;
-//	t_fvector	relative_pos;
-//
-//	center.x = MAP_PIXEL_OFFSET + MAP_RADIUS;
-//	center.y = WIN_HEIGHT - (MAP_PIXEL_OFFSET + MAP_RADIUS);
-//	relative_pos.x = center.x - screen->x;
-//	relative_pos.y = center.y - screen->y;
-//	relative_pos = fvector_rotate(relative_pos,
-//			atan2f(rotation.x, rotation.y));
-//	screen->x = round(center.x + relative_pos.x);
-//	screen->y = round(center.y + relative_pos.y);
-//}
+static int	get_color_from_cell(char cell)
+{
+	if (cell == ' ')
+		return (MAP_EMPTY_COLOR);
+	else if (cell == WALL)
+		return (MAP_WALL_COLOR);
+	else if (cell == DOOR_CLOSE)
+		return (MAP_DOOR_CLOSE_COLOR);
+	else if (cell == DOOR_OPEN)
+		return (MAP_DOOR_OPEN_COLOR);
+	else
+		return (MAP_FLOOR_COLOR);
+}
 
 static bool	is_in_circle(t_vector screen, float radius)
 {
