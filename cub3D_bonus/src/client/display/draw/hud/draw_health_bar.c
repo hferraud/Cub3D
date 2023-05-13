@@ -58,7 +58,7 @@ static void	draw_health_bar_pixel(t_cub *cub, t_vector offset, t_vector screen)
 		else if (offset.y < BORDER_SIZE || offset.y >= HEALTH_BAR_HEIGHT - BORDER_SIZE)
 			color = 0x0;
 		else if (x_ratio < life_ratio)
-			color = 0x00FF00;
+			color = 0x44d12d;
 		else
 			color = 0x808080;
 	}
