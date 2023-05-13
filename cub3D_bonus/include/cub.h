@@ -56,6 +56,7 @@ struct s_cub
 	t_enemy			enemies[PLAYER_LIMIT - 1];
 	pthread_mutex_t	*enemies_lock;
 	pthread_t		thread;
+	float			z_buffer[WIN_WIDTH];
 };
 
 #endif
