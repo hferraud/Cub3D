@@ -59,10 +59,11 @@
 
 # define WEAPON_WIDTH 220
 # define WEAPON_HEIGHT 150
-# define KNIFE_OFFSET 20
-# define PISTOL_OFFSET_X 85
+# define KNIFE_OFFSET_X	45
+# define KNIFE_OFFSET_Y 20
+# define PISTOL_OFFSET_X 110
 # define PISTOL_OFFSET_Y 20
-# define AR_OFFSET 25
+# define AR_OFFSET_X 50
 
 
 void	draw_hud(t_cub *cub);

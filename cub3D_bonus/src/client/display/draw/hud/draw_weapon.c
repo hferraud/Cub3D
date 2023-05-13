@@ -62,8 +62,8 @@ static t_vector	get_draw_start(t_weapon weapon, t_sprite sprite)
 
 	if (weapon == KNIFE_INDEX)
 	{
-		draw_start.x = KNIFE_OFFSET;
-		draw_start.y = WIN_HEIGHT - (sprite.height + KNIFE_OFFSET);
+		draw_start.x = KNIFE_OFFSET_X;
+		draw_start.y = WIN_HEIGHT - (sprite.height + KNIFE_OFFSET_Y);
 	}
 	else if (weapon == PISTOL_INDEX)
 	{
@@ -72,7 +72,7 @@ static t_vector	get_draw_start(t_weapon weapon, t_sprite sprite)
 	}
 	else
 	{
-		draw_start.x = AR_OFFSET;
+		draw_start.x = AR_OFFSET_X;
 		draw_start.y = WIN_HEIGHT - sprite.height;
 	}
 	return (draw_start);
