@@ -15,7 +15,7 @@ static int		client_get_socket(t_server_data *server_data);
 static t_spawn	*client_get_spawn(int client_socket,
 					t_server_data *server_data);
 static void		client_to_player(int client_socket, t_server_data *server_data);
-static int 		check_end_routine(t_server_status *server_status);
+static int		check_end_routine(t_server_status *server_status);
 
 void	connection_routine(t_server_data *server_data)
 {
@@ -46,9 +46,11 @@ void	connection_routine(t_server_data *server_data)
 			else
 			{
 				lst_del_client(client_socket, server_data, true);
-				pthread_mutex_lock(server_data->client_connected->client_connected_lock);
+				pthread_mutex_lock(server_data->client_connected
+					->client_connected_lock);
 				server_data->client_connected->nb_client_connected++;
-				pthread_mutex_unlock(server_data->client_connected->client_connected_lock);
+				pthread_mutex_unlock(server_data->client_connected
+					->client_connected_lock);
 			}
 		}
 		else
@@ -95,7 +97,7 @@ static t_spawn	*client_get_spawn(int client_socket, t_server_data *server_data)
 static void	client_to_player(int client_socket, t_server_data *server_data)
 {
 	int			index;
-	t_enemy	*players;
+	t_enemy		*players;
 
 	players = server_data->player;
 	index = 0;
@@ -108,7 +110,7 @@ static void	client_to_player(int client_socket, t_server_data *server_data)
 	printf("Data has been sent to the client\n\n");
 }
 
-static int check_end_routine(t_server_status *server_status)
+static int	check_end_routine(t_server_status *server_status)
 {
 	pthread_mutex_lock (server_status->status_lock);
 	if (server_status->status == ERROR)

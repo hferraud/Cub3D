@@ -13,7 +13,8 @@
 
 static void	client_delete(void *content);
 
-void	lst_del_client(int client_socket, t_server_data *server_data, bool close)
+void	lst_del_client(int client_socket, t_server_data *server_data,
+			bool close)
 {
 	t_list	*previous;
 	t_list	*current;

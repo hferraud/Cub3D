@@ -20,7 +20,8 @@ static int	listen_event(int client_socket, t_event *event);
  * @return 1 if enemies data has been update, 0 if enemies data are the same,
  *  -1 in client error case and -2 in server error cas
  */
-int	listening_request(int client_socket, t_players_data *players_data, t_server_data *server_data, int client_index)
+int	listening_request(int client_socket, t_players_data *players_data,
+		t_server_data *server_data, int client_index)
 {
 	int		ret;
 	char	buf;
@@ -30,7 +31,8 @@ int	listening_request(int client_socket, t_players_data *players_data, t_server_
 		return (cub_error(CLIENT_LOST));
 	if (buf == *UP_TO_DATE)
 		return (0);
-	if (read(client_socket, &players_data->players[client_index], sizeof(t_player)) <= 0
+	if (read(client_socket, &players_data->players[client_index],
+			sizeof(t_player)) <= 0
 		|| read(client_socket, &buf, sizeof(char)) <= 0)
 		return (cub_error(CLIENT_LOST));
 	if (buf == *UP_TO_DATE)

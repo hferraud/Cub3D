@@ -12,7 +12,7 @@
 #include "define.h"
 #include "event.h"
 
-int event_request(int client_socket, t_event event)
+int	event_request(int client_socket, t_event event)
 {
 	if (write(client_socket, EVENT_REQUEST, LENGTH_REQUEST) == -1
 		|| write(client_socket, &event.id, sizeof(t_event_id)) == -1)

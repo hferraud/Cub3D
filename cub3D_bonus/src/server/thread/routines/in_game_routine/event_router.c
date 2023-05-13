@@ -13,9 +13,12 @@
 #include "players_data.h"
 #include "collectible.h"
 
-static int 	event_take_collectible(int client_socket, t_event event, t_server_data *server_data);
-static int 	event_door(int client_socket, t_event event, t_server_data *server_data);
-static int	send_event_update(int event_client_socket, t_event event, t_server_data *server_data);
+static int	event_take_collectible(int client_socket, t_event event,
+				t_server_data *server_data);
+static int	event_door(int client_socket, t_event event,
+				t_server_data *server_data);
+static int	send_event_update(int event_client_socket, t_event event,
+				t_server_data *server_data);
 
 int	event_router(int client_socket, t_event event, t_server_data *server_data)
 {
@@ -28,7 +31,8 @@ int	event_router(int client_socket, t_event event, t_server_data *server_data)
 	return (0);
 }
 
-static int event_door(int client_socket, t_event event, t_server_data *server_data)
+static int	event_door(int client_socket, t_event event,
+				t_server_data *server_data)
 {
 	char	*cell;
 
@@ -39,12 +43,14 @@ static int event_door(int client_socket, t_event event, t_server_data *server_da
 	{
 		if (event.id == EVENT_CLOSE_DOOR)
 		{
-			printf("%d close door at: %d %d\n", client_socket, event.position.x, event.position.y);
+			printf("%d close door at: %d %d\n", client_socket, event.position.x,
+				event.position.y);
 			*cell = DOOR_CLOSE;
 		}
 		else
 		{
-			printf("%d open door at: %d %d\n", client_socket, event.position.x, event.position.y);
+			printf("%d open door at: %d %d\n", client_socket, event.position.x,
+				event.position.y);
 			*cell = DOOR_OPEN;
 		}
 		if (send_event_update(client_socket, event, server_data) == -1)
@@ -54,15 +60,17 @@ static int event_door(int client_socket, t_event event, t_server_data *server_da
 	return (0);
 }
 
-static int event_take_collectible(int client_socket, t_event event, t_server_data *server_data)
+static int	event_take_collectible(int client_socket, t_event event,
+				t_server_data *server_data)
 {
-	char *cell;
+	char	*cell;
 
 	pthread_mutex_lock(server_data->map_lock);
 	cell = &server_data->map->map[event.position.y][event.position.x];
 	if (collectible_id_get(*cell) != UNDEFINED)
 	{
-		printf("%d take collectible at: %d %d\n", client_socket, event.position.x, event.position.y);
+		printf("%d take collectible at: %d %d\n", client_socket,
+			event.position.x, event.position.y);
 		if (write(client_socket, cell, sizeof(char)) == -1)
 		{
 			pthread_mutex_unlock(server_data->map_lock);
@@ -74,7 +82,8 @@ static int event_take_collectible(int client_socket, t_event event, t_server_dat
 	}
 	else
 	{
-		printf("%d cant take at: %d %d\n", client_socket, event.position.x, event.position.y);
+		printf("%d cant take at: %d %d\n", client_socket, event.position.x,
+			event.position.y);
 		if (write(client_socket, CANT_TAKE, sizeof(char)) == -1)
 		{
 			pthread_mutex_unlock(server_data->map_lock);
@@ -85,7 +94,8 @@ static int event_take_collectible(int client_socket, t_event event, t_server_dat
 	return (0);
 }
 
-static int	send_event_update(int event_client_socket, t_event event, t_server_data *server_data)
+static int	send_event_update(int event_client_socket, t_event event,
+				t_server_data *server_data)
 {
 	int		client_socket;
 	int		index;
@@ -96,11 +106,13 @@ static int	send_event_update(int event_client_socket, t_event event, t_server_da
 	{
 		client_socket = server_data->player->players_socket[index];
 		if (client_socket != -1 && client_socket != event_client_socket)
+		{
 			if (event_request(client_socket, event) == -1)
 			{
 				pthread_mutex_unlock(server_data->player->players_lock);
 				return (-1);
 			}
+		}
 		index++;
 	}
 	pthread_mutex_unlock(server_data->player->players_lock);
