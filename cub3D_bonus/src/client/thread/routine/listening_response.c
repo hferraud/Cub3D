@@ -53,24 +53,24 @@ int	listening_response(int server_socket, t_player_data *player_data)
 	return (0);
 }
 
-
 /**
  * @return 0 on success, -1 otherwise
  */
 int	send_events(int server_socket, t_player_data *player_data)
 {
 	t_list	*current;
-	t_event *current_event;
+	t_event	*current_event;
 
 	current = player_data->events;
-	while (current) {
+	while (current)
+	{
 		current_event = current->content;
 		if (write(server_socket, &current_event->id, sizeof(t_event_id)) == -1)
 			return (-1);
 		if (current_event->id == EVENT_TAKE_COLLECTIBLE)
 		{
 			if (send_collectible_event(server_socket, *current_event,
-									   player_data) == -1)
+					player_data) == -1)
 				return (-1);
 		}
 		else if (current_event->id == EVENT_DAMAGE)
@@ -78,7 +78,8 @@ int	send_events(int server_socket, t_player_data *player_data)
 			if (send_damage_event(server_socket, *current_event) == -1)
 				return (-1);
 		}
-		else if (current_event->id == EVENT_OPEN_DOOR || current_event->id == EVENT_CLOSE_DOOR)
+		else if (current_event->id == EVENT_OPEN_DOOR
+			|| current_event->id == EVENT_CLOSE_DOOR)
 		{
 			if (send_door_event(server_socket, *current_event) == -1)
 				return (-1);

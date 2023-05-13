@@ -14,10 +14,11 @@
 
 static void	process_event(t_event event, t_cub *cub);
 static void	process_door_event(t_event event, t_map_client *map);
-static void	process_collectible_event(t_vector position, t_collectible_data *collectible_data);
+static void	process_collectible_event(t_vector position,
+				t_collectible_data *collectible_data);
 static void	process_damage_event(t_damage damage, t_cub *cub);
 
-int event_response(int server_socket, t_cub *cub)
+int	event_response(int server_socket, t_cub *cub)
 {
 	t_event	event;
 
@@ -57,7 +58,8 @@ static void	process_door_event(t_event event, t_map_client *map)
 	pthread_mutex_unlock(map->map_lock);
 }
 
-static void	process_collectible_event(t_vector position, t_collectible_data *collectible_data)
+static void	process_collectible_event(t_vector position,
+									t_collectible_data *collectible_data)
 {
 	size_t				index;
 
@@ -65,7 +67,7 @@ static void	process_collectible_event(t_vector position, t_collectible_data *col
 	pthread_mutex_lock(collectible_data->collectible_lock);
 	while (index < collectible_data->size
 		&& ((int) collectible_data->collectible[index].pos.x != position.x
-		|| (int) collectible_data->collectible[index].pos.y != position.y))
+			|| (int) collectible_data->collectible[index].pos.y != position.y))
 		index++;
 	if (index == collectible_data->size)
 	{
@@ -74,7 +76,7 @@ static void	process_collectible_event(t_vector position, t_collectible_data *col
 	}
 	if (index < collectible_data->size - 1)
 		collectible_data->collectible[index]
-		= collectible_data->collectible[collectible_data->size - 1];
+			= collectible_data->collectible[collectible_data->size - 1];
 	collectible_data->size--;
 	pthread_mutex_unlock(collectible_data->collectible_lock);
 }

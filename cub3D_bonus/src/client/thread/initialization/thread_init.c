@@ -35,7 +35,7 @@ int	thread_init(t_cub *cub)
 	return (0);
 }
 
-static int players_init(t_cub *cub)
+static int	players_init(t_cub *cub)
 {
 	size_t	count;
 
