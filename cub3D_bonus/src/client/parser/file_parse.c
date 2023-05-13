@@ -41,8 +41,6 @@ int	file_parse(t_map_client *map, int server_socket)
 			printf("Loading %s\n", map->path[id]);
 			if (file_receive(file_fd, server_socket) == -1)
 				return (close(file_fd), -1);
-
-			printf("%s successfully loaded\n", map->path[id]);
 			close(file_fd);
 		}
 		id++;

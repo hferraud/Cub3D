@@ -13,7 +13,7 @@
 #include "parser_client.h"
 #include "cub.h"
 
-int		render_frame(t_cub *cub);
+int			render_frame(t_cub *cub);
 
 static int	cub_init(t_cub *cub);
 static int	client_status_init(t_client_status *client_status);
@@ -34,7 +34,7 @@ int	main(int argc, char **argv)
 	}
 	cub.mlx_data = &mlx_data;
 	if (cub_init(&cub) == -1)
-		return (close(cub.server_socket), 1);
+		cub_exit(&cub);
 	if (thread_init(&cub) == -1)
 		cub_exit(&cub);
 //	mlx_mouse_hide(cub.mlx_data->mlx_ptr, cub.mlx_data->win_ptr);
