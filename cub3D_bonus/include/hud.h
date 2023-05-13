@@ -47,12 +47,12 @@
 # define MAP_PIXEL_OFFSET 20
 
 # define HEALTH_BAR_WIDTH 300
-# define HEALTH_BAR_HEIGHT 39
+# define HEALTH_BAR_HEIGHT 25
 # define HEALTH_BAR_OFFSET 20
-# define BORDER_SIZE 3
-# define BORDER_RADIUS 20
+# define BORDER_SIZE 2
+# define BORDER_RADIUS 12
 
-# define AMMO_Y_OFFSET 20
+# define AMMO_Y_OFFSET 25
 # define AMMO_X_OFFSET 240
 # define BULLET_PER_ROW 10
 # define BULLET_Y_OFFSET 10
@@ -60,8 +60,9 @@
 # define WEAPON_WIDTH 220
 # define WEAPON_HEIGHT 150
 # define KNIFE_OFFSET 20
-# define PISTOL_OFFSET 20
-# define AR_OFFSET 20
+# define PISTOL_OFFSET_X 85
+# define PISTOL_OFFSET_Y 20
+# define AR_OFFSET 25
 
 
 void	draw_hud(t_cub *cub);

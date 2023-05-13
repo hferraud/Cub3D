@@ -25,7 +25,7 @@ void	draw_ammo(t_cub *cub)
 	ammo = cub->player_data.player_status.ammo;
 	pthread_mutex_unlock(cub->player_data.player_lock);
 	sprite = cub->mlx_data->hud_sprite.ammo;
-	screen.x = WIN_WIDTH - (AMMO_X_OFFSET + sprite.width * BULLET_PER_ROW);
+	screen.x = AMMO_X_OFFSET + sprite.width * BULLET_PER_ROW;
 	screen.y = WIN_HEIGHT - AMMO_Y_OFFSET
 		- BULLET_Y_OFFSET * (1 + (ammo - 1) / 10);
 	bullet_drawn = 0;
@@ -37,8 +37,7 @@ void	draw_ammo(t_cub *cub)
 		if ((ammo - bullet_drawn) % BULLET_PER_ROW == 0)
 		{
 			screen.y += BULLET_Y_OFFSET;
-			screen.x = WIN_WIDTH
-				- (AMMO_X_OFFSET + sprite.width * BULLET_PER_ROW);
+			screen.x = AMMO_X_OFFSET + sprite.width * BULLET_PER_ROW;
 		}
 	}
 }

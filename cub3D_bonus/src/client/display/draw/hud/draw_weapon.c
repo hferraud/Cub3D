@@ -62,17 +62,17 @@ static t_vector	get_draw_start(t_weapon weapon, t_sprite sprite)
 
 	if (weapon == KNIFE_INDEX)
 	{
-		draw_start.x = WIN_WIDTH - (sprite.width + KNIFE_OFFSET);
+		draw_start.x = KNIFE_OFFSET;
 		draw_start.y = WIN_HEIGHT - (sprite.height + KNIFE_OFFSET);
 	}
 	else if (weapon == PISTOL_INDEX)
 	{
-		draw_start.x = WIN_WIDTH - (sprite.width + PISTOL_OFFSET);
-		draw_start.y = WIN_HEIGHT - (sprite.height + PISTOL_OFFSET);
+		draw_start.x = PISTOL_OFFSET_X;
+		draw_start.y = WIN_HEIGHT - (sprite.height + PISTOL_OFFSET_Y);
 	}
 	else
 	{
-		draw_start.x = WIN_WIDTH - (sprite.width + AR_OFFSET);
+		draw_start.x = AR_OFFSET;
 		draw_start.y = WIN_HEIGHT - sprite.height;
 	}
 	return (draw_start);
