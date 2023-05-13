@@ -9,7 +9,6 @@ include_directories(minilibx)
 
 add_executable(cub3D
         cub3D_bonus/include/collectible.h
-        cub3D_bonus/include/connection_routine.h
         cub3D_bonus/include/cub.h
         cub3D_bonus/include/cub_socket.h
         cub3D_bonus/include/define.h
@@ -34,9 +33,14 @@ add_executable(cub3D
         cub3D_bonus/include/texture.h
         cub3D_bonus/include/vector.h
         cub3D_bonus/include/weapons_data.h
+        cub3D_bonus/src/client/display/draw/hud/draw_ammo.c
         cub3D_bonus/src/client/display/draw/hud/draw_health_bar.c
+        cub3D_bonus/src/client/display/draw/hud/draw_hud.c
         cub3D_bonus/src/client/display/draw/hud/draw_minimap.c
         cub3D_bonus/src/client/display/draw/hud/draw_minimap_pixel.c
+        cub3D_bonus/src/client/display/draw/hud/draw_weapon.c
+        cub3D_bonus/src/client/display/draw/hud/draw_weapon_view.c
+        cub3D_bonus/src/client/display/draw/hud/pixel_transparency.c
         cub3D_bonus/src/client/display/draw/draw_background.c
         cub3D_bonus/src/client/display/draw/draw_collectible.c
         cub3D_bonus/src/client/display/draw/draw_enemy.c
@@ -60,6 +64,7 @@ add_executable(cub3D
         cub3D_bonus/src/client/mlx_handler/hook/init_hook.c
         cub3D_bonus/src/client/mlx_handler/hook/key_press.c
         cub3D_bonus/src/client/mlx_handler/hook/key_release.c
+        cub3D_bonus/src/client/mlx_handler/initialization/mlx_animation_sprite_init.c
         cub3D_bonus/src/client/mlx_handler/initialization/mlx_data_init.c
         cub3D_bonus/src/client/mlx_handler/initialization/mlx_sprite_init.c
         cub3D_bonus/src/client/parser/collectible/collectible.c
@@ -114,7 +119,6 @@ add_executable(cub3D
         cub3D_bonus/src/server/thread/routines/in_game_routine/event_router.c
         cub3D_bonus/src/server/thread/routines/in_game_routine/in_game_routine.c
         cub3D_bonus/src/server/thread/routines/in_game_routine/listening_request.c
-        cub3D_bonus/src/server/thread/routines/in_game_routine/event_router.c
         cub3D_bonus/src/server/thread/routines/in_game_routine/send_request.c
         cub3D_bonus/src/server/server.c
         cub3D_bonus/src/utils/socket/port_get.c
@@ -217,6 +221,4 @@ add_executable(cub3D
         minilibx/mlx_screen_size.c
         minilibx/mlx_set_font.c
         minilibx/mlx_string_put.c
-        minilibx/mlx_xpm.c cub3D_bonus/src/client/event/event_new.c cub3D_bonus/src/client/event/add_event.c
-        cub3D_bonus/src/client/display/draw/draw_enemy.c cub3D/include/map.h cub3D_bonus/src/client/player/player_door_interact.c cub3D_bonus/src/client/player/player_shoot.c cub3D_bonus/src/utils/time.c
-        minilibx/mlx_xpm.c cub3D_bonus/src/client/display/draw/hud/draw_ammo.c cub3D_bonus/src/client/display/draw/hud/draw_weapon.c cub3D_bonus/src/client/display/draw/hud/draw_hud.c cub3D_bonus/src/client/mlx_handler/initialization/mlx_animation_sprite_init.c cub3D_bonus/src/client/display/draw/hud/draw_weapon_view.c cub3D_bonus/src/client/display/draw/hud/pixel_transparency.c)
+        minilibx/mlx_xpm.c)
