@@ -12,7 +12,7 @@
 #include "socket_client.h"
 
 static int	socket_client_parse(int argc, char **argv, t_hostent **host_info,
-				uint16_t* port);
+				uint16_t *port);
 
 /**
  * @brief Create the socket and connect it to the server
@@ -43,7 +43,7 @@ int	socket_client_init(int argc, char **argv)
 }
 
 static int	socket_client_parse(int argc, char **argv, t_hostent **host_info,
-				uint16_t* port)
+				uint16_t *port)
 {
 	if (argc != 3)
 		return (cub_error("./cub3D IP port\n"));

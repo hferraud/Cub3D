@@ -13,8 +13,8 @@
 #include "hook.h"
 #include "player.h"
 
-void 	collectible_set_dist(t_cub *cub, t_player player);
-void	collectible_sort(t_cub *cub);
+void				collectible_set_dist(t_cub *cub, t_player player);
+void				collectible_sort(t_cub *cub);
 
 static void			player_rotation_update(t_cub *cub);
 static void			player_position_update(t_cub *cub);
@@ -38,7 +38,7 @@ void	player_update(t_cub *cub)
 		cub->player_data.update = true;
 		pthread_mutex_unlock(cub->player_data.update_lock);
 		if ((save.pos.x != cub->player_data.player.pos.x
-			|| save.pos.y != cub->player_data.player.pos.y)
+				|| save.pos.y != cub->player_data.player.pos.y)
 			&& player_hit_collectible(cub))
 			add_collectible_event(cub);
 	}
@@ -94,9 +94,11 @@ static void	player_position_update(t_cub *cub)
 		{
 			player->pos.y = new_pos.y;
 			if (new_pos.x > player->pos.x)
-				player->pos.x =	1.f - UNCERTAINTY - PLAYER_OFFSET + ((int) player->pos.x);
+				player->pos.x
+					= 1.f - UNCERTAINTY - PLAYER_OFFSET + ((int) player->pos.x);
 			else
-				player->pos.x =	PLAYER_OFFSET + UNCERTAINTY + ((int) player->pos.x);
+				player->pos.x
+					= PLAYER_OFFSET + UNCERTAINTY + ((int) player->pos.x);
 		}
 		else if (is_floor(map[(int) new_pos.y][(int)(new_pos.x + PLAYER_OFFSET)])
 			&& is_floor(map[(int)new_pos.y][(int)(new_pos.x - PLAYER_OFFSET)])
@@ -104,9 +106,11 @@ static void	player_position_update(t_cub *cub)
 		{
 			player->pos.x = new_pos.x;
 			if (new_pos.y > player->pos.y)
-				player->pos.y =	1.f - UNCERTAINTY - PLAYER_OFFSET + ((int) player->pos.y);
+				player->pos.y
+					= 1.f - UNCERTAINTY - PLAYER_OFFSET + ((int) player->pos.y);
 			else
-				player->pos.y =	PLAYER_OFFSET + UNCERTAINTY + ((int) player->pos.y);
+				player->pos.y
+					= PLAYER_OFFSET + UNCERTAINTY + ((int) player->pos.y);
 		}
 	}
 }

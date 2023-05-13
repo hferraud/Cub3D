@@ -13,7 +13,8 @@
 #include "cub.h"
 
 static void	door_interact(t_cub *cub, t_vector map_pos);
-static bool is_door_closable(t_cub *cub);
+static bool	is_door_closable(t_cub *cub);
+static bool	is_valid_player_position(t_cub *cub);
 static bool	is_door(t_cub *cub, t_vector map_scan);
 
 void	player_door_interact(t_cub *cub)
@@ -64,25 +65,20 @@ static void	door_interact(t_cub *cub, t_vector map_pos)
 		add_door_event(cub, map_pos, door_state);
 }
 
-
-static bool is_door_closable(t_cub *cub)
+static bool	is_door_closable(t_cub *cub)
 {
-	size_t i;
+	size_t	i;
 
-	pthread_mutex_lock(cub->player_data.player_lock);
-	if (!is_valid_position(cub, cub->player_data.player.pos.x, cub->player_data.player.pos.y))
-	{
-		pthread_mutex_unlock(cub->player_data.player_lock);
-		return (false);
-	}
-	pthread_mutex_unlock(cub->player_data.player_lock);
 	i = 0;
+	if (is_valid_player_position(cub) == false)
+		return (false);
 	while (i < PLAYER_LIMIT - 1)
 	{
 		pthread_mutex_lock(cub->enemies_lock);
 		if (cub->enemies[i].id != -1)
 		{
-			if (!is_valid_position(cub, cub->enemies[i].player.pos.x, cub->enemies[i].player.pos.y))
+			if (!is_valid_position(cub, cub->enemies[i].player.pos.x,
+					cub->enemies[i].player.pos.y))
 			{
 				pthread_mutex_unlock(cub->enemies_lock);
 				return (false);
@@ -91,6 +87,19 @@ static bool is_door_closable(t_cub *cub)
 		pthread_mutex_unlock(cub->enemies_lock);
 		i++;
 	}
+	return (true);
+}
+
+static bool	is_valid_player_position(t_cub *cub)
+{
+	pthread_mutex_lock(cub->player_data.player_lock);
+	if (!is_valid_position(cub, cub->player_data.player.pos.x,
+			cub->player_data.player.pos.y))
+	{
+		pthread_mutex_unlock(cub->player_data.player_lock);
+		return (false);
+	}
+	pthread_mutex_unlock(cub->player_data.player_lock);
 	return (true);
 }
 

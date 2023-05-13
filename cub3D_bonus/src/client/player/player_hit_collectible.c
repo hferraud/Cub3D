@@ -25,7 +25,8 @@ int	player_hit_collectible(t_cub *cub)
 	collectible_data = cub->map.collectible_data;
 	if (collectible_data.size == 0)
 		return (0);
-	nearest_collectible = collectible_data.collectible[collectible_data.size - 1];
+	nearest_collectible
+		= collectible_data.collectible[collectible_data.size - 1];
 	player = cub->player_data.player;
 	pthread_mutex_lock(collectible_data.collectible_lock);
 	dist = sqrtf(

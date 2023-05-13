@@ -26,5 +26,6 @@ void	player_pos_init(t_cub *cub)
 		cub->player_data.player.rotation = fvector_init(1, 0);
 	else
 		cub->player_data.player.rotation = fvector_init(-1, 0);
-	cub->player_data.camera = fvector_rotate(cub->player_data.player.rotation, M_PI_2);
+	cub->player_data.camera
+		= fvector_rotate(cub->player_data.player.rotation, M_PI_2);
 }

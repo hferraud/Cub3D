@@ -95,6 +95,7 @@ SRC_CLIENT	=		error.c	\
 						client/player/collectible_dist.c		\
 						client/player/player_hit_collectible.c	\
 						client/player/player_shoot.c	\
+						client/player/player_shoot_utils.c	\
 					\
 						client/mlx_handler/initialization/mlx_data_init.c				\
 						client/mlx_handler/initialization/mlx_sprite_init.c				\
@@ -119,7 +120,6 @@ SRC_CLIENT	=		error.c	\
 						client/display/vector/matrix.c	\
 						\
 						client/display/draw/mlx_put_pixel.c		\
-						client/display/draw/draw_line.c			\
 						client/display/draw/draw_rectangle.c	\
 						client/display/draw/draw_background.c	\
 						client/display/draw/draw_wall.c			\

@@ -15,7 +15,7 @@
 /**
  * @brief Set the distance from the player of all collectibles
  */
-void collectible_set_dist(t_cub *cub, t_player player)
+void	collectible_set_dist(t_cub *cub, t_player player)
 {
 	t_collectible	*collectible;
 	size_t			i;
@@ -25,8 +25,10 @@ void collectible_set_dist(t_cub *cub, t_player player)
 	pthread_mutex_lock(cub->map.collectible_data.collectible_lock);
 	while (i < cub->map.collectible_data.size)
 	{
-		collectible[i].relative_pos = fvector_sub(player.pos, collectible[i].pos);
-		collectible[i].dist = collectible[i].relative_pos.x * collectible[i].relative_pos.x
+		collectible[i].relative_pos
+			= fvector_sub(player.pos, collectible[i].pos);
+		collectible[i].dist
+			= collectible[i].relative_pos.x * collectible[i].relative_pos.x
 			+ collectible[i].relative_pos.y * collectible[i].relative_pos.y;
 		i++;
 	}
@@ -34,7 +36,8 @@ void collectible_set_dist(t_cub *cub, t_player player)
 }
 
 /**
- * @brief Sort all collectibles from the most far away to the nearest of the player
+ * @brief Sort all collectibles from the most far away
+ *  to the nearest of the player
  */
 void	collectible_sort(t_cub *cub)
 {

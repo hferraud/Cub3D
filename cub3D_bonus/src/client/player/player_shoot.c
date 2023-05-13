@@ -15,11 +15,11 @@
 #include "event.h"
 #include <sys/time.h>
 
-size_t			elapsed_time(struct timeval start_time,
-					struct timeval current_time);
+t_damage		get_damage_by_weapon(t_weapon weapon);
+bool			can_shoot(t_cub *cub, t_weapon weapon, t_timeval current_time);
 
-static t_damage	get_damage_by_weapon(t_weapon weapon);
-static bool		can_shoot(t_cub *cub, t_weapon weapon, t_timeval current_time);
+static void		shoot_at_enemies(t_cub *cub, t_weapon weapon, t_enemy *enemies);
+static void		shoot_at_enemy(t_cub *cub, t_weapon weapon, t_enemy enemy);
 static bool		aim_enemy(t_cub *cub, t_weapon weapon, t_enemy enemy);
 
 void	player_shoot(t_cub *cub)
@@ -27,7 +27,6 @@ void	player_shoot(t_cub *cub)
 	t_enemy			enemies[PLAYER_LIMIT - 1];
 	t_player		player;
 	t_weapon		weapon;
-	size_t			i;
 	t_timeval		current_time;
 
 	gettimeofday(&current_time, NULL);
@@ -45,55 +44,32 @@ void	player_shoot(t_cub *cub)
 		cub->player_data.player_status.ammo--;
 	pthread_mutex_unlock(cub->player_data.player_lock);
 	enemies_set_dist(cub, enemies, player);
+	shoot_at_enemies(cub, weapon, enemies);
+}
+
+static void	shoot_at_enemies(t_cub *cub, t_weapon weapon, t_enemy *enemies)
+{
+	size_t	i;
+
 	i = 0;
 	while (i < PLAYER_LIMIT - 1)
 	{
 		if (enemies[i].id != -1)
-		{
-			if (aim_enemy(cub, weapon, enemies[i]))
-			{
-				add_damage_event(cub, enemies[i].id,
-					get_damage_by_weapon(weapon));
-				printf("Hit: %d damage\n", get_damage_by_weapon(weapon));
-			}
-			else
-				printf("Miss\n");
-		}
+			shoot_at_enemy(cub, weapon, enemies[i]);
 		i++;
 	}
 }
 
-static t_damage	get_damage_by_weapon(t_weapon weapon)
+static void	shoot_at_enemy(t_cub *cub, t_weapon weapon, t_enemy enemy)
 {
-	const t_weapon	weapon_index[]
-		= {KNIFE_INDEX, PISTOL_INDEX, ASSAULT_RIFLE_INDEX};
-	const t_damage	damage[]
-		= {KNIFE_DAMAGE, PISTOL_DAMAGE, ASSAULT_RIFFLE_DAMAGE};
-	size_t			count;
-
-	count = 0;
-	while (count < NB_WEAPONS)
+	if (aim_enemy(cub, weapon, enemy))
 	{
-		if (weapon == weapon_index[count])
-			return (damage[count]);
-		count++;
+		add_damage_event(cub, enemy.id,
+			get_damage_by_weapon(weapon));
+		printf("Hit: %d damage\n", get_damage_by_weapon(weapon));
 	}
-	return (0);
-}
-
-static bool	can_shoot(t_cub *cub, t_weapon weapon, t_timeval current_time)
-{
-	const t_rate_fire	rate_fire[]
-		= {KNIFE_RATE_FIRE, PISTOL_RATE_FIRE, ASSAULT_RIFFLE_RATE_FIRE};
-	struct timeval		last_shot;
-
-	last_shot = cub->player_data.player_status.time_last_shoot;
-	if (weapon != KNIFE_INDEX && cub->player_data.player_status.ammo <= 0)
-		return (false);
-	if (elapsed_time(last_shot, current_time)
-		< (size_t)(60.f / rate_fire[weapon] * 1000000))
-		return (false);
-	return (true);
+	else
+		printf("Miss\n");
 }
 
 static bool	aim_enemy(t_cub *cub, t_weapon weapon, t_enemy enemy)
@@ -113,14 +89,12 @@ static bool	aim_enemy(t_cub *cub, t_weapon weapon, t_enemy enemy)
 
 void	check_assault_riffle_shoot(t_cub *cub)
 {
-	t_timeval		current_time;
 	t_player_data	*player_data;
 
 	if (!is_key_pressed(KEY_SPC, cub))
 		return ;
 	player_data = &cub->player_data;
 	pthread_mutex_lock(player_data->player_lock);
-	gettimeofday(&current_time, NULL);
 	if (player_data->player_status.weapon_equipped == ASSAULT_RIFLE_INDEX)
 	{
 		pthread_mutex_unlock(player_data->player_lock);

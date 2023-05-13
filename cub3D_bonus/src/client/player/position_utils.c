@@ -49,18 +49,19 @@ int	is_valid_position(t_cub *cub, float x, float y)
 	return (is_floor(map[(int)(y - PLAYER_OFFSET)][(int)(x - PLAYER_OFFSET)])
 			&& is_floor(map[(int)(y - PLAYER_OFFSET)][(int)(x + PLAYER_OFFSET)])
 			&& is_floor(map[(int)(y + PLAYER_OFFSET)][(int)(x + PLAYER_OFFSET)])
-			&& is_floor(map[(int)(y + PLAYER_OFFSET)][(int)(x - PLAYER_OFFSET)]));
+			&& is_floor(map[(int)(y + PLAYER_OFFSET)]
+				[(int)(x - PLAYER_OFFSET)]));
 }
 
 int	player_moved(t_player before, t_player current)
 {
 	return (before.pos.x != current.pos.x
-			|| before.pos.y != current.pos.y
-			|| before.rotation.x != current.rotation.x
-			|| before.rotation.y != current.rotation.y);
+		|| before.pos.y != current.pos.y
+		|| before.rotation.x != current.rotation.x
+		|| before.rotation.y != current.rotation.y);
 }
 
-int is_floor(char cell)
+int	is_floor(char cell)
 {
 	return (cell == FLOOR || cell == DOOR_OPEN);
 }
