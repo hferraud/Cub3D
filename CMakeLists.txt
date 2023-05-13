@@ -44,7 +44,6 @@ add_executable(cub3D
         cub3D_bonus/src/client/display/draw/draw_background.c
         cub3D_bonus/src/client/display/draw/draw_collectible.c
         cub3D_bonus/src/client/display/draw/draw_enemy.c
-        cub3D_bonus/src/client/display/draw/draw_line.c
         cub3D_bonus/src/client/display/draw/draw_player_view.c
         cub3D_bonus/src/client/display/draw/draw_rectangle.c
         cub3D_bonus/src/client/display/draw/draw_shape_utils.c
