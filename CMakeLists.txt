@@ -221,4 +221,4 @@ add_executable(cub3D
         minilibx/mlx_screen_size.c
         minilibx/mlx_set_font.c
         minilibx/mlx_string_put.c
-        minilibx/mlx_xpm.c)
+        minilibx/mlx_xpm.c cub3D_bonus/src/client/display/draw/hud/draw_crosshair.c)
