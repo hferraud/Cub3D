@@ -20,7 +20,6 @@ void	draw_player_view(t_cub *cub)
 {
 	t_ray		ray;
 	t_fvector	ray_dir;
-	float		z_buffer[WIN_WIDTH];
 	int			screen_x;
 	float		camera_x;
 
@@ -36,10 +35,10 @@ void	draw_player_view(t_cub *cub)
 		pthread_mutex_lock(cub->map.map_lock);
 		ray = ray_cast(cub, ray_dir);
 		pthread_mutex_unlock(cub->map.map_lock);
-		z_buffer[screen_x] = ray.length;
+		cub->z_buffer[screen_x] = ray.length;
 		draw_wall(cub, screen_x, ray);
 		screen_x++;
 	}
-	draw_sprites(cub, z_buffer);
+	draw_sprites(cub, cub->z_buffer);
 	draw_hud(cub);
 }

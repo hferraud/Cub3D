@@ -12,6 +12,9 @@
 #ifndef MLX_HANDLER_H
 # define MLX_HANDLER_H
 
+# define WIN_WIDTH	1280
+# define WIN_HEIGHT	720
+
 # include "mlx.h"
 # include "libft.h"
 # include "error.h"
@@ -23,8 +26,6 @@
 # include "hud.h"
 # include <stdio.h>
 
-# define WIN_WIDTH	1280
-# define WIN_HEIGHT	720
 # define WIN_NAME	"Cub3D"
 
 /* Key hook: w, a, s, d, right, left */

@@ -19,14 +19,13 @@ size_t	diff_time(struct timeval start_time, struct timeval current_time);
 
 static t_damage get_damage_by_weapon(t_weapon weapon);
 static int		can_shoot(t_weapon weapon, t_timeval time_last_shoot, t_timeval current_time);
+static bool		aim_enemy(t_cub *cub, t_enemy enemy);
 
 void	player_shoot(t_cub *cub)
 {
 	t_enemy			enemies[PLAYER_LIMIT - 1];
 	t_player		player;
 	t_player_status	player_status;
-	t_fvector		camera;
-	t_draw_param	dp;
 	size_t			i;
 	t_timeval		current_time;
 
@@ -55,10 +54,7 @@ void	player_shoot(t_cub *cub)
 	{
 		if (enemies[i].id != -1)
 		{
-			camera = enemy_camera_projection(cub, enemies[i]);
-			dp = enemy_get_draw_param(cub, camera);
-			if (dp.screen.x < WIN_WIDTH / 2 + dp.width / 2
-				&& dp.screen.x > WIN_WIDTH / 2 - dp.width / 2)
+			if (aim_enemy(cub, enemies[i]))
 			{
 				add_damage_event(cub, enemies[i].id,
 					get_damage_by_weapon(player_status.weapon_equipped));
@@ -71,13 +67,13 @@ void	player_shoot(t_cub *cub)
 	}
 }
 
-static t_damage get_damage_by_weapon(t_weapon weapon)
+static t_damage	get_damage_by_weapon(t_weapon weapon)
 {
-	const t_weapon		weapon_index[] =
-		{KNIFE_INDEX, PISTOL_INDEX,ASSAULT_RIFLE_INDEX};
-	const t_damage		damage[] =
-		{KNIFE_DAMAGE, PISTOL_DAMAGE, ASSAULT_RIFFLE_DAMAGE};
-	size_t	count;
+	const t_weapon	weapon_index[]
+		= {KNIFE_INDEX, PISTOL_INDEX, ASSAULT_RIFLE_INDEX};
+	const t_damage	damage[]
+		= {KNIFE_DAMAGE, PISTOL_DAMAGE, ASSAULT_RIFFLE_DAMAGE};
+	size_t			count;
 
 	count = 0;
 	while (count < NB_WEAPONS)
@@ -107,6 +103,19 @@ static int	can_shoot(t_weapon weapon, t_timeval time_last_shoot, t_timeval curre
 		count++;
 	}
 	return (0);
+}
+
+static bool	aim_enemy(t_cub *cub, t_enemy enemy)
+{
+	t_fvector		camera;
+	t_draw_param	dp;
+
+	camera = enemy_camera_projection(cub, enemy);
+	if (camera.y > cub->z_buffer[WIN_WIDTH / 2])
+		return (false);
+	dp = enemy_get_draw_param(cub, camera);
+	return (dp.screen.x < WIN_WIDTH / 2 + dp.width / 2
+		&& dp.screen.x > WIN_WIDTH / 2 - dp.width / 2);
 }
 
 void	check_assault_riffle_shoot(t_cub *cub)
