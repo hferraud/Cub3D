@@ -40,7 +40,6 @@ void	player_shoot(t_cub *cub)
 	if (cub->player_data.player_status.ammo == 0 && cub->player_data.player_status.weapon_equipped != KNIFE_INDEX)
 	{
 		pthread_mutex_unlock(cub->player_data.player_lock);
-		printf("No ammo\n");
 		return ;
 	}
 	cub->player_data.player_status.time_last_shoot = current_time;
