@@ -32,7 +32,7 @@ void	draw_ammo(t_cub *cub)
 	while (bullet_drawn < ammo)
 	{
 		draw_bullet(cub, sprite, screen);
-		screen.x += sprite.width;
+		screen.x += (sprite.width + 1);
 		bullet_drawn++;
 		if ((ammo - bullet_drawn) % BULLET_PER_ROW == 0)
 		{
