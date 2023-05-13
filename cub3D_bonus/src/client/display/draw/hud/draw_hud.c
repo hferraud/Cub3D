@@ -13,6 +13,7 @@
 
 void	draw_hud(t_cub *cub)
 {
+	draw_weapon_view(cub);
 	draw_minimap(cub);
 	draw_health_bar(cub);
 	draw_ammo(cub);

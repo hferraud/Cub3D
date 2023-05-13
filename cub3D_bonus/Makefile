@@ -95,8 +95,9 @@ SRC_CLIENT	=		error.c	\
 						client/player/player_hit_collectible.c	\
 						client/player/player_shoot.c	\
 					\
-						client/mlx_handler/initialization/mlx_data_init.c	\
-						client/mlx_handler/initialization/mlx_sprite_init.c	\
+						client/mlx_handler/initialization/mlx_data_init.c				\
+						client/mlx_handler/initialization/mlx_sprite_init.c				\
+						client/mlx_handler/initialization/mlx_animation_sprite_init.c	\
 						\
 						client/mlx_handler/destroy/mlx_data_destroy.c		\
 						client/mlx_handler/destroy/mlx_sprite_destroy.c	\
@@ -133,6 +134,7 @@ SRC_CLIENT	=		error.c	\
 						client/display/draw/hud/draw_health_bar.c	\
 						client/display/draw/hud/draw_ammo.c	\
 						client/display/draw/hud/draw_weapon.c	\
+						client/display/draw/hud/draw_weapon_view.c	\
 						\
 						client/display/raycasting/raycasting.c	\
 						\
@@ -164,7 +166,7 @@ DEPS		=		$(addprefix $(BUILD_DIR), $(SRC_SERVER:.c=.d))	\
 #	FLAGS
 #######################
 
-CFLAGS		=		-Wall -Werror -Wextra -fsanitize=address
+CFLAGS		=		-Wall -Werror -Wextra
 
 IFLAGS		=		-I $(INC_DIR) -I $(LIBFT_DIR)include -I $(MLX_DIR)
 

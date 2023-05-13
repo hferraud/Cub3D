@@ -12,6 +12,10 @@
 #ifndef DEFINE_H
 # define DEFINE_H
 
+# define NB_KNIFE_SPRITES	7
+# define NB_PISTOL_SPRITES	8
+# define NB_AR_SPRITES	5
+
 # define FLOOR			'0'
 # define WALL			'1'
 # define DOOR_CLOSE		'C'

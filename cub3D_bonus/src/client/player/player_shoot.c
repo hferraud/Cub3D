@@ -44,6 +44,7 @@ void	player_shoot(t_cub *cub)
 		return ;
 	}
 	cub->player_data.player_status.time_last_shoot = current_time;
+	cub->player_data.player_status.frame_since_last_shoot = 0;
 	if (cub->player_data.player_status.weapon_equipped != KNIFE_INDEX)
 		cub->player_data.player_status.ammo--;
 	player = cub->player_data.player;

@@ -216,4 +216,4 @@ add_executable(cub3D
         minilibx/mlx_screen_size.c
         minilibx/mlx_set_font.c
         minilibx/mlx_string_put.c
-        minilibx/mlx_xpm.c cub3D_bonus/src/client/display/draw/hud/draw_ammo.c cub3D_bonus/src/client/display/draw/hud/draw_weapon.c cub3D_bonus/src/client/display/draw/hud/draw_hud.c)
+        minilibx/mlx_xpm.c cub3D_bonus/src/client/display/draw/hud/draw_ammo.c cub3D_bonus/src/client/display/draw/hud/draw_weapon.c cub3D_bonus/src/client/display/draw/hud/draw_hud.c cub3D_bonus/src/client/mlx_handler/initialization/mlx_animation_sprite_init.c cub3D_bonus/src/client/display/draw/hud/draw_weapon_view.c)

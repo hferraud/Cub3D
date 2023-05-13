@@ -20,14 +20,14 @@ typedef enum e_rate_fire	t_rate_fire;
 enum	e_damage
 {
 	KNIFE_DAMAGE = 50,
-	PISTOL_DAMAGE = 25,
+	PISTOL_DAMAGE = 40,
 	ASSAULT_RIFFLE_DAMAGE = 35,
 };
 
 enum	e_rate_fire
 {
 	KNIFE_RATE_FIRE = 60,
-	PISTOL_RATE_FIRE = 300,
+	PISTOL_RATE_FIRE = 200,
 	ASSAULT_RIFFLE_RATE_FIRE = 700,
 };
 
