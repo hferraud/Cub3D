@@ -107,7 +107,7 @@ static bool	is_in_circle(t_vector screen, float radius)
 	t_vector	center;
 	t_vector	relative_pos;
 
-	center.x = MAP_PIXEL_OFFSET + MAP_RADIUS;
+	center.x = WIN_WIDTH - (MAP_PIXEL_OFFSET + MAP_RADIUS);
 	center.y = MAP_PIXEL_OFFSET + MAP_RADIUS;
 	relative_pos = vector_sub(center, screen);
 	return (relative_pos.x * relative_pos.x
