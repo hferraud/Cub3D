@@ -65,7 +65,6 @@
 # define PISTOL_OFFSET_Y 20
 # define AR_OFFSET_X 50
 
-
 void	draw_hud(t_cub *cub);
 void	draw_minimap(t_cub *cub);
 void	draw_minimap_pixel(t_cub *cub, t_vector screen, t_fvector map_pos);
@@ -74,6 +73,6 @@ void	draw_ammo(t_cub *cub);
 void	draw_weapon(t_cub *cub);
 void	draw_weapon_view(t_cub *cub);
 
-int	pixel_transparency(t_cub *cub, t_vector screen, int color);
+int		pixel_transparency(t_cub *cub, t_vector screen, int color);
 
 #endif

@@ -19,7 +19,7 @@
 # define ON_KEY_DOWN			2
 # define ON_KEY_UP				3
 
-typedef struct s_cub t_cub;
+typedef struct s_cub	t_cub;
 
 enum	e_mask
 {

@@ -34,13 +34,13 @@ enum e_wall
 
 struct s_ray
 {
-	t_fvector		ray;
-	t_fvector		pos;
-	t_fvector		unit_step;
-	t_vector		step;
-	t_wall			wall_face;
-	bool			is_door;
-	float			length;
+	t_fvector			ray;
+	t_fvector			pos;
+	t_fvector			unit_step;
+	t_vector			step;
+	t_wall				wall_face;
+	bool				is_door;
+	float				length;
 	t_collectible_list	*collectible_hit;
 };
 

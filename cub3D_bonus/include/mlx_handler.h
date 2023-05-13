@@ -40,10 +40,10 @@ typedef struct s_img_data	t_img_data;
 
 /* --- FUNCTIONS --- */
 
-int		mlx_data_init(t_cub *cub);
-void	mlx_data_destroy(t_mlx_data *mlx_data);
-int		mlx_sprite_init(t_cub *cub);
-void	mlx_sprite_destroy(t_mlx_data *mlx_data);
+int			mlx_data_init(t_cub *cub);
+void		mlx_data_destroy(t_mlx_data *mlx_data);
+int			mlx_sprite_init(t_cub *cub);
+void		mlx_sprite_destroy(t_mlx_data *mlx_data);
 
 /* --- STRUCT --- */
 

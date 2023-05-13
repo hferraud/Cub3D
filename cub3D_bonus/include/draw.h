@@ -41,17 +41,19 @@ struct s_draw_param
 
 /* --- DRAW FUNCTIONS --- */
 
-void		mlx_put_pixel(t_img_data *img_data, int x, int y, int color);
-void		mlx_put_point(t_img_data *img_data, t_vector point, int color);
-void		draw_line(t_img_data *data, t_vector a, t_vector b, int color);
-void		draw_rectangle(t_img_data *img_data, t_rectangle rectangle);
-void		draw_background(t_cub *cub);
-void		draw_sprite(t_cub *cub, t_draw_param dp, const float *z_buffer, float dist);
-void		draw_collectible(t_cub *cub, t_collectible collectible, const float *z_buffer);
-void		draw_enemy(t_cub *cub, t_enemy enemy, const float *z_buffer);
-void		draw_sprites(t_cub *cub, const float *z_buffer);
-void		draw_wall(t_cub *cub, int x, t_ray ray);
-void		draw_player_view(t_cub *cub);
+void			mlx_put_pixel(t_img_data *img_data, int x, int y, int color);
+void			mlx_put_point(t_img_data *img_data, t_vector point, int color);
+void			draw_line(t_img_data *data, t_vector a, t_vector b, int color);
+void			draw_rectangle(t_img_data *img_data, t_rectangle rectangle);
+void			draw_background(t_cub *cub);
+void			draw_sprite(t_cub *cub, t_draw_param dp, const float *z_buffer,
+					float dist);
+void			draw_collectible(t_cub *cub, t_collectible collectible,
+					const float *z_buffer);
+void			draw_enemy(t_cub *cub, t_enemy enemy, const float *z_buffer);
+void			draw_sprites(t_cub *cub, const float *z_buffer);
+void			draw_wall(t_cub *cub, int x, t_ray ray);
+void			draw_player_view(t_cub *cub);
 
 /* --- DRAW UTILS FUNCTIONS --- */
 
@@ -64,8 +66,8 @@ t_fvector		enemy_camera_projection(t_cub *cub, t_enemy enemy);
 
 /* --- POINT_UTILS FUNCTIONS --- */
 
-t_rectangle	set_rectangle(t_vector start, t_vector end, int color);
-t_rectangle	set_square(t_vector start, int width, int color);
-int			is_valid_pixel(t_vector point);
+t_rectangle		set_rectangle(t_vector start, t_vector end, int color);
+t_rectangle		set_square(t_vector start, int width, int color);
+int				is_valid_pixel(t_vector point);
 
 #endif

@@ -19,7 +19,7 @@
 typedef struct s_event			t_event;
 typedef enum e_event_id			t_event_id;
 
-enum	e_event_id
+enum e_event_id
 {
 	EVENT_OPEN_DOOR,
 	EVENT_CLOSE_DOOR,
@@ -35,7 +35,7 @@ struct s_event
 	t_damage	damage;
 };
 
-typedef struct s_cub	t_cub;
+typedef struct s_cub			t_cub;
 
 t_list	*new_event(t_event event_data);
 void	add_collectible_event(t_cub *cub);

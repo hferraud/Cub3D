@@ -24,7 +24,7 @@
 typedef struct s_server_data		t_server_data;
 typedef struct s_server_status		t_server_status;
 typedef struct s_client_connected	t_client_connected;
-typedef struct s_enemy			t_enemy;
+typedef struct s_enemy				t_enemy;
 
 enum
 {
