@@ -11,22 +11,13 @@
 /* ************************************************************************** */
 #include "draw.h"
 
-int	is_valid_point(t_point point)
+int	is_valid_pixel(t_vector point)
 {
 	return (point.x >= 0 && point.x < WIN_WIDTH
 		&& point.y >= 0 && point.y < WIN_HEIGHT);
 }
 
-t_point	set_point(int x, int y)
-{
-	t_point	point;
-
-	point.x = x;
-	point.y = y;
-	return (point);
-}
-
-t_rectangle	set_rectangle(t_point start, t_point end, int color)
+t_rectangle	set_rectangle(t_vector start, t_vector end, int color)
 {
 	t_rectangle	rectangle;
 
@@ -36,12 +27,12 @@ t_rectangle	set_rectangle(t_point start, t_point end, int color)
 	return (rectangle);
 }
 
-t_rectangle	set_square(t_point start, int width, int color)
+t_rectangle	set_square(t_vector start, int width, int color)
 {
 	t_rectangle	square;
 
 	square.start = start;
-	square.end = set_point(start.x + width, start.y + width);
+	square.end = vector_init(start.x + width, start.y + width);
 	square.color = color;
 	return (square);
 }

@@ -27,7 +27,7 @@ void collectible_set_dist(t_cub *cub, t_player player)
 	{
 		collectible[i].relative_pos = fvector_sub(player.pos, collectible[i].pos);
 		collectible[i].dist = collectible[i].relative_pos.x * collectible[i].relative_pos.x
-							  + collectible[i].relative_pos.y * collectible[i].relative_pos.y;
+			+ collectible[i].relative_pos.y * collectible[i].relative_pos.y;
 		i++;
 	}
 	pthread_mutex_unlock(cub->map.collectible_data.collectible_lock);

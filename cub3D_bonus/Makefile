@@ -95,8 +95,9 @@ SRC_CLIENT	=		error.c	\
 						client/player/player_hit_collectible.c	\
 						client/player/player_shoot.c	\
 					\
-						client/mlx_handler/initialization/mlx_data_init.c	\
-						client/mlx_handler/initialization/mlx_sprite_init.c	\
+						client/mlx_handler/initialization/mlx_data_init.c				\
+						client/mlx_handler/initialization/mlx_sprite_init.c				\
+						client/mlx_handler/initialization/mlx_animation_sprite_init.c	\
 						\
 						client/mlx_handler/destroy/mlx_data_destroy.c		\
 						client/mlx_handler/destroy/mlx_sprite_destroy.c	\
@@ -127,7 +128,14 @@ SRC_CLIENT	=		error.c	\
 						client/display/draw/draw_sprite.c		\
 						client/display/draw/draw_shape_utils.c	\
 						\
-						client/display/minimap/minimap.c	\
+						client/display/draw/hud/draw_hud.c	\
+						client/display/draw/hud/draw_minimap.c	\
+						client/display/draw/hud/draw_minimap_pixel.c	\
+						client/display/draw/hud/draw_health_bar.c	\
+						client/display/draw/hud/draw_ammo.c	\
+						client/display/draw/hud/draw_weapon.c	\
+						client/display/draw/hud/draw_weapon_view.c	\
+						client/display/draw/hud/pixel_transparency.c	\
 						\
 						client/display/raycasting/raycasting.c	\
 						\

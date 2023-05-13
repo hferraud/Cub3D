@@ -36,12 +36,10 @@ void		player_update(t_cub *cub);
 t_fvector	new_position_calculate(t_cub *cub);
 int			is_valid_position(t_cub *cub, float x, float y);
 int			player_moved(t_player before, t_player current);
-int 		is_floor(char cell);
+int			is_floor(char cell);
+
 void		player_door_interact(t_cub *cub);
-
-
 int			player_hit_collectible(t_cub *cub);
-
 void		player_shoot(t_cub *cub);
 void		check_assault_riffle_shoot(t_cub *cub);
 

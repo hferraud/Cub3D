@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "draw.h"
+#include "hud.h"
 #include "raycasting.h"
 
 /**
@@ -26,7 +27,7 @@ void	draw_player_view(t_cub *cub)
 	screen_x = 0;
 	while (screen_x < WIN_WIDTH)
 	{
-		camera_x = 2.f * screen_x / (float) WIN_WIDTH - 1;
+		camera_x = 2.f * (float)screen_x / WIN_WIDTH - 1;
 		pthread_mutex_lock(cub->player_data.player_lock);
 		ray_dir = fvector_add(cub->player_data.player.rotation,
 				fvector_mul(cub->player_data.camera, camera_x));
@@ -39,4 +40,5 @@ void	draw_player_view(t_cub *cub)
 		screen_x++;
 	}
 	draw_sprites(cub, z_buffer);
+	draw_hud(cub);
 }

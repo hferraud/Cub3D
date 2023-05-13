@@ -16,22 +16,15 @@
 # include <math.h>
 # include "mlx_handler.h"
 
-typedef struct s_point		t_point;
 typedef struct s_rectangle	t_rectangle;
 typedef struct s_draw_param	t_draw_param;
 typedef struct s_ray		t_ray;
 
-struct s_point
-{
-	int	x;
-	int	y;
-};
-
 struct s_rectangle
 {
-	t_point	start;
-	t_point	end;
-	int		color;
+	t_vector	start;
+	t_vector	end;
+	int			color;
 };
 
 struct s_draw_param
@@ -49,11 +42,10 @@ struct s_draw_param
 /* --- DRAW FUNCTIONS --- */
 
 void		mlx_put_pixel(t_img_data *img_data, int x, int y, int color);
-void		mlx_put_point(t_img_data *img_data, t_point point, int color);
-void		draw_line(t_img_data *data, t_point a, t_point b, int color);
+void		mlx_put_point(t_img_data *img_data, t_vector point, int color);
+void		draw_line(t_img_data *data, t_vector a, t_vector b, int color);
 void		draw_rectangle(t_img_data *img_data, t_rectangle rectangle);
 void		draw_background(t_cub *cub);
-void		draw_minimap(t_cub *cub);
 void		draw_sprite(t_cub *cub, t_draw_param dp, const float *z_buffer, float dist);
 void		draw_collectible(t_cub *cub, t_collectible collectible, const float *z_buffer);
 void		draw_enemy(t_cub *cub, t_enemy enemy, const float *z_buffer);
@@ -72,9 +64,8 @@ t_fvector		enemy_camera_projection(t_cub *cub, t_enemy enemy);
 
 /* --- POINT_UTILS FUNCTIONS --- */
 
-t_point		set_point(int x, int y);
-t_rectangle	set_rectangle(t_point start, t_point end, int color);
-t_rectangle	set_square(t_point start, int width, int color);
-int			is_valid_point(t_point point);
+t_rectangle	set_rectangle(t_vector start, t_vector end, int color);
+t_rectangle	set_square(t_vector start, int width, int color);
+int			is_valid_pixel(t_vector point);
 
 #endif

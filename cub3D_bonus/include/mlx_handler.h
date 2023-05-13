@@ -12,17 +12,19 @@
 #ifndef MLX_HANDLER_H
 # define MLX_HANDLER_H
 
-# include "libft.h"
 # include "mlx.h"
+# include "libft.h"
 # include "error.h"
 # include "cub.h"
 # include "texture.h"
 # include "collectible.h"
 # include "hook.h"
+# include "weapons_data.h"
+# include "hud.h"
 # include <stdio.h>
 
-# define WIN_WIDTH	1280
-# define WIN_HEIGHT	720
+# define WIN_WIDTH	1800
+# define WIN_HEIGHT	1000
 # define WIN_NAME	"Cub3D"
 
 /* Key hook: w, a, s, d, right, left */
@@ -33,6 +35,7 @@
 typedef struct s_cub		t_cub;
 typedef struct s_mlx_data	t_mlx_data;
 typedef struct s_sprite		t_sprite;
+typedef struct s_hud_sprite	t_hud_sprite;
 typedef struct s_img_data	t_img_data;
 
 /* --- FUNCTIONS --- */
@@ -61,14 +64,27 @@ struct s_sprite
 	int			height;
 };
 
+struct s_hud_sprite
+{
+	t_sprite	ammo;
+	t_sprite	weapon[NB_WEAPONS];
+	t_sprite	knife[NB_KNIFE_SPRITES];
+	t_sprite	pistol[NB_PISTOL_SPRITES];
+	t_sprite	assault_rifle[NB_AR_SPRITES];
+};
+
 struct s_mlx_data
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
-	t_img_data	img_data;
-	t_sprite	texture_sprite[NB_TEXTURE];
-	t_sprite	collectible_sprite[NB_COLLECTIBLE];
-	int			key_press[MAX_KEY];
+	void			*mlx_ptr;
+	void			*win_ptr;
+	t_img_data		img_data;
+	t_sprite		texture_sprite[NB_TEXTURE];
+	t_sprite		collectible_sprite[NB_COLLECTIBLE];
+	t_hud_sprite	hud_sprite;
+	int				key_press[MAX_KEY];
 };
+
+int			mlx_animation_sprite_init(t_mlx_data *mlx_data);
+t_sprite	mlx_sprite_open(t_mlx_data *mlx_data, char *path);
 
 #endif
