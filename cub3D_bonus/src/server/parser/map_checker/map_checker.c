@@ -81,5 +81,5 @@ static int	is_valid_cell(char c)
 static int	is_non_wall_cell(char c)
 {
 	return (c == FLOOR || c == DOOR_CLOSE || c == DOOR_OPEN
-			|| c == MEDIC_KIT || c == AMMO || c == PISTOL || c == ASSAULT_RIFLE);
+		|| c == MEDIC_KIT || c == AMMO || c == PISTOL || c == ASSAULT_RIFLE);
 }

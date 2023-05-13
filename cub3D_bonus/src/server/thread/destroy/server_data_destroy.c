@@ -13,16 +13,33 @@
 
 void		map_data_clear(t_map *map);
 
+static void	clear_mutexes(t_server_data *server_data);
+static void	player_clear(t_server_data *server_data);
 static void	disconnect_client(t_list *new_players, t_enemy *players);
 
 void	server_data_destroy(t_server_data *server_data)
 {
 	map_data_clear(server_data->map);
+	clear_mutexes(server_data);
+	if (server_data->thread[LAUNCH] != 0)
+		pthread_cancel(server_data->thread[LAUNCH]);
+	if (server_data->thread[IN_GAME] != 0)
+		pthread_cancel(server_data->thread[IN_GAME]);
+	disconnect_client(server_data->client_socket,
+		server_data->player);
+	ft_lstclear(&server_data->client_socket, free);
+	player_clear(server_data);
+	free(server_data);
+}
+
+static void	clear_mutexes(t_server_data *server_data)
+{
 	if (server_data->server_status)
 		pthread_mutex_destroy(server_data->server_status->status_lock);
 	free(server_data->server_status);
 	if (server_data->client_connected)
-		pthread_mutex_destroy(server_data->client_connected->client_connected_lock);
+		pthread_mutex_destroy(server_data->client_connected
+			->client_connected_lock);
 	free(server_data->client_connected);
 	if (server_data->client_lock)
 		pthread_mutex_destroy(server_data->client_lock);
@@ -33,12 +50,10 @@ void	server_data_destroy(t_server_data *server_data)
 	if (server_data->spawn_lock)
 		pthread_mutex_destroy(server_data->spawn_lock);
 	free(server_data->spawn_lock);
-	if (server_data->thread[LAUNCH] != 0)
-		pthread_cancel(server_data->thread[LAUNCH]);
-	if (server_data->thread[IN_GAME] != 0)
-		pthread_cancel(server_data->thread[IN_GAME]);
-	disconnect_client(server_data->client_socket, server_data->player);
-	ft_lstclear(&server_data->client_socket, free);
+}
+
+static void	player_clear(t_server_data *server_data)
+{
 	if (server_data->player)
 	{
 		free(server_data->player->players_socket);
@@ -47,7 +62,6 @@ void	server_data_destroy(t_server_data *server_data)
 		free(server_data->player->players_lock);
 		free(server_data->player);
 	}
-	free(server_data);
 }
 
 static void	disconnect_client(t_list *new_players, t_enemy *players)

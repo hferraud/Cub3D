@@ -13,6 +13,7 @@
 
 static int	socket_create(uint16_t port);
 static int	server_display_ip(void);
+static int	server_display_an_ip(t_ifaddrs *current);
 
 /**
  * @brief Parse the port and create the socket for the server
@@ -76,7 +77,6 @@ static int	server_display_ip(void)
 	t_ifaddrs	*current;
 	int			family;
 	int			ip_found;
-	char		host[1028];
 
 	if (getifaddrs(&ifap) == -1)
 		return (perror("getifaddrs()"), -1);
@@ -88,18 +88,24 @@ static int	server_display_ip(void)
 		if (family == AF_INET)
 		{
 			ip_found = 1;
-			if (getnameinfo(current->ifa_addr, sizeof(t_sockaddr_in), host,
-					1028, NULL, 0, NI_NUMERICHOST) != 0)
-			{
-				freeifaddrs(ifap);
-				return (perror("getnameinfo()"), -1);
-			}
-			printf("%-10s: IP:\t%s\n", current->ifa_name, host);
+			if (server_display_an_ip(current) == -1)
+				return (free(ifap), -1);
 		}
 		current = current->ifa_next;
 	}
 	freeifaddrs(ifap);
 	if (!ip_found)
 		return (cub_error("IP not found\n"));
+	return (0);
+}
+
+static int	server_display_an_ip(t_ifaddrs *current)
+{
+	char	host[1028];
+
+	if (getnameinfo(current->ifa_addr, sizeof(t_sockaddr_in), host,
+			1028, NULL, 0, NI_NUMERICHOST) != 0)
+		return (perror("getnameinfo()"), -1);
+	printf("%-10s: IP:\t%s\n", current->ifa_name, host);
 	return (0);
 }

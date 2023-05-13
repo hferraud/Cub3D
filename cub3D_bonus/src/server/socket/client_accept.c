@@ -18,8 +18,10 @@ static void	close_client(t_server_data *server_data);
 
 void	listen_connections(int server_socket, t_server_data *server_data)
 {
-	int	client_socket_fd;
+	int				client_socket_fd;
+	pthread_mutex_t	*client_lock;
 
+	client_lock = server_data->client_connected->client_connected_lock;
 	while (1)
 	{
 		check_server_error(server_socket, server_data);
@@ -29,21 +31,22 @@ void	listen_connections(int server_socket, t_server_data *server_data)
 			server_data_destroy(server_data);
 			exit(1);
 		}
-		pthread_mutex_lock(server_data->client_connected->client_connected_lock);
+		pthread_mutex_lock(client_lock);
 		if (server_data->client_connected->nb_client_connected == 0)
 		{
 			printf("No more spawns available\n");
 			close(client_socket_fd);
-			pthread_mutex_unlock(server_data->client_connected->client_connected_lock);
-			continue ;
+			pthread_mutex_unlock(client_lock);
 		}
 		else
-			server_data->client_connected->nb_client_connected--;
-		pthread_mutex_unlock(server_data->client_connected->client_connected_lock);
-		if (new_player_add(client_socket_fd, server_data) == -1)
 		{
-			server_data_destroy(server_data);
-			exit(1);
+			server_data->client_connected->nb_client_connected--;
+			pthread_mutex_unlock(client_lock);
+			if (new_player_add(client_socket_fd, server_data) == -1)
+			{
+				server_data_destroy(server_data);
+				exit(1);
+			}
 		}
 	}
 }
@@ -57,7 +60,6 @@ static int	client_accept(int server_socket_fd)
 	int				client_socket_fd;
 	socklen_t		client_addr_len;
 	t_sockaddr_in	client_addr;
-
 
 	client_addr_len = sizeof(t_sockaddr_in);
 	client_socket_fd = accept(server_socket_fd, (t_sockaddr *) &client_addr,

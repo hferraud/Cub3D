@@ -66,6 +66,7 @@ SRC_SERVER	=		error.c	\
 							server/socket/socket_init.c		\
 							server/socket/client_accept.c	\
 					\
+							utils/mutex_init.c	\
 							utils/collectible.c			\
 							utils/socket/port_get.c		\
 					\
@@ -153,6 +154,7 @@ SRC_CLIENT	=		error.c	\
 						client/thread/routine/event_response.c				\
 						\
 					\
+					utils/mutex_init.c	\
 					utils/collectible.c	\
 					utils/time.c		\
 					\

@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 #include "player_data.h"
 
+pthread_mutex_t			*mutex_init(void);
+
 static int				mutexes_init(t_player_data *player_data);
-static pthread_mutex_t	*mutex_init(void);
 static t_player_status	player_status_init(void);
 static void				player_data_set_to_default(t_player_data *player_data);
 
@@ -41,21 +42,6 @@ static int	mutexes_init(t_player_data *player_data)
 	if (player_data->events_lock == NULL)
 		return (-1);
 	return (0);
-}
-
-static pthread_mutex_t	*mutex_init(void)
-{
-	pthread_mutex_t	*mutex;
-
-	mutex = malloc(sizeof(pthread_mutex_t));
-	if (mutex == NULL)
-		return (NULL);
-	if (pthread_mutex_init(mutex, NULL) != 0)
-	{
-		free(mutex);
-		return (NULL);
-	}
-	return (mutex);
 }
 
 static t_player_status	player_status_init(void)
