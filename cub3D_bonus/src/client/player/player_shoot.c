@@ -20,7 +20,7 @@ size_t			elapsed_time(struct timeval start_time,
 
 static t_damage	get_damage_by_weapon(t_weapon weapon);
 static bool		can_shoot(t_cub *cub, t_weapon weapon, t_timeval current_time);
-static bool		aim_enemy(t_cub *cub, t_enemy enemy);
+static bool		aim_enemy(t_cub *cub, t_weapon weapon, t_enemy enemy);
 
 void	player_shoot(t_cub *cub)
 {
@@ -50,7 +50,7 @@ void	player_shoot(t_cub *cub)
 	{
 		if (enemies[i].id != -1)
 		{
-			if (aim_enemy(cub, enemies[i]))
+			if (aim_enemy(cub, weapon, enemies[i]))
 			{
 				add_damage_event(cub, enemies[i].id,
 					get_damage_by_weapon(weapon));
@@ -96,13 +96,15 @@ static bool	can_shoot(t_cub *cub, t_weapon weapon, t_timeval current_time)
 	return (true);
 }
 
-static bool	aim_enemy(t_cub *cub, t_enemy enemy)
+static bool	aim_enemy(t_cub *cub, t_weapon weapon, t_enemy enemy)
 {
 	t_fvector		camera;
 	t_draw_param	dp;
 
 	camera = enemy_camera_projection(cub, enemy);
 	if (camera.y > cub->z_buffer[WIN_WIDTH / 2])
+		return (false);
+	if (weapon == KNIFE_INDEX && camera.y > KNIFE_RANGE)
 		return (false);
 	dp = enemy_get_draw_param(cub, camera);
 	return (dp.screen.x < WIN_WIDTH / 2 + dp.width / 2
