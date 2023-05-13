@@ -126,7 +126,6 @@ SRC_CLIENT	=		error.c	\
 						client/display/draw/draw_enemy.c		\
 						client/display/draw/draw_sprite.c		\
 						client/display/draw/draw_shape_utils.c	\
-						client/display/draw/draw_floor.c	\
 						\
 						client/display/minimap/minimap.c	\
 						\

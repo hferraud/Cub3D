@@ -16,10 +16,11 @@
 # include <math.h>
 # include "mlx_handler.h"
 
-typedef struct s_point		t_point;
-typedef struct s_rectangle	t_rectangle;
-typedef struct s_draw_param	t_draw_param;
-typedef struct s_ray		t_ray;
+typedef struct s_point				t_point;
+typedef struct s_rectangle			t_rectangle;
+typedef struct s_draw_param			t_draw_param;
+typedef struct s_background_param	t_background_param;
+typedef struct s_ray				t_ray;
 
 struct s_point
 {
@@ -46,6 +47,20 @@ struct s_draw_param
 	t_sprite	sprite;
 };
 
+struct s_background_param
+{
+	int			color;
+	float		row_dist;
+	t_sprite	sprite;
+	t_player	player;
+	t_vector	screen;
+	t_vector	texture;
+	t_fvector	cell;
+	t_fvector	ray_left;
+	t_fvector	ray_right;
+	t_fvector	step;
+};
+
 /* --- DRAW FUNCTIONS --- */
 
 void		mlx_put_pixel(t_img_data *img_data, int x, int y, int color);
@@ -59,8 +74,6 @@ void		draw_collectible(t_cub *cub, t_collectible collectible, const float *z_buf
 void		draw_enemy(t_cub *cub, t_enemy enemy, const float *z_buffer);
 void		draw_sprites(t_cub *cub, const float *z_buffer);
 void		draw_wall(t_cub *cub, int x, t_ray ray);
-void		draw_floor(t_cub *cub);
-void		draw_ceil(t_cub *cub);
 void		draw_player_view(t_cub *cub);
 
 /* --- DRAW UTILS FUNCTIONS --- */
