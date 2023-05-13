@@ -71,8 +71,7 @@ static void	draw_background_row(t_cub *cub, t_background_param bp)
 		bp.color = *(int *)(bp.sprite.img_data.addr
 				+ bp.texture.x * bp.sprite.img_data.bit_ratio
 				+ bp.texture.y * bp.sprite.img_data.line_length);
-		mlx_put_pixel(&cub->mlx_data->img_data, bp.screen.x, bp.screen.y, bp.color);
-		//put point
+		mlx_put_point(&cub->mlx_data->img_data, bp.screen, bp.color);
 		bp.screen.x++;
 	}
 }

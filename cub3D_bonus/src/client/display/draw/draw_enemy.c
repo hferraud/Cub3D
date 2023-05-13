@@ -86,7 +86,7 @@ void	enemies_set_dist(t_cub *cub, t_enemy *enemies, t_player player)
 			enemies[i].player = cub->enemies[i].player;
 			pthread_mutex_unlock(cub->enemies_lock);
 			enemies[i].relative_pos = fvector_sub(player.pos,
-				enemies[i].player.pos);
+					enemies[i].player.pos);
 			enemies[i].dist
 				= enemies[i].relative_pos.x * enemies[i].relative_pos.x
 				+ enemies[i].relative_pos.y * enemies[i].relative_pos.y;
@@ -113,7 +113,8 @@ void	enemies_sort(t_enemy *enemies)
 		i = 1;
 		while (i < PLAYER_LIMIT - 1 && enemies[i].id != -1)
 		{
-			if (enemies[i].id != -1 && enemies[i - 1].id != -1 && enemies[i].dist > enemies[i - 1].dist)
+			if (enemies[i].id != -1 && enemies[i - 1].id != -1
+				&& enemies[i].dist > enemies[i - 1].dist)
 			{
 				flag = true;
 				tmp = enemies[i];

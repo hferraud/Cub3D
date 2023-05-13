@@ -13,10 +13,12 @@
 #include "cub.h"
 #include "draw.h"
 
-static t_draw_param	get_draw_param(t_cub *cub, t_fvector camera, t_collectible collectible);
+static t_draw_param	get_draw_param(t_cub *cub, t_fvector camera,
+						t_collectible collectible);
 static t_fvector	camera_projection(t_cub *cub, t_collectible collectible);
 
-void	draw_collectible(t_cub *cub, t_collectible collectible, const float *z_buffer)
+void	draw_collectible(t_cub *cub, t_collectible collectible,
+				const float *z_buffer)
 {
 	t_draw_param		draw_param;
 	t_fvector			camera;
@@ -32,7 +34,8 @@ void	draw_collectible(t_cub *cub, t_collectible collectible, const float *z_buff
 /**
  * @brief Get the parameters needed to draw the sprite
  */
-static t_draw_param	get_draw_param(t_cub *cub, t_fvector camera, t_collectible collectible)
+static t_draw_param	get_draw_param(t_cub *cub, t_fvector camera,
+						t_collectible collectible)
 {
 	t_draw_param	dp;
 	int				scale;

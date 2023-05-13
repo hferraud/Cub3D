@@ -12,82 +12,74 @@
 #include "draw.h"
 #include "raycasting.h"
 
-static void	draw_wall_band(t_cub *cub, t_ray ray, int screen_x, int start_y, int end_y);
-static void mlx_get_wall_stripe(int *stripe, t_sprite wall_sprite, t_vector texture_pos, t_vector screen_pos, int screen_start_y, int screen_end_y);
-static void	mlx_put_wall_stripe(t_cub *cub, int *stripe, t_vector screen_pos, int end_y);
+static void	draw_wall_band(t_cub *cub, t_ray ray, t_draw_param dp);
+static void	mlx_get_wall_stripe(int *stripe, t_draw_param dp);
+static void	mlx_put_wall_stripe(t_cub *cub, const int *stripe, t_draw_param dp);
 
-void	draw_wall(t_cub *cub, int x, t_ray ray)
+void	draw_wall(t_cub *cub, int screen_x, t_ray ray)
 {
-	float	dist;
-	int		draw_start;
-	int		draw_end;
-	int		wall_height;
+	t_draw_param	dp;
 
-	dist = ray.length;
-	wall_height = WIN_HEIGHT / dist;
-	draw_start = -wall_height / 2 + WIN_HEIGHT / 2;
-	draw_end = wall_height / 2 + WIN_HEIGHT / 2;
-	draw_wall_band(cub, ray, x, draw_start, draw_end);
+	dp.screen.x = screen_x;
+	dp.height = WIN_HEIGHT / ray.length;
+	dp.draw_start.y = WIN_HEIGHT / 2 - dp.height / 2;
+	dp.draw_end.y = WIN_HEIGHT / 2 + dp.height / 2;
+	draw_wall_band(cub, ray, dp);
 }
 
-static void	draw_wall_band(t_cub *cub, t_ray ray, int screen_x, int start_y, int end_y)
+static void	draw_wall_band(t_cub *cub, t_ray ray, t_draw_param dp)
 {
-	t_sprite	wall_sprite;
-	t_vector	texture_pos;
-	t_vector	screen_pos;
 	int			stripe[WIN_HEIGHT];
 
 	if (ray.is_door)
-		wall_sprite = cub->mlx_data->texture_sprite[DOOR_ID];
+		dp.sprite = cub->mlx_data->texture_sprite[DOOR_ID];
 	else
-		wall_sprite = cub->mlx_data->texture_sprite[ray.wall_face];
+		dp.sprite = cub->mlx_data->texture_sprite[ray.wall_face];
 	if (ray.wall_face == NORTH || ray.wall_face == SOUTH)
-		texture_pos.x = (ray.pos.x - (int) ray.pos.x) * wall_sprite.width;
+		dp.texture.x = (ray.pos.x - (int) ray.pos.x) * dp.sprite.width;
 	else
-		texture_pos.x = (ray.pos.y - (int) ray.pos.y) * wall_sprite.width;
-	screen_pos = vector_init(screen_x, start_y);
-	if (screen_pos.y < 0)
-		screen_pos.y = 0;
-	mlx_get_wall_stripe(stripe, wall_sprite, texture_pos, screen_pos, start_y, end_y);
-	mlx_put_wall_stripe(cub, stripe, screen_pos, end_y);
+		dp.texture.x = (ray.pos.y - (int) ray.pos.y) * dp.sprite.width;
+	dp.screen.y = dp.draw_start.y;
+	if (dp.screen.y < 0)
+		dp.screen.y = 0;
+	mlx_get_wall_stripe(stripe, dp);
+	mlx_put_wall_stripe(cub, stripe, dp);
 }
 
-static void mlx_get_wall_stripe(int *stripe, t_sprite wall_sprite, t_vector texture_pos, t_vector screen_pos, int screen_start_y, int screen_end_y)
+static void	mlx_get_wall_stripe(int *stripe, t_draw_param dp)
 {
-	int		wall_height;
-	int		i;
 	char	*texture_addr;
 	float	step;
+	int		i;
 
-	wall_height = screen_end_y - screen_start_y;
-	step = (float) wall_sprite.height / wall_height;
-	if (screen_end_y > WIN_HEIGHT)
-		screen_end_y = WIN_HEIGHT;
-	texture_addr = wall_sprite.img_data.addr + texture_pos.x * wall_sprite.img_data.bit_ratio;
+	step = (float) dp.sprite.height / dp.height;
+	texture_addr = dp.sprite.img_data.addr
+		+ dp.texture.x * dp.sprite.img_data.bit_ratio;
 	i = 0;
-	while (screen_pos.y < screen_end_y)
+	while (dp.screen.y < dp.draw_end.y && dp.screen.y < WIN_HEIGHT)
 	{
-		texture_pos.y = (screen_pos.y - screen_start_y) * step;
-		stripe[i] = *(int *) (texture_addr + texture_pos.y * wall_sprite.img_data.line_length);
-		screen_pos.y++;
+		dp.texture.y = (dp.screen.y - dp.draw_start.y) * step;
+		stripe[i] = *(int *)(texture_addr
+				+ dp.texture.y * dp.sprite.img_data.line_length);
+		dp.screen.y++;
 		i++;
 	}
 }
 
-static void	mlx_put_wall_stripe(t_cub *cub, int *stripe, t_vector screen_pos, int end_y)
+static void	mlx_put_wall_stripe(t_cub *cub, const int *stripe, t_draw_param dp)
 {
 	char	*img_addr;
 	int		i;
 
-	if (end_y > WIN_HEIGHT)
-		end_y = WIN_HEIGHT;
+	if (dp.draw_end.y > WIN_HEIGHT)
+		dp.draw_end.y = WIN_HEIGHT;
 	img_addr = cub->mlx_data->img_data.addr;
-	img_addr += screen_pos.x * cub->mlx_data->img_data.bit_ratio;
-	img_addr += screen_pos.y * cub->mlx_data->img_data.line_length;
+	img_addr += dp.screen.x * cub->mlx_data->img_data.bit_ratio;
+	img_addr += dp.screen.y * cub->mlx_data->img_data.line_length;
 	i = 0;
-	while (screen_pos.y + i < end_y)
+	while (dp.screen.y + i < dp.draw_end.y)
 	{
-		*(unsigned int *)img_addr = stripe[i];
+		*(int *)img_addr = stripe[i];
 		img_addr += cub->mlx_data->img_data.line_length;
 		i++;
 	}
