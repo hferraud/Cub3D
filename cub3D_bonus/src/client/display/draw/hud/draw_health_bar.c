@@ -46,21 +46,20 @@ static void	draw_health_bar_pixel(t_cub *cub, t_vector offset, t_vector screen)
 	if (!is_in_border_radius(offset, BORDER_RADIUS))
 		return ;
 	if (!is_in_border_radius(offset, BORDER_RADIUS - BORDER_SIZE))
-		color = 0x0;
+		color = pixel_transparency(cub, screen, 0xbb000000);
 	else
 	{
 		pthread_mutex_lock(cub->player_data.player_lock);
 		life_ratio = (float)cub->player_data.player_status.life / LIFE_MAX;
 		pthread_mutex_unlock(cub->player_data.player_lock);
 		x_ratio = (float)offset.x / HEALTH_BAR_WIDTH;
-		if (offset.x < BORDER_SIZE || offset.x >= HEALTH_BAR_WIDTH - BORDER_SIZE)
-			color = 0x0;
-		else if (offset.y < BORDER_SIZE || offset.y >= HEALTH_BAR_HEIGHT - BORDER_SIZE)
-			color = 0x0;
+		if ((offset.x < BORDER_SIZE || offset.x >= HEALTH_BAR_WIDTH - BORDER_SIZE)
+			|| (offset.y < BORDER_SIZE || offset.y >= HEALTH_BAR_HEIGHT - BORDER_SIZE))
+			color = pixel_transparency(cub, screen, 0xbb000000);
 		else if (x_ratio < life_ratio)
 			color = 0x44d12d;
 		else
-			color = 0x808080;
+			color = pixel_transparency(cub, screen, 0x44888888);
 	}
 	mlx_put_point(&cub->mlx_data->img_data, screen, color);
 }

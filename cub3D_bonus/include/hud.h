@@ -74,4 +74,6 @@ void	draw_ammo(t_cub *cub);
 void	draw_weapon(t_cub *cub);
 void	draw_weapon_view(t_cub *cub);
 
+int	pixel_transparency(t_cub *cub, t_vector screen, int color);
+
 #endif
