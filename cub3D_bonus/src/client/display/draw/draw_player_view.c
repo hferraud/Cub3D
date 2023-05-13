@@ -24,6 +24,7 @@ void	draw_player_view(t_cub *cub)
 	int			screen_x;
 	float		camera_x;
 
+	draw_background(cub);
 	screen_x = 0;
 	while (screen_x < WIN_WIDTH)
 	{

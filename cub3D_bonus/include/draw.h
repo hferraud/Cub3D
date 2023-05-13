@@ -16,9 +16,10 @@
 # include <math.h>
 # include "mlx_handler.h"
 
-typedef struct s_rectangle	t_rectangle;
-typedef struct s_draw_param	t_draw_param;
-typedef struct s_ray		t_ray;
+typedef struct s_rectangle			t_rectangle;
+typedef struct s_draw_param			t_draw_param;
+typedef struct s_background_param	t_background_param;
+typedef struct s_ray				t_ray;
 
 struct s_rectangle
 {
@@ -37,6 +38,20 @@ struct s_draw_param
 	t_vector	draw_start;
 	t_vector	draw_end;
 	t_sprite	sprite;
+};
+
+struct s_background_param
+{
+	int			color;
+	float		row_dist;
+	t_sprite	sprite;
+	t_player	player;
+	t_vector	screen;
+	t_vector	texture;
+	t_fvector	cell;
+	t_fvector	ray_left;
+	t_fvector	ray_right;
+	t_fvector	step;
 };
 
 /* --- DRAW FUNCTIONS --- */
