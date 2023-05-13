@@ -20,7 +20,6 @@
 # include "collectible.h"
 
 typedef struct s_ray	t_ray;
-typedef struct s_point	t_point;
 typedef enum e_wall		t_wall;
 
 enum e_wall
@@ -29,7 +28,6 @@ enum e_wall
 	SOUTH,
 	EAST,
 	WEST,
-	DOOR
 };
 
 struct s_ray
@@ -41,7 +39,6 @@ struct s_ray
 	t_wall				wall_face;
 	bool				is_door;
 	float				length;
-	t_collectible_list	*collectible_hit;
 };
 
 t_ray	ray_cast(t_cub *cub, t_fvector ray_dir);

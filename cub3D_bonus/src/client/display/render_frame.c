@@ -13,9 +13,10 @@
 #include "draw.h"
 #include <sys/time.h>
 
-size_t			elapsed_time(struct timeval start_time, struct timeval current_time);
+size_t		elapsed_time(struct timeval start_time,
+				struct timeval current_time);
 
-static void		limit_fps(struct timeval start, struct timeval current, int fps_max);
+static void	limit_fps(struct timeval start, struct timeval current, int fps);
 
 /**
  * @brief Update player params and calculate the next image to display
@@ -43,10 +44,10 @@ int	render_frame(t_cub *cub)
 	return (0);
 }
 
-static void	limit_fps(struct timeval start, struct timeval current, int fps_max)
+static void	limit_fps(struct timeval start, struct timeval current, int fps)
 {
 	size_t			delta;
-	const size_t	usec_per_frame = 1000000 / fps_max;
+	const size_t	usec_per_frame = 1000000 / fps;
 
 	delta = elapsed_time(start, current);
 	if (usec_per_frame > delta)
