@@ -31,7 +31,7 @@ static void	draw_half_minimap(t_cub *cub, int step)
 	int			x_offset;
 
 	screen.x = MAP_PIXEL_OFFSET + MAP_RADIUS;
-	screen.y = WIN_HEIGHT - (MAP_PIXEL_OFFSET + MAP_RADIUS);
+	screen.y = MAP_PIXEL_OFFSET + MAP_RADIUS;
 	if (step == -1)
 	{
 		screen.x += step;
