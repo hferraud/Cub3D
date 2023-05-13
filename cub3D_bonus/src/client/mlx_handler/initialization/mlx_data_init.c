@@ -37,7 +37,7 @@ int	mlx_data_init(t_cub *cub)
 			cub_error("mlx_new_window() failed\n"));
 	if (init_img_data(mlx_data) == -1)
 		return (mlx_data_destroy(mlx_data),
-				cub_error("mlx_new_image() failed\n"));
+			cub_error("mlx_new_image() failed\n"));
 	init_hook(cub);
 	return (0);
 }

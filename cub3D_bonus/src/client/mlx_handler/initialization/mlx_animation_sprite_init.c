@@ -9,8 +9,8 @@
 /*   Updated: 2023/05/12 16:25:00 by ethan            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-# include "mlx_handler.h"
-# include "hud.h"
+#include "mlx_handler.h"
+#include "hud.h"
 
 static int	mlx_knife_sprite_init(t_mlx_data *mlx_data);
 static int	mlx_pistol_sprite_init(t_mlx_data *mlx_data);
@@ -36,7 +36,8 @@ static int	mlx_pistol_sprite_init(t_mlx_data *mlx_data)
 	hud_sprite = &mlx_data->hud_sprite;
 	while (index < NB_PISTOL_SPRITES)
 	{
-		hud_sprite->pistol[index] = mlx_sprite_open(mlx_data, (char *) pistol_path[index]);
+		hud_sprite->pistol[index]
+			= mlx_sprite_open(mlx_data, (char *) pistol_path[index]);
 		if (hud_sprite->pistol[index].img_data.img == NULL)
 			return (-1);
 		index++;
@@ -55,7 +56,8 @@ static int	mlx_knife_sprite_init(t_mlx_data *mlx_data)
 	hud_sprite = &mlx_data->hud_sprite;
 	while (index < NB_KNIFE_SPRITES)
 	{
-		hud_sprite->knife[index] = mlx_sprite_open(mlx_data, (char *) knife_path[index]);
+		hud_sprite->knife[index]
+			= mlx_sprite_open(mlx_data, (char *) knife_path[index]);
 		if (hud_sprite->knife[index].img_data.img == NULL)
 			return (-1);
 		index++;
@@ -73,7 +75,8 @@ static int	mlx_ar_sprite_init(t_mlx_data *mlx_data)
 	hud_sprite = &mlx_data->hud_sprite;
 	while (index < NB_AR_SPRITES)
 	{
-		hud_sprite->assault_rifle[index] = mlx_sprite_open(mlx_data, (char *) ar_path[index]);
+		hud_sprite->assault_rifle[index]
+			= mlx_sprite_open(mlx_data, (char *) ar_path[index]);
 		if (hud_sprite->assault_rifle[index].img_data.img == NULL)
 			return (-1);
 		index++;

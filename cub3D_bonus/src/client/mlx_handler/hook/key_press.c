@@ -19,8 +19,8 @@ static void	change_weapon(int key_code, t_player_data *player_data);
  */
 int	key_press(int key_code, t_cub *cub)
 {
-	const int	valid_key[MAX_KEY] = {KEY_W, KEY_A, KEY_S, KEY_D,
-									   KEY_LEFT, KEY_RIGHT, KEY_SPC};
+	const int	valid_key[MAX_KEY]
+		= {KEY_W, KEY_A, KEY_S, KEY_D, KEY_LEFT, KEY_RIGHT, KEY_SPC};
 	size_t		index;
 
 	index = 0;
@@ -58,8 +58,8 @@ int	is_key_pressed(int key_code, t_cub *cub)
 static void	change_weapon(int key_code, t_player_data *player_data)
 {
 	const int		weapon_key[] = {KEY_1, KEY_2, KEY_3};
-	const t_weapon	weapon_id[] =
-		{ASSAULT_RIFLE_INDEX, PISTOL_INDEX, KNIFE_INDEX};
+	const t_weapon	weapon_id[]
+		= {ASSAULT_RIFLE_INDEX, PISTOL_INDEX, KNIFE_INDEX};
 	t_player_status	*player_status;
 	size_t			count;
 
