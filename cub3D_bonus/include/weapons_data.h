@@ -13,6 +13,7 @@
 # define WEAPONS_DATA_H
 
 # define NB_WEAPONS	3
+# define KNIFE_RANGE 2
 
 typedef enum e_damage		t_damage;
 typedef enum e_rate_fire	t_rate_fire;

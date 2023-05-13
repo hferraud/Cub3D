@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
-size_t	diff_time(struct timeval start_time, struct timeval current_time)
+size_t	elapsed_time(struct timeval start_time, struct timeval current_time)
 {
 	return ((size_t)(current_time.tv_sec - start_time.tv_sec) * 1000000
 			+ (current_time.tv_usec - start_time.tv_usec));
