@@ -102,6 +102,7 @@ SRC_CLIENT	=		error.c	\
 					\
 						client/mlx_handler/initialization/mlx_data_init.c				\
 						client/mlx_handler/initialization/mlx_sprite_init.c				\
+						client/mlx_handler/initialization/error_sprite_init.c			\
 						client/mlx_handler/initialization/mlx_animation_sprite_init.c	\
 						\
 						client/mlx_handler/destroy/mlx_data_destroy.c		\
