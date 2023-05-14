@@ -30,8 +30,10 @@ void	player_update(t_cub *cub)
 	save = cub->player_data.player;
 	player_rotation_update(cub);
 	player_position_update(cub);
+	pthread_mutex_unlock(cub->player_data.player_lock);
 	collectible_set_dist(cub, cub->player_data.player);
 	collectible_sort(cub);
+	pthread_mutex_lock(cub->player_data.player_lock);
 	if (player_moved(save, cub->player_data.player))
 	{
 		pthread_mutex_lock(cub->player_data.update_lock);

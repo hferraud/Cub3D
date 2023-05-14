@@ -55,14 +55,12 @@ t_fvector	enemy_camera_projection(t_cub *cub, t_enemy enemy)
 	t_fvector	camera;
 	float		inverse_det;
 
-	pthread_mutex_lock(cub->player_data.player_lock);
 	inverse_det = -1.f / (
 			cub->player_data.camera.x * cub->player_data.player.rotation.y
 			- cub->player_data.player.rotation.x * cub->player_data.camera.y);
 	camera.x = inverse_det * (
 			cub->player_data.player.rotation.y * enemy.relative_pos.x
 			- cub->player_data.player.rotation.x * enemy.relative_pos.y);
-	pthread_mutex_unlock(cub->player_data.player_lock);
 	camera.y = inverse_det * (
 			-cub->player_data.camera.y * enemy.relative_pos.x
 			+ cub->player_data.camera.x * enemy.relative_pos.y);
