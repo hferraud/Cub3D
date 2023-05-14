@@ -11,9 +11,11 @@
 /* ************************************************************************** */
 #include "collectible.h"
 
-static t_collectible_list	*collectible_new(t_collectible_id id, t_fvector pos);
+static t_collectible_list	*collectible_new(t_collectible_id id,
+								t_fvector pos);
 
-int	collectible_append(t_collectible_list **head, t_collectible_id id, t_fvector pos)
+int	collectible_append(t_collectible_list **head,
+							t_collectible_id id, t_fvector pos)
 {
 	t_collectible_list	*elem;
 

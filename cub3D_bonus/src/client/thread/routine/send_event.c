@@ -12,15 +12,15 @@
 #include "cub.h"
 #include "player_data.h"
 
-int send_door_event(int server_socket, t_event event)
+int	send_door_event(int server_socket, t_event event)
 {
 	if (write(server_socket, &event.position, sizeof(t_vector)) == -1)
 		return (-1);
 	return (0);
 }
 
-int send_collectible_event(int server_socket, t_event event,
-						   t_player_data *player_data)
+int	send_collectible_event(int server_socket, t_event event,
+					t_player_data *player_data)
 {
 	char	buf;
 

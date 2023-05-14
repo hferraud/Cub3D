@@ -11,9 +11,11 @@
 /* ************************************************************************** */
 #include "parser_client.h"
 
-static void collectible_to_list(t_collectible_list **list, t_map_client *map);
-static int	collectible_list_to_array(t_collectible_list *list, t_map_client *map);
-static int	cell_parse(size_t row, size_t col, t_map_client *map, t_collectible_list **list);
+static void	collectible_to_list(t_collectible_list **list, t_map_client *map);
+static int	collectible_list_to_array(t_collectible_list *list,
+				t_map_client *map);
+static int	cell_parse(size_t row, size_t col, t_map_client *map,
+				t_collectible_list **list);
 
 /**
  * @brief Add all collectible in the map to a linked list
@@ -25,7 +27,7 @@ int	collectible_parse(t_map_client *map)
 
 	collectible_to_list(&list, map);
 	if (errno)
-        return (-1);
+		return (-1);
 	if (collectible_list_to_array(list, map) == -1)
 		return (-1);
 	collectible_list_clear(list);
@@ -41,7 +43,7 @@ int	collectible_parse(t_map_client *map)
  * @brief Convert collectibles to linked list
  * @return The collectible list, NULL if an error occurred
  */
-static void collectible_to_list(t_collectible_list **list, t_map_client *map)
+static void	collectible_to_list(t_collectible_list **list, t_map_client *map)
 {
 	size_t			row;
 	size_t			col;
@@ -65,7 +67,8 @@ static void collectible_to_list(t_collectible_list **list, t_map_client *map)
  * @brief Convert a collectible list to an array stored in map
  * @return 0 on success, -1 otherwise
  */
-static int	collectible_list_to_array(t_collectible_list *list, t_map_client *map)
+static int	collectible_list_to_array(t_collectible_list *list,
+										t_map_client *map)
 {
 	size_t			size;
 	size_t			i;
@@ -78,7 +81,8 @@ static int	collectible_list_to_array(t_collectible_list *list, t_map_client *map
 	i = 0;
 	while (list)
 	{
-		map->collectible_data.collectible[i] = collectible_init(list->id, list->pos);
+		map->collectible_data.collectible[i]
+			= collectible_init(list->id, list->pos);
 		i++;
 		list = list->next;
 	}
@@ -89,7 +93,8 @@ static int	collectible_list_to_array(t_collectible_list *list, t_map_client *map
  * @brief Parse the collectible on the current cell
  * @return 0 on success, -1 otherwise
  */
-static int	cell_parse(size_t row, size_t col, t_map_client *map, t_collectible_list **list)
+static int	cell_parse(size_t row, size_t col, t_map_client *map,
+						t_collectible_list **list)
 {
 	t_fvector			pos;
 	t_collectible_id	id;

@@ -38,16 +38,18 @@ void	add_collectible_event(t_cub *cub)
 	collectible_data = &cub->map.collectible_data;
 	pthread_mutex_lock(collectible_data->collectible_lock);
 	collectible_data->size--;
-	event.position.x = (int) collectible_data->collectible[collectible_data->size].pos.x;
-	event.position.y = (int) collectible_data->collectible[collectible_data->size].pos.y;
+	event.position.x
+		= (int)collectible_data->collectible[collectible_data->size].pos.x;
+	event.position.y
+		= (int)collectible_data->collectible[collectible_data->size].pos.y;
 	pthread_mutex_unlock(collectible_data->collectible_lock);
 	event.id = EVENT_TAKE_COLLECTIBLE;
 	add_event(cub, event);
 }
 
-void add_door_event(t_cub *cub, t_vector map_pos, char door_state)
+void	add_door_event(t_cub *cub, t_vector map_pos, char door_state)
 {
-	t_event event;
+	t_event	event;
 
 	if (door_state == DOOR_OPEN)
 		event.id = EVENT_OPEN_DOOR;

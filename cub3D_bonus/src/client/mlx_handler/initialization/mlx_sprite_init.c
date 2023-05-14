@@ -15,7 +15,6 @@
 static int		mlx_texture_sprite_init(t_cub *cub);
 static int		mlx_collectible_sprite_init(t_mlx_data *mlx_data);
 static int		mlx_hud_sprite_init(t_mlx_data *mlx_data);
-static int		error_sprite_init(t_cub *cub);
 
 /**
  * @brief Create mlx_image of textures sprites.
@@ -105,31 +104,4 @@ t_sprite	mlx_sprite_open(t_mlx_data *mlx_data, char *path)
 			&sprite.img_data.line_length, &sprite.img_data.endian);
 	sprite.img_data.bit_ratio = sprite.img_data.bits_per_pixel / 8;
 	return (sprite);
-}
-
-static int	error_sprite_init(t_cub *cub)
-{
-	size_t	index;
-
-	index = 0;
-	while (index < NB_TEXTURE)
-	{
-		free(cub->map.path[index]);
-		cub->map.path[index] = NULL;
-		if (cub->mlx_data->texture_sprite[index].img_data.img)
-			mlx_destroy_image(cub->mlx_data->mlx_ptr,
-				cub->mlx_data->texture_sprite[index].img_data.img);
-		cub->mlx_data->texture_sprite[index].img_data.img = NULL;
-		index++;
-	}
-	index = 0;
-	while (index < NB_COLLECTIBLE)
-	{
-		if (cub->mlx_data->collectible_sprite[index].img_data.img)
-			mlx_destroy_image(cub->mlx_data->mlx_ptr,
-				cub->mlx_data->collectible_sprite[index].img_data.img);
-		cub->mlx_data->collectible_sprite[index].img_data.img = NULL;
-		index++;
-	}
-	return (cub_error("mlx_xpm_file_to_image() failed\n"));
 }

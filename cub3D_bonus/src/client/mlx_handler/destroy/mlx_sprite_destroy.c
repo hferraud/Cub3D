@@ -20,7 +20,8 @@ void	mlx_sprite_destroy(t_mlx_data *mlx_data)
 	{
 		if (mlx_data->texture_sprite[index].img_data.img)
 		{
-			mlx_destroy_image(mlx_data->mlx_ptr, mlx_data->texture_sprite[index].img_data.img);
+			mlx_destroy_image(mlx_data->mlx_ptr,
+				mlx_data->texture_sprite[index].img_data.img);
 			mlx_data->texture_sprite[index].img_data.img = NULL;
 		}
 		index++;

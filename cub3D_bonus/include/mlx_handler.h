@@ -87,5 +87,6 @@ struct s_mlx_data
 
 int			mlx_animation_sprite_init(t_mlx_data *mlx_data);
 t_sprite	mlx_sprite_open(t_mlx_data *mlx_data, char *path);
+int			error_sprite_init(t_cub *cub);
 
 #endif

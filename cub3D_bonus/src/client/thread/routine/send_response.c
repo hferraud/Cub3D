@@ -13,7 +13,7 @@
 
 static t_enemy	*search_player_by_id(int id, t_enemy *players);
 
-int send_response(int server_socket, t_cub *cub)
+int	send_response(int server_socket, t_cub *cub)
 {
 	int			id;
 	t_player	new_position;
@@ -33,14 +33,15 @@ int send_response(int server_socket, t_cub *cub)
 
 static t_enemy	*search_player_by_id(int id, t_enemy *players)
 {
-	size_t		count;
+	size_t	count;
 	t_enemy	*player;
 
 	count = 0;
 	player = NULL;
 	while (count < PLAYER_LIMIT - 1)
 	{
-		if (players[count].id == id || (player == NULL && players[count].id == -1))
+		if (players[count].id == id
+			|| (player == NULL && players[count].id == -1))
 			player = &players[count];
 		count++;
 	}

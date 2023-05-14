@@ -15,7 +15,7 @@
 t_list	*new_event(t_event event_data)
 {
 	t_list	*event_node;
-	t_event *event;
+	t_event	*event;
 
 	event = malloc(sizeof(t_event));
 	if (event == NULL)
