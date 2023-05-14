@@ -49,29 +49,27 @@ void	player_update(t_cub *cub)
 
 static void	player_rotation_update(t_cub *cub)
 {
-//	static size_t	count = 0;
+	static size_t	count = 0;
 	int 			x;
 	int 			y;
 
-	(void) x;
-	(void) y;
-//	mlx_mouse_get_pos(cub->mlx_data->mlx_ptr, cub->mlx_data->win_ptr, &x, &y);
-	if (/*x != WIN_WIDTH / 2
-		|| */is_key_pressed(KEY_LEFT, cub)
+	mlx_mouse_get_pos(cub->mlx_data->mlx_ptr, cub->mlx_data->win_ptr, &x, &y);
+	if ((!cub->mlx_data->mouse_disable && x != WIN_WIDTH / 2)
+		|| is_key_pressed(KEY_LEFT, cub)
 		|| is_key_pressed(KEY_RIGHT, cub))
 	{
-//		if (x != WIN_WIDTH / 2)
-//			cub->player_data.player.rotation = fvector_rotate(cub->player_data.player.rotation, PLAYER_ROTATION / 100.0f * (x - (WIN_WIDTH / 2)));
+		if (!cub->mlx_data->mouse_disable && x != WIN_WIDTH / 2)
+			cub->player_data.player.rotation = fvector_rotate(cub->player_data.player.rotation, PLAYER_ROTATION / 100.0f * (x - (WIN_WIDTH / 2)));
 		if (is_key_pressed(KEY_LEFT, cub))
 			cub->player_data.player.rotation = fvector_rotate(cub->player_data.player.rotation, -PLAYER_ROTATION);
 		if (is_key_pressed(KEY_RIGHT, cub))
 			cub->player_data.player.rotation = fvector_rotate(cub->player_data.player.rotation, PLAYER_ROTATION);
 		cub->player_data.camera = fvector_rotate(cub->player_data.player.rotation, M_PI_2);
 	}
-//	if (count % 2 == 0)
-//		mlx_mouse_move(cub->mlx_data->mlx_ptr, cub->mlx_data->win_ptr,
-//			WIN_WIDTH / 2, WIN_HEIGHT / 2);
-//	count++;
+	if (!cub->mlx_data->mouse_disable && count % 2 == 0)
+		mlx_mouse_move(cub->mlx_data->mlx_ptr, cub->mlx_data->win_ptr,
+			WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	count++;
 }
 
 /**

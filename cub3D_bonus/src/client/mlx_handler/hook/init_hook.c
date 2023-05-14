@@ -14,6 +14,7 @@
 void	init_hook(t_cub *cub)
 {
 	mlx_do_key_autorepeatoff(cub->mlx_data->mlx_ptr);
+	cub->mlx_data->mouse_disable = true;
 	mlx_hook(cub->mlx_data->win_ptr, ON_DESTROY, BUTTON_RELEASE_MASK,
 		cub_exit, cub);
 	mlx_hook(cub->mlx_data->win_ptr, ON_KEY_DOWN, KEY_PRESS_MASK,

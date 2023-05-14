@@ -25,6 +25,7 @@
 # include "weapons_data.h"
 # include "hud.h"
 # include <stdio.h>
+# include <stdbool.h>
 
 # define WIN_NAME	"Cub3D"
 
@@ -83,6 +84,7 @@ struct s_mlx_data
 	t_sprite		collectible_sprite[NB_COLLECTIBLE];
 	t_hud_sprite	hud_sprite;
 	int				key_press[MAX_KEY];
+	bool			mouse_disable;
 };
 
 int			mlx_animation_sprite_init(t_mlx_data *mlx_data);

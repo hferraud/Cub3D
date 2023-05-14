@@ -12,6 +12,7 @@
 #include "hook.h"
 
 static void	change_weapon(int key_code, t_player_data *player_data);
+static void	change_mouse_state(t_mlx_data *mlx_data);
 
 /**
  * @brief Adds the key_code of the pressed key in the array
@@ -36,6 +37,8 @@ int	key_press(int key_code, t_cub *cub)
 		change_weapon(key_code, &cub->player_data);
 	else if (key_code == KEY_F)
 		player_door_interact(cub);
+	else if (key_code == KEY_M)
+		change_mouse_state(cub->mlx_data);
 	return (0);
 }
 
@@ -71,4 +74,13 @@ static void	change_weapon(int key_code, t_player_data *player_data)
 	if (count < NB_WEAPONS && player_status->weapons[weapon_id[count]] == true)
 		player_status->weapon_equipped = weapon_id[count];
 	pthread_mutex_unlock(player_data->player_lock);
+}
+
+static void	change_mouse_state(t_mlx_data *mlx_data)
+{
+	mlx_data->mouse_disable = !mlx_data->mouse_disable;
+	if (mlx_data->mouse_disable == true)
+		mlx_mouse_show(mlx_data->mlx_ptr, mlx_data->win_ptr);
+	else
+		mlx_mouse_hide(mlx_data->mlx_ptr, mlx_data->win_ptr);
 }
