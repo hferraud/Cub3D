@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 #include "server_data.h"
 
+static int	receive_confirmation(int client_socket);
 static int	map_size_send(int client_socket, size_t height, size_t width);
 static int	map_content_send(int client_socket, t_server_data *server_data);
 static int	spawn_send(int client_socket, t_spawn *spawn);
@@ -46,7 +47,6 @@ static int	map_content_send(int client_socket, t_server_data *server_data)
 {
 	size_t	index;
 	char	**map;
-	char	buf;
 
 	index = 0;
 	pthread_mutex_lock(server_data->map_lock);
@@ -62,17 +62,23 @@ static int	map_content_send(int client_socket, t_server_data *server_data)
 		index++;
 	}
 	pthread_mutex_unlock(server_data->map_lock);
-	if (read(client_socket, &buf, sizeof(char )) <= 0)
+	if (receive_confirmation(client_socket) == -1)
 	{
 		pthread_mutex_unlock(server_data->map_lock);
-		return (cub_error(CLIENT_LOST));
-	}
-	if (buf == '1')
-	{
-		pthread_mutex_unlock(server_data->map_lock);
-		return (cub_error(CLIENT_ERR_MSG));
+		return (-1);
 	}
 	printf("Map content send\n");
+	return (0);
+}
+
+static int	receive_confirmation(int client_socket)
+{
+	char	buf;
+
+	if (read(client_socket, &buf, sizeof(char )) <= 0)
+		return (cub_error(CLIENT_LOST));
+	if (buf == '1')
+		return (cub_error(CLIENT_ERR_MSG));
 	return (0);
 }
 

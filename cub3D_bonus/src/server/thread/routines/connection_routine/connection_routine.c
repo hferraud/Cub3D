@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 #include "server_data.h"
 
+void			map_send_error(int client_socket, t_server_data *server_data);
+
 static int		client_get_socket(t_server_data *server_data);
 static t_spawn	*client_get_spawn(int client_socket,
 					t_server_data *server_data);
@@ -31,27 +33,11 @@ void	connection_routine(t_server_data *server_data)
 		if (client_socket != -1)
 		{
 			spawn = client_get_spawn(client_socket, server_data);
-			if (spawn == NULL)
-			{
-				dprintf(STDERR_FILENO, "Spawn not found\n");
-				printf("Quit connection Thread\n");
-				pthread_mutex_lock(server_data->server_status->status_lock);
-				server_data->server_status->status = ERROR;
-				pthread_mutex_unlock(server_data->server_status->status_lock);
-				return ;
-			}
 			if (map_send(client_socket, server_data, spawn) != -1
 				&& path_send(client_socket, server_data) != -1)
 				client_to_player(client_socket, server_data);
 			else
-			{
-				lst_del_client(client_socket, server_data, true);
-				pthread_mutex_lock(server_data->client_connected
-					->client_connected_lock);
-				server_data->client_connected->nb_client_connected++;
-				pthread_mutex_unlock(server_data->client_connected
-					->client_connected_lock);
-			}
+				map_send_error(client_socket, server_data);
 		}
 		else
 			sleep(1);

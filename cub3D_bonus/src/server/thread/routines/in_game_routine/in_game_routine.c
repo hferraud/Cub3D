@@ -12,6 +12,9 @@
 #include "server_data.h"
 #include "players_data.h"
 
+static int	process_listening_request(int client_socket,
+				t_players_data *players_data, t_server_data *server_data,
+				int index);
 static void	clear_data(t_server_data *server_data);
 static int	send_data(int client_index, t_server_data *server_data,
 				t_players_data *players_data);
@@ -21,7 +24,6 @@ static int	send_data(int client_index, t_server_data *server_data,
  */
 void	in_game_routine(t_server_data *server_data)
 {
-	int				ret;
 	int				index;
 	size_t			count;
 	t_players_data	players_data;
@@ -37,24 +39,34 @@ void	in_game_routine(t_server_data *server_data)
 		client_socket = server_data->player->players_socket[index];
 		pthread_mutex_unlock(server_data->player->players_lock);
 		if (client_socket != -1)
-		{
-			ret = listening_request(client_socket, &players_data, server_data,
-					index);
-			if (ret == 1)
-			{
-				if (send_data(index, server_data, &players_data) == -1)
-					disconnect_client(client_socket, server_data);
-			}
-			else if (ret == -1)
-				disconnect_client(client_socket, server_data);
-			else if (ret == -2)
-			{
-				printf("Quit in_game_thread\n");
-				return (clear_data(server_data));
-			}
-		}
+			if (process_listening_request(client_socket, &players_data,
+					server_data, index) == -1)
+				return ;
 		count++;
 	}
+}
+
+static int	process_listening_request(int client_socket,
+				t_players_data *players_data, t_server_data *server_data,
+				int index)
+{
+	int	ret;
+
+	ret = listening_request(client_socket, players_data, server_data,
+			index);
+	if (ret == 1)
+	{
+		if (send_data(index, server_data, players_data) == -1)
+			disconnect_client(client_socket, server_data);
+	}
+	else if (ret == -1)
+		disconnect_client(client_socket, server_data);
+	else if (ret == -2)
+	{
+		printf("Quit in_game_thread\n");
+		return (clear_data(server_data), -1);
+	}
+	return (0);
 }
 
 static void	clear_data(t_server_data *server_data)

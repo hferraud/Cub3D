@@ -15,6 +15,8 @@
 
 static int	event_take_collectible(int client_socket, t_event event,
 				t_server_data *server_data);
+static int	take_collectible(int client_socket, char *cell,
+				t_server_data *server_data, t_event event);
 static int	event_door(int client_socket, t_event event,
 				t_server_data *server_data);
 static int	send_event_update(int event_client_socket, t_event event,
@@ -69,15 +71,7 @@ static int	event_take_collectible(int client_socket, t_event event,
 	cell = &server_data->map->map[event.position.y][event.position.x];
 	if (collectible_id_get(*cell) != UNDEFINED)
 	{
-		printf("%d take collectible at: %d %d\n", client_socket,
-			event.position.x, event.position.y);
-		if (write(client_socket, cell, sizeof(char)) == -1)
-		{
-			pthread_mutex_unlock(server_data->map_lock);
-			return (-1);
-		}
-		*cell = FLOOR;
-		if (send_event_update(client_socket, event, server_data) == -1)
+		if (take_collectible(client_socket, cell, server_data, event) == -1)
 			return (-1);
 	}
 	else
@@ -91,6 +85,22 @@ static int	event_take_collectible(int client_socket, t_event event,
 		}
 	}
 	pthread_mutex_unlock(server_data->map_lock);
+	return (0);
+}
+
+static int	take_collectible(int client_socket, char *cell,
+				t_server_data *server_data, t_event event)
+{
+	printf("%d take collectible at: %d %d\n", client_socket,
+		event.position.x, event.position.y);
+	if (write(client_socket, cell, sizeof(char)) == -1)
+	{
+		pthread_mutex_unlock(server_data->map_lock);
+		return (-1);
+	}
+	*cell = FLOOR;
+	if (send_event_update(client_socket, event, server_data) == -1)
+		return (-1);
 	return (0);
 }
 

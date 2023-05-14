@@ -50,8 +50,10 @@ SRC_SERVER	=		error.c	\
 							\
 								server/thread/routines/connection_routine/connection_routine.c	\
 								server/thread/routines/connection_routine/map_send.c			\
+								server/thread/routines/connection_routine/map_send_error.c		\
 								server/thread/routines/connection_routine/asset_send.c			\
 								server/thread/routines/connection_routine/file_send.c			\
+								server/thread/routines/connection_routine/file_content_send.c	\
 								server/thread/routines/connection_routine/connection_error.c	\
 								server/thread/routines/connection_routine/client_delete.c		\
 								\
@@ -63,8 +65,9 @@ SRC_SERVER	=		error.c	\
 								server/thread/routines/in_game_routine/disconnect_client.c	\
 							\
 					\
-							server/socket/socket_init.c		\
-							server/socket/client_accept.c	\
+							server/socket/socket_init.c			\
+							server/socket/client_accept.c		\
+							server/socket/check_server_error.c	\
 					\
 							utils/mutex_init.c	\
 							utils/collectible.c			\

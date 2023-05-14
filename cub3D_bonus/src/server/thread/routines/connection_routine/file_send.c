@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 #include "server_data.h"
 
+int				file_content_send(int client_socket, int fd);
+
 static int		filename_send(int client_socket, char *path);
 static size_t	filename_search(char *path);
 static int		content_send(int client_socket, char *path);
@@ -74,8 +76,6 @@ static int	filename_send(int client_socket, char *path)
  */
 static int	content_send(int client_socket, char *path)
 {
-	char		buf[SOCK_BUFFER_SIZE];
-	ssize_t		ret;
 	int			fd;
 	struct stat	stat_buf;
 	size_t		file_size;
@@ -84,20 +84,14 @@ static int	content_send(int client_socket, char *path)
 	if (file_open(path, &fd, &stat_buf) == -1)
 		return (1);
 	file_size = stat_buf.st_size;
+	if (file_size > 4194304)
+	{
+		return (close(fd), cub_error("File size too large\n"));
+	}
 	if (write(client_socket, &file_size, sizeof(size_t)) == -1)
 		return (close(fd), cub_error(CLIENT_LOST));
-	ret = 1028;
-	while (ret == SOCK_BUFFER_SIZE)
-	{
-		ret = read(fd, buf, SOCK_BUFFER_SIZE);
-		if (ret == -1)
-		{
-			close(fd);
-			return (cub_error("Error during reading texture file\n"), 1);
-		}
-		if (write(client_socket, buf, ret) == -1)
-			return (close(fd), cub_error(CLIENT_LOST));
-	}
+	if (file_content_send(client_socket, fd) == -1)
+		return (-1);
 	if (read(client_socket, &receive, sizeof(char)) <= 0)
 		return (cub_error(CLIENT_LOST));
 	if (receive != *SOCK_SUCCESS)
