@@ -29,6 +29,8 @@ int	parse_path(char *line, t_texture_id type, t_map *map)
 	sprite_path = ft_substr(line, 0, ft_strlen(line) - 1);
 	if (sprite_path == NULL)
 		return (cub_error(NULL));
+	if (access(sprite_path, R_OK) == -1)
+		return (cub_error("File does not exist\n"));
 	if (type != UNDEFINED_ID)
 		return (set_path(&map->path[type], sprite_path));
 	return (0);
