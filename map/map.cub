@@ -1,9 +1,10 @@
-NO map/texture/test.xpm
-SO map/texture/test.xpm
-EA map/texture/test.xpm
-WE map/texture/test.xpm
-F 202,164,114
-C 135,206,235
+SO ../map/texture/test.xpm
+NO ../map/texture/test.xpm
+EA ../map/texture/test.xpm
+WE ../map/texture/test.xpm
+C 0,255,255
+F 0,0,0
+
         1111111111111111111111111
         1000000000110000000000001
         1011000001110001000010001
