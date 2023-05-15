@@ -9,7 +9,7 @@
 /*   Updated: 2023/03/11 04:16:00 by ethan            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef MAP_SERVER_H
+#ifndef MAP_H
 # define MAP_H
 
 # include <sys/types.h>

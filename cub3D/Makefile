@@ -72,45 +72,13 @@ SRC			=		main.c	\
 						display/player/player_pos_init.c	\
 						display/player/player_movement.c	\
 						\
-						display/minimap/minimap.c	\
-						\
 						display/raycasting/raycasting.c	\
 						\
 					\
 
 OBJ			=		$(addprefix $(BUILD_DIR), $(SRC:.c=.o))
 
-SRC_SERVER	=		error.c	\
-					\
-						bonus/server/server.c	\
-					\
-							bonus/server/parser/parser.c		\
-							bonus/server/parser/parser_utils.c	\
-							\
-							bonus/server/parser/parse_map_data/parse_path.c				\
-							bonus/server/parser/parse_map_data/parse_map_data.c			\
-							\
-							bonus/server/parser/parse_map/parse_map.c			\
-							bonus/server/parser/parse_map/parse_map_utils.c	\
-							\
-							bonus/server/parser/map_checker/map_checker.c		\
-							bonus/server/parser/map_checker/map_error.c		\
-							bonus/server/parser/map_checker/get_spawn.c		\
-							\
-					\
-							bonus/server/socket/socket_init.c	\
-							bonus/server/socket/port_get.c	\
-					\
-
-SRC_CLIENT	=		\
-
-OBJ_SERVER	=		$(addprefix $(BUILD_DIR), $(SRC_SERVER:.c=.o))
-
-OBJ_CLIENT	=		$(addprefix $(BUILD_DIR), $(SRC_CLIENT:.c=.o))
-
 DEPS		=		$(addprefix $(BUILD_DIR), $(SRC:.c=.d))			\
-					$(addprefix $(BUILD_DIR), $(SRC_SERVER:.c=.d))	\
-					$(addprefix $(BUILD_DIR), $(SRC_CLIENT:.c=.d))	\
 
 #######################
 #	FLAGS

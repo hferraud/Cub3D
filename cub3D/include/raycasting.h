@@ -25,11 +25,11 @@ struct s_ray
 	t_fvector	ray;
 	t_fvector	pos;
 	t_fvector	unit_step;
-	t_vector 	step;
-    t_wall		wall_face;
+	t_vector	step;
+	t_wall		wall_face;
 	float		length;
 };
 
-t_ray   ray_cast(t_cub *cub, t_fvector ray_dir);
+t_ray	ray_cast(t_cub *cub, t_fvector ray_dir);
 
 #endif

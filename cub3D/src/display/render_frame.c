@@ -12,8 +12,6 @@
 #include "hook.h"
 #include "draw.h"
 
-void	fps_count();
-
 /**
  * @brief Update player params and calculate the next image to display
  */

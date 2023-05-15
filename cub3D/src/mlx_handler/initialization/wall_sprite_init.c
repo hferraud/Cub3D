@@ -27,7 +27,6 @@ int	wall_sprite_init(t_cub *cub)
 	while (index < 4)
 	{
 		sprite = &cub->mlx_data->wall[index];
-		printf("%s\n", cub->map->wall_path[index]);
 		sprite->img_data.img
 			= mlx_xpm_file_to_image(cub->mlx_data->mlx_ptr,
 				cub->map->wall_path[index], &sprite->width,
