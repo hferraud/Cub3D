@@ -57,8 +57,8 @@ struct s_background_param
 
 struct s_background
 {
-	t_cub *cub;
-	t_background_param bp;
+	t_cub				*cub;
+	t_background_param	bp;
 };
 
 /* --- DRAW FUNCTIONS --- */
