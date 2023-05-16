@@ -21,4 +21,5 @@ void	init_hook(t_cub *cub)
 		key_press, cub);
 	mlx_hook(cub->mlx_data->win_ptr, ON_KEY_UP, KEY_RELEASE_MASK,
 		key_release, cub);
+	mlx_mouse_hook(cub->mlx_data->win_ptr, mouse_hook, cub);
 }
