@@ -22,5 +22,6 @@ void	mlx_data_destroy(t_mlx_data *mlx_data)
 	{
 		mlx_destroy_display(mlx_data->mlx_ptr);
 		free(mlx_data->mlx_ptr);
+		mlx_data->mlx_ptr = NULL;
 	}
 }
