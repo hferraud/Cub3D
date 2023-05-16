@@ -20,7 +20,7 @@ void	client_status_destroy(pthread_mutex_t *client_status_lock);
  */
 int	cub_exit(t_cub *cub)
 {
-	if (cub->mlx_data->mlx_ptr)
+	if (cub->mlx_data && cub->mlx_data->mlx_ptr)
 	{
 		mlx_mouse_show(cub->mlx_data->mlx_ptr, cub->mlx_data->win_ptr);
 		mlx_do_key_autorepeaton(cub->mlx_data->mlx_ptr);
@@ -39,7 +39,7 @@ int	cub_exit(t_cub *cub)
 	}
 	free(cub->map.collectible_data.collectible);
 	map_clear(&cub->map);
-	if (cub->mlx_data->mlx_ptr)
+	if (cub->mlx_data && cub->mlx_data->mlx_ptr)
 		mlx_data_destroy(cub->mlx_data);
 	player_data_destroy(&cub->player_data);
 	exit(0);

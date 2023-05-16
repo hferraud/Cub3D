@@ -25,8 +25,7 @@ int	main(int argc, char **argv)
 	t_mlx_data	mlx_data;
 
 	cub.thread = 0;
-	cub.mlx_data = &mlx_data;
-	ft_bzero(&mlx_data, sizeof(t_mlx_data));
+	cub.mlx_data = NULL;
 	client_status_init(&cub.client_status);
 	cub.server_socket = socket_client_init(argc, argv);
 	if (cub.server_socket == -1)
@@ -34,6 +33,7 @@ int	main(int argc, char **argv)
 		client_status_destroy(cub.client_status.status_lock);
 		return (1);
 	}
+	cub.mlx_data = &mlx_data;
 	if (cub_init(&cub) == -1)
 		cub_exit(&cub);
 	if (thread_init(&cub) == -1)
