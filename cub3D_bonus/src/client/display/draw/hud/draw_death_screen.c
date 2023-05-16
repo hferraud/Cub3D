@@ -29,14 +29,18 @@ void	draw_death_screen(t_cub *cub)
 	pthread_mutex_unlock(cub->player_data.player_lock);
 	if (life < LIFE_MAX)
 	{
-		transparency = (1.f - cub->player_data.player_status.life / (float)LIFE_MAX) * DEATH_SCREEN_TRANSPARENCY;
+		transparency = (1.f - cub->player_data.player_status.life
+				/ (float)LIFE_MAX) * DEATH_SCREEN_TRANSPARENCY;
 		color = DEATH_SCREEN_COLOR | ((int)transparency << 24);
 		draw_red_screen(cub, color);
 	}
 	sprite = cub->mlx_data->hud_sprite.death_screen;
 	if (frame_player_died < DEATH_SCREEN_DURATION)
 	{
-		color = DEATH_SCREEN_COLOR | ((int)(DEATH_SCREEN_TRANSPARENCY * (1.f - (float)frame_player_died / DEATH_SCREEN_DURATION)) << 24);
+		color = DEATH_SCREEN_COLOR
+			| ((int)(DEATH_SCREEN_TRANSPARENCY
+					* (1.f - (float)frame_player_died
+						/ DEATH_SCREEN_DURATION)) << 24);
 		draw_red_screen(cub, color);
 		draw_game_over(cub, sprite);
 	}
