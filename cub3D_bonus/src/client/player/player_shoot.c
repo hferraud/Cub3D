@@ -40,12 +40,11 @@ void	player_shoot(t_cub *cub)
 	}
 	cub->player_data.player_status.time_last_shot = current_time;
 	cub->player_data.player_status.frame_since_last_shot = 0;
-	cub->player_data.player_status.last_shot_hit = true;
 	if (weapon != KNIFE_INDEX)
 		cub->player_data.player_status.ammo--;
-	pthread_mutex_unlock(cub->player_data.player_lock);
 	enemies_set_dist(cub, enemies, player);
 	shoot_at_enemies(cub, weapon, enemies);
+	pthread_mutex_unlock(cub->player_data.player_lock);
 }
 
 static void	shoot_at_enemies(t_cub *cub, t_weapon weapon, t_enemy *enemies)
@@ -68,9 +67,13 @@ static void	shoot_at_enemy(t_cub *cub, t_weapon weapon, t_enemy enemy)
 		add_damage_event(cub, enemy.id,
 			get_damage_by_weapon(weapon));
 		printf("Hit: %d damage\n", get_damage_by_weapon(weapon));
+		cub->player_data.player_status.last_shot_hit = true;
 	}
 	else
+	{
 		printf("Miss\n");
+		cub->player_data.player_status.last_shot_hit = false;
+	}
 }
 
 static bool	aim_enemy(t_cub *cub, t_weapon weapon, t_enemy enemy)
