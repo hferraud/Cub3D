@@ -25,7 +25,7 @@ void	draw_weapon_view(t_cub *cub)
 
 	pthread_mutex_lock(cub->player_data.player_lock);
 	frame_since_last_shoot
-		= &cub->player_data.player_status.frame_since_last_shoot;
+		= &cub->player_data.player_status.frame_since_last_shot;
 	sprite = get_sprite_from_weapon(cub->mlx_data->hud_sprite,
 			cub->player_data.player_status.weapon_equipped,
 			*frame_since_last_shoot);

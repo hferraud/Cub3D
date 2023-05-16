@@ -38,8 +38,9 @@ void	player_shoot(t_cub *cub)
 		pthread_mutex_unlock(cub->player_data.player_lock);
 		return ;
 	}
-	cub->player_data.player_status.time_last_shoot = current_time;
-	cub->player_data.player_status.frame_since_last_shoot = 0;
+	cub->player_data.player_status.time_last_shot = current_time;
+	cub->player_data.player_status.frame_since_last_shot = 0;
+	cub->player_data.player_status.last_shot_hit = true;
 	if (weapon != KNIFE_INDEX)
 		cub->player_data.player_status.ammo--;
 	pthread_mutex_unlock(cub->player_data.player_lock);

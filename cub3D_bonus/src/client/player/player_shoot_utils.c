@@ -42,7 +42,7 @@ bool	can_shoot(t_cub *cub, t_weapon weapon, t_timeval current_time)
 	if (player.pos.x == cub->map.spawn.x + 0.5f
 		&& player.pos.y == cub->map.spawn.y + 0.5f)
 		return (false);
-	last_shot = cub->player_data.player_status.time_last_shoot;
+	last_shot = cub->player_data.player_status.time_last_shot;
 	if (weapon != KNIFE_INDEX && cub->player_data.player_status.ammo <= 0)
 		return (false);
 	if (elapsed_time(last_shot, current_time)

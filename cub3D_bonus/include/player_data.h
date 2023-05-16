@@ -45,8 +45,9 @@ struct s_player_status
 	t_weapon	weapon_equipped;
 	bool		weapons[NB_WEAPONS];
 	int			ammo;
-	t_timeval	time_last_shoot;
-	size_t		frame_since_last_shoot;
+	t_timeval	time_last_shot;
+	size_t		frame_since_last_shot;
+	bool		last_shot_hit;
 };
 
 struct s_player_data

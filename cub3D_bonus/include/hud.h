@@ -86,7 +86,7 @@ void	draw_health_bar(t_cub *cub);
 void	draw_ammo(t_cub *cub);
 void	draw_weapon(t_cub *cub);
 void	draw_weapon_view(t_cub *cub);
-void	draw_crosshair(t_mlx_data *mlx_data);
+void	draw_crosshair(t_cub *cub);
 void	draw_death_screen(t_cub *cub);
 
 int		pixel_transparency(t_cub *cub, t_vector screen, int color);
