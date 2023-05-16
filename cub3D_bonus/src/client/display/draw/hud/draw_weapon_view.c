@@ -34,7 +34,7 @@ void	draw_weapon_view(t_cub *cub)
 	screen.y = WIN_HEIGHT - sprite.height;
 	draw_weapon_view_sprite(cub, sprite, screen);
 	(*frame_since_last_shoot) = *frame_since_last_shoot + 1;
-	if (*frame_since_last_shoot > 30)
+	if (*frame_since_last_shoot > 5)
 	{
 		pthread_mutex_lock(cub->player_data.player_lock);
 		cub->player_data.player_status.last_shot_hit = false;
