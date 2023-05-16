@@ -12,8 +12,7 @@
 #include "hook.h"
 #include "parser.h"
 
-
-double		fps_average(int fps, int get_average);
+double	fps_average(int fps, int get_average);
 
 /**
  * @brief This function allows to free all the memories

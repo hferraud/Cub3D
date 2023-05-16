@@ -14,7 +14,8 @@
 static int	set_wall_path(char **sprite, char *sprite_path);
 
 /**
- * @brief Get the filename associated with a wall texture and add it to map struct
+ * @brief Get the filename associated with a wall texture
+ * and add it to map struct
  * @return 0 on success, -1 otherwise
  */
 int	parse_wall(char *line, t_content_type type, t_map *map)

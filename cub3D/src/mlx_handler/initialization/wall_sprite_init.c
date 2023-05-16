@@ -36,7 +36,8 @@ int	wall_sprite_init(t_cub *cub)
 		if (sprite->img_data.img == NULL)
 			return (error_wall_sprite_init(cub));
 		sprite->img_data.addr = mlx_get_data_addr(sprite->img_data.img,
-			&sprite->img_data.bits_per_pixel, &sprite->img_data.line_length, &sprite->img_data.endian);
+				&sprite->img_data.bits_per_pixel, &sprite->img_data.line_length,
+				&sprite->img_data.endian);
 		sprite->img_data.bit_ratio = sprite->img_data.bits_per_pixel / 8;
 		index++;
 	}
