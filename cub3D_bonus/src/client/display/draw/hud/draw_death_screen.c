@@ -37,10 +37,8 @@ void	draw_death_screen(t_cub *cub)
 	sprite = cub->mlx_data->hud_sprite.death_screen;
 	if (frame_player_died < DEATH_SCREEN_DURATION)
 	{
-		color = DEATH_SCREEN_COLOR
-			| ((int)(DEATH_SCREEN_TRANSPARENCY
-					* (1.f - (float)frame_player_died
-						/ DEATH_SCREEN_DURATION)) << 24);
+		color = DEATH_SCREEN_COLOR | ((int)(DEATH_SCREEN_TRANSPARENCY \
+		* (1.f - (float)frame_player_died / DEATH_SCREEN_DURATION)) << 24);
 		draw_red_screen(cub, color);
 		draw_game_over(cub, sprite);
 	}
