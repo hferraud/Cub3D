@@ -14,7 +14,7 @@
 
 void		send_data(int client_index, t_server_data *server_data,
 				t_players_data *players_data, bool lock_players);
-int			check_end_routine(t_server_status *server_status);
+int			check_server_status(t_server_status *server_status);
 
 static int	process_listening_request(int client_socket,
 				t_players_data *players_data, t_server_data *server_data,
@@ -37,7 +37,7 @@ void	in_game_routine(t_server_data *server_data)
 	while (1)
 	{
 		index = count % server_data->player->size;
-		if (index == 0 && check_end_routine(server_data->server_status) == -1)
+		if (index == 0 && check_server_status(server_data->server_status) == -1)
 		{
 			printf("In Game thread exit\n");
 			return ;

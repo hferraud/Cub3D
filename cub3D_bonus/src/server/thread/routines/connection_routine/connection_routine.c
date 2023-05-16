@@ -12,7 +12,7 @@
 #include "server_data.h"
 
 void			map_send_error(int client_socket, t_server_data *server_data);
-int				check_end_routine(t_server_status *server_status);
+int				check_server_status(t_server_status *server_status);
 
 static int		client_get_socket(t_server_data *server_data);
 static t_spawn	*client_get_spawn(int client_socket,
@@ -27,7 +27,7 @@ void	connection_routine(t_server_data *server_data)
 	printf("Connection Thread created\n");
 	while (1)
 	{
-		if (check_end_routine(server_data->server_status) == -1)
+		if (check_server_status(server_data->server_status) == -1)
 		{
 			printf("Connection thread exit\n");
 			return ;
@@ -99,7 +99,7 @@ static void	client_to_player(int client_socket, t_server_data *server_data)
 	printf("Data has been sent to the client\n\n");
 }
 
-int	check_end_routine(t_server_status *server_status)
+int	check_server_status(t_server_status *server_status)
 {
 	pthread_mutex_lock (server_status->status_lock);
 	if (server_status->status == ERROR)
