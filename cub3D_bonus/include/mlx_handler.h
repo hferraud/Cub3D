@@ -15,6 +15,8 @@
 # define WIN_WIDTH	1600
 # define WIN_HEIGHT	900
 
+# define ENEMY_PATH	"asset/soldier.xpm"
+
 # include "mlx.h"
 # include "libft.h"
 # include "error.h"
@@ -82,6 +84,7 @@ struct s_mlx_data
 	t_img_data		img_data;
 	t_sprite		texture_sprite[NB_TEXTURE];
 	t_sprite		collectible_sprite[NB_COLLECTIBLE];
+	t_sprite		enemy_sprite;
 	t_hud_sprite	hud_sprite;
 	int				key_press[MAX_KEY];
 	bool			mouse_disable;

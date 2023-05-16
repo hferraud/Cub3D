@@ -28,6 +28,9 @@ int	mlx_sprite_init(t_cub *cub)
 		|| mlx_hud_sprite_init(cub->mlx_data) == -1
 		|| mlx_animation_sprite_init(cub->mlx_data) == -1)
 		return (error_sprite_init(cub));
+	cub->mlx_data->enemy_sprite = mlx_sprite_open(cub->mlx_data, ENEMY_PATH);
+	if (cub->mlx_data->enemy_sprite.img_data.img == NULL)
+		return (error_sprite_init(cub));
 	return (0);
 }
 

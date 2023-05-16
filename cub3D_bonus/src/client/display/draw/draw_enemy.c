@@ -35,9 +35,9 @@ t_draw_param	enemy_get_draw_param(t_cub *cub, t_fvector camera)
 	t_draw_param	dp;
 	int				scale;
 
-	dp.sprite = cub->mlx_data->collectible_sprite[MEDIC_KIT_ID];
-	dp.width = WIN_WIDTH / (camera.y * 4);
-	dp.height = WIN_HEIGHT / (camera.y * 4);
+	dp.sprite = cub->mlx_data->enemy_sprite;
+	dp.width = dp.sprite.width * 5.5f / camera.y;
+	dp.height = dp.sprite.height * 5.5f / camera.y;
 	dp.screen.x = (WIN_WIDTH / 2.f) * (1 + camera.x / camera.y);
 	dp.draw_start.x = dp.screen.x - dp.width / 2;
 	dp.draw_end.x = dp.screen.x + dp.width / 2;
