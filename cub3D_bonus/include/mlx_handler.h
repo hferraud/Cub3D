@@ -12,11 +12,10 @@
 #ifndef MLX_HANDLER_H
 # define MLX_HANDLER_H
 
-# define WIN_WIDTH	1600
-# define WIN_HEIGHT	900
+# define WIN_WIDTH	1920
+# define WIN_HEIGHT	1080
 
 # define ENEMY_PATH	"asset/soldier.xpm"
-# define DEATH_SCREEN_PATH "asset/death_screen.xpm"
 
 # include "mlx.h"
 # include "libft.h"

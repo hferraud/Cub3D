@@ -97,6 +97,7 @@ static void	process_damage_event(t_damage damage, t_cub *cub)
 		{
 			printf("You're dead\n");
 			player_pos_init(cub);
+			cub->player_data.player_status.frame_player_died = 0;
 			pthread_mutex_lock(cub->player_data.update_lock);
 			cub->player_data.update = true;
 			pthread_mutex_unlock(cub->player_data.update_lock);
