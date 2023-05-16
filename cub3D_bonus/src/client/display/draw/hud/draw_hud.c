@@ -19,4 +19,5 @@ void	draw_hud(t_cub *cub)
 	draw_ammo(cub);
 	draw_weapon(cub);
 	draw_crosshair(cub->mlx_data);
+	draw_death_screen(cub);
 }

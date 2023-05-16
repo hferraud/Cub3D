@@ -143,6 +143,7 @@ SRC_CLIENT	=		error.c	\
 						client/display/draw/hud/draw_ammo.c	\
 						client/display/draw/hud/draw_weapon.c	\
 						client/display/draw/hud/draw_weapon_view.c	\
+						client/display/draw/hud/draw_death_screen.c	\
 						client/display/draw/hud/pixel_transparency.c	\
 						\
 						client/display/raycasting/raycasting.c	\

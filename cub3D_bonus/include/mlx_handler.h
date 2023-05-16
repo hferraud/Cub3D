@@ -16,6 +16,7 @@
 # define WIN_HEIGHT	900
 
 # define ENEMY_PATH	"asset/soldier.xpm"
+# define DEATH_SCREEN_PATH "asset/death_screen.xpm"
 
 # include "mlx.h"
 # include "libft.h"
@@ -71,6 +72,7 @@ struct s_sprite
 struct s_hud_sprite
 {
 	t_sprite	ammo;
+	t_sprite	death_screen;
 	t_sprite	weapon[NB_WEAPONS];
 	t_sprite	knife[NB_KNIFE_SPRITES];
 	t_sprite	pistol[NB_PISTOL_SPRITES];

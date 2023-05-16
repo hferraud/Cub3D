@@ -78,9 +78,12 @@ static int	mlx_hud_sprite_init(t_mlx_data *mlx_data)
 	t_sprite	*sprite;
 	int			index;
 
-	sprite = &mlx_data->hud_sprite.ammo;
-	*sprite = mlx_sprite_open(mlx_data, BULLET_PATH);
-	if (sprite->img_data.img == NULL)
+	mlx_data->hud_sprite.ammo = mlx_sprite_open(mlx_data, BULLET_PATH);
+	if (mlx_data->hud_sprite.ammo.img_data.img == NULL)
+		return (-1);
+	mlx_data->hud_sprite.death_screen
+		= mlx_sprite_open(mlx_data, DEATH_SCREEN_PATH);
+	if (mlx_data->hud_sprite.death_screen.img_data.img == NULL)
 		return (-1);
 	index = 0;
 	while (index < NB_WEAPONS)
