@@ -26,6 +26,7 @@ int	parse_map_data(int map_fd, t_map *map)
 	line = get_next_line(map_fd);
 	while (line)
 	{
+		printf("test\n");
 		if (*line != '\n')
 			if (parse_map_data_router(line, map) == -1)
 				return (free(line), -1);

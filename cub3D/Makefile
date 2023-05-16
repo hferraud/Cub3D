@@ -1,3 +1,13 @@
+UNAME_S = $(shell uname -s)
+ifeq ($(UNAME_S), Linux)
+	FLAGS_MLX	=	-lXext -lX11
+	MLX_DIR		=	minilibx/linux/
+endif
+ifeq ($(UNAME_S), Darwin)
+	FLAGS_MLX	=	-framework OpenGL -framework Appkit
+	MLX_DIR		=	minilibx/macos/
+endif
+
 NAME		=		cub3D
 
 SERVER		=		cub3D_server
@@ -16,7 +26,12 @@ BUILD_DIR	=		.build/
 
 LIBFT_DIR	=		../libft/
 
-MLX_DIR		=		../minilibx/
+ifeq ($(UNAME_S), Linux)
+	MLX_DIR		=	../minilibx/linux/
+endif
+ifeq ($(UNAME_S), Darwin)
+	MLX_DIR		=	../minilibx/macos/
+endif
 
 #######################
 #	FILES
@@ -78,19 +93,24 @@ SRC			=		main.c	\
 
 OBJ			=		$(addprefix $(BUILD_DIR), $(SRC:.c=.o))
 
-DEPS		=		$(addprefix $(BUILD_DIR), $(SRC:.c=.d))			\
+DEPS		=		$(addprefix $(BUILD_DIR), $(SRC:.c=.d))
 
 #######################
 #	FLAGS
 #######################
 
-CFLAGS		=		-Wall -Werror -Wextra #-O3 #-fsanitize=address
+CFLAGS		=		-Wall -Werror -Wextra -g3
 
 IFLAGS		=		-I $(INC_DIR) -I $(LIBFT_DIR)include -I $(MLX_DIR)
 
 LFLAGS		=		-L $(LIBFT_DIR) -lft -L $(MLX_DIR) -lmlx -lm
 
-MLX_FLAGS	=		-lXext -lX11
+ifeq ($(UNAME_S), Linux)
+	MLX_FLAGS	=	-lXext -lX11
+endif
+ifeq ($(UNAME_S), Darwin)
+	MLX_FLAGS	=	-framework OpenGL -framework Appkit
+endif
 
 DFLAGS		=		-MMD -MP
 
@@ -104,15 +124,6 @@ DFLAGS		=		-MMD -MP
 
 .PHONY:				all
 all:				$(NAME)
-
-.PHONY:				bonus
-bonus:				$(SERVER) $(CLIENT)
-
-.PHONY:				server
-server:				$(SERVER)
-
-.PHONY:				client
-client:				$(CLIENT)
 
 .PHONY:				clean
 clean:
@@ -138,12 +149,6 @@ re:					fclean
 
 $(NAME):			$(LIBFT) $(MLX) $(OBJ)
 					$(CC) $(CFLAGS) $(OBJ) $(LFLAGS) $(MLX_FLAGS) -o $@
-
-$(SERVER):			$(LIBFT) $(MLX) $(OBJ_SERVER)
-					$(CC) $(CFLAGS) $(OBJ_SERVER) $(LFLAGS) $(MLX_FLAGS) -o $@
-
-$(CLIENT):			$(LIBFT) $(MLX) $(OBJ_CLIENT)
-					$(CC) $(CFLAGS) $(OBJ_CLIENT) $(LFLAGS) $(MLX_FLAGS) -o $@
 
 ##################
 #	OBJECTS FILES

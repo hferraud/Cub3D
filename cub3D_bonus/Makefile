@@ -14,7 +14,7 @@ BUILD_DIR	=		.build/
 
 LIBFT_DIR	=		../libft/
 
-MLX_DIR		=		../minilibx/
+MLX_DIR		=		../minilibx/minilibx_linux
 
 #######################
 #	FILES
