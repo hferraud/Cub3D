@@ -85,9 +85,7 @@ static int	content_send(int client_socket, char *path)
 		return (1);
 	file_size = stat_buf.st_size;
 	if (file_size > 4194304)
-	{
 		return (close(fd), cub_error("File size too large\n"));
-	}
 	if (write(client_socket, &file_size, sizeof(size_t)) == -1)
 		return (close(fd), cub_error(CLIENT_LOST));
 	if (file_content_send(client_socket, fd) == -1)

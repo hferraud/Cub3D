@@ -48,6 +48,7 @@ struct s_player_status
 	t_timeval	time_last_shot;
 	size_t		frame_since_last_shot;
 	bool		last_shot_hit;
+	size_t		frame_player_died;
 };
 
 struct s_player_data

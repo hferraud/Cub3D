@@ -56,6 +56,7 @@ static t_player_status	player_status_init(void)
 	player_status.ammo = AMMO_DEFAULT;
 	player_status.frame_since_last_shot = 100;
 	player_status.last_shot_hit = false;
+	player_status.frame_player_died = 100;
 	ft_bzero(&player_status.time_last_shot, sizeof(t_timeval));
 	return (player_status);
 }

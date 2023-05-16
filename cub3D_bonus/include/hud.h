@@ -18,6 +18,7 @@
 # define KNIFE_HUD_PATH		"asset/hud/knife_hud.xpm"
 # define PISTOL_HUD_PATH	"asset/hud/pistol_hud.xpm"
 # define AR_HUD_PATH		"asset/hud/assault_rifle_hud.xpm"
+# define DEATH_SCREEN_PATH  "asset/hud/death_screen.xpm"
 
 # define KNIFE_0			"asset/hud/knife_animation/knife_0.xpm"
 # define KNIFE_1			"asset/hud/knife_animation/knife_1.xpm"
@@ -75,7 +76,9 @@
 # define PISTOL_OFFSET_Y 20
 # define AR_OFFSET_X 50
 
-# define DEATH_SCREEN_COLOR 0x80FF0000
+# define DEATH_SCREEN_COLOR 0xFF0000
+# define DEATH_SCREEN_DURATION 90
+# define DEATH_SCREEN_TRANSPARENCY 0x80
 
 typedef struct s_mlx_data	t_mlx_data;
 
@@ -90,5 +93,6 @@ void	draw_crosshair(t_cub *cub);
 void	draw_death_screen(t_cub *cub);
 
 int		pixel_transparency(t_cub *cub, t_vector screen, int color);
+int		color_transparency(int screen_color, int color);
 
 #endif
