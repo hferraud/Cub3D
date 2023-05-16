@@ -27,10 +27,16 @@ int	mlx_sprite_init(t_cub *cub)
 		|| mlx_collectible_sprite_init(cub->mlx_data) == -1
 		|| mlx_hud_sprite_init(cub->mlx_data) == -1
 		|| mlx_animation_sprite_init(cub->mlx_data) == -1)
-		return (error_sprite_init(cub));
+	{
+		mlx_sprite_destroy(cub->mlx_data);
+		return (cub_error("mlx_xpm_file_to_image() failed\n"));
+	}
 	cub->mlx_data->enemy_sprite = mlx_sprite_open(cub->mlx_data, ENEMY_PATH);
 	if (cub->mlx_data->enemy_sprite.img_data.img == NULL)
-		return (error_sprite_init(cub));
+	{
+		mlx_sprite_destroy(cub->mlx_data);
+		return (cub_error("mlx_xpm_file_to_image() failed\n"));
+	}
 	return (0);
 }
 

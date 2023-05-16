@@ -32,6 +32,12 @@ int	cub_exit(t_cub *cub)
 		pthread_join(cub->thread, NULL);
 	close(cub->server_socket);
 	client_status_destroy(cub->client_status.status_lock);
+	if (cub->enemies_lock)
+	{
+		pthread_mutex_destroy(cub->enemies_lock);
+		free(cub->enemies_lock);
+	}
+	free(cub->map.collectible_data.collectible);
 	map_clear(&cub->map);
 	if (cub->mlx_data->mlx_ptr)
 		mlx_data_destroy(cub->mlx_data);
