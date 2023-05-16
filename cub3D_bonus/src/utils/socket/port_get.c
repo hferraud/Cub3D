@@ -28,7 +28,7 @@ uint16_t	port_get(const char *ascii_port)
 		return (return_set_errno(EINVAL, 0));
 	while (ft_isdigit(ascii_port[index]))
 	{
-		if ((port * 10 + (ascii_port[index] - '0')) / 10 != port)
+		if (((uint16_t)(port * 10 + (ascii_port[index] - '0')) / 10) != port)
 			return (return_set_errno(EOVERFLOW, 0));
 		port = port * 10 + ascii_port[index] - '0';
 		index++;
@@ -40,6 +40,7 @@ uint16_t	port_get(const char *ascii_port)
 
 static int	return_set_errno(int errno_code, int return_value)
 {
+	printf("test\n");
 	errno = errno_code;
 	return (return_value);
 }
