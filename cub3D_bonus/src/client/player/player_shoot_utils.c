@@ -36,7 +36,12 @@ bool	can_shoot(t_cub *cub, t_weapon weapon, t_timeval current_time)
 	const t_rate_fire	rate_fire[]
 		= {KNIFE_RATE_FIRE, PISTOL_RATE_FIRE, ASSAULT_RIFFLE_RATE_FIRE};
 	struct timeval		last_shot;
+	t_player			player;
 
+	player = cub->player_data.player;
+	if (player.pos.x == cub->map.spawn.x + 0.5f
+		&& player.pos.y == cub->map.spawn.y + 0.5f)
+		return (false);
 	last_shot = cub->player_data.player_status.time_last_shoot;
 	if (weapon != KNIFE_INDEX && cub->player_data.player_status.ammo <= 0)
 		return (false);

@@ -83,21 +83,27 @@ static void	process_collectible_event(t_vector position,
 
 static void	process_damage_event(t_damage damage, t_cub *cub)
 {
-	int	*life;
+	int			*life;
+	t_player	player;
 
 	life = &cub->player_data.player_status.life;
 	pthread_mutex_lock(cub->player_data.player_lock);
-	*life = *life - damage;
-	if (*life <= 0)
+	player = cub->player_data.player;
+	if (player.pos.x != cub->map.spawn.x + 0.5f
+		|| player.pos.y != cub->map.spawn.y + 0.5f)
 	{
-		printf("You're dead\n");
-		player_pos_init(cub);
-		pthread_mutex_lock(cub->player_data.update_lock);
-		cub->player_data.update = true;
-		pthread_mutex_unlock(cub->player_data.update_lock);
-		*life = LIFE_MAX;
+		*life = *life - damage;
+		if (*life <= 0)
+		{
+			printf("You're dead\n");
+			player_pos_init(cub);
+			pthread_mutex_lock(cub->player_data.update_lock);
+			cub->player_data.update = true;
+			pthread_mutex_unlock(cub->player_data.update_lock);
+			*life = LIFE_MAX;
+		}
+		else
+			printf("life: %d\n", *life);
 	}
-	else
-		printf("life: %d\n", *life);
 	pthread_mutex_unlock(cub->player_data.player_lock);
 }
