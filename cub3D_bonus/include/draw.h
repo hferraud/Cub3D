@@ -20,6 +20,7 @@ typedef struct s_rectangle			t_rectangle;
 typedef struct s_draw_param			t_draw_param;
 typedef struct s_background_param	t_background_param;
 typedef struct s_ray				t_ray;
+typedef struct s_background			t_background;
 
 struct s_rectangle
 {
@@ -52,6 +53,12 @@ struct s_background_param
 	t_fvector	ray_left;
 	t_fvector	ray_right;
 	t_fvector	step;
+};
+
+struct s_background
+{
+	t_cub *cub;
+	t_background_param bp;
 };
 
 /* --- DRAW FUNCTIONS --- */

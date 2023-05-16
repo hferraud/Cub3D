@@ -19,8 +19,9 @@
 # include "vector.h"
 # include "collectible.h"
 
-typedef struct s_ray	t_ray;
-typedef enum e_wall		t_wall;
+typedef enum e_wall				t_wall;
+typedef struct s_ray			t_ray;
+typedef struct s_raycast_param	t_raycast_param;
 
 enum e_wall
 {
@@ -39,6 +40,13 @@ struct s_ray
 	t_wall				wall_face;
 	bool				is_door;
 	float				length;
+};
+
+struct s_raycast_param
+{
+	int		start;
+	int		end;
+	t_cub	*cub;
 };
 
 t_ray	ray_cast(t_cub *cub, t_fvector ray_dir);
