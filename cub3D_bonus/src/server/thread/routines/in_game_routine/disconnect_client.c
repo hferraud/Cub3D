@@ -13,7 +13,7 @@
 #include "players_data.h"
 
 void		send_data(int client_index, t_server_data *server_data,
-				t_players_data *players_data);
+				t_players_data *players_data, bool lock_players);
 
 static void	send_disconnect_client(int client_index, t_server_data *server_data,
 				t_players_data *players_data);
@@ -33,9 +33,7 @@ void	disconnect_client(int client_socket, t_server_data *server_data,
 	{
 		printf("client %d disconnected\n", client_socket);
 		close(client_socket);
-		pthread_mutex_unlock(server_data->player->players_lock);
 		send_disconnect_client(client_index, server_data, players_data);
-		pthread_mutex_lock(server_data->player->players_lock);
 		server_data->player->players_socket[count] = -1;
 	}
 	pthread_mutex_unlock(server_data->player->players_lock);
@@ -49,7 +47,7 @@ static void	send_disconnect_client(int client_index, t_server_data *server_data,
 				t_players_data *players_data)
 {
 	players_data->players[client_index].pos.x = -1;
-	send_data(client_index, server_data, players_data);
+	send_data(client_index, server_data, players_data, false);
 }
 
 static void	free_spawn(int client_socket, t_server_data *server_data)

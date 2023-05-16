@@ -13,7 +13,7 @@
 #include "players_data.h"
 
 void		send_data(int client_index, t_server_data *server_data,
-				t_players_data *players_data);
+				t_players_data *players_data, bool lock_players);
 
 static int	process_listening_request(int client_socket,
 				t_players_data *players_data, t_server_data *server_data,
@@ -56,7 +56,7 @@ static int	process_listening_request(int client_socket,
 	ret = listening_request(client_socket, players_data, server_data,
 			index);
 	if (ret == 1)
-		send_data(index, server_data, players_data);
+		send_data(index, server_data, players_data, true);
 	else if (ret == -1)
 		disconnect_client(client_socket, server_data, index, players_data);
 	else if (ret == -2)
@@ -76,13 +76,14 @@ static void	clear_data(t_server_data *server_data)
 }
 
 void	send_data(int client_index, t_server_data *server_data,
-				t_players_data *players_data)
+				t_players_data *players_data, bool lock_players)
 {
 	int		count;
 	int		client_socket;
 
 	count = 0;
-	pthread_mutex_lock(server_data->player->players_lock);
+	if (lock_players)
+		pthread_mutex_lock(server_data->player->players_lock);
 	while (count < server_data->player->size)
 	{
 		client_socket = server_data->player->players_socket[count];
@@ -93,5 +94,6 @@ void	send_data(int client_index, t_server_data *server_data,
 				players_data);
 		count++;
 	}
-	pthread_mutex_unlock(server_data->player->players_lock);
+	if (lock_players)
+		pthread_mutex_unlock(server_data->player->players_lock);
 }
