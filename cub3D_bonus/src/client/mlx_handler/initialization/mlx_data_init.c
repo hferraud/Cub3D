@@ -70,6 +70,8 @@ static void	mlx_data_preset(t_mlx_data *mlx_data)
 	mlx_data->img_data.img = NULL;
 	ft_bzero(&mlx_data->texture_sprite, sizeof(t_sprite) * NB_TEXTURE);
 	ft_bzero(&mlx_data->collectible_sprite, sizeof(t_sprite) * NB_COLLECTIBLE);
+	ft_bzero(&mlx_data->enemy_sprite, sizeof(t_sprite));
+	ft_bzero(&mlx_data->hud_sprite, sizeof(t_hud_sprite));
 	index = 0;
 	while (index < MAX_KEY)
 	{
