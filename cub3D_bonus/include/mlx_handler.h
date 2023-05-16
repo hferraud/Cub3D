@@ -12,8 +12,8 @@
 #ifndef MLX_HANDLER_H
 # define MLX_HANDLER_H
 
-# define WIN_WIDTH	1920
-# define WIN_HEIGHT	1080
+# define WIN_WIDTH	1280
+# define WIN_HEIGHT	720
 
 # define ENEMY_PATH	"asset/soldier.xpm"
 

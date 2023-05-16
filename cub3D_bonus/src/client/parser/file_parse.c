@@ -61,16 +61,15 @@ static int	filename_parse(char **path, int server_socket)
 	if (read(server_socket, &size, sizeof(size_t)) <= 0)
 		return (cub_error(SERVER_LOST));
 	dir_len = ft_strlen(DIR_SPRITE);
-	size += dir_len;
-	*path = malloc((size + 1) * sizeof(char));
+	*path = malloc((size + dir_len + 1) * sizeof(char));
 	if (*path == NULL)
 		return (cub_error(NULL));
 	ft_strcpy(*path, DIR_SPRITE);
 	if (write(server_socket, SOCK_SUCCESS, 1) == -1)
 		return (cub_error(SERVER_LOST));
-	if (read(server_socket, *path + dir_len, size * sizeof(char)) <= 0)
+	if (read(server_socket, *path + dir_len, (size) * sizeof(char)) <= 0)
 		return (cub_error(SERVER_LOST));
-	(*path)[size] = '\0';
+	(*path)[size + dir_len] = '\0';
 	return (0);
 }
 
