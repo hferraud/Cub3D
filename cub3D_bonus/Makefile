@@ -111,6 +111,7 @@ SRC_CLIENT	=		error.c	\
 						client/mlx_handler/hook/init_hook.c		\
 						client/mlx_handler/hook/key_press.c		\
 						client/mlx_handler/hook/key_release.c	\
+						client/mlx_handler/hook/mouse_hook.c	\
 						client/mlx_handler/hook/cub_exit.c		\
 						\
 					\

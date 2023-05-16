@@ -18,14 +18,15 @@
 # define ON_DESTROY				17
 # define ON_KEY_DOWN			2
 # define ON_KEY_UP				3
+# define MOUSE_BUTTON_1			1
 
 typedef struct s_cub	t_cub;
 
 enum	e_mask
 {
-	KEY_PRESS_MASK		=	1L << 0,
-	KEY_RELEASE_MASK	=	1L << 1,
-	BUTTON_RELEASE_MASK	=	1L << 3
+	KEY_PRESS_MASK		=	(1L << 0),
+	KEY_RELEASE_MASK	=	(1L << 1),
+	BUTTON_RELEASE_MASK	=	(1L << 3),
 };
 
 void	init_hook(t_cub *cub);
@@ -35,6 +36,7 @@ void	init_hook(t_cub *cub);
 int		is_key_pressed(int key_code, t_cub *cub);
 int		key_press(int key_code, t_cub *cub);
 int		key_release(int key_code, t_cub *cub);
+int		mouse_hook(int button, int x, int y, t_cub *cub);
 int		cub_exit(t_cub *cub);
 
 #endif
