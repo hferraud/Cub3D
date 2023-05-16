@@ -53,6 +53,7 @@ static void	mlx_hud_destroy(t_mlx_data *mlx_data)
 	size_t	index;
 
 	destroy_sprite(mlx_data->mlx_ptr, &mlx_data->hud_sprite.ammo);
+	destroy_sprite(mlx_data->mlx_ptr, &mlx_data->hud_sprite.death_screen);
 	index = 0;
 	while (index < NB_WEAPONS)
 	{
