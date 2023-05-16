@@ -14,6 +14,7 @@
 
 void		send_data(int client_index, t_server_data *server_data,
 				t_players_data *players_data, bool lock_players);
+int			check_end_routine(t_server_status *server_status);
 
 static int	process_listening_request(int client_socket,
 				t_players_data *players_data, t_server_data *server_data,
@@ -36,6 +37,11 @@ void	in_game_routine(t_server_data *server_data)
 	while (1)
 	{
 		index = count % server_data->player->size;
+		if (index == 0 && check_end_routine(server_data->server_status) == -1)
+		{
+			printf("In Game thread exit\n");
+			return ;
+		}
 		pthread_mutex_lock(server_data->player->players_lock);
 		client_socket = server_data->player->players_socket[index];
 		pthread_mutex_unlock(server_data->player->players_lock);

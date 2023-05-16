@@ -26,7 +26,8 @@ MLX			=		$(MLX_DIR)libmlx_Linux.a
 
 SRC_SERVER	=		error.c	\
 					\
-						server/server.c	\
+						server/server.c			\
+						server/server_exit.c	\
 					\
 							server/parser/parser.c			\
 							server/parser/parser_utils.c	\
@@ -174,7 +175,7 @@ DEPS		=		$(addprefix $(BUILD_DIR), $(SRC_SERVER:.c=.d))	\
 #	FLAGS
 #######################
 
-CFLAGS		=		-Wall -Werror -Wextra
+CFLAGS		=		-Wall -Werror -Wextra -g3
 
 IFLAGS		=		-I $(INC_DIR) -I $(LIBFT_DIR)include -I $(MLX_DIR)
 

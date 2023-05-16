@@ -19,12 +19,13 @@ static void	disconnect_client(t_list *new_players, t_enemy *players);
 
 void	server_data_destroy(t_server_data *server_data)
 {
+	pthread_mutex_lock(server_data->server_status->status_lock);
+	server_data->server_status->status = ERROR;
+	pthread_mutex_unlock(server_data->server_status->status_lock);
+	pthread_join(server_data->thread[CONNECTION], NULL);
+	pthread_join(server_data->thread[IN_GAME], NULL);
 	map_data_clear(server_data->map);
 	clear_mutexes(server_data);
-	if (server_data->thread[LAUNCH] != 0)
-		pthread_cancel(server_data->thread[LAUNCH]);
-	if (server_data->thread[IN_GAME] != 0)
-		pthread_cancel(server_data->thread[IN_GAME]);
 	disconnect_client(server_data->client_socket,
 		server_data->player);
 	ft_lstclear(&server_data->client_socket, free);
@@ -36,10 +37,12 @@ static void	clear_mutexes(t_server_data *server_data)
 {
 	if (server_data->server_status)
 		pthread_mutex_destroy(server_data->server_status->status_lock);
+	free(server_data->server_status->status_lock);
 	free(server_data->server_status);
 	if (server_data->client_connected)
 		pthread_mutex_destroy(server_data->client_connected
 			->client_connected_lock);
+	free(server_data->client_connected->client_connected_lock);
 	free(server_data->client_connected);
 	if (server_data->client_lock)
 		pthread_mutex_destroy(server_data->client_lock);
