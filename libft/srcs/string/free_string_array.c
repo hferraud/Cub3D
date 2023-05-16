@@ -16,6 +16,8 @@ void	free_string_array(char **array)
 	size_t	index;
 
 	index = 0;
+	if (array == NULL)
+		return ;
 	while (array[index])
 	{
 		free(array[index]);
