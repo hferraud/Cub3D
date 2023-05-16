@@ -71,6 +71,7 @@ SRC			=		main.c	\
 						\
 						display/player/player_pos_init.c	\
 						display/player/player_movement.c	\
+						display/player/position_utils.c	\
 						\
 						display/raycasting/raycasting.c	\
 						\
