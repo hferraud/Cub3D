@@ -19,7 +19,7 @@ int	render_frame(t_cub *cub)
 {
 	player_update(cub);
 	draw_background(cub);
-	draw_player_view(cub, PLAYER_FOV);
+	draw_player_view(cub);
 	mlx_put_image_to_window(cub->mlx_data->mlx_ptr, cub->mlx_data->win_ptr,
 		cub->mlx_data->img_data.img, 0, 0);
 	return (0);

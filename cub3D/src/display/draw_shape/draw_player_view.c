@@ -15,20 +15,20 @@
 /**
  * @brief Draws the player's vision on an image of the mlx
  */
-void	draw_player_view(t_cub *cub, float fov)
+void	draw_player_view(t_cub *cub)
 {
 	t_fvector	ray_dir;
 	t_fvector	camera_plane;
 	int			screen_x;
 	float		camera_x;
 
-	(void) fov;
 	camera_plane = fvector_rotate(cub->player->rotation, M_PI_2);
 	screen_x = 0;
 	while (screen_x < WIN_WIDTH)
 	{
 		camera_x = 2.f * screen_x / (float) WIN_WIDTH - 1;
-		ray_dir = fvector_add(cub->player->rotation, fvector_mul(camera_plane, camera_x));
+		ray_dir = fvector_add(cub->player->rotation,
+				fvector_mul(camera_plane, camera_x));
 		draw_wall(cub, screen_x, ray_cast(cub, ray_dir));
 		screen_x++;
 	}
