@@ -40,7 +40,6 @@ uint16_t	port_get(const char *ascii_port)
 
 static int	return_set_errno(int errno_code, int return_value)
 {
-	printf("test\n");
 	errno = errno_code;
 	return (return_value);
 }

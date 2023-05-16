@@ -21,7 +21,6 @@ void	server_exit(int signum);
 int	main(int argc, char **argv)
 {
 	t_map			map;
-	int				port;
 	int				server_fd;
 
 	if (argc != 3)
@@ -33,12 +32,6 @@ int	main(int argc, char **argv)
 	{
 		map_data_clear(&map);
 		return (1);
-	}
-	port = port_get(argv[2]);
-	if (port == -1)
-	{
-		server_data_destroy(g_server_data);
-		return (cub_error("Invalid port\n"));
 	}
 	server_fd = socket_init(argv[2], map.nb_spawn);
 	if (server_fd == -1)
