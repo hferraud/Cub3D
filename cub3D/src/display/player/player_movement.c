@@ -14,8 +14,9 @@
 
 static void			player_rotation_update(t_cub *cub);
 static void			player_position_update(t_cub *cub);
+static void			update_position_on_collision(t_cub *cub, char **map,
+						t_player *player, t_fvector new_pos);
 static t_fvector	new_position_calculate(t_cub *cub);
-static int			is_valid_position(t_cub *cub, float x, float y);
 
 /**
  * @brief Update the position and rotation of the player
@@ -29,9 +30,11 @@ void	player_update(t_cub *cub)
 static void	player_rotation_update(t_cub *cub)
 {
 	if (is_key_pressed(KEY_LEFT, cub))
-		cub->player->rotation = fvector_rotate(cub->player->rotation, -PLAYER_ROTATION);
+		cub->player->rotation = fvector_rotate(cub->player->rotation,
+				-PLAYER_ROTATION);
 	if (is_key_pressed(KEY_RIGHT, cub))
-		cub->player->rotation = fvector_rotate(cub->player->rotation, PLAYER_ROTATION);
+		cub->player->rotation = fvector_rotate(cub->player->rotation,
+				PLAYER_ROTATION);
 }
 
 /**
@@ -49,28 +52,7 @@ static void	player_position_update(t_cub *cub)
 	if (is_valid_position(cub, new_pos.x, new_pos.y))
 		player->pos = new_pos;
 	else
-	{
-		if (map[(int)(new_pos.y - PLAYER_OFFSET)][(int) new_pos.x] == FLOOR
-			&& map[(int)(new_pos.y + PLAYER_OFFSET)][(int) new_pos.x] == FLOOR
-			&& is_valid_position(cub, player->pos.x, new_pos.y))
-		{
-			player->pos.y = new_pos.y;
-			if (new_pos.x > player->pos.x)
-				player->pos.x =	1.f - UNCERTAINTY - PLAYER_OFFSET + ((int) player->pos.x);
-			else
-				player->pos.x =	PLAYER_OFFSET + UNCERTAINTY + ((int) player->pos.x);
-		}
-		else if (map[(int) new_pos.y][(int)(new_pos.x + PLAYER_OFFSET)] == FLOOR
-			&& map[(int)new_pos.y][(int)(new_pos.x - PLAYER_OFFSET)] == FLOOR
-			&& is_valid_position(cub, new_pos.x, player->pos.y))
-		{
-			player->pos.x = new_pos.x;
-			if (new_pos.y > player->pos.y)
-				player->pos.y =	1.f - UNCERTAINTY - PLAYER_OFFSET + ((int) player->pos.y);
-			else
-				player->pos.y =	PLAYER_OFFSET + UNCERTAINTY + ((int) player->pos.y);
-		}
-	}
+		update_position_on_collision(cub, map, player, new_pos);
 }
 
 static t_fvector	new_position_calculate(t_cub *cub)
@@ -101,13 +83,31 @@ static t_fvector	new_position_calculate(t_cub *cub)
 	return (new_pos);
 }
 
-static int	is_valid_position(t_cub *cub, float x, float y)
+static void	update_position_on_collision(t_cub *cub, char **map,
+				t_player *player, t_fvector new_pos)
 {
-	char	**map;
-
-	map = cub->map->map;
-	return (map[(int)(y - PLAYER_OFFSET)][(int)(x - PLAYER_OFFSET)] == FLOOR
-		&& map[(int)(y - PLAYER_OFFSET)][(int)(x + PLAYER_OFFSET)] == FLOOR
-		&& map[(int)(y + PLAYER_OFFSET)][(int)(x + PLAYER_OFFSET)] == FLOOR
-		&& map[(int)(y + PLAYER_OFFSET)][(int)(x - PLAYER_OFFSET)] == FLOOR);
+	if (map[(int)(new_pos.y - PLAYER_OFFSET)][(int) new_pos.x] == FLOOR
+		&& map[(int)(new_pos.y + PLAYER_OFFSET)][(int) new_pos.x] == FLOOR
+		&& is_valid_position(cub, player->pos.x, new_pos.y))
+	{
+		player->pos.y = new_pos.y;
+		if (new_pos.x > player->pos.x)
+			player->pos.x
+				= 1.f - UNCERTAINTY - PLAYER_OFFSET + ((int) player->pos.x);
+		else
+			player->pos.x
+				= PLAYER_OFFSET + UNCERTAINTY + ((int) player->pos.x);
+	}
+	else if (map[(int) new_pos.y][(int)(new_pos.x + PLAYER_OFFSET)] == FLOOR
+			&& map[(int)new_pos.y][(int)(new_pos.x - PLAYER_OFFSET)] == FLOOR
+			&& is_valid_position(cub, new_pos.x, player->pos.y))
+	{
+		player->pos.x = new_pos.x;
+		if (new_pos.y > player->pos.y)
+			player->pos.y
+				= 1.f - UNCERTAINTY - PLAYER_OFFSET + ((int) player->pos.y);
+		else
+			player->pos.y
+				= PLAYER_OFFSET + UNCERTAINTY + ((int) player->pos.y);
+	}
 }

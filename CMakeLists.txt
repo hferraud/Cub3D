@@ -221,4 +221,4 @@ add_executable(cub3D
         minilibx/mlx_set_font.c
         minilibx/mlx_string_put.c
         minilibx/mlx_xpm.c cub3D_bonus/src/client/display/draw/hud/draw_crosshair.c cub3D_bonus/src/utils/mutex_init.c cub3D_bonus/src/client/player/player_shoot_utils.c cub3D_bonus/src/server/thread/routines/connection_routine/file_content_send.c cub3D_bonus/src/server/thread/routines/connection_routine/map_send_error.c cub3D_bonus/src/server/socket/check_server_error.c cub3D_bonus/src/client/mlx_handler/initialization/error_sprite_init.c cub3D_bonus/src/server/server_exit.c
-        cub3D_bonus/src/client/mlx_handler/hook/mouse_hook.c)
+        cub3D_bonus/src/client/mlx_handler/hook/mouse_hook.c cub3D/src/display/player/position_utils.c)
