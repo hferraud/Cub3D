@@ -12,12 +12,13 @@
 #include "server_data.h"
 #include "players_data.h"
 
+void		send_data(int client_index, t_server_data *server_data,
+				t_players_data *players_data);
+
 static int	process_listening_request(int client_socket,
 				t_players_data *players_data, t_server_data *server_data,
 				int index);
 static void	clear_data(t_server_data *server_data);
-static int	send_data(int client_index, t_server_data *server_data,
-				t_players_data *players_data);
 
 /**
  * @brief Routine to retrieve and send data from all players
@@ -55,12 +56,9 @@ static int	process_listening_request(int client_socket,
 	ret = listening_request(client_socket, players_data, server_data,
 			index);
 	if (ret == 1)
-	{
-		if (send_data(index, server_data, players_data) == -1)
-			disconnect_client(client_socket, server_data);
-	}
+		send_data(index, server_data, players_data);
 	else if (ret == -1)
-		disconnect_client(client_socket, server_data);
+		disconnect_client(client_socket, server_data, index, players_data);
 	else if (ret == -2)
 	{
 		printf("Quit in_game_thread\n");
@@ -77,7 +75,7 @@ static void	clear_data(t_server_data *server_data)
 	pthread_mutex_unlock(server_data->server_status->status_lock);
 }
 
-static int	send_data(int client_index, t_server_data *server_data,
+void	send_data(int client_index, t_server_data *server_data,
 				t_players_data *players_data)
 {
 	int		count;
@@ -91,9 +89,9 @@ static int	send_data(int client_index, t_server_data *server_data,
 		if (client_socket != -1 && count != client_index
 			&& send_request(client_socket, players_data, client_index,
 				server_data->player->players_socket[client_index]))
-			return (-1);
+			disconnect_client(client_socket, server_data, client_index,
+				players_data);
 		count++;
 	}
 	pthread_mutex_unlock(server_data->player->players_lock);
-	return (0);
 }

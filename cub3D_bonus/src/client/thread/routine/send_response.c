@@ -26,6 +26,8 @@ int	send_response(int server_socket, t_cub *cub)
 	player = search_player_by_id(id, cub->enemies);
 	if (player->id == -1)
 		player->id = id;
+	else if (new_position.pos.x == -1)
+		player->id = -1;
 	player->player = new_position;
 	pthread_mutex_unlock(cub->enemies_lock);
 	return (0);

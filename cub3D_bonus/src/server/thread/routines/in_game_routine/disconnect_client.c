@@ -10,10 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "server_data.h"
+#include "players_data.h"
 
+void		send_data(int client_index, t_server_data *server_data,
+				 t_players_data *players_data);
+
+static void	send_disconnect_client(int client_index, t_server_data *server_data,
+				t_players_data *players_data);
 static void	free_spawn(int client_socket, t_server_data *server_data);
 
-void	disconnect_client(int client_socket, t_server_data *server_data)
+void	disconnect_client(int client_socket, t_server_data *server_data, int index, t_players_data *players_data)
 {
 	int	count;
 
@@ -27,12 +33,20 @@ void	disconnect_client(int client_socket, t_server_data *server_data)
 		printf("client %d disconnected\n", client_socket);
 		close(client_socket);
 		server_data->player->players_socket[count] = -1;
+		send_disconnect_client(index, server_data, players_data);
 	}
 	pthread_mutex_unlock(server_data->player->players_lock);
 	pthread_mutex_lock(server_data->client_connected->client_connected_lock);
 	server_data->client_connected->nb_client_connected++;
 	free_spawn(client_socket, server_data);
 	pthread_mutex_unlock(server_data->client_connected->client_connected_lock);
+}
+
+static void	send_disconnect_client(int client_index, t_server_data *server_data,
+				t_players_data *players_data)
+{
+	players_data->players[client_index].pos.x = -1;
+	send_data(client_index, server_data, players_data);
 }
 
 static void	free_spawn(int client_socket, t_server_data *server_data)
