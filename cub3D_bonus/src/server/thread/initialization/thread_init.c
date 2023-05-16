@@ -22,10 +22,10 @@ t_server_data	*thread_init(t_map *map)
 	server_data = server_data_init(map);
 	if (server_data == NULL)
 		return (NULL);
-	if (pthread_create(&server_data->thread[LAUNCH], NULL,
+	if (pthread_create(&server_data->thread[CONNECTION], NULL,
 			(void *) connection_routine, server_data) != 0)
 	{
-		server_data->thread[LAUNCH] = 0;
+		server_data->thread[CONNECTION] = 0;
 		server_data_destroy(server_data);
 		return (perror("pthread_create()"), NULL);
 	}
@@ -35,7 +35,7 @@ t_server_data	*thread_init(t_map *map)
 		pthread_mutex_lock(server_data->server_status->status_lock);
 		server_data->server_status->status = ERROR;
 		pthread_mutex_unlock(server_data->server_status->status_lock);
-		pthread_join(server_data->thread[LAUNCH], NULL);
+		pthread_join(server_data->thread[CONNECTION], NULL);
 		server_data->thread[IN_GAME] = 0;
 		server_data_destroy(server_data);
 		return (perror("pthread_create()"), NULL);

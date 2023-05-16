@@ -53,8 +53,8 @@ struct s_enemy
 
 enum
 {
-	LAUNCH	=	0,
-	IN_GAME	=	1,
+	CONNECTION	=	0,
+	IN_GAME		=	1,
 };
 
 struct s_server_data

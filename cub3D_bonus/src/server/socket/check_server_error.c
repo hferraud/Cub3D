@@ -18,7 +18,7 @@ void	check_server_error(int server_socket, t_server_data *server_data)
 	pthread_mutex_lock(server_data->server_status->status_lock);
 	if (server_data->server_status->status == ERROR)
 	{
-		pthread_join(server_data->thread[LAUNCH], NULL);
+		pthread_join(server_data->thread[CONNECTION], NULL);
 		pthread_join(server_data->thread[IN_GAME], NULL);
 		pthread_mutex_unlock(server_data->server_status->status_lock);
 		close_client(server_data);

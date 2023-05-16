@@ -12,10 +12,14 @@
 #include "parser_server.h"
 #include "socket_server.h"
 #include "server_data.h"
+#include <signal.h>
+
+t_server_data	*g_server_data;
+
+void	server_exit(int signum);
 
 int	main(int argc, char **argv)
 {
-	t_server_data	*server_data;
 	t_map			map;
 	int				port;
 	int				server_fd;
@@ -24,8 +28,8 @@ int	main(int argc, char **argv)
 		return (cub_error("./cub3D_server map.cub port\n"));
 	if (parser(argv, &map) == -1)
 		return (2);
-	server_data = thread_init(&map);
-	if (server_data == NULL)
+	g_server_data = thread_init(&map);
+	if (g_server_data == NULL)
 	{
 		map_data_clear(&map);
 		return (1);
@@ -33,11 +37,12 @@ int	main(int argc, char **argv)
 	port = port_get(argv[2]);
 	if (port == -1)
 	{
-		server_data_destroy(server_data);
+		server_data_destroy(g_server_data);
 		return (cub_error("Invalid port\n"));
 	}
 	server_fd = socket_init(argv[2], map.nb_spawn);
 	if (server_fd == -1)
-		return (server_data_destroy(server_data), 1);
-	listen_connections(server_fd, server_data);
+		return (server_data_destroy(g_server_data), 1);
+	signal(SIGINT, server_exit);
+	listen_connections(server_fd, g_server_data);
 }
