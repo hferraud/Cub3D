@@ -108,6 +108,7 @@ static int	file_receive(int file_fd, int server_socket)
 	char	*buffer[SOCK_BUFFER_SIZE];
 	ssize_t	read_size;
 	ssize_t	count;
+	ssize_t	ret;
 
 	if (read(server_socket, &size, sizeof(size_t)) == -1)
 		return (cub_error(SERVER_LOST));
@@ -118,11 +119,12 @@ static int	file_receive(int file_fd, int server_socket)
 			read_size = size - count;
 		else
 			read_size = SOCK_BUFFER_SIZE;
-		if (read(server_socket, buffer, read_size) < read_size)
+		ret = read(server_socket, buffer, read_size);
+		if (ret <= 0)
 			return (cub_error("file_receive()\n"));
-		if (write(file_fd, buffer, read_size) == -1)
+		if (write(file_fd, buffer, ret) == -1)
 			return (cub_error("file_receive()\n"));
-		count += read_size;
+		count += ret;
 	}
 	if (write(server_socket, SOCK_SUCCESS, 1) == -1)
 		return (cub_error(SERVER_LOST));
