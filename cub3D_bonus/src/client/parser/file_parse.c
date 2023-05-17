@@ -132,7 +132,7 @@ static int	file_receive(int file_fd, int server_socket)
 	return (0);
 }
 
-static int return_error(int server_socket)
+static int	return_error(int server_socket)
 {
 	if (write(server_socket, SOCK_ERROR, 1) == -1)
 		return (-1);

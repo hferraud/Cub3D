@@ -26,7 +26,7 @@ int	main(int argc, char **argv)
 
 	cub.thread = 0;
 	cub.mlx_data = NULL;
-    ft_bzero(&cub.player_data, sizeof(t_player_data));
+	ft_bzero(&cub.player_data, sizeof(t_player_data));
 	client_status_init(&cub.client_status);
 	cub.server_socket = socket_client_init(argc, argv);
 	if (cub.server_socket == -1)
