@@ -53,12 +53,8 @@ static int	socket_create(uint16_t port)
 	if (socket_fd == -1)
 		return (perror("socket()"), -1);
 	optval = 1;
-	if (setsockopt(socket_fd, SOL_SOCKET,
-			SO_REUSEADDR | SO_REUSEPORT, &optval, sizeof(int)) == -1)
-	{
-		close(socket_fd);
-		return (perror("setsockopt()"), -1);
-	}
+	setsockopt(socket_fd, SOL_SOCKET,
+		SO_REUSEADDR | SO_REUSEPORT, &optval, sizeof(int));
 	socket_addr.sin_addr.s_addr = inet_addr("0.0.0.0");
 	socket_addr.sin_family = AF_INET;
 	socket_addr.sin_port = htons(port);

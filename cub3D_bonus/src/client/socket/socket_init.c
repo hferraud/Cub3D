@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "socket_client.h"
+#include <sys/time.h>
 
 static int	socket_client_parse(int argc, char **argv, t_hostent **host_info,
 				uint16_t *port);
@@ -24,12 +25,17 @@ int	socket_client_init(int argc, char **argv)
 	t_hostent		*host_info;
 	t_sockaddr_in	addr;
 	uint16_t		port;
+	struct timeval	timeout;
 
 	if (socket_client_parse(argc, argv, &host_info, &port) == -1)
 		return (-1);
 	socket_fd = socket(AF_INET, SOCK_STREAM, 0);
 	if (socket_fd == -1)
 		return (perror("socket()"), -1);
+	timeout.tv_sec = 3;
+	timeout.tv_usec = 0;
+	setsockopt(socket_fd, SOL_SOCKET, SO_SNDTIMEO, &timeout,
+		sizeof(struct timeval));
 	addr.sin_addr = *(struct in_addr *) host_info->h_addr;
 	addr.sin_port = htons(port);
 	addr.sin_family = AF_INET;
