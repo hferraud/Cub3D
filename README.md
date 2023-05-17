@@ -5,7 +5,7 @@ cub3d is a simple 3D game engine written in C using the Raycasting technique.
 To install cub3D multiplayer, first clone the repository:
 ```bash
 git clone https://github.com/Mururoahh/Cub3D.git
-cd Cub3D/cub3D_bonus
+cd Cub3D
 ```
 To get the server executable, run the following command:
 ```bash
