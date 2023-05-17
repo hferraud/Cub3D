@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "socket_server.h"
+#include <signal.h>
 
 static int	socket_create(uint16_t port);
 static int	server_display_ip(void);
