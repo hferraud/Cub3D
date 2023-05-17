@@ -93,3 +93,7 @@ The textures of weapons come from '[Forgive me father](https://bytebarrel.com/fo
 If you notice a bug or if you have an idea to improve the project, you can create an issue on the Github repository.
 
 Also if you'd like to contribute to Cub3D Multiplayer, feel free to fork the repository and submit a pull request.
+## Contributors
+* [Hugo Ferraud](https://github.com/Mururoahh)
+
+* [Ethan Delage](https://github.com/EthanDelage)
