@@ -14,6 +14,7 @@
 static int	filename_parse(char **path, int server_socket);
 static int	file_request(char *path, int server_socket);
 static int	file_receive(int file_fd, int server_socket);
+static int	return_error(int server_socket);
 
 /**
  * Receive and parse a file send by the server
@@ -29,10 +30,10 @@ int	file_parse(t_map_client *map, int server_socket)
 	while (id != UNDEFINED_ID)
 	{
 		if (filename_parse(&map->path[id], server_socket) == -1)
-			return (write(server_socket, SOCK_ERROR, 1), -1);
+			return (return_error(server_socket));
 		req_code = file_request(map->path[id], server_socket);
 		if (req_code == -1)
-			return (write(server_socket, SOCK_ERROR, 1), -1);
+			return (return_error(server_socket));
 		if (req_code == 0)
 		{
 			file_fd = open(map->path[id], O_WRONLY | O_CREAT, 0644);
@@ -129,4 +130,11 @@ static int	file_receive(int file_fd, int server_socket)
 	if (write(server_socket, SOCK_SUCCESS, 1) == -1)
 		return (cub_error(SERVER_LOST));
 	return (0);
+}
+
+static int return_error(int server_socket)
+{
+	if (write(server_socket, SOCK_ERROR, 1) == -1)
+		return (-1);
+	return (-1);
 }
