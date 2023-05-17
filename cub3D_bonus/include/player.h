@@ -16,8 +16,7 @@
 # include "vector.h"
 
 # define PLAYER_OFFSET		0.2f
-# define PLAYER_FOV			M_PI_2
-# define PLAYER_MOVE		0.1f
+# define PLAYER_MOVE		0.075f
 # define PLAYER_ROTATION	0.05f
 # define UNCERTAINTY		0.001f
 
