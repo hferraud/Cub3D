@@ -1,12 +1,11 @@
 .build
 .idea
-cub3D/cub3D
-cub3D_bonus/cub3D_server
-cub3D_bonus/cub3D
+cub3D_server
+cub3D
 a.out
 cmake-build-debug
 *.o
 *.a
 *.d
-minilibx/test/mlx-test
+lib/minilibx/test/mlx-test
 cub3D_bonus/asset/*.xpm
