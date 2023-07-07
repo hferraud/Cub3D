@@ -17,7 +17,7 @@ make client
 ```
 ## Usage
 ### Map format
-To run the server you need to have a correctly formated map:
+To run the server you need to have a correctly formatted map:
 * Filename with .cub extension
 * The head of the file contain the identifier and path of the textures:
   * NO: north wall texture
