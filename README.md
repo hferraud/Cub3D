@@ -94,6 +94,6 @@ If you notice a bug or if you have an idea to improve the project, you can creat
 
 Also if you'd like to contribute to Cub3D Multiplayer, feel free to fork the repository and submit a pull request.
 ## Contributors
-* [Hugo Ferraud](https://github.com/Mururoahh)
+* [Hugo Ferraud](https://github.com/hferraud)
 
 * [Ethan Delage](https://github.com/EthanDelage)
